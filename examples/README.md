@@ -33,6 +33,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Reproducibility Checklist](guides/reproducibility-checklist.md)
 
+- [Example Release Checklist](guides/example-release-checklist.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
