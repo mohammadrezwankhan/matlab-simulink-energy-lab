@@ -47,6 +47,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Documentation Update Playbook](guides/documentation-update-playbook.md)
 
+- [Example Quality Scorecard](guides/example-quality-scorecard.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
