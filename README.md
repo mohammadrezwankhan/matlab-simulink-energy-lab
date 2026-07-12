@@ -40,4 +40,4 @@ LICENSE
 - Add a first executable MATLAB RC-model script.
 - Extend the sample pulse-current CSV file.
 - Add automated checks for future MATLAB examples.
-- Extend the converter example scaffold with validation notes.
+- Extend the converter example checks with topology-specific limits.
