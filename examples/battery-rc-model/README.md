@@ -49,6 +49,17 @@ Battery RC check passed. Final SOC: 0.767
 Voltage range: 3.425 V to 3.877 V
 ```
 
+## Expected Output Notes
+
+Both starter entry points should produce the same headline values:
+
+| Entry Point | Purpose | Expected Text |
+|---|---|---|
+| `run_battery_rc_model` | Plotting script for visual inspection of current, SOC, and terminal voltage. | `Final SOC: 0.767` and `Voltage range: 3.425 V to 3.877 V` |
+| `check_battery_rc_model` | No-plot script for quick validation and future automation. | `Battery RC check passed. Final SOC: 0.767` and `Voltage range: 3.425 V to 3.877 V` |
+
+Small differences may appear if model parameters, sample data, or MATLAB interpolation behavior are changed. Update this note whenever the starter assumptions change intentionally.
+
 ## Validation Notes
 
 - State units for every parameter.
