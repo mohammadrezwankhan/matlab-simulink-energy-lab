@@ -13,3 +13,19 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 - Run no-plot checks when validating assumptions or preparing automation.
 - Treat placeholder values as educational scaffolds until replaced with project, datasheet, or measured parameters.
 - Keep expected output notes updated whenever model assumptions change.
+
+## Validation Commands
+
+Run these no-plot checks from MATLAB when validating the current starter examples:
+
+```matlab
+cd examples/battery-rc-model
+check_battery_rc_model
+```
+
+```matlab
+cd examples/converter-average-model
+check_converter_average_model
+```
+
+The plotting scripts, `run_battery_rc_model` and `run_converter_average_model`, are intended for visual inspection and explanation. Use the no-plot checks for quick validation before future automation.
