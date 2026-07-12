@@ -1,5 +1,7 @@
 # MATLAB Simulink Energy Lab
 
+[![Markdown maintenance](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml)
+
 Reproducible MATLAB and Simulink examples for batteries, converters, power electronics, and renewable energy systems.
 
 ## Goals
@@ -31,3 +33,10 @@ README.md
 CONTRIBUTING.md
 LICENSE
 ```
+
+## Contribution Entry Points
+
+- Add a first executable MATLAB RC-model script.
+- Add a sample pulse-current CSV file.
+- Add expected-output notes for the battery RC model.
+- Add a converter example scaffold.
