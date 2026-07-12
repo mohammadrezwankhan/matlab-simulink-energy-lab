@@ -35,6 +35,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Example Release Checklist](guides/example-release-checklist.md)
 
+- [Input Profile Review Guide](guides/input-profile-review-guide.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
