@@ -22,6 +22,8 @@ How can a first-order RC equivalent circuit help explain terminal-voltage respon
 examples/battery-rc-model/
   README.md
   run_battery_rc_model.m
+  check_battery_rc_model.m
+  data/pulse_current_profile.csv
 ```
 
 ## How To Run
@@ -33,6 +35,19 @@ run_battery_rc_model
 ```
 
 The script creates a simple current profile, estimates SOC, calculates a placeholder first-order RC voltage response, and plots current, SOC, and terminal voltage.
+
+For a lightweight no-plot check using the included sample pulse-current data, run:
+
+```matlab
+check_battery_rc_model
+```
+
+Expected starter output:
+
+```text
+Battery RC check passed. Final SOC: 0.767
+Voltage range: 3.425 V to 3.877 V
+```
 
 ## Validation Notes
 
