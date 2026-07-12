@@ -19,6 +19,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Automation Readiness Guide](guides/automation-readiness-guide.md)
 
+- [Script Structure Review](guides/script-structure-review.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
