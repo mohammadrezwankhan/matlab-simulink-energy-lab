@@ -29,3 +29,15 @@ check_converter_average_model
 ```
 
 The plotting scripts, `run_battery_rc_model` and `run_converter_average_model`, are intended for visual inspection and explanation. Use the no-plot checks for quick validation before future automation.
+
+## Maintenance Checklist
+
+| Check | Why It Matters |
+|---|---|
+| Assumptions are listed before results | Reviewers should see placeholder values before trusting outputs. |
+| Units are stated for parameters and outputs | MATLAB examples are easier to inspect when units are explicit. |
+| Expected output is documented | Small examples should make intentional output changes obvious. |
+| No-plot check exists | Future automation needs a fast validation command. |
+| Plotting script remains inspectable | Visual scripts should explain behavior without hiding logic in large helpers. |
+| Sample data is small and local | Examples should run without private files or external downloads. |
+| Validation note is updated after model changes | Documentation should change when assumptions or outputs change. |
