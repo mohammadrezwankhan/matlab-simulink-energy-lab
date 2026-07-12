@@ -21,6 +21,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Script Structure Review](guides/script-structure-review.md)
 
+- [Plotting Script Review](guides/plotting-script-review.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
