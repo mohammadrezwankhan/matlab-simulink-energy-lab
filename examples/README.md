@@ -37,6 +37,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Input Profile Review Guide](guides/input-profile-review-guide.md)
 
+- [Assumptions To Tests Map](guides/assumptions-to-tests-map.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
