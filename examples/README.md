@@ -23,6 +23,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Plotting Script Review](guides/plotting-script-review.md)
 
+- [Unit Consistency Checklist](guides/unit-consistency-checklist.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
