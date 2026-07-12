@@ -41,6 +41,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Dependency Inventory Guide](guides/dependency-inventory-guide.md)
 
+- [Reviewer Runbook](guides/reviewer-runbook.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
