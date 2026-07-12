@@ -17,6 +17,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Sample Data Quality Checklist](guides/sample-data-quality-checklist.md)
 
+- [Automation Readiness Guide](guides/automation-readiness-guide.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
