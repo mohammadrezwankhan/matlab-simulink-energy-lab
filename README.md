@@ -14,6 +14,7 @@ Reproducible MATLAB and Simulink examples for batteries, converters, power elect
 ## Starter Content
 
 - [Battery RC model example scaffold](examples/battery-rc-model/README.md)
+- [Converter average model scaffold](examples/converter-average-model/README.md)
 - [Modeling standards](notes/modeling-standards.md)
 
 ## Repository Topics
@@ -39,4 +40,4 @@ LICENSE
 - Add a first executable MATLAB RC-model script.
 - Extend the sample pulse-current CSV file.
 - Add automated checks for future MATLAB examples.
-- Add a converter example scaffold.
+- Extend the converter example scaffold with validation notes.
