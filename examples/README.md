@@ -43,6 +43,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Reviewer Runbook](guides/reviewer-runbook.md)
 
+- [Educational Scaffold Guidance](guides/educational-scaffold-guidance.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
