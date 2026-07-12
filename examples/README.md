@@ -49,6 +49,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Example Quality Scorecard](guides/example-quality-scorecard.md)
 
+- [Future Example Idea Bank](guides/future-example-idea-bank.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
