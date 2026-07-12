@@ -31,6 +31,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Result Interpretation Notes](guides/result-interpretation-notes.md)
 
+- [Reproducibility Checklist](guides/reproducibility-checklist.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
