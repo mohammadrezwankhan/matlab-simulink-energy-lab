@@ -45,9 +45,23 @@ Estimated output voltage: 360.0 V
 Estimated load current: 18.0 A
 ```
 
+For a lightweight no-plot parameter check, run:
+
+```matlab
+check_converter_average_model
+```
+
+Expected check output:
+
+```text
+Converter parameter check passed.
+Output voltage: 360.0 V
+Load current: 18.0 A
+```
+
 ## Next Steps
 
 - Replace placeholder assumptions with project or datasheet values.
-- Add parameter validation and operating-limit checks.
+- Extend parameter validation with topology-specific operating limits.
 - Compare the averaged estimate with a switching model or measured waveform.
 - Document whether the intended topology is buck, boost, bidirectional, or isolated.
