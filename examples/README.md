@@ -50,3 +50,14 @@ The plotting scripts, `run_battery_rc_model` and `run_converter_average_model`, 
 | Plotting script remains inspectable | Visual scripts should explain behavior without hiding logic in large helpers. |
 | Sample data is small and local | Examples should run without private files or external downloads. |
 | Validation note is updated after model changes | Documentation should change when assumptions or outputs change. |
+
+## Assumptions Checklist
+
+| Check | Prompt |
+|---|---|
+| Parameter units | Are all parameters labeled with units in the README or script comments? |
+| Placeholder values | Are educational placeholder values clearly separated from sourced project values? |
+| Sample data | Is sample input data small, local, and safe to run in automation? |
+| Solver or time step | Does the example explain the chosen time step or simplified solver assumption? |
+| Expected output | Does the documented output match the current no-plot check? |
+| Validation command | Can a reviewer run one short command to confirm the example still works? |
