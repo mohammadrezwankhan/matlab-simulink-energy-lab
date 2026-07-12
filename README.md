@@ -37,6 +37,6 @@ LICENSE
 ## Contribution Entry Points
 
 - Add a first executable MATLAB RC-model script.
-- Add a sample pulse-current CSV file.
-- Add expected-output notes for the battery RC model.
+- Extend the sample pulse-current CSV file.
+- Add automated checks for future MATLAB examples.
 - Add a converter example scaffold.
