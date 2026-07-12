@@ -13,6 +13,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Parameter Review Guide](guides/parameter-review-guide.md)
 
+- [Expected Output Change Log](guides/expected-output-change-log.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
