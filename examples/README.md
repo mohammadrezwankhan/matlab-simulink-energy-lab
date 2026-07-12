@@ -11,6 +11,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Example troubleshooting notes](guides/example-troubleshooting-notes.md)
 
+- [Parameter Review Guide](guides/parameter-review-guide.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
