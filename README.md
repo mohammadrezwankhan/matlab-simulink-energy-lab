@@ -9,6 +9,11 @@ Reproducible MATLAB and Simulink examples for batteries, converters, power elect
 - Use clear plots, units, and validation notes.
 - Connect simulations to practical engineering questions.
 
+## Starter Content
+
+- [Battery RC model example scaffold](examples/battery-rc-model/README.md)
+- [Modeling standards](notes/modeling-standards.md)
+
 ## Repository Topics
 
 ```text
