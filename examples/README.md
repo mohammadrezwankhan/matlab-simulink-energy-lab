@@ -15,6 +15,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Expected Output Change Log](guides/expected-output-change-log.md)
 
+- [Sample Data Quality Checklist](guides/sample-data-quality-checklist.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
