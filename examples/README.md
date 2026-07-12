@@ -25,6 +25,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Unit Consistency Checklist](guides/unit-consistency-checklist.md)
 
+- [Validation Error Triage](guides/validation-error-triage.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
