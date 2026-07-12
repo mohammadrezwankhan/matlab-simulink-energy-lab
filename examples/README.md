@@ -39,6 +39,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Assumptions To Tests Map](guides/assumptions-to-tests-map.md)
 
+- [Dependency Inventory Guide](guides/dependency-inventory-guide.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
