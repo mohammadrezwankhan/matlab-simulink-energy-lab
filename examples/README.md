@@ -27,6 +27,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Validation Error Triage](guides/validation-error-triage.md)
 
+- [Small Model Extension Plan](guides/small-model-extension-plan.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
