@@ -29,6 +29,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 - [Small Model Extension Plan](guides/small-model-extension-plan.md)
 
+- [Result Interpretation Notes](guides/result-interpretation-notes.md)
+
 ## Output Inventory
 
 | Script | Expected Output |
