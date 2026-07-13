@@ -1,9 +1,10 @@
-# MATLAB Simulink Energy Lab
+# ⚡ MATLAB Simulink Energy Lab
 
 [![Markdown maintenance](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2f6f5e.svg)](LICENSE)
+⭐ **If you find this repository helpful, please consider giving it a star! It helps others discover these educational models.** ⭐
 
-Small, inspectable MATLAB examples for battery and power-electronics modeling. Each example states its assumptions, includes a no-plot validation check, and connects the simulation output to an engineering question.
+Small, highly inspectable MATLAB examples for battery and power-electronics modeling. Each example clearly states its assumptions, includes a no-plot validation check, and connects the simulation output directly to a real-world engineering question. Perfect for students and engineers looking for clean, foundational models.
 
 ![First-order battery RC model response showing discharge and charge current pulses, state-of-charge change, and terminal-voltage transients](assets/battery-rc-response.png)
 
