@@ -52,7 +52,7 @@ Output voltage: 360.0 V
 Load current: 18.0 A
 ```
 
-To reproduce the plotted response above, run:
+To reproduce the plotted battery response above, run:
 
 ```matlab
 run('examples/battery-rc-model/run_battery_rc_model.m')
@@ -85,7 +85,7 @@ too elaborate to learn from. This repository takes a middle path:
   higher-order dynamics, measured data, or Simulink implementations.
 
 The [examples index](examples/README.md) connects each model to reproducibility,
-unit-consistency, validation, and review guidance. Shared conventions live in
+unit consistency, validation, and review guidance. Shared conventions live in
 the [modeling standards](notes/modeling-standards.md).
 
 ## Who It Is For
@@ -149,9 +149,9 @@ open a focused issue, or propose an implementation through a pull request.
 ## Contributing
 
 Contributions are welcome—especially measured-data validation, sourced
-parameter sets, additional equivalent-circuit variants, converter topologies,
-automated checks, and clearer teaching notes. Read
-[CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+parameter sets, equivalent-circuit variants, converter topologies, automated
+checks, and clearer teaching notes. Read [CONTRIBUTING.md](CONTRIBUTING.md)
+before opening a pull request.
 
 If the lab saves you time or helps you understand a model, **please leave a ⭐**.
 It is the simplest way to support continued open engineering work.
