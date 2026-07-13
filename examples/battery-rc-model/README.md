@@ -1,6 +1,8 @@
 # Battery RC Model Example
 
-This starter example outlines a simple battery equivalent-circuit model for future MATLAB/Simulink implementation.
+This runnable example implements a simple first-order battery equivalent-circuit model in MATLAB.
+
+![First-order battery RC model response showing discharge and charge current pulses, state-of-charge change, and terminal-voltage transients](../../assets/battery-rc-response.png)
 
 ## Engineering Question
 
@@ -16,7 +18,7 @@ How can a first-order RC equivalent circuit help explain terminal-voltage respon
 | `I` | Applied current profile |
 | `Vt` | Terminal voltage |
 
-## Planned MATLAB Files
+## Included MATLAB Files
 
 ```text
 examples/battery-rc-model/
