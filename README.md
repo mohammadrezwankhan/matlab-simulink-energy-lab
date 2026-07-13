@@ -5,7 +5,7 @@
 [![Markdown maintenance](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2f6f5e.svg)](LICENSE)
 [![MATLAB R2026a](https://img.shields.io/badge/MATLAB-R2026a-e16737.svg)](#requirements)
-[![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 
 **Energy models should reveal the physics—not hide it.**
 
