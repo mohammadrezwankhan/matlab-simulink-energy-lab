@@ -159,3 +159,7 @@ It is the simplest way to support continued open engineering work.
 ## License
 
 Released under the [MIT License](LICENSE).
+
+## Collaboration note
+
+Co-authored documentation pass clarifying validation expectations for battery RC and converter average-model examples.
