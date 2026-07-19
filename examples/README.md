@@ -5,6 +5,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | Example | Purpose | Key Files | Run Commands |
 |---|---|---|---|
 | [Battery RC model](battery-rc-model/README.md) | Demonstrates a small first-order battery equivalent-circuit model with current, SOC, and terminal-voltage outputs. | `battery-rc-model/run_battery_rc_model.m`, `battery-rc-model/check_battery_rc_model.m`, `battery-rc-model/data/pulse_current_profile.csv` | `run_battery_rc_model`, `check_battery_rc_model` |
+| [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with temperature-dependent ohmic resistance. | `battery-thermal-model/run_battery_thermal_model.m`, `battery-thermal-model/check_battery_thermal_model.m` | `run_battery_thermal_model`, `check_battery_thermal_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
 
 ## Example Guides
@@ -57,6 +58,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 |---|---|
 | `battery-rc-model/check_battery_rc_model.m` | Prints `Battery RC check passed. Final SOC: 0.767` and voltage range `3.425 V to 3.877 V`. |
 | `battery-rc-model/run_battery_rc_model.m` | Prints final SOC and voltage range, and opens current, SOC, and terminal-voltage plots. |
+| `battery-thermal-model/check_battery_thermal_model.m` | Prints validation status, peak and final cell temperature, peak irreversible heat, and final SOC. |
+| `battery-thermal-model/run_battery_thermal_model.m` | Prints the same thermal summary and opens current, voltage, temperature, and heat-generation plots. |
 | `converter-average-model/check_converter_average_model.m` | Prints `Converter parameter check passed.`, output voltage `360.0 V`, and load current `18.0 A`. |
 | `converter-average-model/run_converter_average_model.m` | Prints converter scaffold assumptions and first-pass output, current ripple, and voltage ripple estimates. |
 
@@ -74,6 +77,11 @@ Run these no-plot checks from MATLAB when validating the current starter example
 ```matlab
 cd examples/battery-rc-model
 check_battery_rc_model
+```
+
+```matlab
+cd examples/battery-thermal-model
+check_battery_thermal_model
 ```
 
 ```matlab
