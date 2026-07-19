@@ -26,6 +26,8 @@ study.
 
 - Simulate the terminal-voltage and state-of-charge response of a first-order
   battery RC model.
+- Explore how irreversible electrical losses and cooling change a lumped cell
+  temperature and temperature-dependent resistance.
 - Validate model behavior from the command line without opening plots.
 - Estimate output voltage, load current, and ripple for an averaged converter.
 - Trace every parameter, unit, sign convention, and limitation before extending
@@ -39,7 +41,7 @@ R2026a.
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
 cd matlab-simulink-energy-lab
-matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/converter-average-model/check_converter_average_model.m')"
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m')"
 ```
 
 Expected output:
@@ -47,6 +49,11 @@ Expected output:
 ```text
 Battery RC check passed. Final SOC: 0.767
 Voltage range: 3.425 V to 3.877 V
+Battery thermal check passed.
+Peak cell temperature: 37.32 degC
+Final cell temperature: 28.95 degC
+Peak irreversible heat: 33.32 W
+Final SOC: 0.608
 Converter parameter check passed.
 Output voltage: 360.0 V
 Load current: 18.0 A
@@ -63,6 +70,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | Example | Question It Explores | Validation | Requirements |
 | --- | --- | --- | --- |
 | [Battery RC model](examples/battery-rc-model/README.md) | How do charge and discharge pulses affect SOC and terminal voltage in a first-order equivalent circuit? | `check_battery_rc_model.m` | Base MATLAB |
+| [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do equivalent-circuit losses, ambient cooling, and resistance feedback affect lumped cell temperature? | `check_battery_thermal_model.m` | Base MATLAB |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 
 Current release status: the executable examples are MATLAB scripts. The
@@ -105,6 +113,7 @@ matlab-simulink-energy-lab/
 |-- assets/                         # Result images used in the documentation
 |-- examples/
 |   |-- battery-rc-model/           # RC simulation, pulse data, and check
+|   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   `-- guides/                     # Reproducibility and review notes
 |-- notes/                          # Repository-wide modeling standards
@@ -137,7 +146,7 @@ an issue so the compatibility record can grow.
 
 The most useful next additions are likely to be:
 
-- a temperature-aware or higher-order battery model;
+- a higher-order battery model with hysteresis or additional RC branches;
 - closed-loop control around the averaged converter;
 - an averaged-versus-switched converter comparison;
 - measured-data parameter identification and validation; or
