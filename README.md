@@ -144,7 +144,8 @@ an issue so the compatibility record can grow.
 
 - These examples are educational engineering references, not calibrated design
   models.
-- The battery model uses a deliberately simple placeholder OCV-SOC relationship.
+- The battery model uses a deliberately simple, replaceable OCV-SOC lookup
+  table that must be calibrated before cell-specific use.
 - Temperature, ageing, hysteresis, and cell-to-cell variation are not yet
   modeled.
 - The converter scaffold does not model switching devices, losses, control-loop
