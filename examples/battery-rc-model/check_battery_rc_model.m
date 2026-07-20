@@ -1,44 +1,60 @@
-%% Battery RC Model Lightweight Check
-% Runs the starter RC model with sample pulse-current data and no plotting.
+%% Battery RC Model Check
+% Validates the shared simulator against the canonical pulse profile.
 
 clear; clc;
 
-dataPath = fullfile(fileparts(mfilename('fullpath')), 'data', 'pulse_current_profile.csv');
-profile = readtable(dataPath);
+modelDirectory = fileparts(mfilename('fullpath'));
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
+addpath(modelDirectory);
 
-capacity_Ah = 50;
-initial_soc = 0.80;
-ocv_nominal_V = 3.70;
-r0_Ohm = 0.004;
-r1_Ohm = 0.002;
-c1_F = 2400;
-dt_s = 1;
-
-time_s = (profile.time_s(1):dt_s:profile.time_s(end))';
-current_A = interp1(profile.time_s, profile.current_A, time_s, 'previous', 'extrap');
-
-soc = zeros(size(time_s));
-v_rc = zeros(size(time_s));
-terminal_voltage_V = zeros(size(time_s));
-
-soc(1) = initial_soc;
-terminal_voltage_V(1) = ocv_nominal_V;
-
-for k = 2:numel(time_s)
-    soc(k) = soc(k-1) - (current_A(k-1) * dt_s) / (capacity_Ah * 3600);
-    soc(k) = min(max(soc(k), 0), 1);
-
-    dv_rc = (-(v_rc(k-1) / (r1_Ohm * c1_F)) + current_A(k-1) / c1_F) * dt_s;
-    v_rc(k) = v_rc(k-1) + dv_rc;
-
-    ocv_V = ocv_nominal_V + 0.1 * (soc(k) - 0.5);
-    terminal_voltage_V(k) = ocv_V - current_A(k) * r0_Ohm - v_rc(k);
-end
+profilePath = fullfile(modelDirectory, 'data', 'pulse_current_profile.csv');
+profile = readtable(profilePath);
+parameters = battery_rc_default_parameters();
+result = simulate_battery_rc_model(profile, parameters, 1);
 
 assert(height(profile) >= 10, 'Expected at least 10 sample profile rows.');
-assert(all(soc >= 0 & soc <= 1), 'SOC must remain within [0, 1].');
-assert(max(terminal_voltage_V) > min(terminal_voltage_V), 'Voltage response should vary over the pulse profile.');
-assert(abs(soc(end) - 0.7667) < 0.01, 'Final SOC moved outside the expected starter-model tolerance.');
+assert(numel(result.time_s) == 601, 'Expected a 600-second, 1 Hz result.');
+assert(all(isfinite(result.terminal_voltage_V)), ...
+    'Terminal voltage must remain finite.');
+assert(all(result.soc >= 0 & result.soc <= 1), ...
+    'SOC must remain within [0, 1].');
+assert(max(result.terminal_voltage_V) > min(result.terminal_voltage_V), ...
+    'Voltage response should vary over the pulse profile.');
+assert(abs(result.soc(end) - 0.7667) < 0.01, ...
+    'Final SOC moved outside the expected starter-model tolerance.');
 
-fprintf('Battery RC check passed. Final SOC: %.3f\n', soc(end));
-fprintf('Voltage range: %.3f V to %.3f V\n', min(terminal_voltage_V), max(terminal_voltage_V));
+index60 = find(result.time_s == 60, 1);
+index61 = find(result.time_s == 61, 1);
+assert(result.current_A(index60) == 0 && result.current_A(index61) == 50, ...
+    'Canonical discharge pulse must begin after the 60-second sample.');
+
+repeatResult = simulate_battery_rc_model(profile, parameters, 1);
+assert(isequal(result.soc, repeatResult.soc) && ...
+    isequal(result.terminal_voltage_V, repeatResult.terminal_voltage_V), ...
+    'Repeated simulation must be deterministic.');
+
+invalidProfile = profile;
+invalidProfile.time_s(2) = invalidProfile.time_s(1);
+caughtTimeOrder = false;
+try
+    simulate_battery_rc_model(invalidProfile, parameters, 1);
+catch validationError
+    caughtTimeOrder = strcmp(validationError.identifier, 'BatteryRC:TimeOrder');
+end
+assert(caughtTimeOrder, ...
+    'Simulator must reject non-increasing profile timestamps.');
+
+unstableStepRejected = false;
+try
+    simulate_battery_rc_model(profile, parameters, 10);
+catch validationError
+    unstableStepRejected = strcmp(...
+        validationError.identifier, 'BatteryRC:NumericalStability');
+end
+assert(unstableStepRejected, ...
+    'Simulator must reject an unstable explicit-Euler time step.');
+
+fprintf('Battery RC check passed. Final SOC: %.3f\n', result.soc(end));
+fprintf('Voltage range: %.3f V to %.3f V\n', ...
+    min(result.terminal_voltage_V), max(result.terminal_voltage_V));
