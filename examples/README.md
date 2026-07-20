@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD013 MD060 -->
+
 # MATLAB Examples Index
 
 This index lists the starter MATLAB examples, their purpose, key files, and run commands.
@@ -7,6 +9,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | [Battery RC model](battery-rc-model/README.md) | Demonstrates a small first-order battery equivalent-circuit model with current, SOC, and terminal-voltage outputs. | `battery-rc-model/run_battery_rc_model.m`, `battery-rc-model/check_battery_rc_model.m`, `battery-rc-model/data/pulse_current_profile.csv` | `run_battery_rc_model`, `check_battery_rc_model` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with temperature-dependent ohmic resistance. | `battery-thermal-model/run_battery_thermal_model.m`, `battery-thermal-model/check_battery_thermal_model.m` | `run_battery_thermal_model`, `check_battery_thermal_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
+| [Closed-loop converter](converter-closed-loop-model/README.md) | Simulates bounded cascaded voltage and current control around an averaged buck-converter plant. | `converter-closed-loop-model/simulate_closed_loop_converter.m`, `converter-closed-loop-model/check_closed_loop_converter.m` | `run_closed_loop_converter`, `check_closed_loop_converter` |
 
 ## Example Guides
 
@@ -62,6 +65,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | `battery-thermal-model/run_battery_thermal_model.m` | Prints the same thermal summary and opens current, voltage, temperature, and heat-generation plots. |
 | `converter-average-model/check_converter_average_model.m` | Prints `Converter parameter check passed.`, output voltage `360.0 V`, and load current `18.0 A`. |
 | `converter-average-model/run_converter_average_model.m` | Prints converter scaffold assumptions and first-pass output, current ripple, and voltage ripple estimates. |
+| `converter-closed-loop-model/check_closed_loop_converter.m` | Verifies finite states, duty limits, final tracking error, overshoot, and two-percent settling time. |
+| `converter-closed-loop-model/run_closed_loop_converter.m` | Plots the voltage reference and response, current loop, and bounded duty command. |
 
 ## Review Use
 
@@ -89,7 +94,13 @@ cd examples/converter-average-model
 check_converter_average_model
 ```
 
-The plotting scripts, `run_battery_rc_model` and `run_converter_average_model`, are intended for visual inspection and explanation. Use the no-plot checks for quick validation before future automation.
+```matlab
+cd examples/converter-closed-loop-model
+check_closed_loop_converter
+```
+
+The plotting scripts are intended for visual inspection and explanation. Use
+the no-plot checks for quick validation before future automation.
 
 ## Maintenance Checklist
 

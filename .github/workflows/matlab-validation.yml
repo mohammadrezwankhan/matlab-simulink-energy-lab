@@ -40,4 +40,5 @@ jobs:
           command: >-
             run('examples/battery-rc-model/check_battery_rc_model.m');
             run('examples/battery-thermal-model/check_battery_thermal_model.m');
-            run('examples/converter-average-model/check_converter_average_model.m')
+            run('examples/converter-average-model/check_converter_average_model.m');
+            run('examples/converter-closed-loop-model/check_closed_loop_converter.m')
