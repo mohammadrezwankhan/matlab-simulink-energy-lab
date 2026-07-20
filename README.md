@@ -31,6 +31,7 @@ study.
   temperature and temperature-dependent resistance.
 - Validate model behavior from the command line without opening plots.
 - Estimate output voltage, load current, and ripple for an averaged converter.
+- Inspect bounded closed-loop voltage tracking for an averaged buck converter.
 - Trace every parameter, unit, sign convention, and limitation before extending
   a model.
 
@@ -43,7 +44,7 @@ model code changes.
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
 cd matlab-simulink-energy-lab
-matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m')"
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m')"
 ```
 
 Expected output:
@@ -59,6 +60,10 @@ Final SOC: 0.608
 Converter parameter check passed.
 Output voltage: 360.0 V
 Load current: 18.0 A
+Closed-loop converter check passed.
+Final average voltage: 399.49 V
+Peak voltage after step: 421.90 V
+Two-percent settling time: 38.6 ms
 ```
 
 To reproduce the plotted battery response above, run:
@@ -74,10 +79,12 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Battery RC model](examples/battery-rc-model/README.md) | How do charge and discharge pulses affect SOC and terminal voltage in a first-order equivalent circuit? | `check_battery_rc_model.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do equivalent-circuit losses, ambient cooling, and resistance feedback affect lumped cell temperature? | `check_battery_thermal_model.m` | Base MATLAB |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
+| [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How does bounded cascaded control track an averaged buck-converter voltage reference? | `check_closed_loop_converter.m` | Base MATLAB |
 
 Current release status: the executable examples are MATLAB scripts. The
-converter example is an algebraic average-model scaffold, not a switching
-simulation. Native Simulink implementations are planned as the lab grows.
+converter references include an algebraic estimate and a dynamic closed-loop
+average model, but not a switching simulation. Native Simulink implementations
+are planned as the lab grows.
 
 ## Why This Lab Is Inspectable
 
@@ -117,6 +124,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-rc-model/           # RC simulation, pulse data, and check
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- converter-average-model/    # Average-model scaffold and check
+|   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
 |   `-- guides/                     # Reproducibility and review notes
 |-- notes/                          # Repository-wide modeling standards
 |-- CONTRIBUTING.md
@@ -149,7 +157,6 @@ an issue so the compatibility record can grow.
 The most useful next additions are likely to be:
 
 - a higher-order battery model with hysteresis or additional RC branches;
-- closed-loop control around the averaged converter;
 - an averaged-versus-switched converter comparison;
 - measured-data parameter identification and validation; or
 - native Simulink implementations of the reference models.
