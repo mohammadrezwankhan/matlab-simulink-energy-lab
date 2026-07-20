@@ -14,7 +14,7 @@ How can a first-order RC equivalent circuit help explain terminal-voltage respon
 
 | Element | Meaning |
 |---|---|
-| `OCV(SOC)` | Open-circuit voltage as a function of state of charge |
+| `OCV(SOC)` | Open-circuit voltage interpolated from a replaceable SOC/voltage lookup table |
 | `R0` | Ohmic resistance |
 | `R1-C1` | Transient polarization branch |
 | `I` | Applied current profile |
@@ -69,13 +69,28 @@ produce the same headline values:
 
 Small differences may appear if model parameters, sample data, or MATLAB interpolation behavior are changed. Update this note whenever the starter assumptions change intentionally.
 
+## OCV Lookup Table
+
+`battery_rc_default_parameters` defines paired `ocv_soc_breakpoints` and
+`ocv_lookup_V` vectors covering the full SOC interval from zero to one. The
+simulator linearly interpolates those values at every time step and returns the
+trace as `result.ocv_V`. The default table samples the previous educational
+linear relationship, preserving the starter response while making the hidden
+assumption explicit and replaceable.
+
+To study a specific cell, replace both vectors with measured or
+datasheet-derived values. Breakpoints must be strictly increasing from zero to
+one; OCV values must be positive and nondecreasing. The simulator rejects a
+malformed curve instead of extrapolating beyond the supplied data.
+
 ## Validation Notes
 
 - State units for every parameter.
 - Compare simulated terminal voltage with a known pulse response.
 - Report assumptions around temperature and SOC range.
-- Treat the included OCV-SOC relation as a placeholder until replaced with measured or datasheet-derived values.
+- Treat the included OCV-SOC lookup as a placeholder until replaced with
+  measured or datasheet-derived values.
 - Keep plotting, checks, and extensions on the shared simulator rather than
   copying the state-update loop.
-- The simulator rejects malformed timestamps, incomplete parameters, and time
-  steps outside the explicit-Euler stability bound.
+- The simulator rejects malformed timestamps, incomplete parameters, invalid
+  OCV lookup tables, and time steps outside the explicit-Euler stability bound.
