@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD013 MD060 -->
+
 # Battery RC Model Example
 
 This runnable example implements a simple first-order battery equivalent-circuit model in MATLAB.
@@ -23,6 +25,8 @@ How can a first-order RC equivalent circuit help explain terminal-voltage respon
 ```text
 examples/battery-rc-model/
   README.md
+  battery_rc_default_parameters.m
+  simulate_battery_rc_model.m
   run_battery_rc_model.m
   check_battery_rc_model.m
   data/pulse_current_profile.csv
@@ -36,7 +40,8 @@ Open MATLAB, navigate to this folder, and run:
 run_battery_rc_model
 ```
 
-The script creates a simple current profile, estimates SOC, calculates a placeholder first-order RC voltage response, and plots current, SOC, and terminal voltage.
+The script loads the committed pulse profile, calls the shared simulator, and
+plots current, SOC, and terminal voltage.
 
 For a lightweight no-plot check using the included sample pulse-current data, run:
 
@@ -53,7 +58,9 @@ Voltage range: 3.425 V to 3.877 V
 
 ## Expected Output Notes
 
-Both starter entry points should produce the same headline values:
+Both starter entry points call `simulate_battery_rc_model` with
+`battery_rc_default_parameters` and the same committed profile, so they should
+produce the same headline values:
 
 | Entry Point | Purpose | Expected Text |
 |---|---|---|
@@ -68,3 +75,7 @@ Small differences may appear if model parameters, sample data, or MATLAB interpo
 - Compare simulated terminal voltage with a known pulse response.
 - Report assumptions around temperature and SOC range.
 - Treat the included OCV-SOC relation as a placeholder until replaced with measured or datasheet-derived values.
+- Keep plotting, checks, and extensions on the shared simulator rather than
+  copying the state-update loop.
+- The simulator rejects malformed timestamps, incomplete parameters, and time
+  steps outside the explicit-Euler stability bound.
