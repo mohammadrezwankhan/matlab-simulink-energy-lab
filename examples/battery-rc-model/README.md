@@ -16,7 +16,7 @@ How can a first-order RC equivalent circuit help explain terminal-voltage respon
 |---|---|
 | `OCV(SOC)` | Open-circuit voltage interpolated from a replaceable SOC/voltage lookup table |
 | `R0` | Ohmic resistance |
-| `R1-C1` | Transient polarization branch |
+| `R1-C1` | Transient polarization branch propagated exactly over each zero-order-held current interval |
 | `I` | Applied current profile |
 | `Vt` | Terminal voltage |
 
@@ -42,6 +42,21 @@ run_battery_rc_model
 
 The script loads the committed pulse profile, calls the shared simulator, and
 plots current, SOC, and terminal voltage.
+
+Pass a positive scalar third argument to resample onto a uniform grid, as the
+starter scripts do with `dt_s = 1`. Omit that argument to preserve measured or
+irregular profile timestamps:
+
+```matlab
+parameters = battery_rc_default_parameters();
+nativeResult = simulate_battery_rc_model(profile, parameters);
+```
+
+The current at each timestamp is held through the following interval. SOC is
+integrated over that interval, and the first-order RC state uses its analytic
+exponential update. This stays stable for coarse intervals without imposing an
+explicit-Euler step-size limit. `result.interval_s` records every interval;
+`result.dt_s` is populated only when the resulting grid is uniform.
 
 For a lightweight no-plot check using the included sample pulse-current data, run:
 
@@ -93,4 +108,5 @@ malformed curve instead of extrapolating beyond the supplied data.
 - Keep plotting, checks, and extensions on the shared simulator rather than
   copying the state-update loop.
 - The simulator rejects malformed timestamps, incomplete parameters, invalid
-  OCV lookup tables, and time steps outside the explicit-Euler stability bound.
+  OCV lookup tables, and requested uniform grids that do not end exactly at the
+  profile end time.
