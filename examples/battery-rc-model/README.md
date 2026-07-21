@@ -97,6 +97,9 @@ Battery RC check passed. Final SOC: 0.767
 Voltage range: 3.425 V to 3.877 V
 ```
 
+For an inspectable native block-diagram implementation of the same canonical
+case, see the [Simulink battery RC companion](../battery-simulink-model/README.md).
+
 ## Expected Output Notes
 
 Both starter entry points call `simulate_battery_rc_model` with

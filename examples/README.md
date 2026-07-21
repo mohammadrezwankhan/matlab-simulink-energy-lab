@@ -7,6 +7,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | Example | Purpose | Key Files | Run Commands |
 |---|---|---|---|
 | [Battery RC model](battery-rc-model/README.md) | Demonstrates a shared first-order battery equivalent-circuit simulator with current, SOC, and terminal-voltage outputs. | `battery-rc-model/simulate_battery_rc_model.m`, `battery-rc-model/check_battery_rc_model.m`, `battery-rc-model/data/pulse_current_profile.csv` | `run_battery_rc_model`, `check_battery_rc_model` |
+| [Native Simulink battery RC](battery-simulink-model/README.md) | Generates and validates an inspectable battery RC block diagram against the exact MATLAB reference. | `battery-simulink-model/build_battery_rc_simulink_model.m`, `battery-simulink-model/check_battery_rc_simulink_model.m` | `run_battery_rc_simulink_model`, `check_battery_rc_simulink_model` |
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches while reusing validated current, SOC, and OCV states. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/check_battery_2rc_model.m` | `run_battery_2rc_model`, `check_battery_2rc_model` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with temperature-dependent ohmic resistance. | `battery-thermal-model/run_battery_thermal_model.m`, `battery-thermal-model/check_battery_thermal_model.m` | `run_battery_thermal_model`, `check_battery_thermal_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
@@ -64,6 +65,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 |---|---|
 | `battery-rc-model/check_battery_rc_model.m` | Prints `Battery RC check passed. Final SOC: 0.767` and voltage range `3.425 V to 3.877 V`. |
 | `battery-rc-model/run_battery_rc_model.m` | Prints final SOC and voltage range, and opens current, SOC, and terminal-voltage plots. |
+| `battery-simulink-model/check_battery_rc_simulink_model.m` | Generates and compiles an SLX model, verifies topology, and compares five outputs with exact MATLAB cases. |
+| `battery-simulink-model/run_battery_rc_simulink_model.m` | Generates and opens the battery diagram, simulates the canonical pulse, and plots current, SOC, and voltage. |
 | `battery-2rc-model/check_battery_2rc_model.m` | Prints final SOC, terminal-voltage range, and fast/slow peak polarization. |
 | `battery-2rc-model/run_battery_2rc_model.m` | Prints the same summary and plots current, SOC, terminal voltage, and both polarization states. |
 | `battery-thermal-model/check_battery_thermal_model.m` | Prints validation status, peak and final cell temperature, peak irreversible heat, and final SOC. |
@@ -91,6 +94,11 @@ Run these no-plot checks from MATLAB when validating the current starter example
 ```matlab
 cd examples/battery-rc-model
 check_battery_rc_model
+```
+
+```matlab
+cd examples/battery-simulink-model
+check_battery_rc_simulink_model
 ```
 
 ```matlab
