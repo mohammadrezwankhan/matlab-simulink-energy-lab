@@ -11,6 +11,7 @@ addpath(modelDirectory);
 profile = battery_thermal_default_profile();
 parameters = battery_thermal_default_parameters();
 result = simulate_battery_thermal_model(profile, parameters, 1);
+limitSummary = summarize_battery_temperature_limits(result, [35; 40]);
 
 figure('Name', 'Temperature-Aware Battery Model', 'Color', 'w');
 tiledlayout(4, 1, 'TileSpacing', 'compact');
@@ -53,3 +54,5 @@ fprintf('Reversible heat range: %.2f W to %.2f W\n', ...
 fprintf('Peak total heat: %.2f W\n', ...
     max(result.total_heat_generation_W));
 fprintf('Final SOC: %.3f\n', result.soc(end));
+fprintf('Illustrative temperature-limit summary:\n');
+disp(limitSummary);
