@@ -36,21 +36,23 @@ study.
 - Validate model behavior from the command line without opening plots.
 - Estimate output voltage, load current, and ripple for an averaged converter.
 - Inspect bounded closed-loop voltage tracking for an averaged buck converter.
+- Compare open-loop, PI, and filtered-PID load-step regulation on the same
+  averaged buck plant.
 - Generate and validate a native Simulink averaged buck-converter diagram.
 - Trace every parameter, unit, sign convention, and limitation before extending
   a model.
 
 ## Start in 60 Seconds
 
-The six script-based checks use base MATLAB functionality. The four native
-block-diagram checks additionally require Simulink. All ten were configured for
+The seven script-based checks use base MATLAB functionality. The four native
+block-diagram checks additionally require Simulink. All eleven were configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
 cd matlab-simulink-energy-lab
-matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-simulink-model/check_battery_rc_simulink_model.m'); run('examples/battery-2rc-model/check_battery_2rc_model.m'); run('examples/battery-2rc-simulink-model/check_battery_2rc_simulink_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/battery-thermal-simulink-model/check_battery_thermal_simulink_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m'); run('examples/converter-switching-model/check_switching_buck_converter.m'); run('examples/converter-simulink-model/check_average_buck_simulink_model.m')"
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-simulink-model/check_battery_rc_simulink_model.m'); run('examples/battery-2rc-model/check_battery_2rc_model.m'); run('examples/battery-2rc-simulink-model/check_battery_2rc_simulink_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/battery-thermal-simulink-model/check_battery_thermal_simulink_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m'); run('examples/converter-closed-loop-model/check_converter_controller_comparison.m'); run('examples/converter-switching-model/check_switching_buck_converter.m'); run('examples/converter-simulink-model/check_average_buck_simulink_model.m')"
 ```
 
 Expected output:
@@ -85,6 +87,11 @@ Closed-loop converter check passed.
 Final average voltage: 399.49 V
 Peak voltage after step: 421.90 V
 Two-percent settling time: 38.6 ms
+Controller comparison check passed.
+Controller      Steady error (V)  Overshoot (%)  Settling (ms)  Duty range
+Open loop                  1.984           3.84           20.6  0.502 to 0.502
+PI                        -0.000           1.25           10.3  0.464 to 0.510
+Filtered PID              -0.015           1.67           14.0  0.471 to 0.526
 Switching buck converter check passed.
 Average output voltage: 358.209 V
 Average inductor current: 17.910 A
@@ -114,7 +121,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
-| [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How does bounded cascaded control track an averaged buck-converter voltage reference? | `check_closed_loop_converter.m` | Base MATLAB |
+| [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 
 Current release status: the battery examples and three converter references run

@@ -8,7 +8,8 @@ requiring a control-system toolbox.
 ## Engineering Question
 
 How does a cascaded voltage and current controller track a DC voltage step while
-respecting current-reference and duty-cycle limits?
+respecting current-reference and duty-cycle limits, and how do open-loop, PI,
+and filtered-PID strategies respond to the same load disturbance?
 
 ## Model Structure
 
@@ -23,6 +24,25 @@ The outer PI controller converts voltage error into a bounded inductor-current
 reference. A proportional inner current loop converts current error into a duty
 command, with plant-voltage and inductor-resistance feedforward. Conditional
 integration prevents the outer controller from winding up at its current limits.
+
+## Load-Step Controller Comparison
+
+The companion comparison holds the voltage reference at 400 V and changes the
+resistive load from 20 Ohm to 10 Ohm at 40 ms. Every case uses the same averaged
+plant, initial state, 10 microsecond integration step, 0 to 60 A current-reference
+range, and 0.05 to 0.95 duty-cycle range:
+
+- **Open loop** keeps the initial steady-state duty ratio fixed.
+- **PI** uses the existing cascaded structure with a 0.25 A/V proportional gain
+  and an 80 A/(V s) integral gain.
+- **Filtered PID** adds a 0.001 A s/V derivative term to the PI tuning. The
+  error derivative passes through a first-order 0.5 ms filter before it enters
+  the current reference, avoiding an unbounded finite-difference derivative.
+
+Both feedback cases use conditional integration: the integrator pauses while
+the current reference is saturated unless the voltage error would drive it back
+toward the admissible range. This is a transparent educational anti-windup
+policy, not a claim of optimal controller synthesis.
 
 ## Starter Parameters
 
@@ -55,6 +75,36 @@ check_closed_loop_converter
 The check verifies finite states, unidirectional current, duty-limit compliance,
 final voltage error, overshoot, and two-percent settling time.
 
+To plot open-loop, PI, and filtered-PID load-step responses together:
+
+```matlab
+run_converter_controller_comparison
+```
+
+For the corresponding no-plot comparison check:
+
+```matlab
+check_converter_controller_comparison
+```
+
+The comparison check reports steady-state error, overshoot, two-percent
+settling time, and duty-cycle range for every controller. It also asserts finite
+states, nonnegative current, configured current/duty limits, feedback recovery,
+and bounded overshoot and settling time.
+
+With MATLAB R2026a, the checked tuning produces these load-step metrics:
+
+| Controller | Steady-state error | Overshoot | Undershoot | Settling time |
+| --- | ---: | ---: | ---: | ---: |
+| Open loop | 1.984 V | 3.84% | 6.48% | 20.6 ms |
+| PI | -0.000 V | 1.25% | 9.95% | 10.3 ms |
+| Filtered PID | -0.015 V | 1.67% | 7.38% | 14.0 ms |
+
+Here, the filtered derivative reduces the PI case's deepest voltage sag, while
+the PI case settles faster and has less positive overshoot. The example makes
+that tuning tradeoff visible instead of treating one controller as universally
+better.
+
 ## Explicit Limitations
 
 - The converter is an averaged buck model, not a switching simulation.
@@ -62,7 +112,11 @@ final voltage error, overshoot, and two-percent settling time.
   are excluded.
 - Gains are educational starter values, not a robust stability design for real
   hardware.
-- The load is fixed and resistive; source and load disturbances are not applied.
+- Loads are purely resistive. The original example uses a fixed load, and the
+  comparison applies one ideal step without source dynamics.
+- The derivative filter and gains are illustrative discrete-time choices and
+  have not been tested against noise, delay, parameter spread, or sampling
+  jitter.
 - The explicit Euler step must be reconsidered if plant or controller bandwidth
   changes.
 - Hardware limits, protection, sensing, and gain margins require independent
