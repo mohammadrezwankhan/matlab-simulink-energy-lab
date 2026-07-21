@@ -32,7 +32,7 @@ Positive current means discharge. Terminal voltage is
 thirteen logged outputs expose current, three states, OCV, resistance, terminal
 voltage, the coefficient, three heat-generation terms, cooling power, and net
 heat. The sign and Kelvin conversion follow the simplified energy balance from
-[Bernardi, Pawlikowski, and Newman](https://escholarship.org/uc/item/9fx5f0h8).
+[Bernardi, Pawlikowski, and Newman](https://www.osti.gov/biblio/5913742).
 
 ## Shared Reference API
 
