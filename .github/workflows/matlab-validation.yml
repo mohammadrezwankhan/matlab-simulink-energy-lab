@@ -42,6 +42,7 @@ jobs:
         with:
           command: >-
             run('examples/battery-rc-model/check_battery_rc_model.m');
+            run('examples/battery-simulink-model/check_battery_rc_simulink_model.m');
             run('examples/battery-2rc-model/check_battery_2rc_model.m');
             run('examples/battery-thermal-model/check_battery_thermal_model.m');
             run('examples/converter-average-model/check_converter_average_model.m');
