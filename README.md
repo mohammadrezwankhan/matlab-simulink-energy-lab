@@ -28,6 +28,7 @@ study.
 - Simulate the terminal-voltage and state-of-charge response of a first-order
   battery RC model on uniform or native irregular time grids.
 - Separate fast and slow battery polarization with an exact two-RC model.
+- Generate and validate a native Simulink two-RC battery block diagram.
 - Explore how irreversible electrical losses and cooling change a lumped cell
   temperature and temperature-dependent resistance.
 - Generate and validate a native Simulink battery RC block diagram.
@@ -40,15 +41,15 @@ study.
 
 ## Start in 60 Seconds
 
-The six script-based checks use base MATLAB functionality. The two native block
-diagram checks additionally require Simulink. All eight were configured for
+The six script-based checks use base MATLAB functionality. The three native
+block-diagram checks additionally require Simulink. All nine were configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
 cd matlab-simulink-energy-lab
-matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-simulink-model/check_battery_rc_simulink_model.m'); run('examples/battery-2rc-model/check_battery_2rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m'); run('examples/converter-switching-model/check_switching_buck_converter.m'); run('examples/converter-simulink-model/check_average_buck_simulink_model.m')"
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-simulink-model/check_battery_rc_simulink_model.m'); run('examples/battery-2rc-model/check_battery_2rc_model.m'); run('examples/battery-2rc-simulink-model/check_battery_2rc_simulink_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m'); run('examples/converter-switching-model/check_switching_buck_converter.m'); run('examples/converter-simulink-model/check_average_buck_simulink_model.m')"
 ```
 
 Expected output:
@@ -62,6 +63,9 @@ Voltage range: 3.425 V to 3.877 V
 Battery 2RC check passed. Final SOC: 0.767
 Voltage range: 3.325 V to 3.925 V
 Peak polarization: fast 0.075 V, slow 0.125 V
+Native Simulink battery 2RC check passed.
+Final SOC: 0.767
+Voltage range: 3.325 V to 3.925 V
 Battery thermal check passed.
 Peak cell temperature: 37.32 degC
 Final cell temperature: 28.95 degC
@@ -98,6 +102,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Battery RC model](examples/battery-rc-model/README.md) | How do charge and discharge pulses affect SOC and terminal voltage in a first-order equivalent circuit? | `check_battery_rc_model.m` | Base MATLAB |
 | [Native Simulink battery RC](examples/battery-simulink-model/README.md) | Can a generated diagram reproduce the exact first-order battery pulse response and nonlinear OCV lookup? | `check_battery_rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery 2RC model](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape pulse response and voltage recovery? | `check_battery_2rc_model.m` | Base MATLAB |
+| [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do equivalent-circuit losses, ambient cooling, and resistance feedback affect lumped cell temperature? | `check_battery_thermal_model.m` | Base MATLAB |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
@@ -105,8 +110,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 
 Current release status: the battery examples and three converter references run
-as MATLAB scripts. Native battery RC and averaged buck references additionally
-generate, compile, and simulate Simulink block diagrams from source.
+as MATLAB scripts. Native battery RC, battery 2RC, and averaged buck references
+additionally generate, compile, and simulate Simulink block diagrams from source.
 
 ## Why This Lab Is Inspectable
 
@@ -146,6 +151,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-rc-model/           # RC simulation, pulse data, and check
 |   |-- battery-simulink-model/     # Generated native battery RC diagram
 |   |-- battery-2rc-model/          # Fast/slow polarization model and check
+|   |-- battery-2rc-simulink-model/ # Generated native two-RC diagram
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   |-- converter-switching-model/  # Ideal PWM switching model and check
@@ -161,7 +167,7 @@ matlab-simulink-energy-lab/
 
 - MATLAB R2026a is the verified release.
 - The script-based examples and their validation checks use base MATLAB only.
-- Simulink is required only for the two native block-diagram examples.
+- Simulink is required only for the three native block-diagram examples.
 - No power-electronics, control, or testing toolbox is required.
 
 If you run the examples on another MATLAB release, please share the result in
@@ -175,6 +181,8 @@ an issue so the compatibility record can grow.
   table that must be calibrated before cell-specific use.
 - The native battery RC diagram receives the reference model's prevalidated,
   SOC-feasible current trace rather than duplicating its boundary limiter.
+- The native battery 2RC diagram uses that same prevalidated current policy and
+  independently integrates both polarization branches.
 - Battery current is zero-order held between supplied timestamps; RC
   polarization states are propagated exactly over each interval, and applied
   current is limited to the interval charge available before SOC reaches zero
@@ -195,7 +203,7 @@ The most useful next additions are likely to be:
 - measured-data identification and cross-validation for the two-RC model;
 - switched closed-loop control or a source-backed semiconductor loss model;
 - OCV hysteresis with charge/discharge minor-loop validation; or
-- native Simulink implementations of the two-RC and thermal references.
+- a native Simulink implementation of the thermal reference.
 
 [Request an example](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=example-request.md),
 open a focused issue, or propose an implementation through a pull request.
