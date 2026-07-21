@@ -49,6 +49,10 @@ The example intentionally reuses
 `../battery-rc-model/data/pulse_current_profile.csv` rather than duplicating
 the canonical input.
 
+The [native Simulink counterpart](../battery-2rc-simulink-model/README.md)
+generates an inspectable block diagram and compares both numerical RC states
+with this exact interval-update reference.
+
 ## How To Run
 
 Open MATLAB, navigate to this folder, and run:
