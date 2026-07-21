@@ -35,7 +35,7 @@ R0(T) = R0_ref * exp(kR * (Tref - T))
 
 Positive current means discharge. With that sign convention, the simplified
 heat terms follow the cell energy-balance form introduced by
-[Bernardi, Pawlikowski, and Newman](https://escholarship.org/uc/item/9fx5f0h8):
+[Bernardi, Pawlikowski, and Newman](https://www.osti.gov/biblio/5913742):
 
 ```text
 dU/dT = linear_lookup(SOC)
