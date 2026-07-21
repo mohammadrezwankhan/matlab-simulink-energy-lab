@@ -29,8 +29,8 @@ study.
   battery RC model on uniform or native irregular time grids.
 - Separate fast and slow battery polarization with an exact two-RC model.
 - Generate and validate a native Simulink two-RC battery block diagram.
-- Explore how irreversible electrical losses and cooling change a lumped cell
-  temperature and temperature-dependent resistance.
+- Explore how irreversible electrical losses, reversible entropic heat, and
+  cooling change a lumped cell temperature and temperature-dependent resistance.
 - Generate and validate a native Simulink electro-thermal feedback diagram.
 - Generate and validate a native Simulink battery RC block diagram.
 - Validate model behavior from the command line without opening plots.
@@ -68,13 +68,16 @@ Native Simulink battery 2RC check passed.
 Final SOC: 0.767
 Voltage range: 3.325 V to 3.925 V
 Battery thermal check passed.
-Peak cell temperature: 37.32 degC
-Final cell temperature: 28.95 degC
-Peak irreversible heat: 33.32 W
+Peak cell temperature: 36.92 degC
+Final cell temperature: 28.96 degC
+Peak irreversible heat: 33.31 W
+Reversible heat range: -2.31 W to 1.12 W
+Peak total heat: 34.29 W
 Final SOC: 0.608
 Native Simulink battery thermal check passed.
-Peak cell temperature: 37.32 degC
-Final cell temperature: 28.95 degC
+Peak cell temperature: 36.92 degC
+Final cell temperature: 28.96 degC
+Reversible heat range: -2.31 W to 1.12 W
 Converter parameter check passed.
 Output voltage: 360.0 V
 Load current: 18.0 A
@@ -107,8 +110,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery RC](examples/battery-simulink-model/README.md) | Can a generated diagram reproduce the exact first-order battery pulse response and nonlinear OCV lookup? | `check_battery_rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery 2RC model](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape pulse response and voltage recovery? | `check_battery_2rc_model.m` | Base MATLAB |
 | [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
-| [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do equivalent-circuit losses, ambient cooling, and resistance feedback affect lumped cell temperature? | `check_battery_thermal_model.m` | Base MATLAB |
-| [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
+| [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do irreversible loss, reversible entropic heat, ambient cooling, and resistance feedback affect lumped cell temperature? | `check_battery_thermal_model.m` | Base MATLAB |
+| [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How does bounded cascaded control track an averaged buck-converter voltage reference? | `check_closed_loop_converter.m` | Base MATLAB |
@@ -191,6 +194,8 @@ an issue so the compatibility record can grow.
   independently integrates both polarization branches.
 - The native thermal diagram reproduces a checked discrete educational model;
   it is not a spatial, safety, or thermal-runaway simulation.
+- Its SOC-indexed entropic-coefficient table is illustrative, varies neither
+  with temperature nor ageing, and must be replaced with measured cell data.
 - Battery current is zero-order held between supplied timestamps; RC
   polarization states are propagated exactly over each interval, and applied
   current is limited to the interval charge available before SOC reaches zero
