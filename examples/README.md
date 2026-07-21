@@ -9,6 +9,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | [Battery RC model](battery-rc-model/README.md) | Demonstrates a shared first-order battery equivalent-circuit simulator with current, SOC, and terminal-voltage outputs. | `battery-rc-model/simulate_battery_rc_model.m`, `battery-rc-model/check_battery_rc_model.m`, `battery-rc-model/data/pulse_current_profile.csv` | `run_battery_rc_model`, `check_battery_rc_model` |
 | [Native Simulink battery RC](battery-simulink-model/README.md) | Generates and validates an inspectable battery RC block diagram against the exact MATLAB reference. | `battery-simulink-model/build_battery_rc_simulink_model.m`, `battery-simulink-model/check_battery_rc_simulink_model.m` | `run_battery_rc_simulink_model`, `check_battery_rc_simulink_model` |
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches while reusing validated current, SOC, and OCV states. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/check_battery_2rc_model.m` | `run_battery_2rc_model`, `check_battery_2rc_model` |
+| [Native Simulink battery 2RC](battery-2rc-simulink-model/README.md) | Generates separate fast and slow RC state paths and validates seven logged outputs against the exact two-RC solver. | `battery-2rc-simulink-model/build_battery_2rc_simulink_model.m`, `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | `run_battery_2rc_simulink_model`, `check_battery_2rc_simulink_model` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with temperature-dependent ohmic resistance. | `battery-thermal-model/run_battery_thermal_model.m`, `battery-thermal-model/check_battery_thermal_model.m` | `run_battery_thermal_model`, `check_battery_thermal_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
 | [Switching buck converter](converter-switching-model/README.md) | Resolves ideal event-aligned PWM with exact ON/OFF state propagation and averaged/ripple comparisons. | `converter-switching-model/simulate_switching_buck_converter.m`, `converter-switching-model/check_switching_buck_converter.m` | `run_switching_buck_converter`, `check_switching_buck_converter` |
@@ -69,6 +70,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | `battery-simulink-model/run_battery_rc_simulink_model.m` | Generates and opens the battery diagram, simulates the canonical pulse, and plots current, SOC, and voltage. |
 | `battery-2rc-model/check_battery_2rc_model.m` | Prints final SOC, terminal-voltage range, and fast/slow peak polarization. |
 | `battery-2rc-model/run_battery_2rc_model.m` | Prints the same summary and plots current, SOC, terminal voltage, and both polarization states. |
+| `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | Generates and compiles an SLX model, verifies both RC state paths, and compares seven outputs with exact MATLAB cases. |
+| `battery-2rc-simulink-model/run_battery_2rc_simulink_model.m` | Generates and opens the two-RC diagram, simulates the canonical pulse, and plots both polarization states. |
 | `battery-thermal-model/check_battery_thermal_model.m` | Prints validation status, peak and final cell temperature, peak irreversible heat, and final SOC. |
 | `battery-thermal-model/run_battery_thermal_model.m` | Prints the same thermal summary and opens current, voltage, temperature, and heat-generation plots. |
 | `converter-average-model/check_converter_average_model.m` | Prints `Converter parameter check passed.`, output voltage `360.0 V`, and load current `18.0 A`. |
@@ -104,6 +107,11 @@ check_battery_rc_simulink_model
 ```matlab
 cd examples/battery-2rc-model
 check_battery_2rc_model
+```
+
+```matlab
+cd examples/battery-2rc-simulink-model
+check_battery_2rc_simulink_model
 ```
 
 ```matlab
