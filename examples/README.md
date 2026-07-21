@@ -12,6 +12,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
 | [Switching buck converter](converter-switching-model/README.md) | Resolves ideal event-aligned PWM with exact ON/OFF state propagation and averaged/ripple comparisons. | `converter-switching-model/simulate_switching_buck_converter.m`, `converter-switching-model/check_switching_buck_converter.m` | `run_switching_buck_converter`, `check_switching_buck_converter` |
 | [Closed-loop converter](converter-closed-loop-model/README.md) | Simulates bounded cascaded voltage and current control around an averaged buck-converter plant. | `converter-closed-loop-model/simulate_closed_loop_converter.m`, `converter-closed-loop-model/check_closed_loop_converter.m` | `run_closed_loop_converter`, `check_closed_loop_converter` |
+| [Native Simulink averaged buck](converter-simulink-model/README.md) | Generates, compiles, and validates an inspectable block diagram against the exact averaged state solution. | `converter-simulink-model/build_average_buck_simulink_model.m`, `converter-simulink-model/check_average_buck_simulink_model.m` | `run_average_buck_simulink_model`, `check_average_buck_simulink_model` |
 
 ## Example Guides
 
@@ -73,6 +74,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | `converter-switching-model/run_switching_buck_converter.m` | Plots startup plus settled switch-node, inductor-current, and output-voltage waveforms. |
 | `converter-closed-loop-model/check_closed_loop_converter.m` | Verifies finite states, duty limits, final tracking error, overshoot, and two-percent settling time. |
 | `converter-closed-loop-model/run_closed_loop_converter.m` | Plots the voltage reference and response, current loop, and bounded duty command. |
+| `converter-simulink-model/check_average_buck_simulink_model.m` | Generates and compiles an SLX model, verifies topology, and compares both states with the exact matrix-exponential solution. |
+| `converter-simulink-model/run_average_buck_simulink_model.m` | Generates and opens the Simulink diagram, simulates startup, and plots output voltage and inductor current. |
 
 ## Review Use
 
@@ -113,6 +116,11 @@ check_switching_buck_converter
 ```matlab
 cd examples/converter-closed-loop-model
 check_closed_loop_converter
+```
+
+```matlab
+cd examples/converter-simulink-model
+check_average_buck_simulink_model
 ```
 
 The plotting scripts are intended for visual inspection and explanation. Use

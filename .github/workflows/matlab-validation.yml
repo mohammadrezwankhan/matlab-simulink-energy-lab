@@ -5,12 +5,14 @@ on:
   pull_request:
     paths:
       - "**/*.m"
+      - "**/*.slx"
       - ".github/workflows/matlab-validation.yml"
   push:
     branches:
       - main
     paths:
       - "**/*.m"
+      - "**/*.slx"
       - ".github/workflows/matlab-validation.yml"
 
 permissions:
@@ -33,6 +35,7 @@ jobs:
         uses: matlab-actions/setup-matlab@v3
         with:
           release: R2026a
+          products: Simulink
 
       - name: Run model checks
         uses: matlab-actions/run-command@v3
@@ -43,4 +46,5 @@ jobs:
             run('examples/battery-thermal-model/check_battery_thermal_model.m');
             run('examples/converter-average-model/check_converter_average_model.m');
             run('examples/converter-closed-loop-model/check_closed_loop_converter.m');
-            run('examples/converter-switching-model/check_switching_buck_converter.m')
+            run('examples/converter-switching-model/check_switching_buck_converter.m');
+            run('examples/converter-simulink-model/check_average_buck_simulink_model.m')
