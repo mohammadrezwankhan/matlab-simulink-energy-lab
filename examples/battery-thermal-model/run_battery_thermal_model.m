@@ -35,13 +35,21 @@ title('Lumped Cell Temperature');
 
 nexttile;
 plot(result.time_s, result.heat_generation_W, 'LineWidth', 1.2);
+hold on;
+plot(result.time_s, result.reversible_heat_W, 'LineWidth', 1.2);
+plot(result.time_s, result.total_heat_generation_W, 'LineWidth', 1.2);
 grid on;
 xlabel('Time [s]');
 ylabel('Heat [W]');
-title('Irreversible Heat Generation');
+title('Cell Heat Generation');
+legend('Irreversible', 'Reversible', 'Total', 'Location', 'best');
 
 fprintf('Peak cell temperature: %.2f degC\n', max(result.cell_temp_C));
 fprintf('Final cell temperature: %.2f degC\n', result.cell_temp_C(end));
 fprintf('Peak irreversible heat: %.2f W\n', ...
     max(result.heat_generation_W));
+fprintf('Reversible heat range: %.2f W to %.2f W\n', ...
+    min(result.reversible_heat_W), max(result.reversible_heat_W));
+fprintf('Peak total heat: %.2f W\n', ...
+    max(result.total_heat_generation_W));
 fprintf('Final SOC: %.3f\n', result.soc(end));
