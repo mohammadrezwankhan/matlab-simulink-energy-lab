@@ -84,12 +84,13 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Battery 2RC model](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape pulse response and voltage recovery? | `check_battery_2rc_model.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do equivalent-circuit losses, ambient cooling, and resistance feedback affect lumped cell temperature? | `check_battery_thermal_model.m` | Base MATLAB |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
+| [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How does bounded cascaded control track an averaged buck-converter voltage reference? | `check_closed_loop_converter.m` | Base MATLAB |
 
 Current release status: the executable examples are MATLAB scripts. The
-converter references include an algebraic estimate and a dynamic closed-loop
-average model, but not a switching simulation. Native Simulink implementations
-are planned as the lab grows.
+converter references include algebraic, ideal switching, and dynamic
+closed-loop averaged models. Native Simulink implementations are planned as the
+lab grows.
 
 ## Why This Lab Is Inspectable
 
@@ -130,6 +131,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-2rc-model/          # Fast/slow polarization model and check
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- converter-average-model/    # Average-model scaffold and check
+|   |-- converter-switching-model/  # Ideal PWM switching model and check
 |   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
 |   `-- guides/                     # Reproducibility and review notes
 |-- notes/                          # Repository-wide modeling standards
@@ -157,8 +159,9 @@ an issue so the compatibility record can grow.
   current is limited to the interval charge available before SOC reaches zero
   or one.
 - Ageing, OCV hysteresis, and cell-to-cell variation are not yet modeled.
-- The converter scaffold does not model switching devices, losses, control-loop
-  dynamics, or non-ideal components.
+- The switching converter resolves ideal PWM and inductor copper loss but omits
+  semiconductor loss, dead time, parasitics, EMI, protection, and switched
+  closed-loop control.
 - Parameters and expected outputs must be revalidated before use with real
   cells, converters, or control designs.
 
@@ -167,7 +170,7 @@ an issue so the compatibility record can grow.
 The most useful next additions are likely to be:
 
 - measured-data identification and cross-validation for the two-RC model;
-- an averaged-versus-switched converter comparison;
+- switched closed-loop control or a source-backed semiconductor loss model;
 - OCV hysteresis with charge/discharge minor-loop validation; or
 - native Simulink implementations of the reference models.
 

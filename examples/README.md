@@ -10,6 +10,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches while reusing validated current, SOC, and OCV states. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/check_battery_2rc_model.m` | `run_battery_2rc_model`, `check_battery_2rc_model` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with temperature-dependent ohmic resistance. | `battery-thermal-model/run_battery_thermal_model.m`, `battery-thermal-model/check_battery_thermal_model.m` | `run_battery_thermal_model`, `check_battery_thermal_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
+| [Switching buck converter](converter-switching-model/README.md) | Resolves ideal event-aligned PWM with exact ON/OFF state propagation and averaged/ripple comparisons. | `converter-switching-model/simulate_switching_buck_converter.m`, `converter-switching-model/check_switching_buck_converter.m` | `run_switching_buck_converter`, `check_switching_buck_converter` |
 | [Closed-loop converter](converter-closed-loop-model/README.md) | Simulates bounded cascaded voltage and current control around an averaged buck-converter plant. | `converter-closed-loop-model/simulate_closed_loop_converter.m`, `converter-closed-loop-model/check_closed_loop_converter.m` | `run_closed_loop_converter`, `check_closed_loop_converter` |
 
 ## Example Guides
@@ -68,6 +69,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | `battery-thermal-model/run_battery_thermal_model.m` | Prints the same thermal summary and opens current, voltage, temperature, and heat-generation plots. |
 | `converter-average-model/check_converter_average_model.m` | Prints `Converter parameter check passed.`, output voltage `360.0 V`, and load current `18.0 A`. |
 | `converter-average-model/run_converter_average_model.m` | Prints converter scaffold assumptions and first-pass output, current ripple, and voltage ripple estimates. |
+| `converter-switching-model/check_switching_buck_converter.m` | Verifies exact PWM state propagation, settled averages and ripple, whole-period balance, and grid convergence. |
+| `converter-switching-model/run_switching_buck_converter.m` | Plots startup plus settled switch-node, inductor-current, and output-voltage waveforms. |
 | `converter-closed-loop-model/check_closed_loop_converter.m` | Verifies finite states, duty limits, final tracking error, overshoot, and two-percent settling time. |
 | `converter-closed-loop-model/run_closed_loop_converter.m` | Plots the voltage reference and response, current loop, and bounded duty command. |
 
@@ -100,6 +103,11 @@ check_battery_thermal_model
 ```matlab
 cd examples/converter-average-model
 check_converter_average_model
+```
+
+```matlab
+cd examples/converter-switching-model
+check_switching_buck_converter
 ```
 
 ```matlab
