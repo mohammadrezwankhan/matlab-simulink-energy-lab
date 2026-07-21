@@ -33,19 +33,21 @@ study.
 - Validate model behavior from the command line without opening plots.
 - Estimate output voltage, load current, and ripple for an averaged converter.
 - Inspect bounded closed-loop voltage tracking for an averaged buck converter.
+- Generate and validate a native Simulink averaged buck-converter diagram.
 - Trace every parameter, unit, sign convention, and limitation before extending
   a model.
 
 ## Start in 60 Seconds
 
-The included checks use base MATLAB functionality and were verified with MATLAB
-R2026a. The MATLAB validation workflow runs the same checks whenever executable
+The six script-based checks use base MATLAB functionality. The native block
+diagram check additionally requires Simulink. All seven were configured for
+MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
 cd matlab-simulink-energy-lab
-matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-2rc-model/check_battery_2rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m')"
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-2rc-model/check_battery_2rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m'); run('examples/converter-switching-model/check_switching_buck_converter.m'); run('examples/converter-simulink-model/check_average_buck_simulink_model.m')"
 ```
 
 Expected output:
@@ -68,6 +70,15 @@ Closed-loop converter check passed.
 Final average voltage: 399.49 V
 Peak voltage after step: 421.90 V
 Two-percent settling time: 38.6 ms
+Switching buck converter check passed.
+Average output voltage: 358.209 V
+Average inductor current: 17.910 A
+Current ripple: 9.901 A peak-to-peak
+Voltage ripple: 0.124 V peak-to-peak
+Measured duty cycle: 0.450
+Native Simulink averaged buck check passed.
+Final output voltage: 358.209 V
+Final inductor current: 17.910 A
 ```
 
 To reproduce the plotted battery response above, run:
@@ -86,11 +97,11 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How does bounded cascaded control track an averaged buck-converter voltage reference? | `check_closed_loop_converter.m` | Base MATLAB |
+| [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 
-Current release status: the executable examples are MATLAB scripts. The
-converter references include algebraic, ideal switching, and dynamic
-closed-loop averaged models. Native Simulink implementations are planned as the
-lab grows.
+Current release status: the battery examples and three converter references run
+as MATLAB scripts. The native averaged buck reference additionally generates,
+compiles, and simulates a Simulink block diagram from source.
 
 ## Why This Lab Is Inspectable
 
@@ -133,6 +144,7 @@ matlab-simulink-energy-lab/
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   |-- converter-switching-model/  # Ideal PWM switching model and check
 |   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
+|   |-- converter-simulink-model/   # Generated native Simulink model and check
 |   `-- guides/                     # Reproducibility and review notes
 |-- notes/                          # Repository-wide modeling standards
 |-- CONTRIBUTING.md
@@ -142,8 +154,9 @@ matlab-simulink-energy-lab/
 ## Requirements
 
 - MATLAB R2026a is the verified release.
-- The current examples and validation checks use base MATLAB only.
-- No additional toolbox is required for the included checks.
+- The script-based examples and their validation checks use base MATLAB only.
+- Simulink is required only for the native averaged buck example.
+- No power-electronics, control, or testing toolbox is required.
 
 If you run the examples on another MATLAB release, please share the result in
 an issue so the compatibility record can grow.
@@ -162,6 +175,8 @@ an issue so the compatibility record can grow.
 - The switching converter resolves ideal PWM and inductor copper loss but omits
   semiconductor loss, dead time, parasitics, EMI, protection, and switched
   closed-loop control.
+- The native Simulink converter is an averaged open-loop model and therefore
+  omits PWM ripple and switching events.
 - Parameters and expected outputs must be revalidated before use with real
   cells, converters, or control designs.
 
@@ -172,7 +187,7 @@ The most useful next additions are likely to be:
 - measured-data identification and cross-validation for the two-RC model;
 - switched closed-loop control or a source-backed semiconductor loss model;
 - OCV hysteresis with charge/discharge minor-loop validation; or
-- native Simulink implementations of the reference models.
+- native Simulink implementations of the battery references.
 
 [Request an example](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=example-request.md),
 open a focused issue, or propose an implementation through a pull request.
