@@ -42,4 +42,5 @@ jobs:
             run('examples/battery-2rc-model/check_battery_2rc_model.m');
             run('examples/battery-thermal-model/check_battery_thermal_model.m');
             run('examples/converter-average-model/check_converter_average_model.m');
-            run('examples/converter-closed-loop-model/check_closed_loop_converter.m')
+            run('examples/converter-closed-loop-model/check_closed_loop_converter.m');
+            run('examples/converter-switching-model/check_switching_buck_converter.m')
