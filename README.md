@@ -147,7 +147,8 @@ an issue so the compatibility record can grow.
 - The battery model uses a deliberately simple, replaceable OCV-SOC lookup
   table that must be calibrated before cell-specific use.
 - Battery current is zero-order held between supplied timestamps; the RC branch
-  is propagated exactly over each interval, while SOC is clamped to `[0, 1]`.
+  is propagated exactly over each interval, and applied current is limited to
+  the interval charge available before SOC reaches zero or one.
 - Temperature, ageing, hysteresis, and cell-to-cell variation are not yet
   modeled.
 - The converter scaffold does not model switching devices, losses, control-loop
