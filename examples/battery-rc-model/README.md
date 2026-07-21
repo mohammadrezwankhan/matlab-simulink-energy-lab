@@ -28,6 +28,7 @@ examples/battery-rc-model/
   README.md
   battery_rc_default_parameters.m
   simulate_battery_rc_model.m
+  summarize_battery_duty_cycle.m
   run_battery_rc_model.m
   check_battery_rc_model.m
   data/pulse_current_profile.csv
@@ -84,6 +85,31 @@ unless it points outward from an SOC state already at zero or one. The default
 pulse profile stays inside both boundaries, so its requested and applied traces
 remain identical and all existing headline values are preserved.
 
+## Duty-Cycle Accounting
+
+`summarize_battery_duty_cycle` integrates the applied current and terminal
+voltage over the simulator's native intervals. It reports directional and net
+charge, absolute charge throughput, equivalent full cycles, directional and net
+terminal energy, energy throughput, SOC and voltage extrema, and an independent
+SOC/charge balance error:
+
+```matlab
+result = simulate_battery_rc_model(profile, parameters);
+duty = summarize_battery_duty_cycle(result);
+```
+
+Positive current is discharge. The reported terminal-energy terms use the
+start-of-interval voltage and zero-order-held current that define each simulated
+interval. The final timestamp has no following duration and is deliberately
+excluded from charge and energy integration. Equivalent full cycles divide
+absolute charge throughput by twice the configured nominal capacity; this is a
+throughput normalization, not a degradation or rainflow-cycle model.
+
+The utility rejects missing or mismatched result fields, nonfinite signals,
+non-increasing timestamps, nonpositive terminal voltage, SOC outside `[0, 1]`,
+and missing or nonpositive capacity. This keeps malformed simulation or imported
+results from producing plausible-looking duty totals.
+
 For a lightweight no-plot check using the included sample pulse-current data, run:
 
 ```matlab
@@ -95,6 +121,8 @@ Expected starter output:
 ```text
 Battery RC check passed. Final SOC: 0.767
 Voltage range: 3.425 V to 3.877 V
+Charge throughput: 3.312 Ah (0.03312 equivalent full cycles)
+Terminal energy throughput: 11.730 Wh
 ```
 
 For an inspectable native block-diagram implementation of the same canonical
@@ -108,8 +136,8 @@ produce the same headline values:
 
 | Entry Point | Purpose | Expected Text |
 |---|---|---|
-| `run_battery_rc_model` | Plotting script for visual inspection of current, SOC, and terminal voltage. | `Final SOC: 0.767` and `Voltage range: 3.425 V to 3.877 V` |
-| `check_battery_rc_model` | No-plot script for quick validation and future automation. | `Battery RC check passed. Final SOC: 0.767` and `Voltage range: 3.425 V to 3.877 V` |
+| `run_battery_rc_model` | Plotting script for visual inspection of current, SOC, terminal voltage, and duty totals. | `Final SOC: 0.767`, `Charge throughput: 3.312 Ah`, and `Terminal energy throughput: 11.730 Wh` |
+| `check_battery_rc_model` | No-plot script for quick validation and future automation. | The same duty totals plus `Battery RC check passed` and voltage range `3.425 V to 3.877 V` |
 
 Small differences may appear if model parameters, sample data, or MATLAB interpolation behavior are changed. Update this note whenever the starter assumptions change intentionally.
 
@@ -142,3 +170,5 @@ malformed curve instead of extrapolating beyond the supplied data.
 - Review `current_limited` and `soc_charge_balance_error` whenever a profile can
   reach zero or full SOC; a limited trace represents the energy boundary, not a
   cell current-rating or power-electronics limit.
+- Review charge and energy throughput separately: terminal voltage makes Wh
+  throughput directionally asymmetric even when charge and discharge Ah match.

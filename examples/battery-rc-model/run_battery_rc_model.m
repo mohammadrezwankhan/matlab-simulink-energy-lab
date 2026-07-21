@@ -12,6 +12,7 @@ profilePath = fullfile(modelDirectory, 'data', 'pulse_current_profile.csv');
 profile = readtable(profilePath);
 parameters = battery_rc_default_parameters();
 result = simulate_battery_rc_model(profile, parameters, 1);
+duty = summarize_battery_duty_cycle(result);
 
 figure('Name', 'Battery RC Model', 'Color', 'w');
 tiledlayout(3, 1, 'TileSpacing', 'compact');
@@ -44,3 +45,7 @@ fprintf('Final SOC: %.3f\n', result.soc(end));
 fprintf('Voltage range: %.3f V to %.3f V\n', ...
     min(result.terminal_voltage_V), max(result.terminal_voltage_V));
 fprintf('SOC-limited current samples: %d\n', nnz(result.current_limited));
+fprintf('Charge throughput: %.3f Ah (%.5f equivalent full cycles)\n', ...
+    duty.charge_throughput_Ah, duty.equivalent_full_cycles);
+fprintf('Terminal energy throughput: %.3f Wh\n', ...
+    duty.energy_throughput_Wh);
