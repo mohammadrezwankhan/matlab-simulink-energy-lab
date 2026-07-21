@@ -116,12 +116,13 @@ writetable(limitSummary, 'temperature-limit-summary.csv');
 
 The returned table preserves the requested limit order and reports whether
 each limit was exceeded, first exceedance time, total time above the limit,
-degree-hours above the limit, exposure fraction, peak temperature, and signed
+longest continuous exceedance, degree-hours above the limit, exposure fraction,
+peak temperature, and signed
 margin from the peak to the limit. A negative margin denotes an exceedance; a
 trace that only touches a limit passes, with `NaN` as its first exceedance time
 and zero degree-hours.
 
-Crossing time, exposure duration, and degree-hours use piecewise-linear
+Crossing time, exposure duration, longest continuous exceedance, and degree-hours use piecewise-linear
 interpolation between reported temperature states, including native irregular
 timestamps. Degree-hours integrate `max(T - limit, 0)` and therefore distinguish
 a brief severe exceedance from the same duration just above the limit. This
