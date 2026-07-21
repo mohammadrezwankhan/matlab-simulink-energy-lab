@@ -58,6 +58,7 @@ examples/battery-thermal-model/
   battery_thermal_default_parameters.m
   battery_thermal_default_profile.m
   simulate_battery_thermal_model.m
+  summarize_battery_temperature_limits.m
   run_battery_thermal_model.m
   check_battery_thermal_model.m
 ```
@@ -102,6 +103,30 @@ Peak total heat: 34.29 W
 Final SOC: 0.608
 ```
 
+## Temperature-Limit Summary
+
+Assess one or more project-defined temperature limits from any validated
+thermal result:
+
+```matlab
+limits_C = [35; 40];
+limitSummary = summarize_battery_temperature_limits(result, limits_C);
+writetable(limitSummary, 'temperature-limit-summary.csv');
+```
+
+The returned table preserves the requested limit order and reports whether
+each limit was exceeded, first exceedance time, total time above the limit,
+exposure fraction, peak temperature, and signed margin from the peak to the
+limit. A negative margin denotes an exceedance; a trace that only touches a
+limit passes, with `NaN` as its first exceedance time.
+
+Crossing time and exposure use piecewise-linear interpolation between reported
+temperature states, including native irregular timestamps. This deterministic
+post-processing does not reconstruct within-step motion, so use a reviewed
+time-step sensitivity study when brief excursions or precise crossing times
+matter. The illustrative limits are workflow examples, not safety limits or
+cell qualification criteria.
+
 ## Validation Checks
 
 The no-plot script verifies that:
@@ -118,6 +143,8 @@ The no-plot script verifies that:
 - irreversible, reversible, total, cooling, electrical, resistance, OCV, and
   terminal-voltage relations close at every sample;
 - native irregular timestamps and uniform resampling remain deterministic; and
+- multi-limit exposure uses actual interval lengths, survives CSV export, and
+  rejects malformed result and limit inputs; and
 - integrated net heat matches the change in lumped thermal energy.
 
 ## Limitations
@@ -128,6 +155,8 @@ The no-plot script verifies that:
 - The entropic coefficient is linearly interpolated only by SOC; temperature,
   rate, ageing, and hysteresis dependence require measured replacement data.
 - Heat capacity and electrical parameters other than `R0` are constant.
+- Limit exposure is interpolated between reported states and can miss an
+  unreported within-step excursion.
 - Aging, hysteresis, thermal runaway, contact resistance, and pack-level
   interactions are outside the model scope.
 - Results must not be used for cell qualification or safety decisions without
