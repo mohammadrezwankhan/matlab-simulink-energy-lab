@@ -18,9 +18,14 @@ tiledlayout(3, 1, 'TileSpacing', 'compact');
 
 nexttile;
 plot(result.time_s, result.current_A, 'LineWidth', 1.2);
+if any(result.current_limited)
+    hold on;
+    plot(result.time_s, result.requested_current_A, '--', 'LineWidth', 1.0);
+    legend('Applied', 'Requested', 'Location', 'best');
+end
 grid on;
 ylabel('Current [A]');
-title('Input Current Profile');
+title('Applied Current Profile');
 
 nexttile;
 plot(result.time_s, result.soc, 'LineWidth', 1.2);
@@ -38,3 +43,4 @@ title('Terminal Voltage');
 fprintf('Final SOC: %.3f\n', result.soc(end));
 fprintf('Voltage range: %.3f V to %.3f V\n', ...
     min(result.terminal_voltage_V), max(result.terminal_voltage_V));
+fprintf('SOC-limited current samples: %d\n', nnz(result.current_limited));

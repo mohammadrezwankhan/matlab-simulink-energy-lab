@@ -17,7 +17,8 @@ How can a first-order RC equivalent circuit help explain terminal-voltage respon
 | `OCV(SOC)` | Open-circuit voltage interpolated from a replaceable SOC/voltage lookup table |
 | `R0` | Ohmic resistance |
 | `R1-C1` | Transient polarization branch propagated exactly over each zero-order-held current interval |
-| `I` | Applied current profile |
+| `I_requested` | Requested current profile from the input table |
+| `I_applied` | Current limited to the charge available before an SOC boundary |
 | `Vt` | Terminal voltage |
 
 ## Included MATLAB Files
@@ -57,6 +58,31 @@ integrated over that interval, and the first-order RC state uses its analytic
 exponential update. This stays stable for coarse intervals without imposing an
 explicit-Euler step-size limit. `result.interval_s` records every interval;
 `result.dt_s` is populated only when the resulting grid is uniform.
+
+## SOC-Boundary Current Limits
+
+Before each interval, the simulator converts remaining SOC and charge headroom
+into feasible discharge and charge currents for that interval duration. It
+clips the requested current to that range, then uses the applied current for
+SOC, RC polarization, and terminal voltage. This prevents an empty or full
+battery from continuing to produce an impossible interval response after SOC
+has merely been clipped.
+
+The result keeps both sides of that decision:
+
+| Result Field | Meaning |
+|---|---|
+| `requested_current_A` | Resampled or native input command at every timestamp |
+| `current_A` | SOC-feasible current applied to voltage and state updates |
+| `current_limited` | Logical flag where requested and applied current differ |
+| `interval_net_discharge_Ah` | Signed applied-current charge for each interval; positive is discharge |
+| `cumulative_net_discharge_Ah` | Cumulative signed charge from the initial state |
+| `soc_charge_balance_error` | Difference between simulated SOC and SOC reconstructed from cumulative charge |
+
+The final timestamp has no following energy interval. Its current is unchanged
+unless it points outward from an SOC state already at zero or one. The default
+pulse profile stays inside both boundaries, so its requested and applied traces
+remain identical and all existing headline values are preserved.
 
 For a lightweight no-plot check using the included sample pulse-current data, run:
 
@@ -110,3 +136,6 @@ malformed curve instead of extrapolating beyond the supplied data.
 - The simulator rejects malformed timestamps, incomplete parameters, invalid
   OCV lookup tables, and requested uniform grids that do not end exactly at the
   profile end time.
+- Review `current_limited` and `soc_charge_balance_error` whenever a profile can
+  reach zero or full SOC; a limited trace represents the energy boundary, not a
+  cell current-rating or power-electronics limit.
