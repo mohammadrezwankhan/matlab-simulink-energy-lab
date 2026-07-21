@@ -116,16 +116,19 @@ writetable(limitSummary, 'temperature-limit-summary.csv');
 
 The returned table preserves the requested limit order and reports whether
 each limit was exceeded, first exceedance time, total time above the limit,
-exposure fraction, peak temperature, and signed margin from the peak to the
-limit. A negative margin denotes an exceedance; a trace that only touches a
-limit passes, with `NaN` as its first exceedance time.
+degree-hours above the limit, exposure fraction, peak temperature, and signed
+margin from the peak to the limit. A negative margin denotes an exceedance; a
+trace that only touches a limit passes, with `NaN` as its first exceedance time
+and zero degree-hours.
 
-Crossing time and exposure use piecewise-linear interpolation between reported
-temperature states, including native irregular timestamps. This deterministic
-post-processing does not reconstruct within-step motion, so use a reviewed
-time-step sensitivity study when brief excursions or precise crossing times
-matter. The illustrative limits are workflow examples, not safety limits or
-cell qualification criteria.
+Crossing time, exposure duration, and degree-hours use piecewise-linear
+interpolation between reported temperature states, including native irregular
+timestamps. Degree-hours integrate `max(T - limit, 0)` and therefore distinguish
+a brief severe exceedance from the same duration just above the limit. This
+deterministic post-processing does not reconstruct within-step motion, so use a
+reviewed time-step sensitivity study when brief excursions or precise crossing
+times matter. The illustrative limits are workflow examples, not safety limits
+or cell qualification criteria.
 
 ## Validation Checks
 
@@ -143,8 +146,9 @@ The no-plot script verifies that:
 - irreversible, reversible, total, cooling, electrical, resistance, OCV, and
   terminal-voltage relations close at every sample;
 - native irregular timestamps and uniform resampling remain deterministic; and
-- multi-limit exposure uses actual interval lengths, survives CSV export, and
-  rejects malformed result and limit inputs; and
+- multi-limit exposure duration and degree-hours use actual interval lengths,
+  match analytic triangle/trapezoid areas, survive CSV export, and reject
+  malformed result and limit inputs; and
 - integrated net heat matches the change in lumped thermal energy.
 
 ## Limitations
