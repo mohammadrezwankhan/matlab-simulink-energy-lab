@@ -1,5 +1,10 @@
 function result = simulate_battery_rc_model(profile, parameters, dt_s)
 %SIMULATE_BATTERY_RC_MODEL Run a validated first-order battery RC model.
+% Omit dt_s to preserve native profile timestamps.
+
+if nargin < 3
+    dt_s = [];
+end
 
 requiredVariables = {'time_s', 'current_A'};
 if ~istable(profile) || ...
@@ -28,13 +33,17 @@ if any(diff(profileTime_s) <= 0)
         'Profile timestamps must be strictly increasing.');
 end
 
-if ~isnumeric(dt_s) || ~isscalar(dt_s) || ~isfinite(dt_s) || dt_s <= 0
-    error('BatteryRC:TimeStep', 'dt_s must be a finite positive scalar.');
-end
-intervalCount = round(profileTime_s(end) / dt_s);
-if intervalCount < 1 || abs(intervalCount * dt_s - profileTime_s(end)) > 1e-9
-    error('BatteryRC:TimeGrid', ...
-        'Profile end time must be an integer multiple of dt_s.');
+if ~isempty(dt_s)
+    if ~isnumeric(dt_s) || ~isscalar(dt_s) || ~isfinite(dt_s) || dt_s <= 0
+        error('BatteryRC:TimeStep', ...
+            'dt_s must be empty or a finite positive scalar.');
+    end
+    intervalCount = round(profileTime_s(end) / dt_s);
+    if intervalCount < 1 || ...
+            abs(intervalCount * dt_s - profileTime_s(end)) > 1e-9
+        error('BatteryRC:TimeGrid', ...
+            'Profile end time must be an integer multiple of dt_s.');
+    end
 end
 
 requiredScalarParameters = {
@@ -94,14 +103,15 @@ if any(ocvLookup_V <= 0) || any(diff(ocvLookup_V) < 0)
     error('BatteryRC:OCVCurve', ...
         'OCV values must be positive and nondecreasing with SOC.');
 end
-if dt_s >= 2 * parameters.r1_Ohm * parameters.c1_F
-    error('BatteryRC:NumericalStability', ...
-        'dt_s must be less than twice the R1-C1 time constant.');
+if isempty(dt_s)
+    time_s = profileTime_s;
+    current_A = profileCurrent_A;
+else
+    time_s = (0:dt_s:profileTime_s(end))';
+    current_A = interp1(profileTime_s, profileCurrent_A, time_s, ...
+        'previous', 'extrap');
 end
-
-time_s = (0:dt_s:profileTime_s(end))';
-current_A = interp1(profileTime_s, profileCurrent_A, time_s, ...
-    'previous', 'extrap');
+interval_s = diff(time_s);
 soc = zeros(size(time_s));
 v_rc_V = zeros(size(time_s));
 ocv_V = zeros(size(time_s));
@@ -113,17 +123,16 @@ terminal_voltage_V(1) = ocv_V(1) - ...
     current_A(1) * parameters.r0_Ohm - v_rc_V(1);
 
 for sample = 2:numel(time_s)
+    intervalDuration_s = interval_s(sample - 1);
     soc(sample) = soc(sample - 1) - ...
-        (current_A(sample - 1) * dt_s) / ...
+        (current_A(sample - 1) * intervalDuration_s) / ...
         (parameters.capacity_Ah * 3600);
     soc(sample) = min(max(soc(sample), 0), 1);
 
-    voltageDerivative_V_per_s = ...
-        -(v_rc_V(sample - 1) / ...
-        (parameters.r1_Ohm * parameters.c1_F)) + ...
-        current_A(sample - 1) / parameters.c1_F;
-    v_rc_V(sample) = v_rc_V(sample - 1) + ...
-        voltageDerivative_V_per_s * dt_s;
+    decayFactor = exp(-intervalDuration_s / ...
+        (parameters.r1_Ohm * parameters.c1_F));
+    v_rc_V(sample) = decayFactor * v_rc_V(sample - 1) + ...
+        parameters.r1_Ohm * (1 - decayFactor) * current_A(sample - 1);
 
     ocv_V(sample) = interp1(ocvSocBreakpoints, ocvLookup_V, ...
         soc(sample), 'linear');
@@ -138,5 +147,11 @@ result.v_rc_V = v_rc_V;
 result.ocv_V = ocv_V;
 result.terminal_voltage_V = terminal_voltage_V;
 result.parameters = parameters;
-result.dt_s = dt_s;
+result.interval_s = interval_s;
+uniformTolerance_s = 1e-12 * max(1, max(abs(interval_s)));
+if max(abs(interval_s - interval_s(1))) <= uniformTolerance_s
+    result.dt_s = interval_s(1);
+else
+    result.dt_s = [];
+end
 end
