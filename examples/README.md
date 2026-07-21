@@ -6,7 +6,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 | Example | Purpose | Key Files | Run Commands |
 |---|---|---|---|
-| [Battery RC model](battery-rc-model/README.md) | Demonstrates a shared first-order battery equivalent-circuit simulator with current, SOC, and terminal-voltage outputs. | `battery-rc-model/simulate_battery_rc_model.m`, `battery-rc-model/check_battery_rc_model.m`, `battery-rc-model/data/pulse_current_profile.csv` | `run_battery_rc_model`, `check_battery_rc_model` |
+| [Battery RC model](battery-rc-model/README.md) | Demonstrates a shared first-order battery equivalent-circuit simulator with current, SOC, terminal-voltage, and duty-cycle accounting outputs. | `battery-rc-model/simulate_battery_rc_model.m`, `battery-rc-model/summarize_battery_duty_cycle.m`, `battery-rc-model/check_battery_rc_model.m` | `run_battery_rc_model`, `check_battery_rc_model` |
 | [Native Simulink battery RC](battery-simulink-model/README.md) | Generates and validates an inspectable battery RC block diagram against the exact MATLAB reference. | `battery-simulink-model/build_battery_rc_simulink_model.m`, `battery-simulink-model/check_battery_rc_simulink_model.m` | `run_battery_rc_simulink_model`, `check_battery_rc_simulink_model` |
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches while reusing validated current, SOC, and OCV states. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/check_battery_2rc_model.m` | `run_battery_2rc_model`, `check_battery_2rc_model` |
 | [Native Simulink battery 2RC](battery-2rc-simulink-model/README.md) | Generates separate fast and slow RC state paths and validates seven logged outputs against the exact two-RC solver. | `battery-2rc-simulink-model/build_battery_2rc_simulink_model.m`, `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | `run_battery_2rc_simulink_model`, `check_battery_2rc_simulink_model` |
@@ -65,8 +65,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 
 | Script | Expected Output |
 |---|---|
-| `battery-rc-model/check_battery_rc_model.m` | Prints `Battery RC check passed. Final SOC: 0.767` and voltage range `3.425 V to 3.877 V`. |
-| `battery-rc-model/run_battery_rc_model.m` | Prints final SOC and voltage range, and opens current, SOC, and terminal-voltage plots. |
+| `battery-rc-model/check_battery_rc_model.m` | Prints validation, SOC/voltage, `3.312 Ah` charge throughput, `0.03312` equivalent full cycles, and `11.730 Wh` energy throughput. |
+| `battery-rc-model/run_battery_rc_model.m` | Prints the same duty summary and opens current, SOC, and terminal-voltage plots. |
 | `battery-simulink-model/check_battery_rc_simulink_model.m` | Generates and compiles an SLX model, verifies topology, and compares five outputs with exact MATLAB cases. |
 | `battery-simulink-model/run_battery_rc_simulink_model.m` | Generates and opens the battery diagram, simulates the canonical pulse, and plots current, SOC, and voltage. |
 | `battery-2rc-model/check_battery_2rc_model.m` | Prints final SOC, terminal-voltage range, and fast/slow peak polarization. |
