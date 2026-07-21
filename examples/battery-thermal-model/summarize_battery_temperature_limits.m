@@ -43,10 +43,13 @@ limitCount = numel(limits_C);
 firstExceedanceTime_s = nan(limitCount, 1);
 timeAboveLimit_s = zeros(limitCount, 1);
 degreeSecondsAboveLimit_C_s = zeros(limitCount, 1);
+longestContinuousExceedance_s = zeros(limitCount, 1);
 for limitIndex = 1:limitCount
     limit_C = limits_C(limitIndex);
+    activeExceedanceStart_s = nan;
     if cellTemp_C(1) > limit_C
         firstExceedanceTime_s(limitIndex) = time_s(1);
+        activeExceedanceStart_s = time_s(1);
     end
 
     for intervalIndex = 1:(numel(time_s) - 1)
@@ -84,6 +87,7 @@ for limitIndex = 1:limitCount
                 if isnan(firstExceedanceTime_s(limitIndex))
                     firstExceedanceTime_s(limitIndex) = crossingTime_s;
                 end
+                activeExceedanceStart_s = crossingTime_s;
             else
                 timeAboveLimit_s(limitIndex) = ...
                     timeAboveLimit_s(limitIndex) + ...
@@ -95,8 +99,20 @@ for limitIndex = 1:limitCount
                 if isnan(firstExceedanceTime_s(limitIndex))
                     firstExceedanceTime_s(limitIndex) = startTime_s;
                 end
+                if isnan(activeExceedanceStart_s)
+                    activeExceedanceStart_s = startTime_s;
+                end
+                longestContinuousExceedance_s(limitIndex) = max(...
+                    longestContinuousExceedance_s(limitIndex), ...
+                    crossingTime_s - activeExceedanceStart_s);
+                activeExceedanceStart_s = nan;
             end
         end
+    end
+    if ~isnan(activeExceedanceStart_s)
+        longestContinuousExceedance_s(limitIndex) = max(...
+            longestContinuousExceedance_s(limitIndex), ...
+            time_s(end) - activeExceedanceStart_s);
     end
 end
 
@@ -107,7 +123,7 @@ exposureFraction = timeAboveLimit_s / duration_s;
 degreeHoursAboveLimit_C_h = degreeSecondsAboveLimit_C_s / 3600;
 summary = table(...
     limits_C, exceeded, firstExceedanceTime_s, timeAboveLimit_s, ...
-    degreeHoursAboveLimit_C_h, exposureFraction, ...
+    longestContinuousExceedance_s, degreeHoursAboveLimit_C_h, exposureFraction, ...
     repmat(peakTemperature_C, limitCount, 1), ...
     limits_C - peakTemperature_C, ...
     'VariableNames', {
@@ -115,6 +131,7 @@ summary = table(...
         'exceeded';
         'first_exceedance_time_s';
         'time_above_limit_s';
+        'longest_continuous_exceedance_s';
         'degree_hours_above_limit_C_h';
         'exposure_fraction';
         'peak_temperature_C';
