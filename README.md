@@ -27,6 +27,7 @@ study.
 
 - Simulate the terminal-voltage and state-of-charge response of a first-order
   battery RC model on uniform or native irregular time grids.
+- Separate fast and slow battery polarization with an exact two-RC model.
 - Explore how irreversible electrical losses and cooling change a lumped cell
   temperature and temperature-dependent resistance.
 - Validate model behavior from the command line without opening plots.
@@ -44,7 +45,7 @@ model code changes.
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
 cd matlab-simulink-energy-lab
-matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m')"
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m'); run('examples/battery-2rc-model/check_battery_2rc_model.m'); run('examples/battery-thermal-model/check_battery_thermal_model.m'); run('examples/converter-average-model/check_converter_average_model.m'); run('examples/converter-closed-loop-model/check_closed_loop_converter.m')"
 ```
 
 Expected output:
@@ -52,6 +53,9 @@ Expected output:
 ```text
 Battery RC check passed. Final SOC: 0.767
 Voltage range: 3.425 V to 3.877 V
+Battery 2RC check passed. Final SOC: 0.767
+Voltage range: 3.325 V to 3.925 V
+Peak polarization: fast 0.075 V, slow 0.125 V
 Battery thermal check passed.
 Peak cell temperature: 37.32 degC
 Final cell temperature: 28.95 degC
@@ -77,6 +81,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | Example | Question It Explores | Validation | Requirements |
 | --- | --- | --- | --- |
 | [Battery RC model](examples/battery-rc-model/README.md) | How do charge and discharge pulses affect SOC and terminal voltage in a first-order equivalent circuit? | `check_battery_rc_model.m` | Base MATLAB |
+| [Battery 2RC model](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape pulse response and voltage recovery? | `check_battery_2rc_model.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do equivalent-circuit losses, ambient cooling, and resistance feedback affect lumped cell temperature? | `check_battery_thermal_model.m` | Base MATLAB |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How does bounded cascaded control track an averaged buck-converter voltage reference? | `check_closed_loop_converter.m` | Base MATLAB |
@@ -122,6 +127,7 @@ matlab-simulink-energy-lab/
 |-- assets/                         # Result images used in the documentation
 |-- examples/
 |   |-- battery-rc-model/           # RC simulation, pulse data, and check
+|   |-- battery-2rc-model/          # Fast/slow polarization model and check
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
@@ -146,11 +152,11 @@ an issue so the compatibility record can grow.
   models.
 - The battery model uses a deliberately simple, replaceable OCV-SOC lookup
   table that must be calibrated before cell-specific use.
-- Battery current is zero-order held between supplied timestamps; the RC branch
-  is propagated exactly over each interval, and applied current is limited to
-  the interval charge available before SOC reaches zero or one.
-- Temperature, ageing, hysteresis, and cell-to-cell variation are not yet
-  modeled.
+- Battery current is zero-order held between supplied timestamps; RC
+  polarization states are propagated exactly over each interval, and applied
+  current is limited to the interval charge available before SOC reaches zero
+  or one.
+- Ageing, OCV hysteresis, and cell-to-cell variation are not yet modeled.
 - The converter scaffold does not model switching devices, losses, control-loop
   dynamics, or non-ideal components.
 - Parameters and expected outputs must be revalidated before use with real
@@ -160,9 +166,9 @@ an issue so the compatibility record can grow.
 
 The most useful next additions are likely to be:
 
-- a higher-order battery model with hysteresis or additional RC branches;
+- measured-data identification and cross-validation for the two-RC model;
 - an averaged-versus-switched converter comparison;
-- measured-data parameter identification and validation; or
+- OCV hysteresis with charge/discharge minor-loop validation; or
 - native Simulink implementations of the reference models.
 
 [Request an example](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=example-request.md),
