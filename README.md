@@ -5,6 +5,7 @@
 [![Markdown maintenance](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml)
 [![MATLAB validation](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml)
 ![MATLAB R2026a](https://img.shields.io/badge/verified-MATLAB%20R2026a-e86e25.svg)
+[![Latest release](https://img.shields.io/github/v/release/mohammadrezwankhan/matlab-simulink-energy-lab)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2f6f5e.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 
@@ -247,6 +248,17 @@ between table-schema design, implementation, validation, and documentation.
 Before starting, comment on the issue with the part you want to tackle. The
 [contribution guide](CONTRIBUTING.md) explains the local checks, modeling
 standard, pull request workflow, and attribution policy.
+
+## Releases and Citation
+
+Versioned snapshots and engineering highlights are available on the
+[releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
+See the [changelog](CHANGELOG.md) for the model and validation history.
+
+If you use the lab in research, coursework, or teaching material, use GitHub's
+**Cite this repository** control to export APA or BibTeX metadata. The source
+metadata, including the author's ORCID, is available in
+[`CITATION.cff`](CITATION.cff).
 
 ## Contributing
 
