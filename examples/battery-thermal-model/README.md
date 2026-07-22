@@ -59,8 +59,11 @@ examples/battery-thermal-model/
   battery_thermal_default_profile.m
   simulate_battery_thermal_model.m
   summarize_battery_temperature_limits.m
+  compare_battery_cooling_sensitivity.m
   run_battery_thermal_model.m
+  run_battery_cooling_sensitivity.m
   check_battery_thermal_model.m
+  check_battery_cooling_sensitivity.m
 ```
 
 The scripts share the same validated simulator. It accepts native irregular
@@ -131,6 +134,46 @@ reviewed time-step sensitivity study when brief excursions or precise crossing
 times matter. The illustrative limits are workflow examples, not safety limits
 or cell qualification criteria.
 
+## Cooling-Sensitivity Study
+
+Compare several lumped cooling-conductance assumptions under the same current
+profile and temperature limit:
+
+```matlab
+run_battery_cooling_sensitivity
+```
+
+The reusable `compare_battery_cooling_sensitivity` function returns every
+validated simulation result plus a compact table containing peak and final
+temperature, temperature rise, limit-exposure duration and degree-hours,
+exposure fraction, margin to the selected limit, net cooling energy, and
+final SOC. The signed net-cooling-energy field is positive when the ambient
+path removes heat and negative when it adds heat. The default study sweeps
+`hA = 0, 0.6, 1.2, 2.4, and 4.8 W/K` while holding the electrical profile and
+all other parameters fixed.
+
+For a no-plot regression check:
+
+```matlab
+check_battery_cooling_sensitivity
+```
+
+Expected output for the default sweep:
+
+```text
+Battery cooling-sensitivity check passed.
+hA (W/K)  Peak (degC)  Final (degC)  Time > 35.0 degC (s)  Degree-hours
+     0.0        42.73         42.73                1399.6        2.5049
+     0.6        38.89         33.25                1019.7        0.5032
+     1.2        36.92         28.96                 305.6        0.0815
+     2.4        34.05         26.02                   0.0        0.0000
+     4.8        30.78         25.12                   0.0        0.0000
+```
+
+This is a parameter-sensitivity workflow, not a cooling-system design model.
+Translate convection coefficients, contact conductances, coolant conditions,
+and geometry into a defensible lumped `hA` value before applying it to hardware.
+
 ## Validation Checks
 
 The no-plot script verifies that:
@@ -151,6 +194,9 @@ The no-plot script verifies that:
   match analytic triangle/trapezoid areas, survive CSV export, and reject
   malformed result and limit inputs; and
 - integrated net heat matches the change in lumped thermal energy.
+- cooling-sensitivity cases preserve requested order and final SOC, report
+  finite metrics, exchange zero ambient heat at `hA = 0`, and reduce canonical peak
+  temperature and limit exposure as conductance increases.
 
 ## Limitations
 
