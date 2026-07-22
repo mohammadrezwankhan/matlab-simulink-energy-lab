@@ -1,7 +1,7 @@
 %% Switching Buck Converter Check
 % Validates PWM timing, exact state propagation, averages, and ripple.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 addpath(modelDirectory);

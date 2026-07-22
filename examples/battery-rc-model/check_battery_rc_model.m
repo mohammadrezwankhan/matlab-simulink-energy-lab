@@ -1,7 +1,7 @@
 %% Battery RC Model Check
 % Validates the shared simulator against the canonical pulse profile.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;

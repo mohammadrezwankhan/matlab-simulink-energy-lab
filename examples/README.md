@@ -4,6 +4,16 @@
 
 This index lists the starter MATLAB examples, their purpose, key files, and run commands.
 
+Run every no-plot check from the repository root with:
+
+```matlab
+addpath('examples')
+run_all_checks
+```
+
+The runner invokes each script in an isolated function workspace because the
+checks intentionally clear their own variables.
+
 | Example | Purpose | Key Files | Run Commands |
 |---|---|---|---|
 | [Battery RC model](battery-rc-model/README.md) | Demonstrates a shared first-order battery equivalent-circuit simulator with current, SOC, terminal-voltage, and duty-cycle accounting outputs. | `battery-rc-model/simulate_battery_rc_model.m`, `battery-rc-model/summarize_battery_duty_cycle.m`, `battery-rc-model/check_battery_rc_model.m` | `run_battery_rc_model`, `check_battery_rc_model` |

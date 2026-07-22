@@ -1,7 +1,7 @@
 %% Battery 2RC Model Check
 % Validates fast and slow exact polarization branches and inherited states.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 baseModelDirectory = fullfile(fileparts(modelDirectory), 'battery-rc-model');

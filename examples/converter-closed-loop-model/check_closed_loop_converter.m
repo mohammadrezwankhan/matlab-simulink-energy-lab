@@ -1,7 +1,7 @@
 %% Closed-Loop Averaged Converter Check
 % Runs no-plot assertions for the cascaded voltage and current controller.
 
-clear; clc;
+clearvars; clc;
 
 addpath(fileparts(mfilename('fullpath')));
 result = simulate_closed_loop_converter();
