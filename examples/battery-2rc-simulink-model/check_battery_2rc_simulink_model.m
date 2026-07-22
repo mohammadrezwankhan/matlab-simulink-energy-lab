@@ -1,7 +1,7 @@
 %% Native Simulink Battery 2RC Check
 % Builds and validates canonical and custom generated two-RC models.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-2rc-model');

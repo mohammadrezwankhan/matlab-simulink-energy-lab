@@ -1,7 +1,7 @@
 %% Averaged Buck Controller Comparison Check
 % Validates load-step metrics for open-loop, PI, and filtered PID cases.
 
-clear; clc;
+clearvars; clc;
 
 addpath(fileparts(mfilename('fullpath')));
 comparison = simulate_converter_controller_comparison();

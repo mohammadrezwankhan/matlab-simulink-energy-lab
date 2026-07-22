@@ -1,7 +1,7 @@
 %% Temperature-Aware Battery Model Check
 % Validates state bounds, constitutive relations, and discrete balances.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;

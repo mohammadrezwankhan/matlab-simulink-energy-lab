@@ -1,7 +1,7 @@
 %% Native Simulink Averaged Buck Check
 % Builds, compiles, simulates, and validates the generated block diagram.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 addpath(modelDirectory);
