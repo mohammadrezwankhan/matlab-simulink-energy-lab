@@ -1,7 +1,7 @@
 %% Converter Average Model Parameter Check
 % Runs no-plot assertions for the converter average model scaffold.
 
-clear; clc;
+clearvars; clc;
 
 input_voltage_V = 800;
 duty_cycle = 0.45;
