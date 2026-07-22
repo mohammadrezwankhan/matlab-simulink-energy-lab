@@ -1,7 +1,7 @@
 %% Native Simulink Battery RC Check
 % Builds and validates canonical and nonlinear-OCV generated models.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-rc-model');

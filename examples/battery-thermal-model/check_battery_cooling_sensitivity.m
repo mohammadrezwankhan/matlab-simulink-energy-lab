@@ -1,7 +1,7 @@
 %% Battery Cooling-Sensitivity Study Check
 % Validates comparison metrics, ordering, and malformed-input handling.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;

@@ -1,7 +1,7 @@
 %% Native Simulink Battery Thermal Check
 % Builds and validates canonical and custom electro-thermal diagrams.
 
-clear; clc;
+clearvars; clc;
 
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-thermal-model');
