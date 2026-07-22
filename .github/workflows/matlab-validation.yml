@@ -46,6 +46,7 @@ jobs:
             run('examples/battery-2rc-model/check_battery_2rc_model.m');
             run('examples/battery-2rc-simulink-model/check_battery_2rc_simulink_model.m');
             run('examples/battery-thermal-model/check_battery_thermal_model.m');
+            run('examples/battery-thermal-model/check_battery_cooling_sensitivity.m');
             run('examples/battery-thermal-simulink-model/check_battery_thermal_simulink_model.m');
             run('examples/converter-average-model/check_converter_average_model.m');
             run('examples/converter-closed-loop-model/check_closed_loop_converter.m');

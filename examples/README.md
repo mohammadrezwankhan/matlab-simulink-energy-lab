@@ -10,7 +10,7 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | [Native Simulink battery RC](battery-simulink-model/README.md) | Generates and validates an inspectable battery RC block diagram against the exact MATLAB reference. | `battery-simulink-model/build_battery_rc_simulink_model.m`, `battery-simulink-model/check_battery_rc_simulink_model.m` | `run_battery_rc_simulink_model`, `check_battery_rc_simulink_model` |
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches while reusing validated current, SOC, and OCV states. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/check_battery_2rc_model.m` | `run_battery_2rc_model`, `check_battery_2rc_model` |
 | [Native Simulink battery 2RC](battery-2rc-simulink-model/README.md) | Generates separate fast and slow RC state paths and validates seven logged outputs against the exact two-RC solver. | `battery-2rc-simulink-model/build_battery_2rc_simulink_model.m`, `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | `run_battery_2rc_simulink_model`, `check_battery_2rc_simulink_model` |
-| [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with SOC-dependent reversible heat, resistance feedback, and duration/degree-hour temperature-limit exposure. | `battery-thermal-model/simulate_battery_thermal_model.m`, `battery-thermal-model/summarize_battery_temperature_limits.m`, `battery-thermal-model/check_battery_thermal_model.m` | `run_battery_thermal_model`, `check_battery_thermal_model` |
+| [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with SOC-dependent reversible heat, resistance feedback, duration/degree-hour temperature-limit exposure, and cooling-conductance sensitivity. | `battery-thermal-model/simulate_battery_thermal_model.m`, `battery-thermal-model/summarize_battery_temperature_limits.m`, `battery-thermal-model/compare_battery_cooling_sensitivity.m` | `run_battery_thermal_model`, `run_battery_cooling_sensitivity`, `check_battery_thermal_model`, `check_battery_cooling_sensitivity` |
 | [Native Simulink battery thermal](battery-thermal-simulink-model/README.md) | Generates explicit electrical, entropic, and thermal paths and validates thirteen logged outputs against the shared discrete solver. | `battery-thermal-simulink-model/build_battery_thermal_simulink_model.m`, `battery-thermal-simulink-model/check_battery_thermal_simulink_model.m` | `run_battery_thermal_simulink_model`, `check_battery_thermal_simulink_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
 | [Switching buck converter](converter-switching-model/README.md) | Resolves ideal event-aligned PWM with exact ON/OFF state propagation and averaged/ripple comparisons. | `converter-switching-model/simulate_switching_buck_converter.m`, `converter-switching-model/check_switching_buck_converter.m` | `run_switching_buck_converter`, `check_switching_buck_converter` |
@@ -75,6 +75,8 @@ This index lists the starter MATLAB examples, their purpose, key files, and run 
 | `battery-2rc-simulink-model/run_battery_2rc_simulink_model.m` | Generates and opens the two-RC diagram, simulates the canonical pulse, and plots both polarization states. |
 | `battery-thermal-model/check_battery_thermal_model.m` | Validates temperature, heat, energy balance, and multi-limit duration/degree-hour exposure with analytic, irregular-time, and CSV checks. |
 | `battery-thermal-model/run_battery_thermal_model.m` | Prints the thermal and limit summaries and plots separated irreversible, reversible, and total heat. |
+| `battery-thermal-model/check_battery_cooling_sensitivity.m` | Verifies cooling-case ordering, monotonic canonical temperature/exposure trends, net cooling energy, retained results, and malformed-input rejection. |
+| `battery-thermal-model/run_battery_cooling_sensitivity.m` | Prints cooling-sensitivity metrics and plots temperature traces plus degree-hours above the selected limit. |
 | `battery-thermal-simulink-model/check_battery_thermal_simulink_model.m` | Generates and compiles an SLX model, verifies the lookup and feedback topology, and compares thirteen outputs with shared MATLAB cases. |
 | `battery-thermal-simulink-model/run_battery_thermal_simulink_model.m` | Generates and opens the thermal diagram and plots current, voltage, temperature, and heat generation. |
 | `converter-average-model/check_converter_average_model.m` | Prints `Converter parameter check passed.`, output voltage `360.0 V`, and load current `18.0 A`. |
@@ -122,6 +124,11 @@ check_battery_2rc_simulink_model
 ```matlab
 cd examples/battery-thermal-model
 check_battery_thermal_model
+```
+
+```matlab
+cd examples/battery-thermal-model
+check_battery_cooling_sensitivity
 ```
 
 ```matlab
