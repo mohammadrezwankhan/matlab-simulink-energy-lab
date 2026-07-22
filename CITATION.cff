@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software in research or teaching, please cite it using these metadata."
+type: software
+title: "MATLAB Simulink Energy Lab"
+version: "0.3.0"
+date-released: "2026-07-23"
+authors:
+  - family-names: "Khan"
+    given-names: "Mohammad Rezwan"
+    orcid: "https://orcid.org/0000-0002-1532-0598"
+abstract: >-
+  An open collection of inspectable MATLAB and Simulink reference models for
+  lithium-ion battery equivalent circuits, lumped electro-thermal behavior,
+  state-of-charge accounting, cooling sensitivity, and power-electronic
+  converters. The repository pairs explicit engineering assumptions with
+  deterministic no-plot validation checks.
+keywords:
+  - "battery thermal management"
+  - "lithium-ion battery"
+  - "equivalent-circuit modeling"
+  - "state of charge"
+  - "energy storage"
+  - "power electronics"
+  - "engineering education"
+  - "MATLAB"
+  - "Simulink"
+license: MIT
+repository-code: "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab"
+url: "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab"
