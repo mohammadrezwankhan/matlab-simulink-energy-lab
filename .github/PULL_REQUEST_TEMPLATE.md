@@ -1,6 +1,10 @@
+<!-- markdownlint-disable MD041 -->
+
 ## Summary
 
 Describe the MATLAB/Simulink example or documentation change.
+
+Closes #
 
 ## Modeling Value
 
@@ -11,7 +15,24 @@ Describe the MATLAB/Simulink example or documentation change.
 
 ## Validation
 
-- [ ] Units are stated.
+List the exact commands run and summarize the observed result.
+
+```text
+matlab -batch "run('examples/.../check_....m')"
+```
+
+## Review Checklist
+
+- [ ] Assumptions, units, sign conventions, and limitations are stated.
 - [ ] Required MATLAB products are listed.
-- [ ] Expected results are described.
-- [ ] No generated artifacts are committed unless they are intentionally documented.
+- [ ] Expected results are described and reproducible.
+- [ ] New behavior has a deterministic no-plot check.
+- [ ] No generated artifacts are committed unless intentionally documented.
+- [ ] Documentation reflects changed commands, parameters, or outputs.
+
+## Collaboration and Attribution
+
+Describe any paired design, implementation, validation, or documentation work.
+
+- [ ] Every `Co-authored-by:` trailer names a material contributor who agreed
+      to the attribution.
