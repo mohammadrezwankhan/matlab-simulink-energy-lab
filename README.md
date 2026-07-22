@@ -228,6 +228,17 @@ The most useful next additions are likely to be:
 [Request an example](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=example-request.md),
 open a focused issue, or propose an implementation through a pull request.
 
+## Contribute a Scoped Improvement
+
+The current contributor-ready task is
+[issue #90: add a reusable controller-comparison metrics table](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/90).
+It has deterministic acceptance criteria, uses base MATLAB, and can be divided
+between table-schema design, implementation, validation, and documentation.
+
+Before starting, comment on the issue with the part you want to tackle. The
+[contribution guide](CONTRIBUTING.md) explains the local checks, modeling
+standard, pull request workflow, and attribution policy.
+
 ## Contributing
 
 Contributions are welcome—especially measured-data validation, sourced
@@ -241,7 +252,3 @@ It is the simplest way to support continued open engineering work.
 ## License
 
 Released under the [MIT License](LICENSE).
-
-## Collaboration note
-
-Co-authored documentation pass clarifying validation expectations for battery RC and converter average-model examples.
