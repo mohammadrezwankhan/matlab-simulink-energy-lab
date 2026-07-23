@@ -20,6 +20,7 @@ checks intentionally clear their own variables.
 | [Native Simulink battery RC](battery-simulink-model/README.md) | Generates and validates an inspectable battery RC block diagram against the exact MATLAB reference. | `battery-simulink-model/build_battery_rc_simulink_model.m`, `battery-simulink-model/check_battery_rc_simulink_model.m` | `run_battery_rc_simulink_model`, `check_battery_rc_simulink_model` |
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches while reusing validated current, SOC, and OCV states. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/check_battery_2rc_model.m` | `run_battery_2rc_model`, `check_battery_2rc_model` |
 | [Native Simulink battery 2RC](battery-2rc-simulink-model/README.md) | Generates separate fast and slow RC state paths and validates seven logged outputs against the exact two-RC solver. | `battery-2rc-simulink-model/build_battery_2rc_simulink_model.m`, `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | `run_battery_2rc_simulink_model`, `check_battery_2rc_simulink_model` |
+| [Battery SOC EKF](battery-soc-ekf/README.md) | Estimates SOC and first-order polarization from noisy current and voltage measurements with a transparent Joseph-form EKF. | `battery-soc-ekf/estimate_battery_soc_ekf.m`, `battery-soc-ekf/simulate_battery_soc_ekf_example.m`, `battery-soc-ekf/check_battery_soc_ekf.m` | `run_battery_soc_ekf`, `check_battery_soc_ekf` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with SOC-dependent reversible heat, resistance feedback, duration/degree-hour temperature-limit exposure, and cooling-conductance sensitivity. | `battery-thermal-model/simulate_battery_thermal_model.m`, `battery-thermal-model/summarize_battery_temperature_limits.m`, `battery-thermal-model/compare_battery_cooling_sensitivity.m` | `run_battery_thermal_model`, `run_battery_cooling_sensitivity`, `check_battery_thermal_model`, `check_battery_cooling_sensitivity` |
 | [Native Simulink battery thermal](battery-thermal-simulink-model/README.md) | Generates explicit electrical, entropic, and thermal paths and validates thirteen logged outputs against the shared discrete solver. | `battery-thermal-simulink-model/build_battery_thermal_simulink_model.m`, `battery-thermal-simulink-model/check_battery_thermal_simulink_model.m` | `run_battery_thermal_simulink_model`, `check_battery_thermal_simulink_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
@@ -83,6 +84,8 @@ checks intentionally clear their own variables.
 | `battery-2rc-model/run_battery_2rc_model.m` | Prints the same summary and plots current, SOC, terminal voltage, and both polarization states. |
 | `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | Generates and compiles an SLX model, verifies both RC state paths, and compares seven outputs with exact MATLAB cases. |
 | `battery-2rc-simulink-model/run_battery_2rc_simulink_model.m` | Generates and opens the two-RC diagram, simulates the canonical pulse, and plots both polarization states. |
+| `battery-soc-ekf/check_battery_soc_ekf.m` | Verifies deterministic convergence from a 20-point SOC bias, Joseph covariance structure, irregular timestamps, and malformed-input rejection. |
+| `battery-soc-ekf/run_battery_soc_ekf.m` | Plots SOC and uncertainty, voltage correction, estimation error, and current for the one-hour benchmark. |
 | `battery-thermal-model/check_battery_thermal_model.m` | Validates temperature, heat, energy balance, and multi-limit duration/degree-hour exposure with analytic, irregular-time, and CSV checks. |
 | `battery-thermal-model/run_battery_thermal_model.m` | Prints the thermal and limit summaries and plots separated irreversible, reversible, and total heat. |
 | `battery-thermal-model/check_battery_cooling_sensitivity.m` | Verifies cooling-case ordering, monotonic canonical temperature/exposure trends, net cooling energy, retained results, and malformed-input rejection. |
@@ -129,6 +132,11 @@ check_battery_2rc_model
 ```matlab
 cd examples/battery-2rc-simulink-model
 check_battery_2rc_simulink_model
+```
+
+```matlab
+cd examples/battery-soc-ekf
+check_battery_soc_ekf
 ```
 
 ```matlab
