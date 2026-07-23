@@ -13,6 +13,7 @@ checks = {
     'battery-thermal-model/check_battery_thermal_model.m';
     'battery-thermal-model/check_battery_cooling_sensitivity.m';
     'battery-module-cooling-network/check_battery_module_cooling_network.m';
+    'pouch-cell-thermal-gradient/check_pouch_cell_thermal_model.m';
     'battery-thermal-simulink-model/check_battery_thermal_simulink_model.m';
     'converter-average-model/check_converter_average_model.m';
     'converter-closed-loop-model/check_closed_loop_converter.m';
