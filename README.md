@@ -33,6 +33,8 @@ study.
   battery RC model on uniform or native irregular time grids.
 - Separate fast and slow battery polarization with an exact two-RC model.
 - Generate and validate a native Simulink two-RC battery block diagram.
+- Estimate real-time battery SOC and RC polarization from noisy current and
+  terminal-voltage measurements with a transparent extended Kalman filter.
 - Explore how irreversible electrical losses, reversible entropic heat, and
   cooling change a lumped cell temperature and temperature-dependent resistance.
 - Quantify how lumped cooling conductance changes peak temperature,
@@ -50,8 +52,8 @@ study.
 
 ## Start in 60 Seconds
 
-The eight script-based checks use base MATLAB functionality. The four native
-block-diagram checks additionally require Simulink. All twelve checks are configured for
+The nine script-based checks use base MATLAB functionality. The four native
+block-diagram checks additionally require Simulink. All thirteen checks are configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
@@ -85,6 +87,13 @@ Peak polarization: fast 0.075 V, slow 0.125 V
 Native Simulink battery 2RC check passed.
 Final SOC: 0.767
 Voltage range: 3.325 V to 3.925 V
+Battery SOC EKF check passed.
+Initial prior SOC error: -0.200
+First posterior SOC error: -0.142
+Final SOC error: +0.0001
+SOC RMSE: 0.0066
+Two-percent settling time: 18 s
+Posterior voltage RMSE: 1.581 mV
 Battery thermal check passed.
 Peak cell temperature: 36.92 degC
 Final cell temperature: 28.96 degC
@@ -140,6 +149,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery RC](examples/battery-simulink-model/README.md) | Can a generated diagram reproduce the exact first-order battery pulse response and nonlinear OCV lookup? | `check_battery_rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery 2RC model](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape pulse response and voltage recovery? | `check_battery_2rc_model.m` | Base MATLAB |
 | [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
+| [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased real-time SOC and polarization estimate? | `check_battery_soc_ekf.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
 | [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
@@ -190,6 +200,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-simulink-model/     # Generated native battery RC diagram
 |   |-- battery-2rc-model/          # Fast/slow polarization model and check
 |   |-- battery-2rc-simulink-model/ # Generated native two-RC diagram
+|   |-- battery-soc-ekf/            # Real-time SOC and polarization estimator
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- battery-thermal-simulink-model/ # Generated thermal feedback diagram
 |   |-- converter-average-model/    # Average-model scaffold and check
@@ -231,6 +242,9 @@ an issue so the compatibility record can grow.
   current is limited to the interval charge available before SOC reaches zero
   or one.
 - Ageing, OCV hysteresis, and cell-to-cell variation are not yet modeled.
+- The SOC EKF uses illustrative OCV and covariance data, assumes exact
+  electrical parameters, and omits current bias, temperature, hysteresis,
+  ageing, and constrained-filter theory.
 - The switching converter resolves ideal PWM and inductor copper loss but omits
   semiconductor loss, dead time, parasitics, EMI, protection, and switched
   closed-loop control.

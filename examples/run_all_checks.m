@@ -9,6 +9,7 @@ checks = {
     'battery-simulink-model/check_battery_rc_simulink_model.m';
     'battery-2rc-model/check_battery_2rc_model.m';
     'battery-2rc-simulink-model/check_battery_2rc_simulink_model.m';
+    'battery-soc-ekf/check_battery_soc_ekf.m';
     'battery-thermal-model/check_battery_thermal_model.m';
     'battery-thermal-model/check_battery_cooling_sensitivity.m';
     'battery-thermal-simulink-model/check_battery_thermal_simulink_model.m';

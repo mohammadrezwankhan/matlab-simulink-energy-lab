@@ -6,6 +6,14 @@ still evolving.
 
 ## Unreleased
 
+### Added
+
+- A toolbox-free two-state extended Kalman filter that estimates battery SOC
+  and first-order polarization from measured current and terminal voltage.
+- A deterministic one-hour benchmark with nonlinear OCV lookup, noisy voltage,
+  Joseph-form covariance validation, irregular timestamps, and explicit
+  convergence metrics.
+
 ## 0.3.0 - 2026-07-23
 
 ### Added
