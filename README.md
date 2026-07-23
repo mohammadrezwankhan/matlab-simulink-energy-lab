@@ -39,6 +39,8 @@ study.
   cooling change a lumped cell temperature and temperature-dependent resistance.
 - Quantify how lumped cooling conductance changes peak temperature,
   thermal-limit exposure, and net cooling energy under one shared duty cycle.
+- Resolve six cell temperatures along a serial liquid-cooling channel, including
+  coolant warming, cell-to-cell conduction, and module temperature spread.
 - Generate and validate a native Simulink electro-thermal feedback diagram.
 - Generate and validate a native Simulink battery RC block diagram.
 - Validate model behavior from the command line without opening plots.
@@ -52,8 +54,8 @@ study.
 
 ## Start in 60 Seconds
 
-The nine script-based checks use base MATLAB functionality. The four native
-block-diagram checks additionally require Simulink. All thirteen checks are configured for
+The ten script-based checks use base MATLAB functionality. The four native
+block-diagram checks additionally require Simulink. All fourteen checks are configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
@@ -108,6 +110,11 @@ hA (W/K)  Peak (degC)  Final (degC)  Time > 35.0 degC (s)  Degree-hours
      1.2        36.92         28.96                 305.6        0.0815
      2.4        34.05         26.02                   0.0        0.0000
      4.8        30.78         25.12                   0.0        0.0000
+Battery module cooling-network check passed.
+Peak cell temperature: 39.87 degC (cell 4 at 1320 s)
+Peak cell-temperature spread: 5.10 degC
+Peak coolant outlet temperature: 31.27 degC
+Peak cell temperature at 3x flow: 38.01 degC
 Native Simulink battery thermal check passed.
 Peak cell temperature: 36.92 degC
 Final cell temperature: 28.96 degC
@@ -141,6 +148,8 @@ To reproduce the plotted battery response above, run:
 run('examples/battery-rc-model/run_battery_rc_model.m')
 ```
 
+![Six-cell battery module liquid-cooling response showing module heat, individual cell temperatures, coolant warming, and temperature nonuniformity](assets/battery-module-cooling-network-response.png)
+
 ## Models at a Glance
 
 | Example | Question It Explores | Validation | Requirements |
@@ -151,15 +160,17 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased real-time SOC and polarization estimate? | `check_battery_soc_ekf.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
+| [Battery module liquid-cooling network](examples/battery-module-cooling-network/README.md) | How do nonuniform heat generation, serial coolant warming, and cell-to-cell conduction determine the hottest cell and module temperature spread? | `check_battery_module_cooling_network.m` | Base MATLAB |
 | [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 
-Current release status: the battery examples and three converter references run
-as MATLAB scripts. Native battery RC, battery 2RC, battery thermal, and averaged
-buck references additionally generate, compile, and simulate Simulink diagrams.
+Current release status: the battery examples, module liquid-cooling network,
+and three converter references run as MATLAB scripts. Native battery RC,
+battery 2RC, battery thermal, and averaged buck references additionally
+generate, compile, and simulate Simulink diagrams.
 
 ## Why This Lab Is Inspectable
 
@@ -202,6 +213,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-2rc-simulink-model/ # Generated native two-RC diagram
 |   |-- battery-soc-ekf/            # Real-time SOC and polarization estimator
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
+|   |-- battery-module-cooling-network/ # Six-cell liquid-cooling network
 |   |-- battery-thermal-simulink-model/ # Generated thermal feedback diagram
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   |-- converter-switching-model/  # Ideal PWM switching model and check
@@ -237,6 +249,9 @@ an issue so the compatibility record can grow.
   it is not a spatial, safety, or thermal-runaway simulation.
 - Its SOC-indexed entropic-coefficient table is illustrative, varies neither
   with temperature nor ageing, and must be replaced with measured cell data.
+- The module cooling network uses lumped cell temperatures and a quasi-steady
+  one-dimensional coolant path; it omits spatial gradients, pressure drop,
+  manifolds, coolant transport delay, pump power, and runaway propagation.
 - Battery current is zero-order held between supplied timestamps; RC
   polarization states are propagated exactly over each interval, and applied
   current is limited to the interval charge available before SOC reaches zero
