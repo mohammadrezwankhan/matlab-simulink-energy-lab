@@ -8,6 +8,8 @@ still evolving.
 
 ## Unreleased
 
+## 0.7.0 - 2026-07-24
+
 ### Added
 
 - A reusable controller-comparison metrics table with deterministic row order,
