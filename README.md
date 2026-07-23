@@ -9,6 +9,8 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-2f6f5e.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 
+![MATLAB Simulink Energy Lab preview showing validated cell-temperature, heat-generation, and cooling traces](assets/social-preview.png)
+
 > **See the equations become waveforms—and inspect every assumption in between.**
 
 MATLAB Simulink Energy Lab is a growing collection of small, runnable, and
