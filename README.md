@@ -41,6 +41,9 @@ study.
   thermal-limit exposure, and net cooling energy under one shared duty cycle.
 - Resolve six cell temperatures along a serial liquid-cooling channel, including
   coolant warming, cell-to-cell conduction, and module temperature spread.
+- Resolve a pouch cell's through-thickness temperature profile with a
+  conservative finite-volume model, asymmetric face cooling, and hot-spot
+  tracking.
 - Generate and validate a native Simulink electro-thermal feedback diagram.
 - Generate and validate a native Simulink battery RC block diagram.
 - Validate model behavior from the command line without opening plots.
@@ -54,8 +57,8 @@ study.
 
 ## Start in 60 Seconds
 
-The ten script-based checks use base MATLAB functionality. The four native
-block-diagram checks additionally require Simulink. All fourteen checks are configured for
+The eleven script-based checks use base MATLAB functionality. The four native
+block-diagram checks additionally require Simulink. All fifteen checks are configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
@@ -115,6 +118,11 @@ Peak cell temperature: 39.87 degC (cell 4 at 1320 s)
 Peak cell-temperature spread: 5.10 degC
 Peak coolant outlet temperature: 31.27 degC
 Peak cell temperature at 3x flow: 38.01 degC
+Pouch-cell thermal-gradient check passed.
+Peak node temperature: 43.83 degC at 5.60 mm and 1800 s
+Peak through-thickness node spread: 3.09 degC
+Symmetric steady center error: 0.003 degC
+Medium-to-fine grid center difference: 0.0024 degC
 Native Simulink battery thermal check passed.
 Peak cell temperature: 36.92 degC
 Final cell temperature: 28.96 degC
@@ -150,6 +158,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Six-cell battery module liquid-cooling response showing module heat, individual cell temperatures, coolant warming, and temperature nonuniformity](assets/battery-module-cooling-network-response.png)
 
+![Pouch-cell thermal-gradient response showing heat input, surface and center temperatures, spatial temperature profiles, and boundary heat removal](assets/pouch-cell-thermal-gradient-response.png)
+
 ## Models at a Glance
 
 | Example | Question It Explores | Validation | Requirements |
@@ -161,6 +171,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased real-time SOC and polarization estimate? | `check_battery_soc_ekf.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
 | [Battery module liquid-cooling network](examples/battery-module-cooling-network/README.md) | How do nonuniform heat generation, serial coolant warming, and cell-to-cell conduction determine the hottest cell and module temperature spread? | `check_battery_module_cooling_network.m` | Base MATLAB |
+| [Pouch-cell thermal gradient](examples/pouch-cell-thermal-gradient/README.md) | How do asymmetric face cooling and through-thickness conduction determine the internal hot spot and spatial temperature gradient? | `check_pouch_cell_thermal_model.m` | Base MATLAB |
 | [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
@@ -214,6 +225,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-soc-ekf/            # Real-time SOC and polarization estimator
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- battery-module-cooling-network/ # Six-cell liquid-cooling network
+|   |-- pouch-cell-thermal-gradient/ # Through-thickness finite-volume model
 |   |-- battery-thermal-simulink-model/ # Generated thermal feedback diagram
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   |-- converter-switching-model/  # Ideal PWM switching model and check
@@ -252,6 +264,9 @@ an issue so the compatibility record can grow.
 - The module cooling network uses lumped cell temperatures and a quasi-steady
   one-dimensional coolant path; it omits spatial gradients, pressure drop,
   manifolds, coolant transport delay, pump power, and runaway propagation.
+- The pouch-cell thermal model resolves only the through-thickness direction
+  with effective homogeneous properties; it omits tabs, in-plane gradients,
+  layer detail, and electrochemical heat-generation nonuniformity.
 - Battery current is zero-order held between supplied timestamps; RC
   polarization states are propagated exactly over each interval, and applied
   current is limited to the interval charge available before SOC reaches zero

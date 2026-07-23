@@ -23,6 +23,7 @@ checks intentionally clear their own variables.
 | [Battery SOC EKF](battery-soc-ekf/README.md) | Estimates SOC and first-order polarization from noisy current and voltage measurements with a transparent Joseph-form EKF. | `battery-soc-ekf/estimate_battery_soc_ekf.m`, `battery-soc-ekf/simulate_battery_soc_ekf_example.m`, `battery-soc-ekf/check_battery_soc_ekf.m` | `run_battery_soc_ekf`, `check_battery_soc_ekf` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with SOC-dependent reversible heat, resistance feedback, duration/degree-hour temperature-limit exposure, and cooling-conductance sensitivity. | `battery-thermal-model/simulate_battery_thermal_model.m`, `battery-thermal-model/summarize_battery_temperature_limits.m`, `battery-thermal-model/compare_battery_cooling_sensitivity.m` | `run_battery_thermal_model`, `run_battery_cooling_sensitivity`, `check_battery_thermal_model`, `check_battery_cooling_sensitivity` |
 | [Battery module liquid-cooling network](battery-module-cooling-network/README.md) | Resolves six lumped cell temperatures along a serial coolant channel with nonuniform heat, coolant warming, nearest-neighbor conduction, and energy-balance diagnostics. | `battery-module-cooling-network/simulate_battery_module_cooling_network.m`, `battery-module-cooling-network/check_battery_module_cooling_network.m` | `run_battery_module_cooling_network`, `check_battery_module_cooling_network` |
+| [Pouch-cell thermal gradient](pouch-cell-thermal-gradient/README.md) | Resolves through-thickness temperature with conservative finite volumes, asymmetric face cooling, analytic steady-state comparison, and grid-convergence checks. | `pouch-cell-thermal-gradient/simulate_pouch_cell_thermal_model.m`, `pouch-cell-thermal-gradient/check_pouch_cell_thermal_model.m` | `run_pouch_cell_thermal_model`, `check_pouch_cell_thermal_model` |
 | [Native Simulink battery thermal](battery-thermal-simulink-model/README.md) | Generates explicit electrical, entropic, and thermal paths and validates thirteen logged outputs against the shared discrete solver. | `battery-thermal-simulink-model/build_battery_thermal_simulink_model.m`, `battery-thermal-simulink-model/check_battery_thermal_simulink_model.m` | `run_battery_thermal_simulink_model`, `check_battery_thermal_simulink_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
 | [Switching buck converter](converter-switching-model/README.md) | Resolves ideal event-aligned PWM with exact ON/OFF state propagation and averaged/ripple comparisons. | `converter-switching-model/simulate_switching_buck_converter.m`, `converter-switching-model/check_switching_buck_converter.m` | `run_switching_buck_converter`, `check_switching_buck_converter` |
@@ -93,6 +94,8 @@ checks intentionally clear their own variables.
 | `battery-thermal-model/run_battery_cooling_sensitivity.m` | Prints cooling-sensitivity metrics and plots temperature traces plus degree-hours above the selected limit. |
 | `battery-module-cooling-network/check_battery_module_cooling_network.m` | Verifies coolant-segment, cell, and module energy balances; temperature nonuniformity; flow sensitivity; irregular timestamps; and malformed-input rejection. |
 | `battery-module-cooling-network/run_battery_module_cooling_network.m` | Prints hottest-cell, temperature-spread, coolant-outlet, and energy-balance metrics and plots the six-cell thermal response. |
+| `pouch-cell-thermal-gradient/check_pouch_cell_thermal_model.m` | Verifies finite-volume conservation, boundary convection, symmetry, analytic steady state, grid convergence, irregular timestamps, and malformed-input rejection. |
+| `pouch-cell-thermal-gradient/run_pouch_cell_thermal_model.m` | Prints hot-spot, gradient, and energy-balance metrics and plots transient and spatial temperatures plus boundary heat removal. |
 | `battery-thermal-simulink-model/check_battery_thermal_simulink_model.m` | Generates and compiles an SLX model, verifies the lookup and feedback topology, and compares thirteen outputs with shared MATLAB cases. |
 | `battery-thermal-simulink-model/run_battery_thermal_simulink_model.m` | Generates and opens the thermal diagram and plots current, voltage, temperature, and heat generation. |
 | `converter-average-model/check_converter_average_model.m` | Prints `Converter parameter check passed.`, output voltage `360.0 V`, and load current `18.0 A`. |
@@ -155,6 +158,11 @@ check_battery_cooling_sensitivity
 ```matlab
 cd examples/battery-module-cooling-network
 check_battery_module_cooling_network
+```
+
+```matlab
+cd examples/pouch-cell-thermal-gradient
+check_pouch_cell_thermal_model
 ```
 
 ```matlab
