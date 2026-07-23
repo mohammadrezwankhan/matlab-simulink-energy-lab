@@ -32,6 +32,8 @@ study.
 - Simulate the terminal-voltage and state-of-charge response of a first-order
   battery RC model on uniform or native irregular time grids.
 - Separate fast and slow battery polarization with an exact two-RC model.
+- Identify positive two-RC parameters from voltage data and test them on an
+  independent held-out pulse profile.
 - Generate and validate a native Simulink two-RC battery block diagram.
 - Estimate real-time battery SOC and RC polarization from noisy current and
   terminal-voltage measurements with a transparent extended Kalman filter.
@@ -57,8 +59,8 @@ study.
 
 ## Start in 60 Seconds
 
-The eleven script-based checks use base MATLAB functionality. The four native
-block-diagram checks additionally require Simulink. All fifteen checks are configured for
+The twelve script-based checks use base MATLAB functionality. The four native
+block-diagram checks additionally require Simulink. All sixteen checks are configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
@@ -89,6 +91,10 @@ Voltage range: 3.425 V to 3.877 V
 Battery 2RC check passed. Final SOC: 0.767
 Voltage range: 3.325 V to 3.925 V
 Peak polarization: fast 0.075 V, slow 0.125 V
+Battery 2RC identification check passed.
+Calibration RMSE: 0.401 mV
+Held-out RMSE: 0.440 mV
+Estimated time constants: 2.01 s and 33.88 s
 Native Simulink battery 2RC check passed.
 Final SOC: 0.767
 Voltage range: 3.325 V to 3.925 V
@@ -160,13 +166,15 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Pouch-cell thermal-gradient response showing heat input, surface and center temperatures, spatial temperature profiles, and boundary heat removal](assets/pouch-cell-thermal-gradient-response.png)
 
+![Two-RC battery parameter-identification benchmark comparing fitted and synthetic voltage records on calibration and held-out pulse profiles with millivolt residuals](assets/battery-2rc-identification-response.png)
+
 ## Models at a Glance
 
 | Example | Question It Explores | Validation | Requirements |
 | --- | --- | --- | --- |
 | [Battery RC model](examples/battery-rc-model/README.md) | How do charge and discharge pulses affect SOC, terminal voltage, charge throughput, and delivered energy? | `check_battery_rc_model.m` | Base MATLAB |
 | [Native Simulink battery RC](examples/battery-simulink-model/README.md) | Can a generated diagram reproduce the exact first-order battery pulse response and nonlinear OCV lookup? | `check_battery_rc_simulink_model.m` | MATLAB and Simulink |
-| [Battery 2RC model](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape pulse response and voltage recovery? | `check_battery_2rc_model.m` | Base MATLAB |
+| [Battery 2RC model and identification](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape voltage recovery, and can their positive parameters generalize to a held-out pulse profile? | `check_battery_2rc_model.m`, `check_battery_2rc_fit.m` | Base MATLAB |
 | [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased real-time SOC and polarization estimate? | `check_battery_soc_ekf.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
@@ -251,8 +259,9 @@ an issue so the compatibility record can grow.
 
 - These examples are educational engineering references, not calibrated design
   models.
-- The battery model uses a deliberately simple, replaceable OCV-SOC lookup
-  table that must be calibrated before cell-specific use.
+- The battery models use a deliberately simple, replaceable OCV-SOC lookup
+  table that must be calibrated before cell-specific use. The two-RC fitter
+  requires OCV values estimated independently from the terminal-voltage fit.
 - The native battery RC diagram receives the reference model's prevalidated,
   SOC-feasible current trace rather than duplicating its boundary limiter.
 - The native battery 2RC diagram uses that same prevalidated current policy and
@@ -271,6 +280,9 @@ an issue so the compatibility record can grow.
   polarization states are propagated exactly over each interval, and applied
   current is limited to the interval charge available before SOC reaches zero
   or one.
+- The parameter-identification benchmark uses transparent synthetic voltage
+  records with deterministic sensor-like perturbations; it does not claim
+  validation against a physical cell.
 - Ageing, OCV hysteresis, and cell-to-cell variation are not yet modeled.
 - The SOC EKF uses illustrative OCV and covariance data, assumes exact
   electrical parameters, and omits current bias, temperature, hysteresis,
@@ -287,7 +299,7 @@ an issue so the compatibility record can grow.
 
 The most useful next additions are likely to be:
 
-- measured-data identification and cross-validation for the two-RC model;
+- a traceable physical-cell dataset for the two-RC identification workflow;
 - switched closed-loop control or a source-backed semiconductor loss model;
 - OCV hysteresis with charge/discharge minor-loop validation; or
 - measured thermal-parameter identification and held-out drive-cycle validation.
@@ -297,12 +309,10 @@ open a focused issue, or propose an implementation through a pull request.
 
 ## Contribute a Scoped Improvement
 
-The current contributor-ready task is
-[issue #90: add a reusable controller-comparison metrics table](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/90).
-It has deterministic acceptance criteria, uses base MATLAB, and can be divided
-between table-schema design, implementation, validation, and documentation.
-
-Before starting, comment on the issue with the part you want to tackle. The
+Choose an item from the roadmap above or browse the
+[open issues](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues).
+Before starting substantial work, open or comment on a focused issue so the
+assumptions, acceptance checks, and ownership are visible. The
 [contribution guide](CONTRIBUTING.md) explains the local checks, modeling
 standard, pull request workflow, and attribution policy.
 

@@ -12,6 +12,9 @@ still evolving.
 
 - A reusable controller-comparison metrics table with deterministic row order,
   explicit units, export-ready columns, and no-plot regression coverage.
+- A toolbox-free two-RC parameter-identification workflow with positive
+  resistance constraints, ordered time constants, deterministic grid
+  refinement, and an independent held-out pulse-profile benchmark.
 
 ## 0.6.0 - 2026-07-23
 
