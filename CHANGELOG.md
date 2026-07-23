@@ -6,6 +6,12 @@ still evolving.
 
 ## Unreleased
 
+### Added
+
+- A toolbox-free six-cell battery module thermal network with serial coolant
+  warming, nearest-neighbor conduction, nonuniform heat generation, flow-rate
+  sensitivity, and local, cell, and module energy-balance checks.
+
 ## 0.4.0 - 2026-07-23
 
 ### Added
