@@ -6,6 +6,8 @@ still evolving.
 
 ## Unreleased
 
+## 0.5.0 - 2026-07-23
+
 ### Added
 
 - A toolbox-free six-cell battery module thermal network with serial coolant
