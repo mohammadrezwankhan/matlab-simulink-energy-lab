@@ -8,6 +8,11 @@ still evolving.
 
 ## Unreleased
 
+### Added
+
+- A reusable controller-comparison metrics table with deterministic row order,
+  explicit units, export-ready columns, and no-plot regression coverage.
+
 ## 0.6.0 - 2026-07-23
 
 ### Added

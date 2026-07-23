@@ -7,6 +7,7 @@ addpath(fileparts(mfilename('fullpath')));
 comparison = simulate_converter_controller_comparison();
 controllers = {comparison.open_loop, comparison.pi, ...
     comparison.filtered_pid};
+summary = build_controller_comparison_table(comparison);
 colors = lines(numel(controllers));
 
 figure('Name', 'Averaged Buck Controller Comparison', 'Color', 'w');
@@ -53,19 +54,4 @@ fprintf('Load resistance: %.1f Ohm to %.1f Ohm at %.0f ms\n', ...
     comparison.parameters.initial_load_resistance_Ohm, ...
     comparison.parameters.final_load_resistance_Ohm, ...
     1000 * comparison.parameters.load_step_time_s);
-for index = 1:numel(controllers)
-    metrics = controllers{index}.metrics;
-    fprintf(['%-12s steady error: %6.3f V | overshoot: %5.2f %% | ' ...
-        'undershoot: %5.2f %% | settling: %s\n'], ...
-        controllers{index}.display_name, metrics.steady_state_error_V, ...
-        metrics.overshoot_percent, metrics.undershoot_percent, ...
-        format_settling_time(metrics.settling_time_s));
-end
-
-function text = format_settling_time(settling_time_s)
-if isfinite(settling_time_s)
-    text = sprintf('%.1f ms', 1000 * settling_time_s);
-else
-    text = 'not settled';
-end
-end
+disp(summary);

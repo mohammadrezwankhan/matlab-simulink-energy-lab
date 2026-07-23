@@ -87,10 +87,22 @@ For the corresponding no-plot comparison check:
 check_converter_controller_comparison
 ```
 
+The reusable summary helper returns one deterministic row for Open loop, PI,
+and Filtered PID. Its variable names and table metadata state the engineering
+units, and the two compliance columns remain logical values:
+
+```matlab
+comparison = simulate_converter_controller_comparison();
+summary = build_controller_comparison_table(comparison);
+disp(summary);
+writetable(summary, 'controller-comparison-metrics.csv');
+```
+
 The comparison check reports steady-state error, overshoot, two-percent
 settling time, and duty-cycle range for every controller. It also asserts finite
 states, nonnegative current, configured current/duty limits, feedback recovery,
-and bounded overshoot and settling time.
+bounded overshoot and settling time, table schema, row order, default reproduced
+metrics, and logical compliance fields.
 
 With MATLAB R2026a, the checked tuning produces these load-step metrics:
 
