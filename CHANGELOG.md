@@ -6,6 +6,8 @@ still evolving.
 
 ## Unreleased
 
+## 0.4.0 - 2026-07-23
+
 ### Added
 
 - A toolbox-free two-state extended Kalman filter that estimates battery SOC
