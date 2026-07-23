@@ -18,7 +18,7 @@ checks intentionally clear their own variables.
 |---|---|---|---|
 | [Battery RC model](battery-rc-model/README.md) | Demonstrates a shared first-order battery equivalent-circuit simulator with current, SOC, terminal-voltage, and duty-cycle accounting outputs. | `battery-rc-model/simulate_battery_rc_model.m`, `battery-rc-model/summarize_battery_duty_cycle.m`, `battery-rc-model/check_battery_rc_model.m` | `run_battery_rc_model`, `check_battery_rc_model` |
 | [Native Simulink battery RC](battery-simulink-model/README.md) | Generates and validates an inspectable battery RC block diagram against the exact MATLAB reference. | `battery-simulink-model/build_battery_rc_simulink_model.m`, `battery-simulink-model/check_battery_rc_simulink_model.m` | `run_battery_rc_simulink_model`, `check_battery_rc_simulink_model` |
-| [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches while reusing validated current, SOC, and OCV states. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/check_battery_2rc_model.m` | `run_battery_2rc_model`, `check_battery_2rc_model` |
+| [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches, then identifies positive parameters and evaluates them on a held-out pulse profile. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/fit_battery_2rc_parameters.m`, `battery-2rc-model/check_battery_2rc_fit.m` | `run_battery_2rc_model`, `check_battery_2rc_model`, `run_battery_2rc_fit`, `check_battery_2rc_fit` |
 | [Native Simulink battery 2RC](battery-2rc-simulink-model/README.md) | Generates separate fast and slow RC state paths and validates seven logged outputs against the exact two-RC solver. | `battery-2rc-simulink-model/build_battery_2rc_simulink_model.m`, `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | `run_battery_2rc_simulink_model`, `check_battery_2rc_simulink_model` |
 | [Battery SOC EKF](battery-soc-ekf/README.md) | Estimates SOC and first-order polarization from noisy current and voltage measurements with a transparent Joseph-form EKF. | `battery-soc-ekf/estimate_battery_soc_ekf.m`, `battery-soc-ekf/simulate_battery_soc_ekf_example.m`, `battery-soc-ekf/check_battery_soc_ekf.m` | `run_battery_soc_ekf`, `check_battery_soc_ekf` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with SOC-dependent reversible heat, resistance feedback, duration/degree-hour temperature-limit exposure, and cooling-conductance sensitivity. | `battery-thermal-model/simulate_battery_thermal_model.m`, `battery-thermal-model/summarize_battery_temperature_limits.m`, `battery-thermal-model/compare_battery_cooling_sensitivity.m` | `run_battery_thermal_model`, `run_battery_cooling_sensitivity`, `check_battery_thermal_model`, `check_battery_cooling_sensitivity` |
@@ -84,6 +84,8 @@ checks intentionally clear their own variables.
 | `battery-simulink-model/run_battery_rc_simulink_model.m` | Generates and opens the battery diagram, simulates the canonical pulse, and plots current, SOC, and voltage. |
 | `battery-2rc-model/check_battery_2rc_model.m` | Prints final SOC, terminal-voltage range, and fast/slow peak polarization. |
 | `battery-2rc-model/run_battery_2rc_model.m` | Prints the same summary and plots current, SOC, terminal voltage, and both polarization states. |
+| `battery-2rc-model/check_battery_2rc_fit.m` | Verifies positive resistance recovery, ordered time constants, deterministic fitting, malformed-input rejection, and sub-1.5 mV held-out RMSE. |
+| `battery-2rc-model/run_battery_2rc_fit.m` | Fits the calibration record, prints calibration and held-out metrics, and plots voltage overlays with millivolt residuals. |
 | `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | Generates and compiles an SLX model, verifies both RC state paths, and compares seven outputs with exact MATLAB cases. |
 | `battery-2rc-simulink-model/run_battery_2rc_simulink_model.m` | Generates and opens the two-RC diagram, simulates the canonical pulse, and plots both polarization states. |
 | `battery-soc-ekf/check_battery_soc_ekf.m` | Verifies deterministic convergence from a 20-point SOC bias, Joseph covariance structure, irregular timestamps, and malformed-input rejection. |
@@ -133,6 +135,11 @@ check_battery_rc_simulink_model
 ```matlab
 cd examples/battery-2rc-model
 check_battery_2rc_model
+```
+
+```matlab
+cd examples/battery-2rc-model
+check_battery_2rc_fit
 ```
 
 ```matlab
