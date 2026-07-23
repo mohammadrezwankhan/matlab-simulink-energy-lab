@@ -8,6 +8,7 @@
 [![Latest release](https://img.shields.io/github/v/release/mohammadrezwankhan/matlab-simulink-energy-lab)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2f6f5e.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
 
 ![MATLAB Simulink Energy Lab preview showing validated cell-temperature, heat-generation, and cooling traces](assets/social-preview.png)
 
@@ -53,6 +54,16 @@ The eight script-based checks use base MATLAB functionality. The four native
 block-diagram checks additionally require Simulink. All twelve checks are configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
+
+To try the lab in a browser, use the **Open in MATLAB Online** badge above.
+After the repository opens, run this from its root folder:
+
+```matlab
+addpath('examples');
+run_all_checks
+```
+
+For a local command-line run:
 
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
