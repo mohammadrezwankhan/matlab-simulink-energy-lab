@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD024 -->
+
 # Changelog
 
 Notable changes to MATLAB Simulink Energy Lab are recorded here. The project
@@ -5,6 +7,13 @@ uses semantic versioning while its public model and validation interfaces are
 still evolving.
 
 ## Unreleased
+
+### Added
+
+- A toolbox-free one-dimensional pouch-cell finite-volume model with
+  asymmetric face cooling, resolved through-thickness temperature, hot-spot
+  tracking, node and whole-cell energy balances, a continuous steady-state
+  reference, and spatial grid-convergence validation.
 
 ## 0.5.0 - 2026-07-23
 
