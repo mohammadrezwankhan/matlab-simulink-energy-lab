@@ -8,6 +8,8 @@ still evolving.
 
 ## Unreleased
 
+## 0.6.0 - 2026-07-23
+
 ### Added
 
 - A toolbox-free one-dimensional pouch-cell finite-volume model with
