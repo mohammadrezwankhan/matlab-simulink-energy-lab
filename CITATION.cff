@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software in research or teaching, please cite it using these metadata."
 type: software
 title: "MATLAB Simulink Energy Lab"
-version: "0.5.0"
+version: "0.6.0"
 date-released: "2026-07-23"
 authors:
   - family-names: "Khan"
@@ -12,12 +12,16 @@ abstract: >-
   An open collection of inspectable MATLAB and Simulink reference models for
   lithium-ion battery equivalent circuits, lumped electro-thermal behavior,
   real-time extended Kalman filter state-of-charge estimation, six-cell module
-  liquid-cooling networks, cooling sensitivity, and power-electronic
-  converters. The repository pairs explicit engineering assumptions with
-  deterministic no-plot validation checks.
+  liquid-cooling networks, pouch-cell through-thickness finite-volume thermal
+  gradients, cooling sensitivity, and power-electronic converters. The
+  repository pairs explicit engineering assumptions with deterministic
+  no-plot validation checks.
 keywords:
   - "battery thermal management"
   - "battery liquid cooling"
+  - "pouch cell"
+  - "finite volume method"
+  - "thermal gradient"
   - "lithium-ion battery"
   - "equivalent-circuit modeling"
   - "state of charge"
