@@ -25,6 +25,12 @@ study.
 > Your star helps more energy-engineering learners discover the lab and shows
 > which open examples are worth expanding next.
 
+[![Native Simulink first-order battery equivalent-circuit model showing state-of-charge integration, OCV lookup, ohmic voltage loss, RC polarization dynamics, and terminal-voltage balance](assets/battery-rc-simulink-diagram.png)](examples/battery-simulink-model/README.md)
+
+The [native battery RC example](examples/battery-simulink-model/README.md)
+generates this diagram from MATLAB code, simulates it in Simulink, and checks
+its outputs against the script-based reference model.
+
 ![First-order battery RC model response showing discharge and charge current pulses, state-of-charge change, and terminal-voltage transients](assets/battery-rc-response.png)
 
 ## What You Can Explore
