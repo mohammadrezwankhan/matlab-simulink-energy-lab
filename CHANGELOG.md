@@ -8,6 +8,12 @@ still evolving.
 
 ## Unreleased
 
+### Added
+
+- A toolbox-free one-state battery OCV hysteresis model with exact
+  throughput-domain propagation, zero-current memory, a reversal minor-loop
+  benchmark, same-SOC voltage-gap validation, and explicit limiting cases.
+
 ## 0.7.0 - 2026-07-24
 
 ### Added
