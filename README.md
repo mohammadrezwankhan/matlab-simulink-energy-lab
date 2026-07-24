@@ -37,6 +37,8 @@ study.
 - Generate and validate a native Simulink two-RC battery block diagram.
 - Estimate real-time battery SOC and RC polarization from noisy current and
   terminal-voltage measurements with a transparent extended Kalman filter.
+- Preserve charge/discharge voltage history with a one-state OCV hysteresis
+  model and validate a deterministic same-SOC reversal minor loop.
 - Explore how irreversible electrical losses, reversible entropic heat, and
   cooling change a lumped cell temperature and temperature-dependent resistance.
 - Quantify how lumped cooling conductance changes peak temperature,
@@ -59,8 +61,8 @@ study.
 
 ## Start in 60 Seconds
 
-The twelve script-based checks use base MATLAB functionality. The four native
-block-diagram checks additionally require Simulink. All sixteen checks are configured for
+The thirteen script-based checks use base MATLAB functionality. The four native
+block-diagram checks additionally require Simulink. All seventeen checks are configured for
 MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
 model code changes.
 
@@ -105,6 +107,10 @@ Final SOC error: +0.0001
 SOC RMSE: 0.0066
 Two-percent settling time: 18 s
 Posterior voltage RMSE: 1.581 mV
+Battery OCV hysteresis check passed.
+Final SOC: 0.600
+Hysteresis state range: -0.777 to 0.676
+Same-SOC minor-loop voltage gap: 8.13 mV
 Battery thermal check passed.
 Peak cell temperature: 36.92 degC
 Final cell temperature: 28.96 degC
@@ -168,6 +174,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Two-RC battery parameter-identification benchmark comparing fitted and synthetic voltage records on calibration and held-out pulse profiles with millivolt residuals](assets/battery-2rc-identification-response.png)
 
+![Battery OCV hysteresis response showing reversal current, charge-balanced SOC, dynamic hysteresis memory, and an annotated same-SOC minor-loop voltage gap](assets/battery-ocv-hysteresis-response.png)
+
 ## Models at a Glance
 
 | Example | Question It Explores | Validation | Requirements |
@@ -177,6 +185,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Battery 2RC model and identification](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape voltage recovery, and can their positive parameters generalize to a held-out pulse profile? | `check_battery_2rc_model.m`, `check_battery_2rc_fit.m` | Base MATLAB |
 | [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased real-time SOC and polarization estimate? | `check_battery_soc_ekf.m` | Base MATLAB |
+| [Battery OCV hysteresis](examples/battery-ocv-hysteresis/README.md) | How does charge/discharge history create different equilibrium voltages at the same SOC after a current reversal? | `check_battery_ocv_hysteresis.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
 | [Battery module liquid-cooling network](examples/battery-module-cooling-network/README.md) | How do nonuniform heat generation, serial coolant warming, and cell-to-cell conduction determine the hottest cell and module temperature spread? | `check_battery_module_cooling_network.m` | Base MATLAB |
 | [Pouch-cell thermal gradient](examples/pouch-cell-thermal-gradient/README.md) | How do asymmetric face cooling and through-thickness conduction determine the internal hot spot and spatial temperature gradient? | `check_pouch_cell_thermal_model.m` | Base MATLAB |
@@ -231,6 +240,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-2rc-model/          # Fast/slow polarization model and check
 |   |-- battery-2rc-simulink-model/ # Generated native two-RC diagram
 |   |-- battery-soc-ekf/            # Real-time SOC and polarization estimator
+|   |-- battery-ocv-hysteresis/     # Dynamic OCV history and minor loops
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- battery-module-cooling-network/ # Six-cell liquid-cooling network
 |   |-- pouch-cell-thermal-gradient/ # Through-thickness finite-volume model
@@ -283,7 +293,9 @@ an issue so the compatibility record can grow.
 - The parameter-identification benchmark uses transparent synthetic voltage
   records with deterministic sensor-like perturbations; it does not claim
   validation against a physical cell.
-- Ageing, OCV hysteresis, and cell-to-cell variation are not yet modeled.
+- Ageing and cell-to-cell variation are not yet modeled. The OCV hysteresis
+  example is a single-state educational reference with illustrative
+  parameters, not a calibrated chemistry-specific model.
 - The SOC EKF uses illustrative OCV and covariance data, assumes exact
   electrical parameters, and omits current bias, temperature, hysteresis,
   ageing, and constrained-filter theory.
@@ -301,7 +313,7 @@ The most useful next additions are likely to be:
 
 - a traceable physical-cell dataset for the two-RC identification workflow;
 - switched closed-loop control or a source-backed semiconductor loss model;
-- OCV hysteresis with charge/discharge minor-loop validation; or
+- hysteresis-aware SOC estimation with held-out measured reversals; or
 - measured thermal-parameter identification and held-out drive-cycle validation.
 
 [Request an example](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=example-request.md),

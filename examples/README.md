@@ -21,6 +21,7 @@ checks intentionally clear their own variables.
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches, then identifies positive parameters and evaluates them on a held-out pulse profile. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/fit_battery_2rc_parameters.m`, `battery-2rc-model/check_battery_2rc_fit.m` | `run_battery_2rc_model`, `check_battery_2rc_model`, `run_battery_2rc_fit`, `check_battery_2rc_fit` |
 | [Native Simulink battery 2RC](battery-2rc-simulink-model/README.md) | Generates separate fast and slow RC state paths and validates seven logged outputs against the exact two-RC solver. | `battery-2rc-simulink-model/build_battery_2rc_simulink_model.m`, `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | `run_battery_2rc_simulink_model`, `check_battery_2rc_simulink_model` |
 | [Battery SOC EKF](battery-soc-ekf/README.md) | Estimates SOC and first-order polarization from noisy current and voltage measurements with a transparent Joseph-form EKF. | `battery-soc-ekf/estimate_battery_soc_ekf.m`, `battery-soc-ekf/simulate_battery_soc_ekf_example.m`, `battery-soc-ekf/check_battery_soc_ekf.m` | `run_battery_soc_ekf`, `check_battery_soc_ekf` |
+| [Battery OCV hysteresis](battery-ocv-hysteresis/README.md) | Preserves charge/discharge history with an exact one-state hysteresis update and validates a same-SOC reversal minor loop. | `battery-ocv-hysteresis/simulate_battery_ocv_hysteresis.m`, `battery-ocv-hysteresis/check_battery_ocv_hysteresis.m` | `run_battery_ocv_hysteresis`, `check_battery_ocv_hysteresis` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with SOC-dependent reversible heat, resistance feedback, duration/degree-hour temperature-limit exposure, and cooling-conductance sensitivity. | `battery-thermal-model/simulate_battery_thermal_model.m`, `battery-thermal-model/summarize_battery_temperature_limits.m`, `battery-thermal-model/compare_battery_cooling_sensitivity.m` | `run_battery_thermal_model`, `run_battery_cooling_sensitivity`, `check_battery_thermal_model`, `check_battery_cooling_sensitivity` |
 | [Battery module liquid-cooling network](battery-module-cooling-network/README.md) | Resolves six lumped cell temperatures along a serial coolant channel with nonuniform heat, coolant warming, nearest-neighbor conduction, and energy-balance diagnostics. | `battery-module-cooling-network/simulate_battery_module_cooling_network.m`, `battery-module-cooling-network/check_battery_module_cooling_network.m` | `run_battery_module_cooling_network`, `check_battery_module_cooling_network` |
 | [Pouch-cell thermal gradient](pouch-cell-thermal-gradient/README.md) | Resolves through-thickness temperature with conservative finite volumes, asymmetric face cooling, analytic steady-state comparison, and grid-convergence checks. | `pouch-cell-thermal-gradient/simulate_pouch_cell_thermal_model.m`, `pouch-cell-thermal-gradient/check_pouch_cell_thermal_model.m` | `run_pouch_cell_thermal_model`, `check_pouch_cell_thermal_model` |
@@ -90,6 +91,8 @@ checks intentionally clear their own variables.
 | `battery-2rc-simulink-model/run_battery_2rc_simulink_model.m` | Generates and opens the two-RC diagram, simulates the canonical pulse, and plots both polarization states. |
 | `battery-soc-ekf/check_battery_soc_ekf.m` | Verifies deterministic convergence from a 20-point SOC bias, Joseph covariance structure, irregular timestamps, and malformed-input rejection. |
 | `battery-soc-ekf/run_battery_soc_ekf.m` | Plots SOC and uncertainty, voltage correction, estimation error, and current for the one-hour benchmark. |
+| `battery-ocv-hysteresis/check_battery_ocv_hysteresis.m` | Verifies exact hysteresis propagation, zero-current memory, same-SOC minor-loop separation, irregular timestamps, limiting cases, current limiting, and malformed-input rejection. |
+| `battery-ocv-hysteresis/run_battery_ocv_hysteresis.m` | Plots current, SOC, the normalized hysteresis state, hysteresis voltage, and the equilibrium-voltage minor loop. |
 | `battery-thermal-model/check_battery_thermal_model.m` | Validates temperature, heat, energy balance, and multi-limit duration/degree-hour exposure with analytic, irregular-time, and CSV checks. |
 | `battery-thermal-model/run_battery_thermal_model.m` | Prints the thermal and limit summaries and plots separated irreversible, reversible, and total heat. |
 | `battery-thermal-model/check_battery_cooling_sensitivity.m` | Verifies cooling-case ordering, monotonic canonical temperature/exposure trends, net cooling energy, retained results, and malformed-input rejection. |
@@ -150,6 +153,11 @@ check_battery_2rc_simulink_model
 ```matlab
 cd examples/battery-soc-ekf
 check_battery_soc_ekf
+```
+
+```matlab
+cd examples/battery-ocv-hysteresis
+check_battery_ocv_hysteresis
 ```
 
 ```matlab
