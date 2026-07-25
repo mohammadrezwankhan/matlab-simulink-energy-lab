@@ -1,0 +1,26 @@
+# MATLAB autosave and backup files
+*.asv
+*.m~
+*.autosave
+*.bak
+
+# Simulink code generation, cache, and build artifacts
+slprj/
+*.slxc
+*.rpt
+sfun_*.c
+*.mex*
+*.bi
+.SimulinkProject/
+
+# Figures and temporary data exports
+*.fig
+*.mat
+!examples/*/data/*.mat
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
