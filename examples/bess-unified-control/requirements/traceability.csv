@@ -1,0 +1,43 @@
+requirement_id,requirement,source_ids,classification,implementation,test,status
+BESS-PROV-001,Trace every material item and retain source conflicts,"SRC-001;SRC-002;SRC-006",DIRECT_SOURCE,"Source ledger assumptions and documentation","traceabilityCoversEveryRequirement plus documentation audit",PASS
+BESS-MODE-001,Grid-following grid-tied operation,"SRC-001;SRC-003",DIRECT_SOURCE,"Unified controller grid-following branch","mandatoryScenarioPasses A",PASS
+BESS-MODE-002,Grid-forming operation,"SRC-001;SRC-003",DIRECT_SOURCE,"Unified controller grid-forming branch","mandatoryScenarioPasses C and D",PASS
+BESS-MODE-003,Grid-following to grid-forming transition,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Supervisor PREPARE_ISLAND and GRID_FORMING","mandatoryScenarioPasses C",PASS
+BESS-MODE-004,Islanded load support,"SRC-001;SRC-003",DERIVED,"Plant local-load interface and ISLANDED_SUPPORT","mandatoryScenarioPasses D",PASS
+BESS-MODE-005,Grid detection and synchronization,"SRC-001;SRC-006;ASM-002",PROJECT_ASSUMPTION,"Supervisor SYNCHRONIZING","mandatoryScenarioPasses E and synchronizationWindowIsEnforced",PASS
+BESS-MODE-006,Grid-forming to grid-following transition,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Supervisor PREPARE_RECONNECT and GRID_FOLLOWING","mandatoryScenarioPasses E",PASS
+BESS-MODE-007,Invalid-condition safe state and recovery,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Supervisor FAULT_SAFE and RECOVERY","mandatoryScenarioPasses G",PASS
+BESS-IF-001,Voltage reference and measurement,"SRC-003;SRC-006",DIRECT_SOURCE,"Scenario and measurement vectors","mandatoryScenarioPasses A-H",PASS
+BESS-IF-002,Frequency reference and measurement,"SRC-003;SRC-006",DIRECT_SOURCE,"Scenario and measurement vectors","mandatoryScenarioPasses A-H",PASS
+BESS-IF-003,Active/reactive power references and measurements,"SRC-001;SRC-003",DIRECT_SOURCE,"Scenario and measurement vectors","balancedTransformsAndPowerAreCorrect plus mandatoryScenarioPasses A",PASS
+BESS-IF-004,Explicit operating limits,"SRC-006;ASM-003",PROJECT_ASSUMPTION,"Parameter struct and limiter","pqLimiterRespectsCurrentAndPowerLimits plus mandatoryScenarioPasses F/H",PASS
+BESS-IF-005,Breaker and mode commands,"SRC-003;SRC-006",DIRECT_SOURCE,"Supervisor inputs and outputs","mandatoryScenarioPasses C/E/G",PASS
+BESS-IF-006,Ready sync saturation validity and fault status,"SRC-003;SRC-006",DIRECT_SOURCE,"Controller status outputs","mandatoryScenarioPasses C/E/F/G",PASS
+BESS-IF-007,Units frames sample times solver and ranges,"SRC-005;SRC-006",DIRECT_SOURCE,"Parameters README and builder configuration","parameterBasesAreSelfConsistent plus generatedModelIsIdempotentAndExecutable",PASS
+BESS-PLANT-001,Averaged three-phase converter reference,"SRC-001;ASM-001",PROJECT_ASSUMPTION,"Balanced dq-current/filter-equivalent plant kernel and generated model","dqPlantStatesDeterminePowerAndCurrent plus generatedModelMatchesReferenceForAllScenarios plus balancedTransformsAndPowerAreCorrect",PASS
+BESS-PLANT-002,DC availability representation,"SRC-001;SRC-006;ASM-004",PROJECT_ASSUMPTION,"Available-power/DC-voltage inputs and limiter","mandatoryScenarioPasses H",PASS
+BESS-PLANT-003,PCC grid breaker and local load,"SRC-001;SRC-006",DERIVED,"Plant kernel and model interfaces","mandatoryScenarioPasses C/D/E",PASS
+BESS-PLANT-004,Electrical and status measurements,"SRC-006",DIRECT_SOURCE,"Plant output vector","generatedModelMatchesReferenceForAllScenarios",PASS
+BESS-CTRL-001,Conditioning Clarke Park and synchronization angle,"SRC-001;SRC-006",DERIVED,"Transform utilities measurement conditioning and external-grid-angle synchronization","balancedTransformsAndPowerAreCorrect plus mandatoryScenarioPasses G",PASS
+BESS-CTRL-002,Grid-following P/Q regulation,"SRC-001",DIRECT_SOURCE,"Grid-following controller branch","mandatoryScenarioPasses A",PASS
+BESS-CTRL-003,Grid-forming P-frequency and Q-voltage regulation,"SRC-001;ASM-004",DERIVED,"Grid-forming droop/restoration branch","formingDroopMatchesIndependentCalculation plus mandatoryScenarioPasses D",PASS
+BESS-CTRL-004,Bounded inner-regulation equivalent,"SRC-001;ASM-001",PROJECT_ASSUMPTION,"Averaged command/plant dynamics","mandatoryScenarioPasses A-H",PASS
+BESS-CTRL-005,Limits slew and anti-windup,"SRC-006;ASM-003",PROJECT_ASSUMPTION,"Limiter command slew and clamped restoration states","pqLimiterRespectsCurrentAndPowerLimits formingRestorationAntiWindupIsBoundedAndReversible plus mandatoryScenarioPasses F",PASS
+BESS-CTRL-006,Explicit eight-state supervisor,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Supervisor numeric state enumeration","stateNamesCoverExplicitSupervisor plus mandatoryScenarioPasses C/E/G",PASS
+BESS-CTRL-007,Synchronization breaker interlock,"SRC-001;SRC-006;ASM-003",PROJECT_ASSUMPTION,"Synchronization metrics and breaker guard","synchronizationWindowIsEnforced plus mandatoryScenarioPasses E",PASS
+BESS-CTRL-008,Nonfinite and impossible command safety,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Raw-input validation plus conditioning FAULT_SAFE and recovery","nonfiniteRawInputIsRejected plus mandatoryScenarioPasses F/G",PASS
+BESS-SCEN-001,Grid-following P/Q steps,"SRC-001;SRC-006",DIRECT_SOURCE,"Scenario A definition","mandatoryScenarioPasses A",PASS
+BESS-SCEN-002,Grid voltage/frequency disturbance,"SRC-001;SRC-006",DERIVED,"Scenario B definition","mandatoryScenarioPasses B",PASS
+BESS-SCEN-003,Grid loss and transition,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Scenario C definition","mandatoryScenarioPasses C",PASS
+BESS-SCEN-004,Islanded load steps,"SRC-001;SRC-006",DERIVED,"Scenario D definition","mandatoryScenarioPasses D",PASS
+BESS-SCEN-005,Resynchronization and reconnection,"SRC-001;SRC-006;ASM-002",PROJECT_ASSUMPTION,"Scenario E definition","mandatoryScenarioPasses E",PASS
+BESS-SCEN-006,Saturation and recovery,"SRC-006;ASM-003",PROJECT_ASSUMPTION,"Scenario F definition","mandatoryScenarioPasses F",PASS
+BESS-SCEN-007,Measurement fault and recovery,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Scenario G definition","mandatoryScenarioPasses G",PASS
+BESS-SCEN-008,Parameter and operating boundaries,"SRC-006;ASM-004",PROJECT_ASSUMPTION,"Scenario E phase offset plus Scenario H DC/reference boundaries and parameter validation","mandatoryScenarioPasses E/H plus parameterValidationRejectsUnknownOverride plus negativeFeedbackAndGateValuesAreRejected",PASS
+BESS-EVID-001,Reproducible SLX generation,"SRC-005;SRC-006",DIRECT_SOURCE,"Idempotent MATLAB builder","generatedModelIsIdempotentAndExecutable",PASS
+BESS-EVID-002,Generated model compile and simulation,"SRC-006",DIRECT_SOURCE,"Builder and simulation entry point","generatedModelIsIdempotentAndExecutable",PASS
+BESS-EVID-003,Numeric assertions for all scenarios,"SRC-006",DIRECT_SOURCE,"Scenario scorer and MATLAB tests","mandatoryScenarioPasses A-H",PASS
+BESS-EVID-004,Independent analytic verification,"SRC-006",DIRECT_SOURCE,"Independent reference calculations","balancedTransformsAndPowerAreCorrect formingDroopMatchesIndependentCalculation pqLimiterRespectsCurrentAndPowerLimits synchronizationWindowIsEnforced",PASS
+BESS-EVID-005,Complete requirement-to-test coverage,"SRC-006",DIRECT_SOURCE,"This traceability matrix","traceabilityCoversEveryRequirement",PASS
+BESS-EVID-006,Version warning command and SHA record,"SRC-006",DIRECT_SOURCE,"Validation report results JSON work log and CI release evidence asset","generate_bess_validation_evidence plus release audit",PENDING_PUBLICATION
+BESS-EVID-007,Deterministic rerun equivalence,"SRC-006",DIRECT_SOURCE,"Deterministic scenarios and tolerances","mandatoryScenarioIsDeterministic plus generatedModelMatchesReferenceForAllScenarios",PASS
