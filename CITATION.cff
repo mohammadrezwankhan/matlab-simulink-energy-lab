@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software in research or teaching, please cite it using these metadata."
 type: software
 title: "MATLAB Simulink Energy Lab"
-version: "0.7.0"
-date-released: "2026-07-24"
+version: "0.9.0"
+date-released: "2026-07-28"
 authors:
   - family-names: "Khan"
     given-names: "Mohammad Rezwan"
@@ -14,9 +14,10 @@ abstract: >-
   real-time extended Kalman filter state-of-charge estimation, six-cell module
   liquid-cooling networks, pouch-cell through-thickness finite-volume thermal
   gradients, toolbox-free two-RC parameter identification with held-out
-  validation, cooling sensitivity, and power-electronic converters. The
-  repository pairs explicit engineering assumptions with deterministic no-plot
-  validation checks.
+  validation, cooling sensitivity, power-electronic converters, and a unified
+  grid-tied/grid-forming BESS control translation with reproducible Simulink
+  construction and transition validation. The repository pairs explicit
+  engineering assumptions with deterministic no-plot validation checks.
 keywords:
   - "battery thermal management"
   - "battery liquid cooling"
@@ -30,6 +31,9 @@ keywords:
   - "state of charge"
   - "extended Kalman filter"
   - "energy storage"
+  - "grid-forming control"
+  - "grid-following control"
+  - "battery energy storage system"
   - "power electronics"
   - "engineering education"
   - "MATLAB"

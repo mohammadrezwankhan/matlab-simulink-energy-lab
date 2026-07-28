@@ -10,7 +10,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 [![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
 
-![MATLAB Simulink Energy Lab v0.7.0 preview showing two-RC battery calibration and held-out voltage validation](assets/social-preview.png)
+![MATLAB Simulink Energy Lab preview showing two-RC battery calibration and held-out voltage validation](assets/social-preview.png)
 
 > **See the equations become waveforms—and inspect every assumption in between.**
 
@@ -56,14 +56,18 @@ study.
 - Compare open-loop, PI, and filtered-PID load-step regulation on the same
   averaged buck plant.
 - Generate and validate a native Simulink averaged buck-converter diagram.
+- Exercise one unified BESS controller through grid-following, grid-forming,
+  islanding, load support, synchronization, saturation, fault, and recovery
+  scenarios with requirement-level traceability.
 - Trace every parameter, unit, sign convention, and limitation before extending
   a model.
 
 ## Start in 60 Seconds
 
-The thirteen script-based checks use base MATLAB functionality. The four native
-block-diagram checks additionally require Simulink. All seventeen checks are configured for
-MATLAB R2026a, and the MATLAB validation workflow runs them whenever executable
+Seventeen established no-plot checks cover the battery and converter examples.
+The unified BESS entry point adds a focused 31-result MATLAB/Simulink suite, so
+`run_all_checks` now invokes eighteen check entry points. All are configured
+for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
 
 To try the lab in a browser, use the **Open in MATLAB Online** badge above.
@@ -160,6 +164,8 @@ Measured duty cycle: 0.450
 Native Simulink averaged buck check passed.
 Final output voltage: 358.209 V
 Final inductor current: 17.910 A
+All 31 focused BESS controller tests passed.
+All 18 MATLAB and Simulink checks passed.
 ```
 
 To reproduce the plotted battery response above, run:
@@ -194,11 +200,17 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
+| [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (31 focused results) | MATLAB and Simulink |
 
 Current release status: the battery examples, module liquid-cooling network,
 and three converter references run as MATLAB scripts. Native battery RC,
 battery 2RC, battery thermal, and averaged buck references additionally
-generate, compile, and simulate Simulink diagrams.
+generate, compile, and simulate Simulink diagrams. The unified BESS reference
+generates its model, runs eight mandatory scenarios through MATLAB and
+Simulink, and publishes requirements, source/assumption boundaries, and
+validation artifacts.
+
+![Unified BESS Scenario C grid-loss transition showing active and reactive power, PCC voltage, frequency, and supervisor state](examples/bess-unified-control/validation/scenario-c-grid-loss-transition.png)
 
 ## Why This Lab Is Inspectable
 
@@ -249,6 +261,7 @@ matlab-simulink-energy-lab/
 |   |-- converter-switching-model/  # Ideal PWM switching model and check
 |   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
 |   |-- converter-simulink-model/   # Generated native Simulink model and check
+|   |-- bess-unified-control/        # Unified BESS modes, builder, tests, evidence
 |   `-- guides/                     # Reproducibility and review notes
 |-- notes/                          # Repository-wide modeling standards
 |-- CONTRIBUTING.md
@@ -259,7 +272,8 @@ matlab-simulink-energy-lab/
 
 - MATLAB R2026a is the verified release.
 - The script-based examples and their validation checks use base MATLAB only.
-- Simulink is required only for the four native block-diagram examples.
+- Simulink is required for the five generated block-diagram examples,
+  including unified BESS control.
 - No power-electronics, control, or testing toolbox is required.
 
 If you run the examples on another MATLAB release, please share the result in
@@ -269,6 +283,11 @@ an issue so the compatibility record can grow.
 
 - These examples are educational engineering references, not calibrated design
   models.
+- The unified BESS controller is a transparent research translation rather
+  than an exact paper reproduction. Its reduced-order averaged plant,
+  transition/fault supervisor, synchronization thresholds, limits, and tuning
+  include explicit project assumptions. It is not a qualified controller,
+  protection system, or grid-code certification model.
 - The battery models use a deliberately simple, replaceable OCV-SOC lookup
   table that must be calibrated before cell-specific use. The two-RC fitter
   requires OCV values estimated independently from the terminal-voltage fit.
