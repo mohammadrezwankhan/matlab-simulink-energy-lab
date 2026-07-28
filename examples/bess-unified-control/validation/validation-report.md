@@ -45,6 +45,18 @@ The public CI run tied to the release commit is the authoritative
 commit-specific validation record. `results.json` is regenerated from the
 same model and includes its source-commit field.
 
+Publication evidence:
+
+- merge commit: `a77d8cda99204b197e479d11a10c069ea13995de`;
+- signed release tag: `v0.9.0`;
+- default-branch CI run:
+  <https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/30364739430>;
+- public release:
+  <https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.9.0>;
+  and
+- executable package SHA-256:
+  `9b009ad23f02bbefd238f22abf65a1c878bf2261ce3e46686c191fd9a1eee006`.
+
 ## Scenario results
 
 | ID | Pass | Maximum current (p.u.) | Voltage range (p.u.) | Frequency range (Hz) | Main checked behavior |

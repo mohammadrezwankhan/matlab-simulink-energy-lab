@@ -85,9 +85,11 @@ project assumptions and extensions.
 - Programmatic Simulink builder: complete; generated model compiles and runs.
 - Automated scenario verification: 31 focused test results pass after model
   regeneration, determinism, analytic, traceability, and A-H parity checks.
-- Validation artifacts: generated JSON and three original PNG plots; final
-  commit-bound evidence will be regenerated for the public release.
-- Publication and deployment: pending GitHub CI/release, then website update.
+- Validation artifacts: default-branch CI regenerated JSON and three original
+  PNG plots for merge commit `a77d8cda99204b197e479d11a10c069ea13995de`.
+- Publication: PR #115 merged with all checks passing; signed tag `v0.9.0`
+  and its executable package were published on 2026-07-28.
+- Website deployment: tracked separately after the public model release.
 
 ## Failure and repair record
 
@@ -113,4 +115,5 @@ project assumptions and extensions.
   with finite invalid sentinels, corrects the Q-voltage sign, introduces
   dynamic d/q current/filter-equivalent states, validates all feedback/gate
   signs, adds support and anti-windup tests, narrows VSG/source-case claims, and
-  leaves commit-bound evidence pending until publication.
+  withheld commit-bound publication evidence until the release existed. That
+  final gate passed in default-branch CI run `30364739430`.

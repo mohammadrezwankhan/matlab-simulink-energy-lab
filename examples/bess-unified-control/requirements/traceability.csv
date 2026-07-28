@@ -39,5 +39,5 @@ BESS-EVID-002,Generated model compile and simulation,"SRC-006",DIRECT_SOURCE,"Bu
 BESS-EVID-003,Numeric assertions for all scenarios,"SRC-006",DIRECT_SOURCE,"Scenario scorer and MATLAB tests","mandatoryScenarioPasses A-H",PASS
 BESS-EVID-004,Independent analytic verification,"SRC-006",DIRECT_SOURCE,"Independent reference calculations","balancedTransformsAndPowerAreCorrect formingDroopMatchesIndependentCalculation pqLimiterRespectsCurrentAndPowerLimits synchronizationWindowIsEnforced",PASS
 BESS-EVID-005,Complete requirement-to-test coverage,"SRC-006",DIRECT_SOURCE,"This traceability matrix","traceabilityCoversEveryRequirement",PASS
-BESS-EVID-006,Version warning command and SHA record,"SRC-006",DIRECT_SOURCE,"Validation report results JSON work log and CI release evidence asset","generate_bess_validation_evidence plus release audit",PENDING_PUBLICATION
+BESS-EVID-006,Version warning command and SHA record,"SRC-006",DIRECT_SOURCE,"Validation report results JSON work log and CI release evidence asset","generate_bess_validation_evidence plus release audit",PASS
 BESS-EVID-007,Deterministic rerun equivalence,"SRC-006",DIRECT_SOURCE,"Deterministic scenarios and tolerances","mandatoryScenarioIsDeterministic plus generatedModelMatchesReferenceForAllScenarios",PASS
