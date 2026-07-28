@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Unified BESS eight-state supervisor</title>
+  <desc id="desc">Grid following transitions through prepare island and grid forming to islanded support. Grid return enters synchronization and prepare reconnect before grid following. Invalid measurements enter fault safe, followed by recovery.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#315b6b"/>
+    </marker>
+    <style>
+      .state { fill:#f7fbfc; stroke:#315b6b; stroke-width:3; rx:18; }
+      .forming { fill:#edf7f2; stroke:#2f6f5e; }
+      .sync { fill:#fff7e8; stroke:#a76518; }
+      .fault { fill:#fff0f0; stroke:#9d3d3d; }
+      .line { stroke:#315b6b; stroke-width:3; fill:none; marker-end:url(#arrow); }
+      .faultline { stroke:#9d3d3d; stroke-width:2.5; fill:none; stroke-dasharray:8 5; marker-end:url(#arrow); }
+      text { font-family:Arial,Helvetica,sans-serif; fill:#17252c; }
+      .heading { font-size:25px; font-weight:700; }
+      .label { font-size:17px; font-weight:700; }
+      .note { font-size:15px; fill:#526169; }
+    </style>
+  </defs>
+  <rect width="1200" height="650" fill="white"/>
+  <text x="600" y="40" text-anchor="middle" class="heading">Eight-state transition and recovery supervisor</text>
+  <rect class="state" x="45" y="115" width="200" height="85"/>
+  <text x="145" y="150" text-anchor="middle" class="label">GRID_FOLLOWING</text>
+  <text x="145" y="177" text-anchor="middle" class="note">breaker closed</text>
+  <rect class="state sync" x="300" y="115" width="200" height="85"/>
+  <text x="400" y="150" text-anchor="middle" class="label">PREPARE_ISLAND</text>
+  <text x="400" y="177" text-anchor="middle" class="note">breaker opens</text>
+  <rect class="state forming" x="555" y="115" width="200" height="85"/>
+  <text x="655" y="150" text-anchor="middle" class="label">GRID_FORMING</text>
+  <text x="655" y="177" text-anchor="middle" class="note">initialize formation</text>
+  <rect class="state forming" x="810" y="115" width="220" height="85"/>
+  <text x="920" y="150" text-anchor="middle" class="label">ISLANDED_SUPPORT</text>
+  <text x="920" y="177" text-anchor="middle" class="note">serve local load</text>
+  <rect class="state sync" x="810" y="310" width="220" height="85"/>
+  <text x="920" y="345" text-anchor="middle" class="label">SYNCHRONIZING</text>
+  <text x="920" y="372" text-anchor="middle" class="note">align V, f, and phase</text>
+  <rect class="state sync" x="555" y="310" width="200" height="85"/>
+  <text x="655" y="345" text-anchor="middle" class="label">PREPARE_RECONNECT</text>
+  <text x="655" y="372" text-anchor="middle" class="note">hold interlock</text>
+  <rect class="state fault" x="300" y="500" width="200" height="85"/>
+  <text x="400" y="535" text-anchor="middle" class="label">FAULT_SAFE</text>
+  <text x="400" y="562" text-anchor="middle" class="note">open and ramp down</text>
+  <rect class="state sync" x="555" y="500" width="200" height="85"/>
+  <text x="655" y="535" text-anchor="middle" class="label">RECOVERY</text>
+  <text x="655" y="562" text-anchor="middle" class="note">validity hold</text>
+  <path class="line" d="M245 157 H300"/>
+  <text x="272" y="142" text-anchor="middle" class="note">grid loss</text>
+  <path class="line" d="M500 157 H555"/>
+  <path class="line" d="M755 157 H810"/>
+  <path class="line" d="M920 200 V310"/>
+  <text x="940" y="263" class="note">grid returns</text>
+  <path class="line" d="M810 352 H755"/>
+  <path class="line" d="M555 352 C430 352,145 315,145 200"/>
+  <text x="350" y="333" class="note">valid hold → close breaker</text>
+  <path class="line" d="M810 373 C775 430,790 455,920 395"/>
+  <text x="868" y="452" class="note">mismatch</text>
+  <path class="faultline" d="M145 200 C145 470,240 542,300 542"/>
+  <path class="faultline" d="M920 395 C870 500,550 450,500 525"/>
+  <text x="225" y="455" class="note">invalid measurement from any active state</text>
+  <path class="line" d="M500 542 H555"/>
+  <text x="528" y="526" text-anchor="middle" class="note">cleared</text>
+  <path class="line" d="M655 500 C710 455,785 420,840 395"/>
+</svg>
