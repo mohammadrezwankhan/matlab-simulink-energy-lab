@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Unified grid-tied and grid-forming BESS controller architecture</title>
+  <desc id="desc">Scenario inputs enter measurement conditioning and an eight-state supervisor. Grid-following and grid-forming control branches feed common limits, an averaged converter and PCC plant, and observable validation signals.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#315b6b"/>
+    </marker>
+    <style>
+      .box { fill:#f7fbfc; stroke:#315b6b; stroke-width:3; rx:14; }
+      .source { fill:#edf7f2; stroke:#2f6f5e; }
+      .mode { fill:#fff7e8; stroke:#a76518; }
+      .plant { fill:#f4f0fb; stroke:#66518c; }
+      .line { stroke:#315b6b; stroke-width:3; fill:none; marker-end:url(#arrow); }
+      .feedback { stroke:#6d7880; stroke-width:2.5; fill:none; stroke-dasharray:8 6; marker-end:url(#arrow); }
+      text { font-family:Arial,Helvetica,sans-serif; fill:#17252c; }
+      .heading { font-size:25px; font-weight:700; }
+      .body { font-size:18px; }
+      .small { font-size:15px; fill:#46545b; }
+    </style>
+  </defs>
+  <rect width="1200" height="620" fill="#ffffff"/>
+  <text x="600" y="42" text-anchor="middle" class="heading">Unified BESS control — executable research translation</text>
+  <rect class="box source" x="40" y="110" width="205" height="160"/>
+  <text x="142" y="145" text-anchor="middle" class="heading">Inputs</text>
+  <text x="58" y="179" class="body">P/Q and V/f references</text>
+  <text x="58" y="207" class="body">Grid, load, DC limits</text>
+  <text x="58" y="235" class="body">Fault and mode requests</text>
+  <rect class="box" x="300" y="90" width="245" height="115"/>
+  <text x="422" y="127" text-anchor="middle" class="heading">Conditioning</text>
+  <text x="422" y="158" text-anchor="middle" class="body">ABC / αβ / dq • P/Q</text>
+  <text x="422" y="184" text-anchor="middle" class="small">finite, stale, bias, noise checks</text>
+  <rect class="box mode" x="300" y="255" width="245" height="145"/>
+  <text x="422" y="292" text-anchor="middle" class="heading">Supervisor</text>
+  <text x="422" y="324" text-anchor="middle" class="body">8 explicit states</text>
+  <text x="422" y="352" text-anchor="middle" class="body">breaker interlock</text>
+  <text x="422" y="380" text-anchor="middle" class="small">island • sync • recover • safe</text>
+  <rect class="box" x="600" y="75" width="235" height="125"/>
+  <text x="717" y="113" text-anchor="middle" class="heading">Grid following</text>
+  <text x="717" y="147" text-anchor="middle" class="body">P/Q regulation</text>
+  <text x="717" y="176" text-anchor="middle" class="small">optional V/f grid support</text>
+  <rect class="box" x="600" y="255" width="235" height="145"/>
+  <text x="717" y="292" text-anchor="middle" class="heading">Grid forming</text>
+  <text x="717" y="325" text-anchor="middle" class="body">P–f and Q–V droop</text>
+  <text x="717" y="353" text-anchor="middle" class="body">bounded restoration</text>
+  <text x="717" y="381" text-anchor="middle" class="small">phase/voltage synchronization</text>
+  <rect class="box" x="890" y="135" width="250" height="115"/>
+  <text x="1015" y="174" text-anchor="middle" class="heading">Common limits</text>
+  <text x="1015" y="207" text-anchor="middle" class="body">P • Q • I • DC • slew</text>
+  <rect class="box plant" x="890" y="310" width="250" height="150"/>
+  <text x="1015" y="349" text-anchor="middle" class="heading">Averaged dq plant</text>
+  <text x="1015" y="383" text-anchor="middle" class="body">current/filter • PCC • breaker</text>
+  <text x="1015" y="411" text-anchor="middle" class="body">grid equivalent • local load</text>
+  <text x="1015" y="440" text-anchor="middle" class="small">balanced reduced-order dynamics</text>
+  <rect class="box source" x="530" y="500" width="430" height="85"/>
+  <text x="745" y="535" text-anchor="middle" class="heading">Observable evidence</text>
+  <text x="745" y="565" text-anchor="middle" class="body">P/Q • V/f • current • state • ready • sync • fault</text>
+  <path class="line" d="M245 170 H300"/>
+  <path class="line" d="M245 225 C270 225,270 325,300 325"/>
+  <path class="line" d="M545 140 H600"/>
+  <path class="line" d="M545 325 H600"/>
+  <path class="line" d="M545 330 C565 330,570 145,600 145"/>
+  <path class="line" d="M835 140 H890"/>
+  <path class="line" d="M835 325 C865 325,860 210,890 210"/>
+  <path class="line" d="M1015 250 V310"/>
+  <path class="line" d="M1015 460 C1015 505,985 542,960 542"/>
+  <path class="feedback" d="M890 400 C800 445,480 455,422 205"/>
+  <text x="620" y="470" class="small">measured feedback</text>
+</svg>

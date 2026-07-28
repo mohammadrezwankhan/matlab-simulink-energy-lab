@@ -6,7 +6,23 @@ Notable changes to MATLAB Simulink Energy Lab are recorded here. The project
 uses semantic versioning while its public model and validation interfaces are
 still evolving.
 
-## Unreleased
+## 0.9.0 - 2026-07-28
+
+### Added
+
+- A reproducibly generated unified grid-tied/grid-forming BESS control
+  reference with an explicit eight-state supervisor, averaged three-phase
+  plant, P/Q and V/f control, synchronization interlocks, current/DC limits,
+  measurement-fault recovery, and scenarios A-H.
+- A 31-result focused MATLAB/Simulink suite covering analytic transforms and
+  power, dq/filter dynamics, voltage-support sign, forming anti-windup,
+  limits, model regeneration, deterministic scenario metrics, Simulink
+  wrapper parity, and requirement traceability.
+- Source ledger, stable requirements, machine-readable traceability, project
+  assumptions, architecture/equation/tuning/reproduction/limitation guides,
+  JSON evidence, and original validation diagrams and plots.
+
+## 0.8.0 - 2026-07-25
 
 ### Added
 
