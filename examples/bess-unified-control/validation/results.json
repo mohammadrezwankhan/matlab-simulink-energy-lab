@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_utc": "2026-07-28T13:23:51Z",
-  "source_commit": "WORKTREE",
+  "generated_utc": "2026-07-28T13:26:02Z",
+  "source_commit": "6ea211a97e9b68364b630a5eded04d7e87ff0a61",
   "matlab_release": "2026a",
   "matlab_version": "26.1.0.3312084 (R2026a) Update 4",
   "required_products": [
