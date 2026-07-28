@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "generated_utc": "2026-07-28T13:23:51Z",
+  "source_commit": "WORKTREE",
+  "matlab_release": "2026a",
+  "matlab_version": "26.1.0.3312084 (R2026a) Update 4",
+  "required_products": [
+    "MATLAB",
+    "Simulink"
+  ],
+  "model_builder": "build_bess_unified_control_model.m",
+  "scenario_count": 8,
+  "focused_test_count": 31,
+  "all_scenarios_passed": true,
+  "scenarios": [
+    {
+      "id": "A",
+      "name": "Grid-following active and reactive power steps",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 0.89801926807220367,
+        "minimum_voltage_pu": 0.99600000000000055,
+        "maximum_voltage_pu": 1.0019999999999989,
+        "minimum_frequency_Hz": 50,
+        "maximum_frequency_Hz": 50,
+        "final_p_error_pu": 4.4408920985006262E-16,
+        "final_q_error_pu": 2.2204460492503131E-16,
+        "final_voltage_error_pu": 0.0039999999999994484,
+        "final_frequency_error_Hz": 0
+      }
+    },
+    {
+      "id": "B",
+      "name": "Grid voltage dip and frequency disturbance",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 1,
+        "minimum_voltage_pu": 0.13604456452536537,
+        "maximum_voltage_pu": 1,
+        "minimum_frequency_Hz": 49.500167731313958,
+        "maximum_frequency_Hz": 50,
+        "final_p_error_pu": 7.5495165674510645E-15,
+        "final_q_error_pu": 5.5511151231257866E-16,
+        "final_voltage_error_pu": 5.5511151231257827E-16,
+        "final_frequency_error_Hz": 3.5527136788005009E-14
+      }
+    },
+    {
+      "id": "C",
+      "name": "Grid loss and transition to islanded support",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 0.50994845307781911,
+        "minimum_voltage_pu": 0.99990051671209246,
+        "maximum_voltage_pu": 1.000999999999999,
+        "minimum_frequency_Hz": 49.999981825875565,
+        "maximum_frequency_Hz": 50.000055936727421,
+        "final_p_error_pu": 6.2172489379008766E-15,
+        "final_q_error_pu": 1.2351231148954867E-15,
+        "final_voltage_error_pu": 7.6827433304060833E-14,
+        "final_frequency_error_Hz": 7.815970093361102E-14
+      }
+    },
+    {
+      "id": "D",
+      "name": "Islanded load increase and decrease",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 0.7999999999999996,
+        "minimum_voltage_pu": 1,
+        "maximum_voltage_pu": 1,
+        "minimum_frequency_Hz": 49.906700169500525,
+        "maximum_frequency_Hz": 50.120338850717417,
+        "final_p_error_pu": 2.2204460492503131E-16,
+        "final_q_error_pu": 0,
+        "final_voltage_error_pu": 0,
+        "final_frequency_error_Hz": 1.52919565010734E-6
+      }
+    },
+    {
+      "id": "E",
+      "name": "Grid return, synchronization, and reconnection",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 0.5100550572896525,
+        "minimum_voltage_pu": 0.99956390125671724,
+        "maximum_voltage_pu": 1.0019930418910141,
+        "minimum_frequency_Hz": 49.969763501238276,
+        "maximum_frequency_Hz": 50.30718837412487,
+        "final_p_error_pu": 2.2204460492503131E-16,
+        "final_q_error_pu": 5.5511151231257827E-17,
+        "final_voltage_error_pu": 0.00099999999999900169,
+        "final_frequency_error_Hz": 0.050000000000032685
+      }
+    },
+    {
+      "id": "F",
+      "name": "Infeasible P-Q command saturation and recovery",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 0.99999999999999933,
+        "minimum_voltage_pu": 1,
+        "maximum_voltage_pu": 1.0062862201816964,
+        "minimum_frequency_Hz": 50,
+        "maximum_frequency_Hz": 50,
+        "final_p_error_pu": 2.2204460492503131E-16,
+        "final_q_error_pu": 9.7979437778641419E-33,
+        "final_voltage_error_pu": 1.1102230246251565E-15,
+        "final_frequency_error_Hz": 0
+      }
+    },
+    {
+      "id": "G",
+      "name": "Invalid measurement, fault-safe state, and recovery",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 0.49999999999999978,
+        "minimum_voltage_pu": 1,
+        "maximum_voltage_pu": 1,
+        "minimum_frequency_Hz": 50,
+        "maximum_frequency_Hz": 50.778100927282537,
+        "final_p_error_pu": 2.2204460492503131E-16,
+        "final_q_error_pu": 0,
+        "final_voltage_error_pu": 0,
+        "final_frequency_error_Hz": 3.5527136788005009E-14
+      }
+    },
+    {
+      "id": "H",
+      "name": "Valid operating boundaries and DC availability",
+      "passed": true,
+      "metrics": {
+        "maximum_current_pu": 0.81807880643947839,
+        "minimum_voltage_pu": 1,
+        "maximum_voltage_pu": 1.0079999999999989,
+        "minimum_frequency_Hz": 50,
+        "maximum_frequency_Hz": 50,
+        "final_p_error_pu": 0.79999999999999982,
+        "final_q_error_pu": 4.4408920985006262E-16,
+        "final_voltage_error_pu": 0.0079999999999988969,
+        "final_frequency_error_Hz": 0
+      }
+    }
+  ],
+  "acceptance_basis": "Paper FRT statement plus documented PROJECT_ASSUMPTION gates",
+  "code_analyzer": {
+    "file_count": 31,
+    "message_count": 0,
+    "messages": []
+  },
+  "qualification": "Educational research translation; not plant or grid-code certification"
+}

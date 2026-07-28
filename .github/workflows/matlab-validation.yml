@@ -6,6 +6,7 @@ on:
     paths:
       - "**/*.m"
       - "**/*.slx"
+      - "examples/bess-unified-control/**"
       - ".github/workflows/matlab-validation.yml"
   push:
     branches:
@@ -13,6 +14,7 @@ on:
     paths:
       - "**/*.m"
       - "**/*.slx"
+      - "examples/bess-unified-control/**"
       - ".github/workflows/matlab-validation.yml"
 
 permissions:
@@ -40,4 +42,37 @@ jobs:
       - name: Run model checks
         uses: matlab-actions/run-command@v3
         with:
-          command: addpath('examples'); run_all_checks
+          command: addpath('examples'); run_all_checks(false)
+
+  validate-bess:
+    name: Validate unified BESS control
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up MATLAB R2026a
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+          products: Simulink
+
+      - name: Run focused unified BESS checks
+        uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('examples/bess-unified-control'); run('examples/bess-unified-control/check_bess_unified_control.m')
+
+      - name: Generate commit-bound BESS evidence
+        uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('examples/bess-unified-control'); generate_bess_validation_evidence(getenv('GITHUB_SHA'))
+
+      - name: Upload BESS validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: bess-validation-${{ github.sha }}
+          path: |
+            examples/bess-unified-control/validation/results.json
+            examples/bess-unified-control/validation/scenario-*.png
+          if-no-files-found: error

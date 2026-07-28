@@ -1,8 +1,13 @@
-function run_all_checks()
+function run_all_checks(includeBess)
 %RUN_ALL_CHECKS Execute every no-plot example check in isolation.
 % Each check is a script that clears its local variables. A dedicated local
 % function isolates that cleanup from this loop.
 
+if nargin < 1
+    includeBess = true;
+end
+validateattributes(includeBess, {'logical', 'numeric'}, ...
+    {'scalar', 'real', 'finite'});
 examplesDirectory = fileparts(mfilename('fullpath'));
 checks = {
     'battery-rc-model/check_battery_rc_model.m';
@@ -23,6 +28,10 @@ checks = {
     'converter-switching-model/check_switching_buck_converter.m';
     'converter-simulink-model/check_average_buck_simulink_model.m'
 };
+if logical(includeBess)
+    checks{end + 1} = ...
+        'bess-unified-control/check_bess_unified_control.m';
+end
 
 for checkIndex = 1:numel(checks)
     checkPath = fullfile(examplesDirectory, checks{checkIndex});
