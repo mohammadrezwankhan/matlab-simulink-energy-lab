@@ -1,0 +1,85 @@
+name: No Codex attribution
+
+on:
+  pull_request:
+  merge_group:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  no-codex-attribution:
+    name: no-codex-attribution
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Reject Codex authors and co-author trailers
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          MERGE_BASE_SHA: ${{ github.event.merge_group.base_sha }}
+          MERGE_HEAD_SHA: ${{ github.event.merge_group.head_sha }}
+        run: |
+          set -euo pipefail
+          zero=0000000000000000000000000000000000000000
+
+          case "$EVENT_NAME" in
+            pull_request)
+              range="${PR_BASE_SHA}..${PR_HEAD_SHA}"
+              ;;
+            merge_group)
+              range="${MERGE_BASE_SHA}..${MERGE_HEAD_SHA}"
+              ;;
+            push)
+              if [[ -n "${BEFORE_SHA:-}" && "$BEFORE_SHA" != "$zero" ]] \
+                 && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+                range="${BEFORE_SHA}..${CURRENT_SHA}"
+              else
+                range="$CURRENT_SHA"
+              fi
+              ;;
+            *)
+              echo "Unsupported event: $EVENT_NAME" >&2
+              exit 2
+              ;;
+          esac
+
+          mapfile -t commits < <(git rev-list "$range")
+          if [[ ${#commits[@]} -eq 0 ]]; then
+            echo "No commits to inspect."
+            exit 0
+          fi
+
+          failed=0
+          for commit in "${commits[@]}"; do
+            identity_and_message=$(git show -s --format='%an <%ae>%n%cn <%ce>%n%B' "$commit")
+            while IFS= read -r line; do
+              lower=${line,,}
+              if [[ "$lower" == *"noreply@openai.com"* \
+                 || "$lower" == *"codex-agent@openai.invalid"* \
+                 || "$lower" == *"codex@openai.com"* \
+                 || "$lower" == *"chatgpt-codex-connector"* ]]; then
+                echo "::error::Commit $commit contains a Codex author, committer, or co-author identity: $line"
+                git show -s --format='  %h %s%n%n%B' "$commit"
+                failed=1
+                break
+              fi
+            done <<< "$identity_and_message"
+          done
+
+          if [[ "$failed" -ne 0 ]]; then
+            echo "Remove Codex attribution from the affected commit messages and update the branch."
+            exit 1
+          fi
+
+          echo "Checked ${#commits[@]} commit(s); no Codex attribution found."
