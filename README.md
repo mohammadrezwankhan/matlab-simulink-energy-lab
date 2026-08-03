@@ -20,6 +20,15 @@ hobbyists. Start with a battery RC model or an averaged converter calculation,
 trace every parameter, run the checks, and extend the foundation for your own
 study.
 
+## Shareable Documentation Map
+
+- [Start in 60 Seconds](#start-in-60-seconds) for the fastest runnable path.
+- [Models at a Glance](#models-at-a-glance) for the model-to-question map.
+- [Requirements](#requirements) for MATLAB and toolbox expectations.
+- [Scope and Limitations](#scope-and-limitations) before reusing outputs.
+- [Contribute a Scoped Improvement](#contribute-a-scoped-improvement) for focused changes.
+- [Citation metadata](CITATION.cff) and [release notes](CHANGELOG.md) for published or shared work.
+
 > [!TIP]
 > **If a model helps you learn or saves you setup time, [star this repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab).**
 > Your star helps more energy-engineering learners discover the lab and shows
