@@ -1,4 +1,4 @@
-name: No Codex attribution
+name: Human authorship policy
 
 on:
   pull_request:
@@ -9,17 +9,18 @@ permissions:
   contents: read
 
 jobs:
-  no-codex-attribution:
-    name: no-codex-attribution
+  human-authorship-policy:
+    name: human-authorship-policy
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Check out full history
-        uses: actions/checkout@v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Reject Codex authors and co-author trailers
+      - name: Reject AI author, committer, and co-author attribution
         shell: bash
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -32,6 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           zero=0000000000000000000000000000000000000000
+          ai_identity='(codex|claude|grok|noreply@openai\.com|codex-agent@openai\.invalid|codex@openai\.com|anthropic\.com|x\.ai)'
 
           case "$EVENT_NAME" in
             pull_request)
@@ -62,24 +64,30 @@ jobs:
 
           failed=0
           for commit in "${commits[@]}"; do
-            identity_and_message=$(git show -s --format='%an <%ae>%n%cn <%ce>%n%B' "$commit")
+            author=$(git show -s --format='%an <%ae>' "$commit")
+            committer=$(git show -s --format='%cn <%ce>' "$commit")
+            message=$(git show -s --format='%B' "$commit")
+
+            if grep -Eiq "$ai_identity" <<< "$author"; then
+              echo "::error::Commit $commit attributes authorship to an AI identity: $author"
+              failed=1
+            fi
+            if grep -Eiq "$ai_identity" <<< "$committer"; then
+              echo "::error::Commit $commit attributes committer identity to an AI system: $committer"
+              failed=1
+            fi
             while IFS= read -r line; do
-              lower=${line,,}
-              if [[ "$lower" == *"noreply@openai.com"* \
-                 || "$lower" == *"codex-agent@openai.invalid"* \
-                 || "$lower" == *"codex@openai.com"* \
-                 || "$lower" == *"chatgpt-codex-connector"* ]]; then
-                echo "::error::Commit $commit contains a Codex author, committer, or co-author identity: $line"
-                git show -s --format='  %h %s%n%n%B' "$commit"
+              if grep -Eiq '^co-authored-by:' <<< "$line" \
+                 && grep -Eiq "$ai_identity" <<< "$line"; then
+                echo "::error::Commit $commit contains a prohibited AI co-author trailer: $line"
                 failed=1
-                break
               fi
-            done <<< "$identity_and_message"
+            done <<< "$message"
           done
 
           if [[ "$failed" -ne 0 ]]; then
-            echo "Remove Codex attribution from the affected commit messages and update the branch."
+            echo "AI tools may be disclosed as tools, but must not be recorded as authors, committers, or co-authors."
             exit 1
           fi
 
-          echo "Checked ${#commits[@]} commit(s); no Codex attribution found."
+          echo "Checked ${#commits[@]} commit(s); human-authorship metadata policy passed."
