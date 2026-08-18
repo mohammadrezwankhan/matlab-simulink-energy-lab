@@ -27,6 +27,8 @@ study.
 - [Requirements](#requirements) for MATLAB and toolbox expectations.
 - [Scope and Limitations](#scope-and-limitations) before reusing outputs.
 - [Validation results](docs/validation-results.md) for the complete expected output.
+- [Two-RC battery parameter-identification tutorial](docs/two-rc-battery-parameter-identification.md)
+  for a reproducible fit-versus-held-out-validation workflow.
 - [Contribute a Scoped Improvement](#contribute-a-scoped-improvement) for focused changes.
 - [Citation metadata](CITATION.cff) and [release notes](CHANGELOG.md) for published or shared work.
 
