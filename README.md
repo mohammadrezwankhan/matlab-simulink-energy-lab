@@ -29,6 +29,8 @@ study.
 - [Validation results](docs/validation-results.md) for the complete expected output.
 - [Two-RC battery parameter-identification tutorial](docs/two-rc-battery-parameter-identification.md)
   for a reproducible fit-versus-held-out-validation workflow.
+- [Grid-forming BESS control tutorial](docs/grid-forming-bess-control.md) for an
+  executable grid-following-to-islanding-to-reconnection walkthrough.
 - [Contribute a Scoped Improvement](#contribute-a-scoped-improvement) for focused changes.
 - [Citation metadata](CITATION.cff) and [release notes](CHANGELOG.md) for published or shared work.
 
