@@ -31,16 +31,18 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
 
       - name: Set up MATLAB R2026a
-        uses: matlab-actions/setup-matlab@v3
+        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
         with:
           release: R2026a
           products: Simulink
 
       - name: Run model checks
-        uses: matlab-actions/run-command@v3
+        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
         with:
           command: addpath('examples'); run_all_checks(false)
 
@@ -50,26 +52,28 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
 
       - name: Set up MATLAB R2026a
-        uses: matlab-actions/setup-matlab@v3
+        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
         with:
           release: R2026a
           products: Simulink
 
       - name: Run focused unified BESS checks
-        uses: matlab-actions/run-command@v3
+        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
         with:
           command: addpath('examples/bess-unified-control'); run('examples/bess-unified-control/check_bess_unified_control.m')
 
       - name: Generate commit-bound BESS evidence
-        uses: matlab-actions/run-command@v3
+        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
         with:
           command: addpath('examples/bess-unified-control'); generate_bess_validation_evidence(getenv('GITHUB_SHA'))
 
       - name: Upload BESS validation evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: bess-validation-${{ github.sha }}
           path: |
