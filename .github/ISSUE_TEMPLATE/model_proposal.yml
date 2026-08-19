@@ -1,0 +1,65 @@
+name: Model or example proposal
+description: Propose a scoped MATLAB or Simulink engineering example with a validation path.
+title: "Proposal: "
+labels:
+  - enhancement
+  - example
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Strong proposals define the engineering question, assumptions, evidence, and a deterministic validation path.
+  - type: textarea
+    id: objective
+    attributes:
+      label: Engineering objective
+      description: What specific behavior, design question, or learning outcome should this example address?
+    validations:
+      required: true
+  - type: textarea
+    id: basis
+    attributes:
+      label: Technical basis and sources
+      description: List governing equations, standards, papers, or official documentation and distinguish facts from assumptions.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope
+      description: Identify expected MATLAB files, Simulink components, inputs, outputs, and explicit exclusions.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Deterministic validation plan
+      description: Define executable checks, reference values, tolerances, and failure conditions.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Assumptions, limitations, and safety boundary
+      description: State what the model does not validate, including certification or hardware claims.
+    validations:
+      required: true
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Contribution intent
+      options:
+        - I can prepare a pull request after scope review
+        - I can help test or review
+        - I am proposing the idea only
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched existing issues, examples, and discussions for overlap.
+          required: true
+        - label: The proposal has standalone technical value and is not promotional content.
+          required: true

@@ -1,0 +1,72 @@
+name: Dataset proposal
+description: Propose openly licensed engineering data for a reproducible model or validation workflow.
+title: "Dataset: "
+labels:
+  - enhancement
+  - research-notes
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose the source and provenance before preparing an adapter or committing derived data.
+  - type: input
+    id: source
+    attributes:
+      label: Canonical source
+      description: Provide the DOI or durable official record URL.
+      placeholder: https://doi.org/...
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License and redistribution terms
+      description: Name the license and link to the authoritative terms.
+    validations:
+      required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Cell, equipment, and test protocol
+      description: Include chemistry, capacity, temperature, sampling, current convention, cutoffs, and rest conditions when applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: schema
+    attributes:
+      label: Files, schema, units, and checksums
+      description: Identify candidate files, columns, units, approximate sizes, and published or computed checksums.
+    validations:
+      required: true
+  - type: textarea
+    id: split
+    attributes:
+      label: Calibration and held-out split
+      description: Explain how the split prevents target leakage and how OCV or initial state is justified independently.
+    validations:
+      required: true
+  - type: textarea
+    id: preprocessing
+    attributes:
+      label: Reproducible preprocessing
+      description: Describe filtering, resampling, fixture derivation, attribution, and deterministic verification.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Uncertainty and limitations
+      description: State missing metadata, assumptions, and claims the data cannot support.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: The data is public and its license permits the proposed use or durable download workflow.
+          required: true
+        - label: I have not included proprietary, confidential, or personal data.
+          required: true
+        - label: I will wait for scope review before preparing a pull request.
+          required: true

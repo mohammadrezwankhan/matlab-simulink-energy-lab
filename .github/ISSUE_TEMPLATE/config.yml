@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Technical discussions
+    url: https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/discussions
+    about: Ask usage questions and discuss ideas that are not yet scoped issues.
+  - name: Private security report
+    url: https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/security/advisories/new
+    about: Report a suspected vulnerability privately instead of opening a public issue.
