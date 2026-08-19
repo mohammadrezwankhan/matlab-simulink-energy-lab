@@ -304,6 +304,9 @@ standard, pull request workflow, and attribution policy.
 
 Versioned snapshots and engineering highlights are available on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
+For a checksum-verifiable snapshot, download the tracked
+[v0.10.0 source package](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/download/v0.10.0/matlab-simulink-energy-lab-v0.10.0.zip)
+and its published [SHA-256 checksum](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/download/v0.10.0/SHA256SUMS-v0.10.0.txt).
 See the [changelog](CHANGELOG.md) for the model and validation history.
 
 If you use the lab in research, coursework, or teaching material, use GitHub's
