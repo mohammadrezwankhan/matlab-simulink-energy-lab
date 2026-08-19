@@ -1,0 +1,81 @@
+name: Bug report
+description: Report a reproducible problem in an example, script, model, or check.
+title: "Bug: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the Energy Lab. Remove proprietary data and credentials before submitting.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Battery models
+        - Converter models
+        - BESS control
+        - Simulink model generation
+        - Validation or CI
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Release or commit
+      description: Provide a release tag or full commit SHA.
+      placeholder: v0.10.0 or 4626b7b...
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem summary
+      description: Describe the observed problem and its engineering impact.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: List exact commands, scripts, model steps, and inputs needed to reproduce the problem.
+      placeholder: |
+        1. Run ...
+        2. Open ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and evidence
+      description: Include concise logs, error identifiers, or screenshots without sensitive data.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, MATLAB release, Simulink release, and relevant toolboxes.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched existing issues and did not find the same problem.
+          required: true
+        - label: I can reproduce this from the stated release or commit.
+          required: true
+        - label: I removed proprietary data, secrets, and personal information.
+          required: true
