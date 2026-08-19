@@ -6,6 +6,23 @@ Notable changes to MATLAB Simulink Energy Lab are recorded here. The project
 uses semantic versioning while its public model and validation interfaces are
 still evolving.
 
+## 0.10.0 - 2026-08-19
+
+### Added
+
+- A source-linked two-RC battery parameter-identification tutorial that
+  distinguishes calibration from independent held-out pulse validation and
+  documents the synthetic benchmark boundary.
+- A grid-forming BESS control walkthrough covering grid-following operation,
+  grid loss, islanded support, synchronization, reconnection, limits, fault
+  behavior, and recovery, with direct links to executable evidence.
+
+### Changed
+
+- Refined repository discovery metadata and the README documentation map so
+  MATLAB/Simulink users can reach the validated battery and BESS workflows
+  from the project landing page.
+
 ## 0.9.0 - 2026-07-28
 
 ### Added
