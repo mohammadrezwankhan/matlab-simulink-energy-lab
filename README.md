@@ -10,7 +10,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 [![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
 
-![MATLAB Simulink Energy Lab preview showing two-RC battery calibration and held-out voltage validation](assets/social-preview.png)
+![MATLAB Simulink Energy Lab preview highlighting battery modeling, two-RC held-out voltage validation, and unified BESS control](assets/social-preview.png)
 
 > **See the equations become waveforms—and inspect every assumption in between.**
 
