@@ -297,6 +297,16 @@ matlab-simulink-energy-lab/
   including unified BESS control.
 - No power-electronics, control, or testing toolbox is required.
 
+Compatibility evidence is release-, environment-, and commit-specific:
+
+| Release | Evidence status | Environment | Exact evidence |
+| --- | --- | --- | --- |
+| R2026a | Maintained primary CI baseline | Ubuntu, MATLAB and Simulink | [Latest executable-code run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625): 25 general checks and 31 focused unified-BESS results passed. |
+| R2025b Update 6 | One-time maintainer-automated proof; not community-tested | Ubuntu 24, GLNXA64, MATLAB `25.2.0.3312555`, Simulink `25.2` | [Exact commit `c0a5a2c`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/c0a5a2c63772382cd77b156bc8fa328d43820126) and [hosted run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32669632185): 25 general checks and 31 focused unified-BESS results passed. |
+
+The R2025b row is a bounded compatibility record for that exact environment and
+commit, not a general support promise for other operating systems or releases.
+
 If you run the examples on another MATLAB release, please share the result in
 an issue so the compatibility record can grow.
 
