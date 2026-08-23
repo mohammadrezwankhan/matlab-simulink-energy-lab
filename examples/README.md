@@ -4,6 +4,14 @@
 
 This index lists the starter MATLAB examples, their purpose, key files, and run commands.
 
+Not sure where to begin? Use the
+[battery, converter, and BESS model selection guide](../docs/model-selection-guide.md),
+or open one focused Base MATLAB script in MATLAB Online:
+
+- [Hysteresis-aware battery SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
+- [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
+- [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
+
 Run every no-plot check from the repository root with:
 
 ```matlab
