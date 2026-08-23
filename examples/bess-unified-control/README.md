@@ -42,9 +42,15 @@ From the repository root:
 ```matlab
 addpath('examples/bess-unified-control')
 parameters = init_bess_unified_control();
-modelPath = build_bess_unified_control_model();
-run_bess_unified_control('C')
+scenarios = bess_validation_scenarios(parameters);
+scenarioC = scenarios(strcmp({scenarios.id}, 'C'));
+modelPath = build_bess_unified_control_model([], scenarioC, parameters);
+result = run_bess_unified_control('C');
 ```
+
+The builder creates the disposable native Simulink model configured for
+Scenario C. The runner separately simulates and plots the reduced-order MATLAB
+reference for that same scenario; the focused check below compares both paths.
 
 Run the focused no-plot verification:
 

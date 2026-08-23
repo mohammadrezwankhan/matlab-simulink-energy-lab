@@ -1,5 +1,5 @@
 function result = run_bess_unified_control(scenarioIdentifier)
-%RUN_BESS_UNIFIED_CONTROL Build, simulate, and plot one scenario.
+%RUN_BESS_UNIFIED_CONTROL Simulate and plot one MATLAB reference scenario.
 
 if nargin < 1
     scenarioIdentifier = 'C';
