@@ -44,7 +44,14 @@ jobs:
       - name: Run model checks
         uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
         with:
-          command: addpath('examples'); run_all_checks(false)
+          command: addpath('examples'); run('examples/validation-manifest/check_validation_manifest.m'); generate_validation_manifest(getenv('GITHUB_SHA'))
+
+      - name: Upload commit-bound validation manifest
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: validation-summary-${{ github.sha }}
+          path: validation-artifacts/validation-summary.json
+          if-no-files-found: error
 
   validate-bess:
     name: Validate unified BESS control

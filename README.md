@@ -29,6 +29,8 @@ study.
 - [Requirements](#requirements) for MATLAB and toolbox expectations.
 - [Scope and Limitations](#scope-and-limitations) before reusing outputs.
 - [Validation results](docs/validation-results.md) for the complete expected output.
+- [Machine-readable validation manifest](docs/validation-manifest.md) for
+  per-commit CI provenance and check status.
 - [Two-RC battery parameter-identification tutorial](docs/two-rc-battery-parameter-identification.md)
   for a reproducible fit-versus-held-out-validation workflow.
 - [Grid-forming BESS control tutorial](docs/grid-forming-bess-control.md) for an
@@ -84,7 +86,8 @@ study.
 
 Twenty established no-plot checks cover the battery, converter, and DC-side
 BESS examples. The unified BESS entry point adds a focused 31-result
-MATLAB/Simulink suite, so `run_all_checks` invokes 21 check entry points. All are configured
+MATLAB/Simulink suite, so `run_all_checks` invokes 21 check entry points. CI
+also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
 
@@ -133,6 +136,7 @@ not physical-cell, hardware, or grid-code validation. In particular, the
 two-RC identification benchmark uses transparent synthetic voltage records with
 deterministic sensor-like perturbations, not measured cell data. See the
 [full expected output and provenance](docs/validation-results.md) and
+[per-commit machine-readable manifest](docs/validation-manifest.md), plus the
 [Scope and Limitations](#scope-and-limitations) before reusing results.
 
 To reproduce the plotted battery response above, run:

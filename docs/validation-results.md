@@ -14,6 +14,9 @@ From the repository root, run:
 matlab -batch "addpath('examples'); run_all_checks"
 ```
 
+For CI-oriented status and exact commit provenance, see the
+[machine-readable validation manifest](validation-manifest.md).
+
 The verified environment is MATLAB R2026a. Simulink is required for the native
 block-diagram checks. The latest signed release is
 [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0);

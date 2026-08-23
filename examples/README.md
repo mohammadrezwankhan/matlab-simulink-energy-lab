@@ -131,6 +131,8 @@ checks intentionally clear their own variables.
 | `converter-simulink-model/run_average_buck_simulink_model.m` | Generates and opens the Simulink diagram, simulates startup, and plots output voltage and inductor current. |
 | `bess-dc-reserve-model/check_bess_dc_reserve.m` | Verifies reserve and DC-link bounds, exact terminal power, curtailment, charge recovery, energy balances, grid convergence, and invalid inputs. |
 | `bess-dc-reserve-model/run_bess_dc_reserve.m` | Plots requested/delivered/battery power, SOC reserve, DC-link voltage, current, and charge/discharge availability. |
+| `validation-manifest/check_validation_manifest.m` | CI-only contract check for unique existing paths, deterministic JSON, exact source-commit binding, and required claim boundaries. |
+| `generate_validation_manifest.m` | Runs the general suite and writes per-commit machine-readable status for CI or local worktree evidence. |
 | `bess-unified-control/check_bess_unified_control.m` | Runs 31 focused MATLAB test results covering analytic equations, dq/filter dynamics, support sign, anti-windup, model regeneration, deterministic scenarios A-H, Simulink wrapper parity, invalid-input rejection, and traceability. |
 | `bess-unified-control/run_bess_unified_control.m` | Runs and plots one selected scenario A-H. |
 | `bess-unified-control/generate_bess_validation_evidence.m` | Rebuilds the model, scores A-H, writes JSON metrics, and exports original validation plots. |
