@@ -43,7 +43,9 @@ case:
 ```matlab
 addpath('examples/bess-unified-control')
 parameters = init_bess_unified_control();
-modelPath = build_bess_unified_control();
+scenarios = bess_validation_scenarios(parameters);
+scenarioC = scenarios(strcmp({scenarios.id}, 'C'));
+modelPath = build_bess_unified_control_model([], scenarioC, parameters);
 result = run_bess_unified_control('C');
 ```
 

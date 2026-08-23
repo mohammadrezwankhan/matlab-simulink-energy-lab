@@ -170,114 +170,34 @@ BESS suite; it is not a substitute for complete repository validation.
 
 ## Validation Commands
 
-Run these no-plot checks from MATLAB when validating the current starter examples:
+Run these no-plot checks from the repository root. Root-relative `run` calls
+keep the complete block copy/paste-safe:
 
 ```matlab
-cd examples/battery-rc-model
-check_battery_rc_model
-```
-
-```matlab
-cd examples/battery-simulink-model
-check_battery_rc_simulink_model
-```
-
-```matlab
-cd examples/battery-2rc-model
-check_battery_2rc_model
-```
-
-```matlab
-cd examples/battery-2rc-model
-check_battery_2rc_fit
-```
-
-```matlab
-cd examples/battery-2rc-simulink-model
-check_battery_2rc_simulink_model
-```
-
-```matlab
-cd examples/battery-soc-ekf
-check_battery_soc_ekf
-check_battery_soc_ekf_current_bias
-```
-
-```matlab
-cd examples/battery-ocv-hysteresis
-check_battery_ocv_hysteresis
-```
-
-```matlab
-cd examples/battery-soc-hysteresis-ekf
-check_battery_soc_hysteresis_ekf
-```
-
-```matlab
-cd examples/battery-thermal-model
-check_battery_thermal_model
-```
-
-```matlab
-cd examples/battery-thermal-model
-check_battery_cooling_sensitivity
-```
-
-```matlab
-cd examples/battery-module-cooling-network
-check_battery_module_cooling_network
-```
-
-```matlab
-cd examples/pouch-cell-thermal-gradient
-check_pouch_cell_thermal_model
-```
-
-```matlab
-cd examples/battery-thermal-simulink-model
-check_battery_thermal_simulink_model
-```
-
-```matlab
-cd examples/converter-average-model
-check_converter_average_model
-```
-
-```matlab
-cd examples/converter-switching-model
-check_switching_buck_converter
-```
-
-```matlab
-cd examples/converter-switching-closed-loop-model
-check_switching_closed_loop_buck
-```
-
-```matlab
-cd examples/converter-closed-loop-model
-check_closed_loop_converter
-```
-
-```matlab
-cd examples/converter-closed-loop-model
-check_converter_controller_comparison
-```
-
-```matlab
-cd examples/converter-simulink-model
-check_average_buck_simulink_model
-```
-
-```matlab
-cd examples/bess-dc-reserve-model
-check_bess_dc_reserve
-check_bess_dc_reserve_envelope
-check_bess_dc_reserve_profile_sensitivity
-```
-
-```matlab
-cd examples/bess-unified-control
-check_bess_unified_control
+run('examples/battery-rc-model/check_battery_rc_model.m')
+run('examples/battery-simulink-model/check_battery_rc_simulink_model.m')
+run('examples/battery-2rc-model/check_battery_2rc_model.m')
+run('examples/battery-2rc-model/check_battery_2rc_fit.m')
+run('examples/battery-2rc-simulink-model/check_battery_2rc_simulink_model.m')
+run('examples/battery-soc-ekf/check_battery_soc_ekf.m')
+run('examples/battery-soc-ekf/check_battery_soc_ekf_current_bias.m')
+run('examples/battery-ocv-hysteresis/check_battery_ocv_hysteresis.m')
+run('examples/battery-soc-hysteresis-ekf/check_battery_soc_hysteresis_ekf.m')
+run('examples/battery-thermal-model/check_battery_thermal_model.m')
+run('examples/battery-thermal-model/check_battery_cooling_sensitivity.m')
+run('examples/battery-module-cooling-network/check_battery_module_cooling_network.m')
+run('examples/pouch-cell-thermal-gradient/check_pouch_cell_thermal_model.m')
+run('examples/battery-thermal-simulink-model/check_battery_thermal_simulink_model.m')
+run('examples/converter-average-model/check_converter_average_model.m')
+run('examples/converter-switching-model/check_switching_buck_converter.m')
+run('examples/converter-switching-closed-loop-model/check_switching_closed_loop_buck.m')
+run('examples/converter-closed-loop-model/check_closed_loop_converter.m')
+run('examples/converter-closed-loop-model/check_converter_controller_comparison.m')
+run('examples/converter-simulink-model/check_average_buck_simulink_model.m')
+run('examples/bess-dc-reserve-model/check_bess_dc_reserve.m')
+run('examples/bess-dc-reserve-model/check_bess_dc_reserve_envelope.m')
+run('examples/bess-dc-reserve-model/check_bess_dc_reserve_profile_sensitivity.m')
+run('examples/bess-unified-control/check_bess_unified_control.m')
 ```
 
 The plotting scripts are intended for visual inspection and explanation. Use
