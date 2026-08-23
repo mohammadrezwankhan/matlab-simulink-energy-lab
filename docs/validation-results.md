@@ -47,6 +47,11 @@ Battery OCV hysteresis check passed.
 Final SOC: 0.600
 Hysteresis state range: -0.777 to 0.676
 Same-SOC minor-loop voltage gap: 8.13 mV
+Battery SOC hysteresis EKF check passed.
+SOC RMSE: hysteresis 0.0023, baseline 0.0203
+Final SOC error: hysteresis +0.0005, baseline +0.0285
+Hysteresis-state RMSE: 0.0482
+Voltage RMSE: hysteresis 0.589 mV, baseline 3.672 mV
 Battery thermal check passed.
 Peak cell temperature: 36.92 degC
 Final cell temperature: 28.96 degC
@@ -97,7 +102,7 @@ Native Simulink averaged buck check passed.
 Final output voltage: 358.209 V
 Final inductor current: 17.910 A
 All 31 focused BESS controller tests passed.
-All 18 MATLAB and Simulink checks passed.
+All 19 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits
