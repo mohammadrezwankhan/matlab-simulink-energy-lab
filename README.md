@@ -143,12 +143,17 @@ matlab -batch "addpath('examples'); run_all_checks"
 ### Concise validation evidence
 
 The latest signed release is [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0).
-The verified MATLAB R2026a run on the current main branch reports:
+The latest hosted MATLAB R2026a executable-code evidence is
+[run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
+at exact source commit
+[`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b).
+Current `main` contains only documentation changes after that source commit. The
+two CI jobs report:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 26 MATLAB and Simulink check entry points pass. |
-| Base MATLAB profile | All 20 toolbox-free script checks pass without loading a native Simulink or unified-BESS entry point. |
+| Repository regression | All 25 general check entry points pass; the separate unified-BESS entry point yields 31 focused results. Together, the two CI jobs cover 26 entry points. |
+| Base MATLAB profile | The dedicated `run_base_matlab_checks` profile contains 20 toolbox-free script checks. It was not invoked as a separate no-Simulink job in this hosted run. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
 | BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
 | BESS dynamic-profile sensitivity | Across nine prescribed profile/reserve cases, delivered discharge energy spans 6.806 to 20.364 kWh and curtailment time spans 0.0 to 303.4 s; profiles are not energy-normalized or compared as a general law. |

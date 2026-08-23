@@ -27,9 +27,14 @@ For CI-oriented status and exact commit provenance, see the
 [machine-readable validation manifest](validation-manifest.md).
 
 The verified environment is MATLAB R2026a. Simulink is required for the native
-block-diagram checks. The latest signed release is
+block-diagram checks. The latest hosted executable-code evidence is
+[run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
+at exact source commit
+[`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b);
+current `main` contains only documentation changes after that commit. The latest
+signed release is
 [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0);
-the output below records the current main branch.
+the expected output below remains current for `main`.
 
 ## Expected output
 
