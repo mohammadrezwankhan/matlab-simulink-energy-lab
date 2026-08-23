@@ -10,7 +10,11 @@ still evolving.
 
 ### Added
 
-- A one-command 19-check Base MATLAB validation profile with dependency-aware
+- A nine-case prescribed BESS DC-reserve dynamic-profile sensitivity spanning
+  three fixed requests and three reserve floors, with within-profile ordering,
+  charge/discharge partitions, exact zero identity, independent state-energy
+  closure, doubled-grid convergence, and explicit non-envelope boundaries.
+- A one-command 20-check Base MATLAB validation profile with dependency-aware
   catalog filtering, deterministic order, machine-readable report metadata,
   invalid-flag rejection, and an explicit incomplete-suite boundary.
 - A five-case prescribed current-sensor-bias sensitivity for the battery SOC
@@ -52,7 +56,7 @@ still evolving.
 
 ### Changed
 
-- Updated the repository validation index and expected output for 25 MATLAB and
+- Updated the repository validation index and expected output for 26 MATLAB and
   Simulink check entry points.
 - Aligned reference and load events by integer grid index in the switched
   closed-loop buck, eliminating floating-point ambiguity at exact step times.

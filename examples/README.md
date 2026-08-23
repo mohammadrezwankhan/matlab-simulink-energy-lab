@@ -13,6 +13,7 @@ or open one focused Base MATLAB script in MATLAB Online:
 - [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
 - [Switch fixed-junction-temperature sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck_temperature_sensitivity.m)
 - [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
+- [BESS prescribed dynamic-profile sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m)
 
 Run every no-plot check from the repository root with:
 
@@ -24,7 +25,7 @@ run_all_checks
 The runner invokes each script in an isolated function workspace because the
 checks intentionally clear their own variables.
 
-For MATLAB without Simulink, run the 19-check toolbox-free subset:
+For MATLAB without Simulink, run the 20-check toolbox-free subset:
 
 ```matlab
 addpath('examples')
@@ -53,7 +54,7 @@ BESS suite; it is not a substitute for complete repository validation.
 | [Native Simulink switching closed-loop buck](converter-switching-closed-loop-simulink-model/README.md) | Generates a fixed-step native diagram for sampled control, integer PWM, and exact affine ON/OFF plant updates. | `converter-switching-closed-loop-simulink-model/build_switching_closed_loop_buck_simulink_model.m`, `converter-switching-closed-loop-simulink-model/check_switching_closed_loop_buck_simulink_model.m` | `run_switching_closed_loop_buck_simulink_model`, `check_switching_closed_loop_buck_simulink_model` |
 | [Closed-loop converter](converter-closed-loop-model/README.md) | Simulates bounded cascaded control and compares open-loop, PI, and filtered-PID regulation under a common load step. | `converter-closed-loop-model/simulate_closed_loop_converter.m`, `converter-closed-loop-model/simulate_converter_controller_comparison.m` | `run_closed_loop_converter`, `check_closed_loop_converter`, `run_converter_controller_comparison`, `check_converter_controller_comparison` |
 | [Native Simulink averaged buck](converter-simulink-model/README.md) | Generates, compiles, and validates an inspectable block diagram against the exact averaged state solution. | `converter-simulink-model/build_average_buck_simulink_model.m`, `converter-simulink-model/check_average_buck_simulink_model.m` | `run_average_buck_simulink_model`, `check_average_buck_simulink_model` |
-| [BESS DC-link and SOC reserve](bess-dc-reserve-model/README.md) | Resolves SOC-dependent charge/discharge capability, DC-link energy buffering, requested/delivered power, and illustrative constant-request reserve sensitivity. | `bess-dc-reserve-model/simulate_bess_dc_reserve.m`, `bess-dc-reserve-model/evaluate_bess_dc_reserve_envelope.m` | `run_bess_dc_reserve`, `check_bess_dc_reserve`, `run_bess_dc_reserve_envelope`, `check_bess_dc_reserve_envelope` |
+| [BESS DC-link and SOC reserve](bess-dc-reserve-model/README.md) | Resolves SOC-dependent charge/discharge capability, DC-link energy buffering, and constant-request plus prescribed dynamic-profile reserve sensitivity. | `bess-dc-reserve-model/simulate_bess_dc_reserve.m`, `bess-dc-reserve-model/evaluate_bess_dc_reserve_profile_sensitivity.m` | `run_bess_dc_reserve`, `check_bess_dc_reserve`, `run_bess_dc_reserve_envelope`, `check_bess_dc_reserve_envelope`, `run_bess_dc_reserve_profile_sensitivity`, `check_bess_dc_reserve_profile_sensitivity` |
 | [Unified grid-tied and grid-forming BESS control](bess-unified-control/README.md) | Generates a discrete averaged model and verifies grid-following, grid-forming, transitions, synchronization, limits, faults, and recovery with source/assumption traceability. | `bess-unified-control/build_bess_unified_control_model.m`, `bess-unified-control/tests/TestBessUnifiedControl.m` | `run_bess_unified_control`, `check_bess_unified_control` |
 
 ## Example Guides
@@ -152,6 +153,8 @@ BESS suite; it is not a substitute for complete repository validation.
 | `bess-dc-reserve-model/run_bess_dc_reserve.m` | Plots requested/delivered/battery power, SOC reserve, DC-link voltage, current, and charge/discharge availability. |
 | `bess-dc-reserve-model/check_bess_dc_reserve_envelope.m` | Verifies 18 constant-request sensitivity cases, monotonic curtailment/exposure within the declared domain, saturation, bounds, energy closure, determinism, doubled-grid convergence, and invalid inputs. |
 | `bess-dc-reserve-model/run_bess_dc_reserve_envelope.m` | Maps average delivered power and actual curtailment time across three illustrative reserve floors and six constant discharge requests. |
+| `bess-dc-reserve-model/check_bess_dc_reserve_profile_sensitivity.m` | Verifies nine prescribed dynamic-profile/reserve cases, within-profile reserve ordering, request partitions, bounds, zero identity, independent state-energy closure, determinism, doubled-grid convergence, and invalid inputs. |
+| `bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m` | Plots delivered and curtailed discharge energy, minimum SOC, and actual curtailment time across three fixed profiles and reserve floors without cross-profile claims. |
 | `validation-manifest/check_validation_manifest.m` | CI-only contract check for unique existing paths, deterministic JSON, exact source-commit binding, and required claim boundaries. |
 | `generate_validation_manifest.m` | Runs the general suite and writes per-commit machine-readable status for CI or local worktree evidence. |
 | `bess-unified-control/check_bess_unified_control.m` | Runs 31 focused MATLAB test results covering analytic equations, dq/filter dynamics, support sign, anti-windup, model regeneration, deterministic scenarios A-H, Simulink wrapper parity, invalid-input rejection, and traceability. |
@@ -268,6 +271,8 @@ check_average_buck_simulink_model
 ```matlab
 cd examples/bess-dc-reserve-model
 check_bess_dc_reserve
+check_bess_dc_reserve_envelope
+check_bess_dc_reserve_profile_sensitivity
 ```
 
 ```matlab
