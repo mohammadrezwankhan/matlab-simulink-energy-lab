@@ -18,10 +18,14 @@ still evolving.
   affine propagation, a bounded period-sampled voltage/current controller,
   freewheel-diode loss, reference/load steps, energy accounting, fixed-duty
   parity, and doubled-grid convergence checks.
+- A DC-side BESS reserve benchmark with affine OCV-SOC battery energy,
+  charge/discharge current limits, SOC-dependent availability, finite DC-link
+  buffering, requested-versus-delivered power, curtailment, exact energy
+  accounting, and doubled-grid convergence checks.
 
 ### Changed
 
-- Updated the repository validation index and expected output for 20 MATLAB and
+- Updated the repository validation index and expected output for 21 MATLAB and
   Simulink check entry points.
 
 ## 0.10.0 - 2026-08-19
