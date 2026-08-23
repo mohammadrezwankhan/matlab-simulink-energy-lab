@@ -20,7 +20,10 @@ still evolving.
 - A switched closed-loop buck-converter benchmark with exact event-aligned
   affine propagation, a bounded period-sampled voltage/current controller,
   freewheel-diode loss, reference/load steps, energy accounting, fixed-duty
-  parity, and doubled-grid convergence checks.
+  parity, and doubled-grid convergence checks. Its loss evidence now includes
+  nominal SiC MOSFET ON resistance and datasheet-reference turn-on/off energy,
+  with zero-loss parity, frequency sensitivity, and explicit non-hardware
+  validation boundaries.
 - A DC-side BESS reserve benchmark with affine OCV-SOC battery energy,
   charge/discharge current limits, SOC-dependent availability, finite DC-link
   buffering, requested-versus-delivered power, curtailment, exact energy

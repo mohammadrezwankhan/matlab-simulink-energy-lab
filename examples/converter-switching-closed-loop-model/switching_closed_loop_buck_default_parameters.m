@@ -7,6 +7,13 @@ parameters.inductance_H = 0.002;
 parameters.inductor_resistance_Ohm = 0.1;
 parameters.capacitance_F = 0.001;
 parameters.diode_forward_voltage_V = 1.0;
+% IMZC120R040M2H typical values at 25 degC and its 800 V, 18 A
+% double-pulse reference point; see the example README for source and limits.
+parameters.switch_on_resistance_Ohm = 0.040;
+parameters.switching_loss_reference_voltage_V = 800;
+parameters.switching_loss_reference_current_A = 18;
+parameters.turn_on_energy_reference_J = 109e-6;
+parameters.turn_off_energy_reference_J = 45e-6;
 parameters.initial_load_resistance_Ohm = 20;
 parameters.final_load_resistance_Ohm = 10;
 parameters.load_step_time_s = 0.10;
