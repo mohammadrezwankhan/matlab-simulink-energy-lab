@@ -80,7 +80,7 @@ study.
 
 Seventeen established no-plot checks cover the battery and converter examples.
 The unified BESS entry point adds a focused 31-result MATLAB/Simulink suite, so
-`run_all_checks` now invokes eighteen check entry points. All are configured
+`run_all_checks` now invokes nineteen check entry points. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
 
@@ -107,7 +107,7 @@ The verified MATLAB R2026a run reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 18 MATLAB and Simulink check entry points pass. |
+| Repository regression | All 19 MATLAB and Simulink check entry points pass. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
 | Unified BESS focused suite | 31 focused MATLAB/Simulink results pass across eight mandatory scenarios. |
@@ -144,6 +144,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased real-time SOC and polarization estimate? | `check_battery_soc_ekf.m` | Base MATLAB |
 | [Battery OCV hysteresis](examples/battery-ocv-hysteresis/README.md) | How does charge/discharge history create different equilibrium voltages at the same SOC after a current reversal? | `check_battery_ocv_hysteresis.m` | Base MATLAB |
+| [Battery SOC hysteresis EKF](examples/battery-soc-hysteresis-ekf/README.md) | How much SOC error appears when an estimator omits known OCV hysteresis under current reversals? | `check_battery_soc_hysteresis_ekf.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
 | [Battery module liquid-cooling network](examples/battery-module-cooling-network/README.md) | How do nonuniform heat generation, serial coolant warming, and cell-to-cell conduction determine the hottest cell and module temperature spread? | `check_battery_module_cooling_network.m` | Base MATLAB |
 | [Pouch-cell thermal gradient](examples/pouch-cell-thermal-gradient/README.md) | How do asymmetric face cooling and through-thickness conduction determine the internal hot spot and spatial temperature gradient? | `check_pouch_cell_thermal_model.m` | Base MATLAB |
@@ -206,6 +207,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-2rc-simulink-model/ # Generated native two-RC diagram
 |   |-- battery-soc-ekf/            # Real-time SOC and polarization estimator
 |   |-- battery-ocv-hysteresis/     # Dynamic OCV history and minor loops
+|   |-- battery-soc-hysteresis-ekf/ # Hysteresis-aware SOC estimation comparison
 |   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
 |   |-- battery-module-cooling-network/ # Six-cell liquid-cooling network
 |   |-- pouch-cell-thermal-gradient/ # Through-thickness finite-volume model
