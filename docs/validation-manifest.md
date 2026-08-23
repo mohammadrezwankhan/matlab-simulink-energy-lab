@@ -3,8 +3,10 @@
 The [general MATLAB validation job](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml)
 emits `validation-summary.json` as a GitHub Actions artifact named
 `validation-summary-<commit>`. The JSON records the
-exact commit, MATLAB environment, ordered check paths, pass status, related
-evidence, and the boundaries on what the checks establish.
+exact commit, MATLAB environment, ordered check paths, pass/fail status, error
+details for failed checks, related evidence, and the boundaries on what the
+checks establish. The artifact upload runs even after a check failure so the
+machine-readable failure evidence remains available while the job stays red.
 
 The file is generated in CI instead of being committed. A committed file that
 contains its own commit SHA would necessarily become stale when that file is

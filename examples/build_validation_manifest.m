@@ -14,14 +14,15 @@ if sourceCommit ~= "worktree" && ~isCommit
 end
 requiredFields = ["suite", "check_count", "all_checks_passed", "checks"];
 if ~all(isfield(report, cellstr(requiredFields))) || ...
-        ~report.all_checks_passed || report.check_count ~= numel(report.checks)
+        report.check_count ~= numel(report.checks)
     error('ValidationManifest:Report', ...
-        'Report must describe a complete passing check run.');
+        'Report must describe one complete check run.');
 end
 statuses = string({report.checks.status});
-if any(statuses ~= "passed")
+if any(statuses ~= "passed" & statuses ~= "failed") || ...
+        report.all_checks_passed ~= all(statuses == "passed")
     error('ValidationManifest:Status', ...
-        'Every reported check must have passed.');
+        'Check statuses and the aggregate pass flag must be consistent.');
 end
 
 manifest.schema_version = "1.0.0";
@@ -30,7 +31,11 @@ manifest.matlab_release = "R" + string(version('-release'));
 manifest.matlab_version = string(version);
 manifest.required_products = ["MATLAB", "Simulink"];
 manifest.suite = string(report.suite);
-manifest.status = "passed";
+if report.all_checks_passed
+    manifest.status = "passed";
+else
+    manifest.status = "failed";
+end
 manifest.check_count = report.check_count;
 manifest.checks = report.checks;
 manifest.related_evidence.human_readable_results = ...

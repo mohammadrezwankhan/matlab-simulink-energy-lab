@@ -14,16 +14,21 @@ if nargin < 2 || strlength(string(outputPath)) == 0
         'validation-summary.json');
 end
 
-report = run_all_checks(false);
-manifest = build_validation_manifest(report, string(sourceCommit));
-verify_checkout_commit(manifest.source_commit);
+sourceCommit = lower(string(sourceCommit));
+verify_checkout_commit(sourceCommit);
+report = run_all_checks(false, true);
+manifest = build_validation_manifest(report, sourceCommit);
 outputDirectory = fileparts(outputPath);
 if ~isfolder(outputDirectory)
     mkdir(outputDirectory);
 end
 write_text(outputPath, jsonencode(manifest, PrettyPrint=true));
 fprintf('Wrote commit-bound validation manifest for %d passing checks.\n', ...
-    manifest.check_count);
+    nnz(string({manifest.checks.status}) == "passed"));
+if ~report.all_checks_passed
+    error('ValidationManifest:ChecksFailed', ...
+        'One or more validation checks failed; inspect the JSON artifact.');
+end
 end
 
 function verify_checkout_commit(sourceCommit)
@@ -37,7 +42,7 @@ if gitStatus ~= 0 || checkoutCommit ~= sourceCommit
         'Manifest source commit does not match the checked-out Git commit.');
 end
 [statusCode, statusOutput] = system( ...
-    'git status --porcelain --untracked-files=no');
+    'git status --porcelain --untracked-files=all');
 if statusCode ~= 0 || strlength(strtrim(string(statusOutput))) > 0
     error('ValidationManifest:DirtyWorktree', ...
         'Commit-bound CI evidence requires a clean tracked worktree.');

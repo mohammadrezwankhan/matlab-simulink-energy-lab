@@ -47,6 +47,7 @@ jobs:
           command: addpath('examples'); run('examples/validation-manifest/check_validation_manifest.m'); generate_validation_manifest(getenv('GITHUB_SHA'))
 
       - name: Upload commit-bound validation manifest
+        if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: validation-summary-${{ github.sha }}
