@@ -99,6 +99,16 @@ also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
 
+If you have MATLAB without Simulink, run the deterministic 19-check subset:
+
+```matlab
+addpath('examples');
+run_base_matlab_checks
+```
+
+That subset validates every toolbox-free script example. It does not include
+native block-diagram parity or the focused unified-BESS controller suite.
+
 To try the lab in a browser, use the **Open in MATLAB Online** badge above.
 After the repository opens, run this from its root folder:
 
@@ -134,6 +144,7 @@ The verified MATLAB R2026a run on the current main branch reports:
 | Evidence | Result |
 | --- | --- |
 | Repository regression | All 25 MATLAB and Simulink check entry points pass. |
+| Base MATLAB profile | All 19 toolbox-free script checks pass without loading a native Simulink or unified-BESS entry point. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
 | BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
 | Switched closed-loop buck | 399.62 V final average for a 400 V target; 5.91% reference-step overshoot; 2.08% load-step undershoot; 3.354 J nominal switch-conduction and 0.405 J transition loss. |
@@ -276,6 +287,7 @@ matlab-simulink-energy-lab/
 
 - MATLAB R2026a is the verified release.
 - The script-based examples and their validation checks use base MATLAB only.
+- `run_base_matlab_checks` executes all 19 of those checks with one command.
 - Simulink is required for the six generated block-diagram examples,
   including unified BESS control.
 - No power-electronics, control, or testing toolbox is required.

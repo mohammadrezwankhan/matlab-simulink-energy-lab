@@ -1,11 +1,21 @@
-function checks = validation_check_catalog(includeBess)
+function [checks, requiresSimulink] = validation_check_catalog( ...
+    includeBess, includeSimulink)
 %VALIDATION_CHECK_CATALOG Return the ordered repository check entry points.
 
 if nargin < 1
     includeBess = true;
 end
+if nargin < 2
+    includeSimulink = true;
+end
 validateattributes(includeBess, {'logical', 'numeric'}, ...
     {'scalar', 'real', 'finite'});
+validateattributes(includeSimulink, {'logical', 'numeric'}, ...
+    {'scalar', 'real', 'finite'});
+if ~ismember(includeSimulink, [0, 1])
+    error('ValidationCatalog:IncludeSimulink', ...
+        'includeSimulink must be logical true or false.');
+end
 checks = [
     "battery-rc-model/check_battery_rc_model.m";
     "battery-simulink-model/check_battery_rc_simulink_model.m";
@@ -32,8 +42,17 @@ checks = [
     "bess-dc-reserve-model/check_bess_dc_reserve.m";
     "bess-dc-reserve-model/check_bess_dc_reserve_envelope.m"
 ];
+requiresSimulink = logical([
+    0; 1; 0; 0; 1; 0; 0; 0; 0; 0; 0; 0;
+    0; 1; 0; 0; 0; 0; 0; 0; 1; 1; 0; 0
+]);
 if logical(includeBess)
     checks(end + 1) = ...
         "bess-unified-control/check_bess_unified_control.m";
+    requiresSimulink(end + 1) = true;
+end
+if ~logical(includeSimulink)
+    checks = checks(~requiresSimulink);
+    requiresSimulink = requiresSimulink(~requiresSimulink);
 end
 end

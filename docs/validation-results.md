@@ -14,6 +14,15 @@ From the repository root, run:
 matlab -batch "addpath('examples'); run_all_checks"
 ```
 
+For the toolbox-free Base MATLAB subset:
+
+```bash
+matlab -batch "addpath('examples'); run_base_matlab_checks"
+```
+
+Its terminal line is `All 19 Base MATLAB checks passed.` This subset excludes
+native block-diagram parity and the focused unified-BESS controller suite.
+
 For CI-oriented status and exact commit provenance, see the
 [machine-readable validation manifest](validation-manifest.md).
 

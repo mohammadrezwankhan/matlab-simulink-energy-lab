@@ -24,6 +24,12 @@ generate_validation_manifest("WORKTREE")
 The output is `validation-artifacts/validation-summary.json`. Local output is
 marked `worktree`; CI accepts only its exact 40-character `GITHUB_SHA`.
 
+Users without Simulink can run `run_base_matlab_checks` for the deterministic
+19-check toolbox-free subset. The catalog contract verifies that this profile
+preserves general-suite order while excluding all five native Simulink checks
+and the focused unified-BESS entry point. It is not the commit-bound general CI
+manifest and must not be presented as complete repository validation.
+
 ## Evidence split
 
 The manifest covers the 24 entry points in `run_all_checks(false)`, matching
