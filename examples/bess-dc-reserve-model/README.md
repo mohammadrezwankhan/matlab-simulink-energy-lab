@@ -60,26 +60,28 @@ controller, or site energy-management algorithm.
 
 ## Run
 
+From the repository root:
+
 ```matlab
-run_bess_dc_reserve
+run('examples/bess-dc-reserve-model/run_bess_dc_reserve.m')
 ```
 
 For the no-plot regression check:
 
 ```matlab
-check_bess_dc_reserve
+run('examples/bess-dc-reserve-model/check_bess_dc_reserve.m')
 ```
 
 For the illustrative reserve-floor versus constant-request sensitivity:
 
 ```matlab
-run_bess_dc_reserve_envelope
+run('examples/bess-dc-reserve-model/run_bess_dc_reserve_envelope.m')
 ```
 
 For the prescribed dynamic-profile sensitivity:
 
 ```matlab
-run_bess_dc_reserve_profile_sensitivity
+run('examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m')
 ```
 
 [Open the prescribed dynamic-profile runner in MATLAB Online](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m).
