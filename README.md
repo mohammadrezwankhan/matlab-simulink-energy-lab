@@ -122,7 +122,7 @@ The verified MATLAB R2026a run on the current main branch reports:
 | --- | --- |
 | Repository regression | All 21 MATLAB and Simulink check entry points pass. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
-| Switched closed-loop buck | 399.92 V final average for a 400 V target; 5.97% reference-step overshoot; 2.19% load-step undershoot. |
+| Switched closed-loop buck | 399.65 V final average for a 400 V target; 5.91% reference-step overshoot; 2.05% load-step undershoot; 3.352 J nominal switch-conduction and 0.405 J transition loss. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
 | Unified BESS focused suite | 31 focused MATLAB/Simulink results pass across eight mandatory scenarios. |
@@ -149,7 +149,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Battery OCV hysteresis response showing reversal current, charge-balanced SOC, dynamic hysteresis memory, and an annotated same-SOC minor-loop voltage gap](assets/battery-ocv-hysteresis-response.png)
 
-![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, the load step, and final PWM periods](assets/converter-switching-closed-loop-response.png)
+![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, separated semiconductor losses, the load step, and final PWM periods](assets/converter-switching-closed-loop-response.png)
 
 ![BESS DC-side reserve response showing requested and delivered power, SOC reserve, DC-link voltage, battery current, and charge/discharge availability](assets/bess-dc-reserve-response.png)
 
@@ -170,7 +170,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
-| [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched lossy buck through reference and load steps? | `check_switching_closed_loop_buck.m` | Base MATLAB |
+| [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched buck while separating source-backed nominal switch conduction and transition losses? | `check_switching_closed_loop_buck.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 | [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain requested converter power? | `check_bess_dc_reserve.m` | Base MATLAB |
@@ -297,9 +297,12 @@ an issue so the compatibility record can grow.
   electrical parameters, and omits current bias, temperature, hysteresis,
   ageing, and constrained-filter theory.
 - The open-loop switching converter uses ideal complementary switches. The
-  switched closed-loop converter adds a constant-drop freewheel diode and
-  period-sampled control, but still omits dead time, switching loss, parasitics,
-  EMI, protection, sensor dynamics, and hardware validation.
+  switched closed-loop converter adds a constant-drop freewheel diode,
+  period-sampled control, nominal 25 degC switch resistance, and linearly
+  scaled datasheet-reference turn-on/off energy. It still omits nonlinear and
+  temperature-dependent device behavior, dead time, capacitance, reverse
+  recovery, parasitics, EMI, protection, sensor dynamics, and hardware
+  validation.
 - The native Simulink converter is an averaged open-loop model and therefore
   omits PWM ripple and switching events.
 - The DC-side BESS reserve model uses affine OCV, constant resistance, exact
@@ -314,7 +317,7 @@ an issue so the compatibility record can grow.
 The most useful next additions are likely to be:
 
 - a traceable physical-cell dataset for the two-RC identification workflow;
-- a source-backed semiconductor switching-loss model;
+- temperature-dependent semiconductor loss and electrothermal feedback;
 - held-out measured reversal data for the hysteresis-aware SOC estimator; or
 - measured thermal-parameter identification and held-out drive-cycle validation.
 

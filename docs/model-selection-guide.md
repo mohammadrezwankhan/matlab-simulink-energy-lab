@@ -42,7 +42,7 @@ not cell-test, hardware, protection, certification, or grid-code models.
 | What are the first-pass voltage, current, and ripple estimates? | [Averaged scaffold](../examples/converter-average-model/README.md) | Fastest algebraic starting point. | Startup or control transients. |
 | How does explicit ideal PWM compare with averaged estimates? | [Switching buck](../examples/converter-switching-model/README.md) | Event-aligned ON/OFF propagation and ripple checks. | Semiconductor loss prediction. |
 | How do open-loop, PI, and filtered PID compare on one averaged plant? | [Closed-loop averaged converter](../examples/converter-closed-loop-model/README.md) | Bounded cascaded control and comparable load-step metrics. | Switch-level ripple. |
-| Can a period-sampled controller regulate an explicitly switched plant? | [Switching closed-loop buck](../examples/converter-switching-closed-loop-model/README.md) | Couples bounded control to lossy event-aligned PWM. | Hardware or device-loss qualification. |
+| Can a period-sampled controller regulate an explicitly switched plant? | [Switching closed-loop buck](../examples/converter-switching-closed-loop-model/README.md) | Couples bounded control to lossy event-aligned PWM and separates nominal datasheet-reference switch losses. | Hardware or device-loss qualification. |
 
 ### I need a BESS control model
 

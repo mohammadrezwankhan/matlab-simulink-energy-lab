@@ -100,11 +100,14 @@ Current ripple: 9.901 A peak-to-peak
 Voltage ripple: 0.124 V peak-to-peak
 Measured duty cycle: 0.450
 Switching closed-loop buck check passed.
-Final average voltage: 399.92 V
-Reference-step overshoot: 5.97%, settling 19.1 ms
-Load-step undershoot: 2.19%, settling 2.1 ms
-Average duty cycle: 0.505
-Diode/inductor loss energy: 2.606 J / 16.843 J
+Final average voltage: 399.65 V
+Reference-step overshoot: 5.91%, settling 19.4 ms
+Load-step undershoot: 2.05%, settling 1.7 ms
+Average duty cycle: 0.506
+Diode/inductor loss energy: 2.602 J / 16.834 J
+Switch conduction/transition loss energy: 3.352 J / 0.405 J
+Turn-on/turn-off transition energy: 0.255 J / 0.150 J
+Estimated energy efficiency: 97.044%
 Native Simulink averaged buck check passed.
 Final output voltage: 358.209 V
 Final inductor current: 17.910 A
