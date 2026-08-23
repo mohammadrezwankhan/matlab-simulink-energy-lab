@@ -6,6 +6,24 @@ Notable changes to MATLAB Simulink Energy Lab are recorded here. The project
 uses semantic versioning while its public model and validation interfaces are
 still evolving.
 
+## Unreleased
+
+### Added
+
+- A hysteresis-aware three-state battery SOC EKF benchmark that compares
+  against a two-state no-hysteresis baseline on a deterministic reversal-rich
+  profile, with covariance, reduction, irregular-time, and malformed-input
+  checks.
+- A switched closed-loop buck-converter benchmark with exact event-aligned
+  affine propagation, a bounded period-sampled voltage/current controller,
+  freewheel-diode loss, reference/load steps, energy accounting, fixed-duty
+  parity, and doubled-grid convergence checks.
+
+### Changed
+
+- Updated the repository validation index and expected output for 20 MATLAB and
+  Simulink check entry points.
+
 ## 0.10.0 - 2026-08-19
 
 ### Added

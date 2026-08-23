@@ -102,12 +102,13 @@ matlab -batch "addpath('examples'); run_all_checks"
 
 ### Concise validation evidence
 
-The latest published validation snapshot is release [`v0.9.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.9.0).
-The verified MATLAB R2026a run reports:
+The latest signed release is [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0).
+The verified MATLAB R2026a run on the current main branch reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 19 MATLAB and Simulink check entry points pass. |
+| Repository regression | All 20 MATLAB and Simulink check entry points pass. |
+| Switched closed-loop buck | 399.92 V final average for a 400 V target; 5.97% reference-step overshoot; 2.19% load-step undershoot. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
 | Unified BESS focused suite | 31 focused MATLAB/Simulink results pass across eight mandatory scenarios. |
@@ -134,6 +135,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Battery OCV hysteresis response showing reversal current, charge-balanced SOC, dynamic hysteresis memory, and an annotated same-SOC minor-loop voltage gap](assets/battery-ocv-hysteresis-response.png)
 
+![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, the load step, and final PWM periods](assets/converter-switching-closed-loop-response.png)
+
 ## Models at a Glance
 
 | Example | Question It Explores | Validation | Requirements |
@@ -151,6 +154,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
+| [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched lossy buck through reference and load steps? | `check_switching_closed_loop_buck.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 | [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (31 focused results) | MATLAB and Simulink |
@@ -214,6 +218,7 @@ matlab-simulink-energy-lab/
 |   |-- battery-thermal-simulink-model/ # Generated thermal feedback diagram
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   |-- converter-switching-model/  # Ideal PWM switching model and check
+|   |-- converter-switching-closed-loop-model/ # Controlled PWM plant and check
 |   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
 |   |-- converter-simulink-model/   # Generated native Simulink model and check
 |   |-- bess-unified-control/        # Unified BESS modes, builder, tests, evidence
@@ -273,9 +278,10 @@ an issue so the compatibility record can grow.
 - The SOC EKF uses illustrative OCV and covariance data, assumes exact
   electrical parameters, and omits current bias, temperature, hysteresis,
   ageing, and constrained-filter theory.
-- The switching converter resolves ideal PWM and inductor copper loss but omits
-  semiconductor loss, dead time, parasitics, EMI, protection, and switched
-  closed-loop control.
+- The open-loop switching converter uses ideal complementary switches. The
+  switched closed-loop converter adds a constant-drop freewheel diode and
+  period-sampled control, but still omits dead time, switching loss, parasitics,
+  EMI, protection, sensor dynamics, and hardware validation.
 - The native Simulink converter is an averaged open-loop model and therefore
   omits PWM ripple and switching events.
 - Parameters and expected outputs must be revalidated before use with real
@@ -286,8 +292,8 @@ an issue so the compatibility record can grow.
 The most useful next additions are likely to be:
 
 - a traceable physical-cell dataset for the two-RC identification workflow;
-- switched closed-loop control or a source-backed semiconductor loss model;
-- hysteresis-aware SOC estimation with held-out measured reversals; or
+- a source-backed semiconductor switching-loss model;
+- held-out measured reversal data for the hysteresis-aware SOC estimator; or
 - measured thermal-parameter identification and held-out drive-cycle validation.
 
 [Request an example](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=example-request.md),

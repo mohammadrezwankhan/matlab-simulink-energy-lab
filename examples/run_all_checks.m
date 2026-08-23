@@ -27,6 +27,7 @@ checks = {
     'converter-closed-loop-model/check_closed_loop_converter.m';
     'converter-closed-loop-model/check_converter_controller_comparison.m';
     'converter-switching-model/check_switching_buck_converter.m';
+    'converter-switching-closed-loop-model/check_switching_closed_loop_buck.m';
     'converter-simulink-model/check_average_buck_simulink_model.m'
 };
 if logical(includeBess)
