@@ -47,6 +47,10 @@ Final SOC error: +0.0001
 SOC RMSE: 0.0066
 Two-percent settling time: 18 s
 Posterior voltage RMSE: 1.581 mV
+Battery SOC EKF current-bias sensitivity check passed.
+Bias range: -0.50 A to 0.50 A
+Final SOC error range: -0.0218 to +0.0217
+Zero/bias-edge SOC RMSE: 0.0066 / 0.0161 / 0.0154
 Battery OCV hysteresis check passed.
 Final SOC: 0.600
 Hysteresis state range: -0.777 to 0.676
@@ -132,7 +136,7 @@ BESS DC reserve constant-request sensitivity check passed.
 Maximum average delivered power: 176.277 kW
 Maximum curtailed discharge energy: 30.924 kWh
 All 31 focused BESS controller tests passed.
-All 24 MATLAB and Simulink checks passed.
+All 25 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits
@@ -143,6 +147,8 @@ All 24 MATLAB and Simulink checks passed.
 - The two-RC identification benchmark uses transparent synthetic voltage
   records with deterministic sensor-like perturbations. Its held-out RMSE is
   not validation against measured physical-cell data.
+- The SOC EKF current-bias sweep is a synthetic prescribed-input sensitivity.
+  It does not demonstrate sensor-bias detection, estimation, or rejection.
 - Recalibrate parameters and revalidate expected outputs before applying any
   model to real cells, converters, or control designs. See the repository's
   [Scope and Limitations](../README.md#scope-and-limitations).

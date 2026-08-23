@@ -9,6 +9,7 @@ Not sure where to begin? Use the
 or open one focused Base MATLAB script in MATLAB Online:
 
 - [Hysteresis-aware battery SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
+- [SOC EKF current-bias sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-ekf/run_battery_soc_ekf_current_bias.m)
 - [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
 - [Switch fixed-junction-temperature sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck_temperature_sensitivity.m)
 - [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
@@ -29,7 +30,7 @@ checks intentionally clear their own variables.
 | [Native Simulink battery RC](battery-simulink-model/README.md) | Generates and validates an inspectable battery RC block diagram against the exact MATLAB reference. | `battery-simulink-model/build_battery_rc_simulink_model.m`, `battery-simulink-model/check_battery_rc_simulink_model.m` | `run_battery_rc_simulink_model`, `check_battery_rc_simulink_model` |
 | [Battery 2RC model](battery-2rc-model/README.md) | Adds exact fast and slow polarization branches, then identifies positive parameters and evaluates them on a held-out pulse profile. | `battery-2rc-model/simulate_battery_2rc_model.m`, `battery-2rc-model/fit_battery_2rc_parameters.m`, `battery-2rc-model/check_battery_2rc_fit.m` | `run_battery_2rc_model`, `check_battery_2rc_model`, `run_battery_2rc_fit`, `check_battery_2rc_fit` |
 | [Native Simulink battery 2RC](battery-2rc-simulink-model/README.md) | Generates separate fast and slow RC state paths and validates seven logged outputs against the exact two-RC solver. | `battery-2rc-simulink-model/build_battery_2rc_simulink_model.m`, `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | `run_battery_2rc_simulink_model`, `check_battery_2rc_simulink_model` |
-| [Battery SOC EKF](battery-soc-ekf/README.md) | Estimates SOC and first-order polarization from noisy current and voltage measurements with a transparent Joseph-form EKF. | `battery-soc-ekf/estimate_battery_soc_ekf.m`, `battery-soc-ekf/simulate_battery_soc_ekf_example.m`, `battery-soc-ekf/check_battery_soc_ekf.m` | `run_battery_soc_ekf`, `check_battery_soc_ekf` |
+| [Battery SOC EKF](battery-soc-ekf/README.md) | Estimates SOC and first-order polarization with a transparent Joseph-form EKF, then sweeps prescribed constant current bias. | `battery-soc-ekf/estimate_battery_soc_ekf.m`, `battery-soc-ekf/evaluate_battery_soc_ekf_current_bias.m`, `battery-soc-ekf/check_battery_soc_ekf_current_bias.m` | `run_battery_soc_ekf`, `run_battery_soc_ekf_current_bias`, `check_battery_soc_ekf`, `check_battery_soc_ekf_current_bias` |
 | [Battery OCV hysteresis](battery-ocv-hysteresis/README.md) | Preserves charge/discharge history with an exact one-state hysteresis update and validates a same-SOC reversal minor loop. | `battery-ocv-hysteresis/simulate_battery_ocv_hysteresis.m`, `battery-ocv-hysteresis/check_battery_ocv_hysteresis.m` | `run_battery_ocv_hysteresis`, `check_battery_ocv_hysteresis` |
 | [Battery SOC hysteresis EKF](battery-soc-hysteresis-ekf/README.md) | Compares a three-state hysteresis-aware SOC estimator with a two-state baseline under a synthetic reversal-rich current profile. | `battery-soc-hysteresis-ekf/estimate_battery_soc_hysteresis_ekf.m`, `battery-soc-hysteresis-ekf/check_battery_soc_hysteresis_ekf.m` | `run_battery_soc_hysteresis_ekf`, `check_battery_soc_hysteresis_ekf` |
 | [Temperature-aware battery model](battery-thermal-model/README.md) | Couples an RC equivalent circuit to a lumped heat balance with SOC-dependent reversible heat, resistance feedback, duration/degree-hour temperature-limit exposure, and cooling-conductance sensitivity. | `battery-thermal-model/simulate_battery_thermal_model.m`, `battery-thermal-model/summarize_battery_temperature_limits.m`, `battery-thermal-model/compare_battery_cooling_sensitivity.m` | `run_battery_thermal_model`, `run_battery_cooling_sensitivity`, `check_battery_thermal_model`, `check_battery_cooling_sensitivity` |
@@ -105,6 +106,8 @@ checks intentionally clear their own variables.
 | `battery-2rc-simulink-model/run_battery_2rc_simulink_model.m` | Generates and opens the two-RC diagram, simulates the canonical pulse, and plots both polarization states. |
 | `battery-soc-ekf/check_battery_soc_ekf.m` | Verifies deterministic convergence from a 20-point SOC bias, Joseph covariance structure, irregular timestamps, and malformed-input rejection. |
 | `battery-soc-ekf/run_battery_soc_ekf.m` | Plots SOC and uncertainty, voltage correction, estimation error, and current for the one-hour benchmark. |
+| `battery-soc-ekf/check_battery_soc_ekf_current_bias.m` | Verifies zero-bias parity, five prescribed bias cases, bounded covariance, irregular timestamps, determinism, and invalid-grid rejection. |
+| `battery-soc-ekf/run_battery_soc_ekf_current_bias.m` | Plots SOC error, voltage residuals, and normalized-innovation evidence across -0.50 to +0.50 A current bias. |
 | `battery-ocv-hysteresis/check_battery_ocv_hysteresis.m` | Verifies exact hysteresis propagation, zero-current memory, same-SOC minor-loop separation, irregular timestamps, limiting cases, current limiting, and malformed-input rejection. |
 | `battery-ocv-hysteresis/run_battery_ocv_hysteresis.m` | Plots current, SOC, the normalized hysteresis state, hysteresis voltage, and the equilibrium-voltage minor loop. |
 | `battery-soc-hysteresis-ekf/check_battery_soc_hysteresis_ekf.m` | Compares SOC and voltage RMSE with the two-state baseline and verifies bounded states, Joseph covariance, irregular timestamps, zero-hysteresis reduction, determinism, and malformed-input rejection. |
@@ -184,6 +187,7 @@ check_battery_2rc_simulink_model
 ```matlab
 cd examples/battery-soc-ekf
 check_battery_soc_ekf
+check_battery_soc_ekf_current_bias
 ```
 
 ```matlab

@@ -1,5 +1,11 @@
-function result = simulate_battery_soc_ekf_example()
+function result = simulate_battery_soc_ekf_example(currentBias_A)
 %SIMULATE_BATTERY_SOC_EKF_EXAMPLE Run the deterministic SOC benchmark.
+
+if nargin < 1
+    currentBias_A = 0;
+end
+validateattributes(currentBias_A, {'numeric'}, ...
+    {'scalar', 'real', 'finite'});
 
 [profile, parameters, options] = battery_soc_ekf_default_scenario();
 
@@ -19,8 +25,9 @@ time_s = truth.time_s;
 measurementNoise_V = 0.004 * sin(2 * pi * time_s / 37) + ...
     0.002 * cos(2 * pi * time_s / 113);
 measuredVoltage_V = truth.terminal_voltage_V + measurementNoise_V;
+measuredCurrent_A = truth.current_A + currentBias_A;
 estimate = estimate_battery_soc_ekf( ...
-    time_s, truth.current_A, measuredVoltage_V, parameters, options);
+    time_s, measuredCurrent_A, measuredVoltage_V, parameters, options);
 
 socError = estimate.soc - truth.soc;
 settlingThreshold = 0.02;
@@ -47,6 +54,8 @@ end
 
 result.truth = truth;
 result.measurement_noise_V = measurementNoise_V;
+result.current_bias_A = currentBias_A;
+result.measured_current_A = measuredCurrent_A;
 result.measured_voltage_V = measuredVoltage_V;
 result.estimate = estimate;
 result.metrics = metrics;
