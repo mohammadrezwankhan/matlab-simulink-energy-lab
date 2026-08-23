@@ -24,6 +24,16 @@ run_all_checks
 The runner invokes each script in an isolated function workspace because the
 checks intentionally clear their own variables.
 
+For MATLAB without Simulink, run the 19-check toolbox-free subset:
+
+```matlab
+addpath('examples')
+run_base_matlab_checks
+```
+
+This subset excludes the five native Simulink checks and the focused unified
+BESS suite; it is not a substitute for complete repository validation.
+
 | Example | Purpose | Key Files | Run Commands |
 |---|---|---|---|
 | [Battery RC model](battery-rc-model/README.md) | Demonstrates a shared first-order battery equivalent-circuit simulator with current, SOC, terminal-voltage, and duty-cycle accounting outputs. | `battery-rc-model/simulate_battery_rc_model.m`, `battery-rc-model/summarize_battery_duty_cycle.m`, `battery-rc-model/check_battery_rc_model.m` | `run_battery_rc_model`, `check_battery_rc_model` |

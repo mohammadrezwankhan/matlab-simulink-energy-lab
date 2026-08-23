@@ -10,6 +10,9 @@ still evolving.
 
 ### Added
 
+- A one-command 19-check Base MATLAB validation profile with dependency-aware
+  catalog filtering, deterministic order, machine-readable report metadata,
+  invalid-flag rejection, and an explicit incomplete-suite boundary.
 - A five-case prescribed current-sensor-bias sensitivity for the battery SOC
   EKF, with fixed-truth isolation, exact zero-bias parity, SOC/voltage/
   innovation metrics, covariance checks, irregular timestamps, and explicit
