@@ -79,14 +79,16 @@ study.
   scenarios with requirement-level traceability.
 - Trace how battery SOC reserve, current capability, and DC-link energy turn a
   requested BESS converter power profile into deliverable power and curtailment.
+- Map how illustrative reserve floors change average deliverable power and
+  actual curtailment time under constant DC-side requests.
 - Trace every parameter, unit, sign convention, and limitation before extending
   a model.
 
 ## Start in 60 Seconds
 
-Twenty established no-plot checks cover the battery, converter, and DC-side
+Twenty-one established no-plot checks cover the battery, converter, and DC-side
 BESS examples. The unified BESS entry point adds a focused 31-result
-MATLAB/Simulink suite, so `run_all_checks` invokes 21 check entry points. CI
+MATLAB/Simulink suite, so `run_all_checks` invokes 22 check entry points. CI
 also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
@@ -123,8 +125,9 @@ The verified MATLAB R2026a run on the current main branch reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 21 MATLAB and Simulink check entry points pass. |
+| Repository regression | All 22 MATLAB and Simulink check entry points pass. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
+| BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
 | Switched closed-loop buck | 399.65 V final average for a 400 V target; 5.91% reference-step overshoot; 2.05% load-step undershoot; 3.352 J nominal switch-conduction and 0.405 J transition loss. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
@@ -157,6 +160,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![BESS DC-side reserve response showing requested and delivered power, SOC reserve, DC-link voltage, battery current, and charge/discharge availability](assets/bess-dc-reserve-response.png)
 
+![BESS DC reserve sensitivity showing average delivered power saturation and actual curtailment time across illustrative reserve floors and constant requests](assets/bess-dc-reserve-operating-envelope.png)
+
 ## Models at a Glance
 
 | Example | Question It Explores | Validation | Requirements |
@@ -177,7 +182,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched buck while separating source-backed nominal switch conduction and transition losses? | `check_switching_closed_loop_buck.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
-| [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain requested converter power? | `check_bess_dc_reserve.m` | Base MATLAB |
+| [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain requested converter power? | `check_bess_dc_reserve.m`, `check_bess_dc_reserve_envelope.m` | Base MATLAB |
 | [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (31 focused results) | MATLAB and Simulink |
 
 Current release status: the battery examples, module liquid-cooling network,
