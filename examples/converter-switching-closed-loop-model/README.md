@@ -105,14 +105,14 @@ Expected check output:
 
 ```text
 Switching closed-loop buck check passed.
-Final average voltage: 399.65 V
+Final average voltage: 399.62 V
 Reference-step overshoot: 5.91%, settling 19.4 ms
-Load-step undershoot: 2.05%, settling 1.7 ms
+Load-step undershoot: 2.08%, settling 1.8 ms
 Average duty cycle: 0.506
-Diode/inductor loss energy: 2.602 J / 16.834 J
-Switch conduction/transition loss energy: 3.352 J / 0.405 J
+Diode/inductor loss energy: 2.602 J / 16.845 J
+Switch conduction/transition loss energy: 3.354 J / 0.405 J
 Turn-on/turn-off transition energy: 0.255 J / 0.150 J
-Estimated energy efficiency: 97.044%
+Estimated energy efficiency: 97.046%
 ```
 
 ![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, separated semiconductor losses, the load step, and final PWM periods](../../assets/converter-switching-closed-loop-response.png)
@@ -125,13 +125,17 @@ convergence, switching-frequency sensitivity, and malformed-input rejection.
 
 ## What the Numbers Mean
 
-The final 100-period average is 399.65 V against a 400 V reference. The
-measured 0.5059 average duty predicts 399.74 V from the averaged diode, copper,
-and switch-resistance balance. The `-0.00718 J` energy residual is `0.000358%`
-of source energy. Source and diode work use exact interval current integrals;
+The final 100-period average is 399.62 V against a 400 V reference. The
+measured 0.5062 average duty predicts 399.66 V from the averaged diode, copper,
+and switch-resistance balance. The `-0.000143 J` energy residual is
+`0.00000712%` of source energy. Source and diode work use exact interval current integrals;
 squared conduction and load losses use the resolved PWM grid. The default run
-estimates 3.352 J of switch conduction loss and 0.405 J of transition loss,
-corresponding to 97.044% electrical energy efficiency over the transient.
+estimates 3.354 J of switch conduction loss and 0.405 J of transition loss,
+corresponding to 97.046% electrical energy efficiency over the transient.
+
+For an inspectable fixed-step block-diagram representation of the same
+controller, PWM, and exact affine plant maps, see the
+[native Simulink companion](../converter-switching-closed-loop-simulink-model/README.md).
 
 These results are deterministic numerical regression evidence for the stated
 reduced-order model. They are not hardware validation or controller-design

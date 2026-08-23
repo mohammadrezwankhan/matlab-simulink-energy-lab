@@ -43,6 +43,7 @@ not cell-test, hardware, protection, certification, or grid-code models.
 | How does explicit ideal PWM compare with averaged estimates? | [Switching buck](../examples/converter-switching-model/README.md) | Event-aligned ON/OFF propagation and ripple checks. | Semiconductor loss prediction. |
 | How do open-loop, PI, and filtered PID compare on one averaged plant? | [Closed-loop averaged converter](../examples/converter-closed-loop-model/README.md) | Bounded cascaded control and comparable load-step metrics. | Switch-level ripple. |
 | Can a period-sampled controller regulate an explicitly switched plant? | [Switching closed-loop buck](../examples/converter-switching-closed-loop-model/README.md) | Couples bounded control to lossy event-aligned PWM and separates nominal datasheet-reference switch losses. | Hardware or device-loss qualification. |
+| Can I inspect the same sampled controller and switched plant as native blocks? | [Native Simulink switching closed-loop buck](../examples/converter-switching-closed-loop-simulink-model/README.md) | Generates a fixed-step diagram and checks exact PWM, controller, and state parity. | Independent physical validation or new device physics. |
 
 ### I need a BESS control model
 
@@ -60,7 +61,7 @@ been validated.
 - Choose a **Base MATLAB** example when you want the governing equations in a
   compact script, fast parameter studies, or a browser-runnable starting point.
 - Choose a **generated Simulink companion** when you need an inspectable block
-  diagram. The RC, two-RC, electro-thermal, averaged-buck, and unified-BESS
+  diagram. The RC, two-RC, electro-thermal, averaged-buck, switched-buck, and unified-BESS
   examples have Simulink routes; see the [examples index](../examples/README.md).
 - Start with the MATLAB reference when both exist. The generated Simulink
   checks compare their logged outputs against that reference.
