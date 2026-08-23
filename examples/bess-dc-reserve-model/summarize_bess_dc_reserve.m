@@ -12,8 +12,8 @@ metrics.minimum_soc = min(result.soc);
 metrics.final_soc = result.soc(end);
 metrics.minimum_dc_voltage_V = min(result.dc_voltage_V);
 metrics.maximum_dc_voltage_V = max(result.dc_voltage_V);
-metrics.peak_discharge_current_A = max(result.battery_current_A);
-metrics.peak_charge_current_A = max(-result.battery_current_A);
+metrics.peak_discharge_current_A = max(max(result.battery_current_A, 0));
+metrics.peak_charge_current_A = max(max(-result.battery_current_A, 0));
 metrics.requested_discharge_energy_kWh = ...
     sum(requestedDischarge_W)*timeStep_s/3.6e6;
 metrics.delivered_discharge_energy_kWh = ...

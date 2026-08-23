@@ -92,14 +92,14 @@ study.
 
 ## Start in 60 Seconds
 
-Twenty-four established no-plot checks cover the battery, converter, and DC-side
+Twenty-five established no-plot checks cover the battery, converter, and DC-side
 BESS examples. The unified BESS entry point adds a focused 31-result
-MATLAB/Simulink suite, so `run_all_checks` invokes 25 check entry points. CI
+MATLAB/Simulink suite, so `run_all_checks` invokes 26 check entry points. CI
 also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
 
-If you have MATLAB without Simulink, run the deterministic 19-check subset:
+If you have MATLAB without Simulink, run the deterministic 20-check subset:
 
 ```matlab
 addpath('examples');
@@ -124,6 +124,7 @@ Or open one focused Base MATLAB example directly:
 - [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
 - [Switch fixed-junction-temperature sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck_temperature_sensitivity.m)
 - [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
+- [BESS prescribed dynamic-profile sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m)
 
 If you are unsure which example fits, use the
 [battery, converter, and BESS model selection guide](docs/model-selection-guide.md).
@@ -143,10 +144,11 @@ The verified MATLAB R2026a run on the current main branch reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 25 MATLAB and Simulink check entry points pass. |
-| Base MATLAB profile | All 19 toolbox-free script checks pass without loading a native Simulink or unified-BESS entry point. |
+| Repository regression | All 26 MATLAB and Simulink check entry points pass. |
+| Base MATLAB profile | All 20 toolbox-free script checks pass without loading a native Simulink or unified-BESS entry point. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
 | BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
+| BESS dynamic-profile sensitivity | Across nine prescribed profile/reserve cases, delivered discharge energy spans 6.806 to 20.364 kWh and curtailment time spans 0.0 to 303.4 s; profiles are not energy-normalized or compared as a general law. |
 | Switched closed-loop buck | 399.62 V final average for a 400 V target; 5.91% reference-step overshoot; 2.08% load-step undershoot; 3.354 J nominal switch-conduction and 0.405 J transition loss. |
 | Switch temperature sensitivity | Fixed-junction-temperature sweep from 25 to 175 degC increases total switch loss from 3.759 J to 8.594 J under published datasheet-anchor interpolation. |
 | Native switched-buck parity | Exact agreement across 180,000 PWM intervals, 1,800 controller periods, and both electrical states. |
@@ -209,7 +211,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink switching closed-loop buck](examples/converter-switching-closed-loop-simulink-model/README.md) | Can an inspectable fixed-step diagram reproduce the sampled controller, integer PWM, and exact switched-plant states? | `check_switching_closed_loop_buck_simulink_model.m` | MATLAB and Simulink |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
-| [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain requested converter power? | `check_bess_dc_reserve.m`, `check_bess_dc_reserve_envelope.m` | Base MATLAB |
+| [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain constant and prescribed dynamic requests? | `check_bess_dc_reserve.m`, `check_bess_dc_reserve_envelope.m`, `check_bess_dc_reserve_profile_sensitivity.m` | Base MATLAB |
 | [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (31 focused results) | MATLAB and Simulink |
 
 Current release status: the battery examples, module liquid-cooling network,
@@ -287,7 +289,7 @@ matlab-simulink-energy-lab/
 
 - MATLAB R2026a is the verified release.
 - The script-based examples and their validation checks use base MATLAB only.
-- `run_base_matlab_checks` executes all 19 of those checks with one command.
+- `run_base_matlab_checks` executes all 20 of those checks with one command.
 - Simulink is required for the six generated block-diagram examples,
   including unified BESS control.
 - No power-electronics, control, or testing toolbox is required.

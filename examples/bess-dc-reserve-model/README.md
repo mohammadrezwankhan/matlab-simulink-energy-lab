@@ -76,6 +76,14 @@ For the illustrative reserve-floor versus constant-request sensitivity:
 run_bess_dc_reserve_envelope
 ```
 
+For the prescribed dynamic-profile sensitivity:
+
+```matlab
+run_bess_dc_reserve_profile_sensitivity
+```
+
+[Open the prescribed dynamic-profile runner in MATLAB Online](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m).
+
 Expected output:
 
 ```text
@@ -116,6 +124,38 @@ This is a reduced-order DC-side sensitivity map under one fixed-duration
 synthetic request family. It is not a cell or pack safe-operating area, BMS
 safety limit, inverter rating, grid-service guarantee, site dispatch result,
 or hardware/grid-code validation.
+
+## Prescribed Dynamic-Profile Sensitivity
+
+The dynamic-profile runner evaluates three fixed 420-second requests at the
+same `0.1 s` grid and three illustrative reserve floors (`0.10`, `0.15`, and
+`0.20`). `rising_discharge` uses three increasing discharge plateaus,
+`interrupted_discharge` separates two discharge blocks with idle intervals,
+and `charge_recovery` inserts a prescribed `-120 kW` charge interval between
+two discharge blocks. The profiles are intentionally not energy-normalized.
+
+| Profile ID | Breakpoints [s] | Requested converter power [kW] |
+| --- | --- | --- |
+| `rising_discharge` | `0, 140, 280` | `150, 250, 325` |
+| `interrupted_discharge` | `0, 105, 210, 315` | `300, 0, 300, 0` |
+| `charge_recovery` | `0, 105, 210, 315` | `300, -120, 300, 0` |
+
+Across the nine deterministic cases, delivered discharge energy ranges from
+`6.806` to `20.364 kWh`, and actual curtailment time ranges from `0.0` to
+`303.4 s`. The check verifies request-energy partitions, current/SOC/DC-link
+bounds, exact zero-request identity, deterministic reruns, doubled-grid
+convergence, malformed-input rejection, and both summary and independently
+state-derived energy closure. The runner labels horizon-average and active-
+window quantities separately.
+
+![Prescribed BESS DC-side dynamic-profile sensitivity showing delivered and curtailed discharge energy, minimum SOC, and curtailment time for three reserve floors](../../assets/bess-dc-reserve-profile-sensitivity.png)
+
+Reserve ordering is evaluated only within each unchanged request profile.
+Values across different profiles are descriptive and must not be interpreted
+as an isolated profile-shape law, dispatch comparison, or general operating
+envelope. This remains a reduced-order synthetic DC-side regression—not pack
+SOA, BMS safety, inverter capability, AC-control integration, grid service,
+site dispatch, or hardware/grid-code validation.
 
 ## Relationship to Unified BESS Control
 

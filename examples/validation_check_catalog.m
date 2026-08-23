@@ -40,11 +40,12 @@ checks = [
     "converter-switching-closed-loop-simulink-model/check_switching_closed_loop_buck_simulink_model.m";
     "converter-simulink-model/check_average_buck_simulink_model.m";
     "bess-dc-reserve-model/check_bess_dc_reserve.m";
-    "bess-dc-reserve-model/check_bess_dc_reserve_envelope.m"
+    "bess-dc-reserve-model/check_bess_dc_reserve_envelope.m";
+    "bess-dc-reserve-model/check_bess_dc_reserve_profile_sensitivity.m"
 ];
 requiresSimulink = logical([
     0; 1; 0; 0; 1; 0; 0; 0; 0; 0; 0; 0;
-    0; 1; 0; 0; 0; 0; 0; 0; 1; 1; 0; 0
+    0; 1; 0; 0; 0; 0; 0; 0; 1; 1; 0; 0; 0
 ]);
 if logical(includeBess)
     checks(end + 1) = ...

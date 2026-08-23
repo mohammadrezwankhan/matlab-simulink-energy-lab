@@ -20,7 +20,7 @@ For the toolbox-free Base MATLAB subset:
 matlab -batch "addpath('examples'); run_base_matlab_checks"
 ```
 
-Its terminal line is `All 19 Base MATLAB checks passed.` This subset excludes
+Its terminal line is `All 20 Base MATLAB checks passed.` This subset excludes
 native block-diagram parity and the focused unified-BESS controller suite.
 
 For CI-oriented status and exact commit provenance, see the
@@ -144,8 +144,12 @@ BESS DC reserve constant-request sensitivity check passed.
 18 cases: reserve 0.10 to 0.20, request 0 to 325 kW
 Maximum average delivered power: 176.277 kW
 Maximum curtailed discharge energy: 30.924 kWh
+BESS DC reserve prescribed dynamic-profile check passed.
+9 cases: 3 profiles by 3 reserve floors.
+Delivered discharge energy: 6.806 to 20.364 kWh.
+Curtailment time: 0.0 to 303.4 s.
 All 31 focused BESS controller tests passed.
-All 25 MATLAB and Simulink checks passed.
+All 26 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits
