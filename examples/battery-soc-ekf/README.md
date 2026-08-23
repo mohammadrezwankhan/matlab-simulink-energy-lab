@@ -32,8 +32,11 @@ covariance symmetry and positive-semidefinite structure under finite precision.
 | `battery_soc_ekf_default_scenario.m` | Defines the one-hour pulse profile, illustrative cell model, initial bias, and filter covariances. |
 | `estimate_battery_soc_ekf.m` | Reusable two-state EKF for uniform or irregular measurement timestamps. |
 | `simulate_battery_soc_ekf_example.m` | Generates deterministic noisy measurements from the validated RC simulator and reports estimation metrics. |
+| `evaluate_battery_soc_ekf_current_bias.m` | Repeats the fixed truth case across a prescribed constant current-bias grid and collects error and consistency metrics. |
 | `check_battery_soc_ekf.m` | Validates convergence, covariance structure, repeatability, irregular timestamps, and malformed-input rejection. |
+| `check_battery_soc_ekf_current_bias.m` | Validates zero-bias parity, signed-bias behavior, covariance structure, irregular timestamps, repeatability, and malformed grids. |
 | `run_battery_soc_ekf.m` | Plots SOC convergence, voltage correction, estimation error, and current. |
+| `run_battery_soc_ekf_current_bias.m` | Plots five prescribed current-bias cases and their SOC, voltage, and innovation metrics. |
 
 ## Assumptions
 
@@ -66,6 +69,15 @@ Run the no-plot validation:
 run('examples/battery-soc-ekf/check_battery_soc_ekf.m')
 ```
 
+Run and validate the prescribed current-bias sensitivity:
+
+```matlab
+run('examples/battery-soc-ekf/run_battery_soc_ekf_current_bias.m')
+run('examples/battery-soc-ekf/check_battery_soc_ekf_current_bias.m')
+```
+
+[Open the current-bias sensitivity in MATLAB Online](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-ekf/run_battery_soc_ekf_current_bias.m).
+
 The check is also included in:
 
 ```matlab
@@ -88,13 +100,26 @@ The deterministic check requires:
 Expected output values are recorded in the repository README after validation
 on the configured MATLAB release.
 
+### Prescribed current-bias sensitivity
+
+The sensitivity holds the true current, true SOC, and voltage measurements
+fixed. Only the estimator input receives a constant offset. Across
+`[-0.50, -0.25, 0, 0.25, 0.50] A`, final signed SOC error spans `-0.0218` to
+`+0.0217`, while SOC RMSE is `0.0066` at zero bias and `0.0161`/`0.0154` at
+the negative/positive edges. The exact zero-bias run reproduces the established
+benchmark.
+
+![Battery SOC EKF current-bias sensitivity showing whole-profile and final SOC error, voltage metrics, and mean normalized innovation squared](../../assets/battery-soc-ekf-current-bias-sensitivity.png)
+
 ## Interpretation Limits
 
 - The plant and estimator intentionally use the same capacity, resistance, and
   OCV parameters. Parameter mismatch must be introduced and validated before
   using the example to assess robustness.
-- Current-sensor bias, OCV hysteresis, temperature, ageing, and cell variation
-  are omitted.
+- Constant current-sensor bias is included only as a prescribed unmodeled-input
+  sensitivity. The two-state filter has no bias state and does not detect,
+  estimate, or reject sensor bias. OCV hysteresis, temperature, ageing, and
+  cell variation are omitted.
 - SOC is weakly observable where `dOCV/dSOC` is small. The filter cannot create
   information that the voltage/current experiment does not contain.
 - Covariances are educational tuning values, not identified sensor or process

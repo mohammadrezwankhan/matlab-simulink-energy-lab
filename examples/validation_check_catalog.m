@@ -13,6 +13,7 @@ checks = [
     "battery-2rc-model/check_battery_2rc_fit.m";
     "battery-2rc-simulink-model/check_battery_2rc_simulink_model.m";
     "battery-soc-ekf/check_battery_soc_ekf.m";
+    "battery-soc-ekf/check_battery_soc_ekf_current_bias.m";
     "battery-ocv-hysteresis/check_battery_ocv_hysteresis.m";
     "battery-soc-hysteresis-ekf/check_battery_soc_hysteresis_ekf.m";
     "battery-thermal-model/check_battery_thermal_model.m";

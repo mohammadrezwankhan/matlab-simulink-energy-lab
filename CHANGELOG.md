@@ -10,6 +10,10 @@ still evolving.
 
 ### Added
 
+- A five-case prescribed current-sensor-bias sensitivity for the battery SOC
+  EKF, with fixed-truth isolation, exact zero-bias parity, SOC/voltage/
+  innovation metrics, covariance checks, irregular timestamps, and explicit
+  non-rejection boundaries.
 - A source-backed fixed-junction-temperature sensitivity for the switched
   closed-loop buck, interpolating published 25-to-175 degC ON-resistance and
   switching-energy anchors with exact baseline parity, energy, convergence,
@@ -45,7 +49,7 @@ still evolving.
 
 ### Changed
 
-- Updated the repository validation index and expected output for 24 MATLAB and
+- Updated the repository validation index and expected output for 25 MATLAB and
   Simulink check entry points.
 - Aligned reference and load events by integer grid index in the switched
   closed-loop buck, eliminating floating-point ambiguity at exact step times.

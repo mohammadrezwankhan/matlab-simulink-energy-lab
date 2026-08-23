@@ -55,6 +55,8 @@ study.
 - Generate and validate a native Simulink two-RC battery block diagram.
 - Estimate real-time battery SOC and RC polarization from noisy current and
   terminal-voltage measurements with a transparent extended Kalman filter.
+- Quantify how a prescribed constant current-sensor bias changes SOC error,
+  voltage residuals, and filter-consistency diagnostics on the same benchmark.
 - Preserve charge/discharge voltage history with a one-state OCV hysteresis
   model and validate a deterministic same-SOC reversal minor loop.
 - Explore how irreversible electrical losses, reversible entropic heat, and
@@ -90,9 +92,9 @@ study.
 
 ## Start in 60 Seconds
 
-Twenty-three established no-plot checks cover the battery, converter, and DC-side
+Twenty-four established no-plot checks cover the battery, converter, and DC-side
 BESS examples. The unified BESS entry point adds a focused 31-result
-MATLAB/Simulink suite, so `run_all_checks` invokes 24 check entry points. CI
+MATLAB/Simulink suite, so `run_all_checks` invokes 25 check entry points. CI
 also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
@@ -108,6 +110,7 @@ run_all_checks
 Or open one focused Base MATLAB example directly:
 
 - [Hysteresis-aware battery SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
+- [SOC EKF current-bias sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-ekf/run_battery_soc_ekf_current_bias.m)
 - [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
 - [Switch fixed-junction-temperature sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck_temperature_sensitivity.m)
 - [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
@@ -130,7 +133,7 @@ The verified MATLAB R2026a run on the current main branch reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 24 MATLAB and Simulink check entry points pass. |
+| Repository regression | All 25 MATLAB and Simulink check entry points pass. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
 | BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
 | Switched closed-loop buck | 399.62 V final average for a 400 V target; 5.91% reference-step overshoot; 2.08% load-step undershoot; 3.354 J nominal switch-conduction and 0.405 J transition loss. |
@@ -138,6 +141,7 @@ The verified MATLAB R2026a run on the current main branch reports:
 | Native switched-buck parity | Exact agreement across 180,000 PWM intervals, 1,800 controller periods, and both electrical states. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
+| SOC EKF prescribed current bias | Across -0.50 to +0.50 A, final signed SOC error spans -0.0218 to +0.0217; this is synthetic sensitivity, not bias rejection. |
 | Unified BESS focused suite | 31 focused MATLAB/Simulink results pass across eight mandatory scenarios. |
 | Environment | MATLAB R2026a; Simulink is required for generated diagrams. |
 
@@ -161,6 +165,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Two-RC battery parameter-identification benchmark comparing fitted and synthetic voltage records on calibration and held-out pulse profiles with millivolt residuals](assets/battery-2rc-identification-response.png)
 
+![Battery SOC EKF current-bias sensitivity showing SOC error, voltage residuals, and normalized innovation evidence across five prescribed bias cases](assets/battery-soc-ekf-current-bias-sensitivity.png)
+
 ![Battery OCV hysteresis response showing reversal current, charge-balanced SOC, dynamic hysteresis memory, and an annotated same-SOC minor-loop voltage gap](assets/battery-ocv-hysteresis-response.png)
 
 ![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, separated semiconductor losses, the load step, and final PWM periods](assets/converter-switching-closed-loop-response.png)
@@ -179,7 +185,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery RC](examples/battery-simulink-model/README.md) | Can a generated diagram reproduce the exact first-order battery pulse response and nonlinear OCV lookup? | `check_battery_rc_simulink_model.m` | MATLAB and Simulink |
 | [Battery 2RC model and identification](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape voltage recovery, and can their positive parameters generalize to a held-out pulse profile? | `check_battery_2rc_model.m`, `check_battery_2rc_fit.m` | Base MATLAB |
 | [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
-| [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased real-time SOC and polarization estimate? | `check_battery_soc_ekf.m` | Base MATLAB |
+| [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased initial SOC estimate, and how does prescribed current-sensor bias change the result? | `check_battery_soc_ekf.m`, `check_battery_soc_ekf_current_bias.m` | Base MATLAB |
 | [Battery OCV hysteresis](examples/battery-ocv-hysteresis/README.md) | How does charge/discharge history create different equilibrium voltages at the same SOC after a current reversal? | `check_battery_ocv_hysteresis.m` | Base MATLAB |
 | [Battery SOC hysteresis EKF](examples/battery-soc-hysteresis-ekf/README.md) | How much SOC error appears when an estimator omits known OCV hysteresis under current reversals? | `check_battery_soc_hysteresis_ekf.m` | Base MATLAB |
 | [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
@@ -313,9 +319,10 @@ an issue so the compatibility record can grow.
 - Ageing and cell-to-cell variation are not yet modeled. The OCV hysteresis
   example is a single-state educational reference with illustrative
   parameters, not a calibrated chemistry-specific model.
-- The SOC EKF uses illustrative OCV and covariance data, assumes exact
-  electrical parameters, and omits current bias, temperature, hysteresis,
-  ageing, and constrained-filter theory.
+- The SOC EKF uses illustrative OCV and covariance data and assumes exact
+  electrical parameters. Its current-bias study prescribes a constant
+  unmodeled estimator-input offset; it does not estimate or reject that bias.
+  Temperature, hysteresis, ageing, and constrained-filter theory remain omitted.
 - The open-loop switching converter uses ideal complementary switches. The
   switched closed-loop converter adds a constant-drop freewheel diode,
   period-sampled control, nominal switch loss, and a fixed-junction-temperature

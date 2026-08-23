@@ -25,6 +25,7 @@ not cell-test, hardware, protection, certification, or grid-code models.
 | Your question | Start here | Why | Do not use it for |
 | --- | --- | --- | --- |
 | Can voltage measurements correct a biased SOC estimate? | [Battery SOC EKF](../examples/battery-soc-ekf/README.md) | Transparent two-state Joseph-form EKF with uncertainty and irregular-time checks. | Hysteretic voltage behavior. |
+| How sensitive is that EKF to a constant current-sensor offset? | [SOC EKF current-bias sensitivity](../examples/battery-soc-ekf/README.md#prescribed-current-bias-sensitivity) | Holds truth and voltage fixed while sweeping five prescribed estimator-input biases. | Bias detection, estimation, rejection, or BMS safety claims. |
 | What error appears when an estimator omits known hysteresis? | [Hysteresis-aware SOC EKF](../examples/battery-soc-hysteresis-ekf/README.md) | Compares three-state and two-state estimators on the same reversal-rich synthetic case. | Broad robustness or physical-cell claims. |
 
 ### I need a battery thermal model
@@ -67,12 +68,13 @@ been validated.
 - Start with the MATLAB reference when both exist. The generated Simulink
   checks compare their logged outputs against that reference.
 
-## Three browser-runnable starting points
+## Four browser-runnable starting points
 
 These links target Base MATLAB scripts and open the repository in MATLAB
 Online. Run the opened script after the repository finishes loading.
 
 - [Open the hysteresis-aware SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
+- [Open the SOC EKF current-bias sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-ekf/run_battery_soc_ekf_current_bias.m)
 - [Open the switching closed-loop buck](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
 - [Open the BESS DC reserve model](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
 
