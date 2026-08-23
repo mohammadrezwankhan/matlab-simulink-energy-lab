@@ -47,6 +47,7 @@ assert(score.passed)
 ## Regenerate evidence
 
 ```matlab
+addpath('examples/bess-unified-control')
 generate_bess_validation_evidence("COMMIT_SHA")
 ```
 
