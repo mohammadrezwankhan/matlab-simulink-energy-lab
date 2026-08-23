@@ -68,7 +68,7 @@ been validated.
 - Start with the MATLAB reference when both exist. The generated Simulink
   checks compare their logged outputs against that reference.
 
-## Four browser-runnable starting points
+## Six browser-runnable starting points
 
 These links target Base MATLAB scripts and open the repository in MATLAB
 Online. Run the opened script after the repository finishes loading.
@@ -76,7 +76,21 @@ Online. Run the opened script after the repository finishes loading.
 - [Open the hysteresis-aware SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
 - [Open the SOC EKF current-bias sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-ekf/run_battery_soc_ekf_current_bias.m)
 - [Open the switching closed-loop buck](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
+- [Open the switch fixed-junction-temperature sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck_temperature_sensitivity.m)
 - [Open the BESS DC reserve model](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
+- [Open the BESS prescribed dynamic-profile sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m)
+
+## Focused Simulink first runs
+
+Run either command from the repository root. Both checks require Simulink but
+no battery, power-electronics, control, or testing toolbox. Each command builds
+a temporary `.slx` model, inspects and simulates it, compares its outputs with
+the corresponding MATLAB reference, and removes the generated files.
+
+| Engineering question | Command | Expected terminal result |
+| --- | --- | --- |
+| Can a native battery RC block diagram reproduce the MATLAB model? | `run('examples/battery-simulink-model/check_battery_rc_simulink_model.m')` | `Native Simulink battery RC check passed.` |
+| Can a native switching closed-loop buck reproduce the controller, PWM sequence, and plant states? | `run('examples/converter-switching-closed-loop-simulink-model/check_switching_closed_loop_buck_simulink_model.m')` | `Native Simulink switching closed-loop buck check passed.` |
 
 For a no-plot confidence check, run the example's `check_*.m` entry point. To
 validate the whole repository from its root folder, run:

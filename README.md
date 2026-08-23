@@ -126,6 +126,9 @@ Or open one focused Base MATLAB example directly:
 - [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
 - [BESS prescribed dynamic-profile sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m)
 
+Prefer an inspectable block diagram? Use one of the two
+[focused Simulink first runs](docs/model-selection-guide.md#focused-simulink-first-runs).
+
 If you are unsure which example fits, use the
 [battery, converter, and BESS model selection guide](docs/model-selection-guide.md).
 
