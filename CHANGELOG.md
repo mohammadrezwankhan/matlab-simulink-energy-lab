@@ -10,6 +10,9 @@ still evolving.
 
 ### Added
 
+- A question-led model selection guide spanning battery electrical, SOC
+  estimation, thermal, converter, and BESS workflows, with focused MATLAB
+  Online launch links for three Base MATLAB examples.
 - A hysteresis-aware three-state battery SOC EKF benchmark that compares
   against a two-state no-hysteresis baseline on a deterministic reversal-rich
   profile, with covariance, reduction, irregular-time, and malformed-input

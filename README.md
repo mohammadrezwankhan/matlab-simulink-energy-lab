@@ -23,6 +23,8 @@ study.
 ## Shareable Documentation Map
 
 - [Start in 60 Seconds](#start-in-60-seconds) for the fastest runnable path.
+- [Model selection guide](docs/model-selection-guide.md) to choose the smallest
+  battery, converter, thermal, SOC-estimation, or BESS model for your question.
 - [Models at a Glance](#models-at-a-glance) for the model-to-question map.
 - [Requirements](#requirements) for MATLAB and toolbox expectations.
 - [Scope and Limitations](#scope-and-limitations) before reusing outputs.
@@ -93,6 +95,15 @@ After the repository opens, run this from its root folder:
 addpath('examples');
 run_all_checks
 ```
+
+Or open one focused Base MATLAB example directly:
+
+- [Hysteresis-aware battery SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
+- [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
+- [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
+
+If you are unsure which example fits, use the
+[battery, converter, and BESS model selection guide](docs/model-selection-guide.md).
 
 For a local command-line run:
 
