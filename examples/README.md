@@ -32,6 +32,7 @@ checks intentionally clear their own variables.
 | [Switching closed-loop buck](converter-switching-closed-loop-model/README.md) | Connects bounded period-sampled voltage/current control to an event-aligned PWM plant with diode and copper loss. | `converter-switching-closed-loop-model/simulate_switching_closed_loop_buck.m`, `converter-switching-closed-loop-model/check_switching_closed_loop_buck.m` | `run_switching_closed_loop_buck`, `check_switching_closed_loop_buck` |
 | [Closed-loop converter](converter-closed-loop-model/README.md) | Simulates bounded cascaded control and compares open-loop, PI, and filtered-PID regulation under a common load step. | `converter-closed-loop-model/simulate_closed_loop_converter.m`, `converter-closed-loop-model/simulate_converter_controller_comparison.m` | `run_closed_loop_converter`, `check_closed_loop_converter`, `run_converter_controller_comparison`, `check_converter_controller_comparison` |
 | [Native Simulink averaged buck](converter-simulink-model/README.md) | Generates, compiles, and validates an inspectable block diagram against the exact averaged state solution. | `converter-simulink-model/build_average_buck_simulink_model.m`, `converter-simulink-model/check_average_buck_simulink_model.m` | `run_average_buck_simulink_model`, `check_average_buck_simulink_model` |
+| [BESS DC-link and SOC reserve](bess-dc-reserve-model/README.md) | Resolves SOC-dependent charge/discharge capability, DC-link energy buffering, requested/delivered power, and reserve curtailment. | `bess-dc-reserve-model/simulate_bess_dc_reserve.m`, `bess-dc-reserve-model/check_bess_dc_reserve.m` | `run_bess_dc_reserve`, `check_bess_dc_reserve` |
 | [Unified grid-tied and grid-forming BESS control](bess-unified-control/README.md) | Generates a discrete averaged model and verifies grid-following, grid-forming, transitions, synchronization, limits, faults, and recovery with source/assumption traceability. | `bess-unified-control/build_bess_unified_control_model.m`, `bess-unified-control/tests/TestBessUnifiedControl.m` | `run_bess_unified_control`, `check_bess_unified_control` |
 
 ## Example Guides
@@ -120,6 +121,8 @@ checks intentionally clear their own variables.
 | `converter-closed-loop-model/run_converter_controller_comparison.m` | Plots comparable output-voltage, inductor-current, and duty-cycle traces for all three control strategies. |
 | `converter-simulink-model/check_average_buck_simulink_model.m` | Generates and compiles an SLX model, verifies topology, and compares both states with the exact matrix-exponential solution. |
 | `converter-simulink-model/run_average_buck_simulink_model.m` | Generates and opens the Simulink diagram, simulates startup, and plots output voltage and inductor current. |
+| `bess-dc-reserve-model/check_bess_dc_reserve.m` | Verifies reserve and DC-link bounds, exact terminal power, curtailment, charge recovery, energy balances, grid convergence, and invalid inputs. |
+| `bess-dc-reserve-model/run_bess_dc_reserve.m` | Plots requested/delivered/battery power, SOC reserve, DC-link voltage, current, and charge/discharge availability. |
 | `bess-unified-control/check_bess_unified_control.m` | Runs 31 focused MATLAB test results covering analytic equations, dq/filter dynamics, support sign, anti-windup, model regeneration, deterministic scenarios A-H, Simulink wrapper parity, invalid-input rejection, and traceability. |
 | `bess-unified-control/run_bess_unified_control.m` | Runs and plots one selected scenario A-H. |
 | `bess-unified-control/generate_bess_validation_evidence.m` | Rebuilds the model, scores A-H, writes JSON metrics, and exports original validation plots. |
@@ -228,6 +231,11 @@ check_converter_controller_comparison
 ```matlab
 cd examples/converter-simulink-model
 check_average_buck_simulink_model
+```
+
+```matlab
+cd examples/bess-dc-reserve-model
+check_bess_dc_reserve
 ```
 
 ```matlab

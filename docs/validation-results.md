@@ -108,8 +108,15 @@ Diode/inductor loss energy: 2.606 J / 16.843 J
 Native Simulink averaged buck check passed.
 Final output voltage: 358.209 V
 Final inductor current: 17.910 A
+BESS DC reserve check passed.
+SOC: minimum 0.2042, final 0.2042
+DC-link voltage: 700.00 V to 750.00 V
+Delivered/curtailed discharge energy: 10.225 / 8.109 kWh
+Accepted charge energy: 4.000 kWh
+Reserve-limited operation: 219.9 s
+Peak discharge/charge current: 432.9 / 163.5 A
 All 31 focused BESS controller tests passed.
-All 20 MATLAB and Simulink checks passed.
+All 21 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits

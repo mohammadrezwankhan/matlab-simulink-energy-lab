@@ -73,14 +73,16 @@ study.
 - Exercise one unified BESS controller through grid-following, grid-forming,
   islanding, load support, synchronization, saturation, fault, and recovery
   scenarios with requirement-level traceability.
+- Trace how battery SOC reserve, current capability, and DC-link energy turn a
+  requested BESS converter power profile into deliverable power and curtailment.
 - Trace every parameter, unit, sign convention, and limitation before extending
   a model.
 
 ## Start in 60 Seconds
 
-Seventeen established no-plot checks cover the battery and converter examples.
-The unified BESS entry point adds a focused 31-result MATLAB/Simulink suite, so
-`run_all_checks` now invokes nineteen check entry points. All are configured
+Twenty established no-plot checks cover the battery, converter, and DC-side
+BESS examples. The unified BESS entry point adds a focused 31-result
+MATLAB/Simulink suite, so `run_all_checks` invokes 21 check entry points. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
 
@@ -107,7 +109,8 @@ The verified MATLAB R2026a run on the current main branch reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 20 MATLAB and Simulink check entry points pass. |
+| Repository regression | All 21 MATLAB and Simulink check entry points pass. |
+| BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
 | Switched closed-loop buck | 399.92 V final average for a 400 V target; 5.97% reference-step overshoot; 2.19% load-step undershoot. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
@@ -137,6 +140,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, the load step, and final PWM periods](assets/converter-switching-closed-loop-response.png)
 
+![BESS DC-side reserve response showing requested and delivered power, SOC reserve, DC-link voltage, battery current, and charge/discharge availability](assets/bess-dc-reserve-response.png)
+
 ## Models at a Glance
 
 | Example | Question It Explores | Validation | Requirements |
@@ -157,6 +162,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched lossy buck through reference and load steps? | `check_switching_closed_loop_buck.m` | Base MATLAB |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
+| [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain requested converter power? | `check_bess_dc_reserve.m` | Base MATLAB |
 | [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (31 focused results) | MATLAB and Simulink |
 
 Current release status: the battery examples, module liquid-cooling network,
@@ -221,6 +227,7 @@ matlab-simulink-energy-lab/
 |   |-- converter-switching-closed-loop-model/ # Controlled PWM plant and check
 |   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
 |   |-- converter-simulink-model/   # Generated native Simulink model and check
+|   |-- bess-dc-reserve-model/      # SOC reserve and DC-link availability
 |   |-- bess-unified-control/        # Unified BESS modes, builder, tests, evidence
 |   `-- guides/                     # Reproducibility and review notes
 |-- notes/                          # Repository-wide modeling standards
@@ -284,6 +291,10 @@ an issue so the compatibility record can grow.
   EMI, protection, sensor dynamics, and hardware validation.
 - The native Simulink converter is an averaged open-loop model and therefore
   omits PWM ripple and switching events.
+- The DC-side BESS reserve model uses affine OCV, constant resistance, exact
+  initial SOC, and an energy-state DC link. It omits battery polarization,
+  estimation error, temperature, ageing, switching conversion, protection, and
+  closed-loop integration with the unified AC-side controller.
 - Parameters and expected outputs must be revalidated before use with real
   cells, converters, or control designs.
 
