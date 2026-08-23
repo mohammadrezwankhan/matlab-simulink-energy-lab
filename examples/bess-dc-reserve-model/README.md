@@ -70,6 +70,12 @@ For the no-plot regression check:
 check_bess_dc_reserve
 ```
 
+For the illustrative reserve-floor versus constant-request sensitivity:
+
+```matlab
+run_bess_dc_reserve_envelope
+```
+
 Expected output:
 
 ```text
@@ -78,7 +84,7 @@ SOC: minimum 0.2042, final 0.2042
 DC-link voltage: 700.00 V to 750.00 V
 Delivered/curtailed discharge energy: 10.225 / 8.109 kWh
 Accepted charge energy: 4.000 kWh
-Reserve-limited operation: 219.9 s
+SOC-taper active / curtailed time: 219.9 / 190.7 s
 Peak discharge/charge current: 432.9 / 163.5 A
 ```
 
@@ -88,6 +94,28 @@ The check verifies state, voltage, and current bounds; exact terminal-power
 consistency; measurable charge recovery; reserve curtailment; battery and
 DC-link energy conservation; doubled-grid convergence; and malformed-input
 rejection.
+
+## Constant-Request Reserve Sensitivity
+
+The sensitivity runner holds the battery, current limit, DC-link parameters,
+420-second horizon, and constant-request profile shape fixed. It sweeps three
+illustrative minimum reserve levels (`0.10`, `0.15`, and `0.20`) against six
+constant discharge requests from `0` to `325 kW`.
+
+Across the 18 deterministic cases, the maximum average delivered power is
+`176.277 kW` and maximum curtailed discharge energy is `30.924 kWh`. Delivered
+energy is intentionally not asserted to increase monotonically with request:
+after the reserve taper is active, higher current can add loss while delivered
+power is already saturated. The check instead verifies the pre-registered
+curtailment, SOC-taper exposure, reserve-order, state-bound, energy-closure,
+determinism, and doubled-grid relations.
+
+![Illustrative BESS DC reserve sensitivity showing average delivered power saturation and actual curtailment time across three reserve floors](../../assets/bess-dc-reserve-operating-envelope.png)
+
+This is a reduced-order DC-side sensitivity map under one fixed-duration
+synthetic request family. It is not a cell or pack safe-operating area, BMS
+safety limit, inverter rating, grid-service guarantee, site dispatch result,
+or hardware/grid-code validation.
 
 ## Relationship to Unified BESS Control
 

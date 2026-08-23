@@ -119,10 +119,14 @@ SOC: minimum 0.2042, final 0.2042
 DC-link voltage: 700.00 V to 750.00 V
 Delivered/curtailed discharge energy: 10.225 / 8.109 kWh
 Accepted charge energy: 4.000 kWh
-Reserve-limited operation: 219.9 s
+SOC-taper active / curtailed time: 219.9 / 190.7 s
 Peak discharge/charge current: 432.9 / 163.5 A
+BESS DC reserve constant-request sensitivity check passed.
+18 cases: reserve 0.10 to 0.20, request 0 to 325 kW
+Maximum average delivered power: 176.277 kW
+Maximum curtailed discharge energy: 30.924 kWh
 All 31 focused BESS controller tests passed.
-All 21 MATLAB and Simulink checks passed.
+All 22 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits
