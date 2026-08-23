@@ -74,6 +74,8 @@ study.
 - Compare open-loop, PI, and filtered-PID load-step regulation on the same
   averaged buck plant.
 - Generate and validate a native Simulink averaged buck-converter diagram.
+- Generate and validate a fixed-step native Simulink switching closed-loop
+  buck diagram against the Base MATLAB reference.
 - Exercise one unified BESS controller through grid-following, grid-forming,
   islanding, load support, synchronization, saturation, fault, and recovery
   scenarios with requirement-level traceability.
@@ -86,9 +88,9 @@ study.
 
 ## Start in 60 Seconds
 
-Twenty-one established no-plot checks cover the battery, converter, and DC-side
+Twenty-two established no-plot checks cover the battery, converter, and DC-side
 BESS examples. The unified BESS entry point adds a focused 31-result
-MATLAB/Simulink suite, so `run_all_checks` invokes 22 check entry points. CI
+MATLAB/Simulink suite, so `run_all_checks` invokes 23 check entry points. CI
 also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
@@ -125,10 +127,11 @@ The verified MATLAB R2026a run on the current main branch reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 22 MATLAB and Simulink check entry points pass. |
+| Repository regression | All 23 MATLAB and Simulink check entry points pass. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
 | BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
-| Switched closed-loop buck | 399.65 V final average for a 400 V target; 5.91% reference-step overshoot; 2.05% load-step undershoot; 3.352 J nominal switch-conduction and 0.405 J transition loss. |
+| Switched closed-loop buck | 399.62 V final average for a 400 V target; 5.91% reference-step overshoot; 2.08% load-step undershoot; 3.354 J nominal switch-conduction and 0.405 J transition loss. |
+| Native switched-buck parity | Exact agreement across 180,000 PWM intervals, 1,800 controller periods, and both electrical states. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
 | Unified BESS focused suite | 31 focused MATLAB/Simulink results pass across eight mandatory scenarios. |
@@ -180,18 +183,19 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
 | [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched buck while separating source-backed nominal switch conduction and transition losses? | `check_switching_closed_loop_buck.m` | Base MATLAB |
+| [Native Simulink switching closed-loop buck](examples/converter-switching-closed-loop-simulink-model/README.md) | Can an inspectable fixed-step diagram reproduce the sampled controller, integer PWM, and exact switched-plant states? | `check_switching_closed_loop_buck_simulink_model.m` | MATLAB and Simulink |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 | [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain requested converter power? | `check_bess_dc_reserve.m`, `check_bess_dc_reserve_envelope.m` | Base MATLAB |
 | [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (31 focused results) | MATLAB and Simulink |
 
 Current release status: the battery examples, module liquid-cooling network,
-and three converter references run as MATLAB scripts. Native battery RC,
-battery 2RC, battery thermal, and averaged buck references additionally
-generate, compile, and simulate Simulink diagrams. The unified BESS reference
-generates its model, runs eight mandatory scenarios through MATLAB and
-Simulink, and publishes requirements, source/assumption boundaries, and
-validation artifacts.
+and converter references run as MATLAB scripts. Native battery RC, battery
+2RC, battery thermal, averaged buck, and switching closed-loop buck references
+additionally generate, compile, and simulate Simulink diagrams. The unified
+BESS reference generates its model, runs eight mandatory scenarios through
+MATLAB and Simulink, and publishes requirements, source/assumption boundaries,
+and validation artifacts.
 
 ![Unified BESS Scenario C grid-loss transition showing active and reactive power, PCC voltage, frequency, and supervisor state](examples/bess-unified-control/validation/scenario-c-grid-loss-transition.png)
 
@@ -245,6 +249,7 @@ matlab-simulink-energy-lab/
 |   |-- converter-average-model/    # Average-model scaffold and check
 |   |-- converter-switching-model/  # Ideal PWM switching model and check
 |   |-- converter-switching-closed-loop-model/ # Controlled PWM plant and check
+|   |-- converter-switching-closed-loop-simulink-model/ # Native switched parity
 |   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
 |   |-- converter-simulink-model/   # Generated native Simulink model and check
 |   |-- bess-dc-reserve-model/      # SOC reserve and DC-link availability
@@ -259,7 +264,7 @@ matlab-simulink-energy-lab/
 
 - MATLAB R2026a is the verified release.
 - The script-based examples and their validation checks use base MATLAB only.
-- Simulink is required for the five generated block-diagram examples,
+- Simulink is required for the six generated block-diagram examples,
   including unified BESS control.
 - No power-electronics, control, or testing toolbox is required.
 
@@ -312,8 +317,9 @@ an issue so the compatibility record can grow.
   temperature-dependent device behavior, dead time, capacitance, reverse
   recovery, parasitics, EMI, protection, sensor dynamics, and hardware
   validation.
-- The native Simulink converter is an averaged open-loop model and therefore
-  omits PWM ripple and switching events.
+- The native averaged Simulink converter omits PWM ripple and switching events.
+  The native switching companion reproduces the Base MATLAB sampled controller
+  and exact affine plant maps; its parity is not independent physical evidence.
 - The DC-side BESS reserve model uses affine OCV, constant resistance, exact
   initial SOC, and an energy-state DC link. It omits battery polarization,
   estimation error, temperature, ageing, switching conversion, protection, and

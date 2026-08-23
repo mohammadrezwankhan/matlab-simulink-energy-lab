@@ -16,6 +16,9 @@ still evolving.
 - An illustrative BESS DC-reserve constant-request sensitivity map spanning
   three reserve floors and six requested-power levels, with actual curtailment
   time, saturation evidence, full-case energy checks, and doubled-grid tests.
+- A generated fixed-step native Simulink companion for the switching
+  closed-loop buck, with transparent sampled control, anti-windup, integer PWM,
+  exact affine plant branches, topology checks, and exact MATLAB parity.
 - A question-led model selection guide spanning battery electrical, SOC
   estimation, thermal, converter, and BESS workflows, with focused MATLAB
   Online launch links for three Base MATLAB examples.
@@ -37,8 +40,10 @@ still evolving.
 
 ### Changed
 
-- Updated the repository validation index and expected output for 22 MATLAB and
+- Updated the repository validation index and expected output for 23 MATLAB and
   Simulink check entry points.
+- Aligned reference and load events by integer grid index in the switched
+  closed-loop buck, eliminating floating-point ambiguity at exact step times.
 
 ## 0.10.0 - 2026-08-19
 

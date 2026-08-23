@@ -103,14 +103,17 @@ Current ripple: 9.901 A peak-to-peak
 Voltage ripple: 0.124 V peak-to-peak
 Measured duty cycle: 0.450
 Switching closed-loop buck check passed.
-Final average voltage: 399.65 V
+Final average voltage: 399.62 V
 Reference-step overshoot: 5.91%, settling 19.4 ms
-Load-step undershoot: 2.05%, settling 1.7 ms
+Load-step undershoot: 2.08%, settling 1.8 ms
 Average duty cycle: 0.506
-Diode/inductor loss energy: 2.602 J / 16.834 J
-Switch conduction/transition loss energy: 3.352 J / 0.405 J
+Diode/inductor loss energy: 2.602 J / 16.845 J
+Switch conduction/transition loss energy: 3.354 J / 0.405 J
 Turn-on/turn-off transition energy: 0.255 J / 0.150 J
-Estimated energy efficiency: 97.044%
+Estimated energy efficiency: 97.046%
+Native Simulink switching closed-loop buck check passed.
+Maximum MATLAB parity error: 0.000e+00 A, 0.000e+00 V
+Matched PWM intervals / controller periods: 180000 / 1800
 Native Simulink averaged buck check passed.
 Final output voltage: 358.209 V
 Final inductor current: 17.910 A
@@ -126,7 +129,7 @@ BESS DC reserve constant-request sensitivity check passed.
 Maximum average delivered power: 176.277 kW
 Maximum curtailed discharge energy: 30.924 kWh
 All 31 focused BESS controller tests passed.
-All 22 MATLAB and Simulink checks passed.
+All 23 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits
