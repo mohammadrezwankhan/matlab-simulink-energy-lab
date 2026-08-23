@@ -15,8 +15,9 @@ matlab -batch "addpath('examples'); run_all_checks"
 ```
 
 The verified environment is MATLAB R2026a. Simulink is required for the native
-block-diagram checks. The latest published validation snapshot is the signed
-[`v0.9.0` release](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.9.0).
+block-diagram checks. The latest signed release is
+[`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0);
+the output below records the current main branch.
 
 ## Expected output
 
@@ -98,11 +99,17 @@ Average inductor current: 17.910 A
 Current ripple: 9.901 A peak-to-peak
 Voltage ripple: 0.124 V peak-to-peak
 Measured duty cycle: 0.450
+Switching closed-loop buck check passed.
+Final average voltage: 399.92 V
+Reference-step overshoot: 5.97%, settling 19.1 ms
+Load-step undershoot: 2.19%, settling 2.1 ms
+Average duty cycle: 0.505
+Diode/inductor loss energy: 2.606 J / 16.843 J
 Native Simulink averaged buck check passed.
 Final output voltage: 358.209 V
 Final inductor current: 17.910 A
 All 31 focused BESS controller tests passed.
-All 19 MATLAB and Simulink checks passed.
+All 20 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits

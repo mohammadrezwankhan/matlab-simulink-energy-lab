@@ -29,6 +29,7 @@ checks intentionally clear their own variables.
 | [Native Simulink battery thermal](battery-thermal-simulink-model/README.md) | Generates explicit electrical, entropic, and thermal paths and validates thirteen logged outputs against the shared discrete solver. | `battery-thermal-simulink-model/build_battery_thermal_simulink_model.m`, `battery-thermal-simulink-model/check_battery_thermal_simulink_model.m` | `run_battery_thermal_simulink_model`, `check_battery_thermal_simulink_model` |
 | [Converter average model](converter-average-model/README.md) | Provides a no-plot averaged converter scaffold for assumptions, signal naming, and first-pass estimates. | `converter-average-model/run_converter_average_model.m`, `converter-average-model/check_converter_average_model.m` | `run_converter_average_model`, `check_converter_average_model` |
 | [Switching buck converter](converter-switching-model/README.md) | Resolves ideal event-aligned PWM with exact ON/OFF state propagation and averaged/ripple comparisons. | `converter-switching-model/simulate_switching_buck_converter.m`, `converter-switching-model/check_switching_buck_converter.m` | `run_switching_buck_converter`, `check_switching_buck_converter` |
+| [Switching closed-loop buck](converter-switching-closed-loop-model/README.md) | Connects bounded period-sampled voltage/current control to an event-aligned PWM plant with diode and copper loss. | `converter-switching-closed-loop-model/simulate_switching_closed_loop_buck.m`, `converter-switching-closed-loop-model/check_switching_closed_loop_buck.m` | `run_switching_closed_loop_buck`, `check_switching_closed_loop_buck` |
 | [Closed-loop converter](converter-closed-loop-model/README.md) | Simulates bounded cascaded control and compares open-loop, PI, and filtered-PID regulation under a common load step. | `converter-closed-loop-model/simulate_closed_loop_converter.m`, `converter-closed-loop-model/simulate_converter_controller_comparison.m` | `run_closed_loop_converter`, `check_closed_loop_converter`, `run_converter_controller_comparison`, `check_converter_controller_comparison` |
 | [Native Simulink averaged buck](converter-simulink-model/README.md) | Generates, compiles, and validates an inspectable block diagram against the exact averaged state solution. | `converter-simulink-model/build_average_buck_simulink_model.m`, `converter-simulink-model/check_average_buck_simulink_model.m` | `run_average_buck_simulink_model`, `check_average_buck_simulink_model` |
 | [Unified grid-tied and grid-forming BESS control](bess-unified-control/README.md) | Generates a discrete averaged model and verifies grid-following, grid-forming, transitions, synchronization, limits, faults, and recovery with source/assumption traceability. | `bess-unified-control/build_bess_unified_control_model.m`, `bess-unified-control/tests/TestBessUnifiedControl.m` | `run_bess_unified_control`, `check_bess_unified_control` |
@@ -111,6 +112,8 @@ checks intentionally clear their own variables.
 | `converter-average-model/run_converter_average_model.m` | Prints converter scaffold assumptions and first-pass output, current ripple, and voltage ripple estimates. |
 | `converter-switching-model/check_switching_buck_converter.m` | Verifies exact PWM state propagation, settled averages and ripple, whole-period balance, and grid convergence. |
 | `converter-switching-model/run_switching_buck_converter.m` | Plots startup plus settled switch-node, inductor-current, and output-voltage waveforms. |
+| `converter-switching-closed-loop-model/check_switching_closed_loop_buck.m` | Verifies period-sampled regulation, limits, switching counts, lossy averaged and energy balances, fixed-duty parity, grid convergence, and invalid inputs. |
+| `converter-switching-closed-loop-model/run_switching_closed_loop_buck.m` | Plots reference/load transients, current control, bounded quantized duty, and the final five PWM periods. |
 | `converter-closed-loop-model/check_closed_loop_converter.m` | Verifies finite states, duty limits, final tracking error, overshoot, and two-percent settling time. |
 | `converter-closed-loop-model/run_closed_loop_converter.m` | Plots the voltage reference and response, current loop, and bounded duty command. |
 | `converter-closed-loop-model/check_converter_controller_comparison.m` | Reports and verifies open-loop, PI, and filtered-PID steady error, overshoot, settling, and saturation compliance under one load step. |
@@ -205,6 +208,11 @@ check_converter_average_model
 ```matlab
 cd examples/converter-switching-model
 check_switching_buck_converter
+```
+
+```matlab
+cd examples/converter-switching-closed-loop-model
+check_switching_closed_loop_buck
 ```
 
 ```matlab
