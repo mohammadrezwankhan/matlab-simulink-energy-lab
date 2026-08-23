@@ -26,7 +26,7 @@ marked `worktree`; CI accepts only its exact 40-character `GITHUB_SHA`.
 
 ## Evidence split
 
-The manifest covers the 22 entry points in `run_all_checks(false)`, matching
+The manifest covers the 23 entry points in `run_all_checks(false)`, matching
 the general CI job. The
 unified BESS job remains separate because it regenerates a focused eight-scenario
 model package and 31-result suite. The tracked

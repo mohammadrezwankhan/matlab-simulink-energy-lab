@@ -111,6 +111,9 @@ Diode/inductor loss energy: 2.602 J / 16.845 J
 Switch conduction/transition loss energy: 3.354 J / 0.405 J
 Turn-on/turn-off transition energy: 0.255 J / 0.150 J
 Estimated energy efficiency: 97.046%
+Switch fixed-temperature sensitivity check passed.
+25/175 degC total switch loss: 3.759 J / 8.594 J
+25/175 degC estimated efficiency: 97.046% / 96.823%
 Native Simulink switching closed-loop buck check passed.
 Maximum MATLAB parity error: 0.000e+00 A, 0.000e+00 V
 Matched PWM intervals / controller periods: 180000 / 1800
@@ -129,7 +132,7 @@ BESS DC reserve constant-request sensitivity check passed.
 Maximum average delivered power: 176.277 kW
 Maximum curtailed discharge energy: 30.924 kWh
 All 31 focused BESS controller tests passed.
-All 23 MATLAB and Simulink checks passed.
+All 24 MATLAB and Simulink checks passed.
 ```
 
 ## Interpretation and limits

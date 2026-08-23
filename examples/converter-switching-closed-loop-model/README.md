@@ -58,6 +58,35 @@ propagation. Transition energy is an event-level electrical-loss estimate; it
 is added to DC-source work and subtracted as device loss without changing the
 resolved state trajectory.
 
+### Fixed-junction-temperature sensitivity
+
+The companion sensitivity stays inside the same official datasheet conditions
+and does not invent a thermal network. It linearly interpolates the tabulated
+typical ON-resistance anchors of `40`, `81`, and `94 mOhm` at `25`, `150`, and
+`175 degC`. Turn-on/off reference energies interpolate between the published
+`109/45 uJ` values at `25 degC` and `200/67 uJ` values at `175 degC`, all at
+`800 V`, `18 A`, `VGS = 0/18 V`, `RG,ext = 2.3 Ohm`, and `12 nH` stray
+inductance. No extrapolation outside `25` to `175 degC` is permitted.
+
+Run:
+
+```matlab
+run_switching_closed_loop_buck_temperature_sensitivity
+```
+
+or validate without plots:
+
+```matlab
+check_switching_closed_loop_buck_temperature_sensitivity
+```
+
+The canonical five-case sweep reports total switch loss increasing from
+`3.759 J` at `25 degC` to `8.594 J` at `175 degC`, while estimated transient
+efficiency decreases from `97.046%` to `96.823%`. The fixed-temperature result
+is a parameter sensitivity, not a junction-temperature prediction.
+
+![Fixed-junction-temperature sensitivity showing datasheet-anchor interpolation, conduction and switching-event loss, estimated efficiency, and regulated output](../../assets/converter-switching-temperature-sensitivity.png)
+
 ## Controller
 
 At each 10 kHz PWM-period boundary, an outer PI voltage loop produces a bounded
@@ -117,11 +146,14 @@ Estimated energy efficiency: 97.046%
 
 ![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, separated semiconductor losses, the load step, and final PWM periods](../../assets/converter-switching-closed-loop-response.png)
 
-The check verifies PWM counts, current/duty limits, continuous conduction,
+The canonical check verifies PWM counts, current/duty limits, continuous conduction,
 reference and load-step performance, the lossy averaged balance, integrated
 energy conservation, exact compatibility with the existing ideal fixed-duty
 switched model, zero-transition-loss trajectory parity, doubled-grid loss
 convergence, switching-frequency sensitivity, and malformed-input rejection.
+The temperature check also requires exact 25 degC baseline parity, every
+tabulated parameter anchor, monotonic loss/efficiency sensitivity, energy
+closure, determinism, doubled-grid convergence, and range rejection.
 
 ## What the Numbers Mean
 
@@ -145,11 +177,13 @@ qualification.
 
 - The diode is a constant forward-voltage element; reverse recovery and
   discontinuous-conduction state logic are omitted.
-- High-side ON resistance is fixed at its nominal 25 degC value. Turn-on and
-  turn-off energy use a linear voltage/current scaling around one datasheet
-  test point. Temperature, gate resistance and voltage, dead time, nonlinear
-  energy curves, output capacitance, reverse recovery, parasitics, EMI,
-  electrothermal feedback, and statistical/device variation are excluded.
+- The canonical run fixes high-side ON resistance at its nominal 25 degC
+  value. The sensitivity prescribes a constant junction temperature and uses
+  piecewise-linear interpolation only inside published temperature anchors.
+  It does not calculate junction temperature or dynamic electrothermal
+  feedback. Gate resistance and voltage variation, dead time, nonlinear
+  multidimensional energy surfaces, output capacitance, reverse recovery,
+  parasitics, EMI, and statistical/device variation are excluded.
 - The nominal device is a parameter reference, not a selected or qualified
   component. The loss result is not a hardware efficiency, junction
   temperature, lifetime, or safe-operating-area prediction.

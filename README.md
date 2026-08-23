@@ -76,6 +76,8 @@ study.
 - Generate and validate a native Simulink averaged buck-converter diagram.
 - Generate and validate a fixed-step native Simulink switching closed-loop
   buck diagram against the Base MATLAB reference.
+- Compare fixed-junction-temperature switch loss across published 25-to-175
+  degC SiC MOSFET anchors without inventing a thermal state.
 - Exercise one unified BESS controller through grid-following, grid-forming,
   islanding, load support, synchronization, saturation, fault, and recovery
   scenarios with requirement-level traceability.
@@ -88,9 +90,9 @@ study.
 
 ## Start in 60 Seconds
 
-Twenty-two established no-plot checks cover the battery, converter, and DC-side
+Twenty-three established no-plot checks cover the battery, converter, and DC-side
 BESS examples. The unified BESS entry point adds a focused 31-result
-MATLAB/Simulink suite, so `run_all_checks` invokes 23 check entry points. CI
+MATLAB/Simulink suite, so `run_all_checks` invokes 24 check entry points. CI
 also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
@@ -107,6 +109,7 @@ Or open one focused Base MATLAB example directly:
 
 - [Hysteresis-aware battery SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
 - [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
+- [Switch fixed-junction-temperature sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck_temperature_sensitivity.m)
 - [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
 
 If you are unsure which example fits, use the
@@ -127,10 +130,11 @@ The verified MATLAB R2026a run on the current main branch reports:
 
 | Evidence | Result |
 | --- | --- |
-| Repository regression | All 23 MATLAB and Simulink check entry points pass. |
+| Repository regression | All 24 MATLAB and Simulink check entry points pass. |
 | BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
 | BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
 | Switched closed-loop buck | 399.62 V final average for a 400 V target; 5.91% reference-step overshoot; 2.08% load-step undershoot; 3.354 J nominal switch-conduction and 0.405 J transition loss. |
+| Switch temperature sensitivity | Fixed-junction-temperature sweep from 25 to 175 degC increases total switch loss from 3.759 J to 8.594 J under published datasheet-anchor interpolation. |
 | Native switched-buck parity | Exact agreement across 180,000 PWM intervals, 1,800 controller periods, and both electrical states. |
 | Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
 | SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
@@ -161,6 +165,8 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 ![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, separated semiconductor losses, the load step, and final PWM periods](assets/converter-switching-closed-loop-response.png)
 
+![Fixed-junction-temperature sensitivity showing datasheet-anchor interpolation, conduction and switching-event loss, estimated efficiency, and regulated output](assets/converter-switching-temperature-sensitivity.png)
+
 ![BESS DC-side reserve response showing requested and delivered power, SOC reserve, DC-link voltage, battery current, and charge/discharge availability](assets/bess-dc-reserve-response.png)
 
 ![BESS DC reserve sensitivity showing average delivered power saturation and actual curtailment time across illustrative reserve floors and constant requests](assets/bess-dc-reserve-operating-envelope.png)
@@ -182,7 +188,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
 | [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
 | [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
-| [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched buck while separating source-backed nominal switch conduction and transition losses? | `check_switching_closed_loop_buck.m` | Base MATLAB |
+| [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched buck while separating source-backed nominal and fixed-junction-temperature switch losses? | `check_switching_closed_loop_buck.m`, `check_switching_closed_loop_buck_temperature_sensitivity.m` | Base MATLAB |
 | [Native Simulink switching closed-loop buck](examples/converter-switching-closed-loop-simulink-model/README.md) | Can an inspectable fixed-step diagram reproduce the sampled controller, integer PWM, and exact switched-plant states? | `check_switching_closed_loop_buck_simulink_model.m` | MATLAB and Simulink |
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
@@ -312,11 +318,11 @@ an issue so the compatibility record can grow.
   ageing, and constrained-filter theory.
 - The open-loop switching converter uses ideal complementary switches. The
   switched closed-loop converter adds a constant-drop freewheel diode,
-  period-sampled control, nominal 25 degC switch resistance, and linearly
-  scaled datasheet-reference turn-on/off energy. It still omits nonlinear and
-  temperature-dependent device behavior, dead time, capacitance, reverse
-  recovery, parasitics, EMI, protection, sensor dynamics, and hardware
-  validation.
+  period-sampled control, nominal switch loss, and a fixed-junction-temperature
+  sensitivity limited to published 25-to-175 degC anchors. It still omits a
+  solved thermal state, multidimensional nonlinear device behavior, dead time,
+  capacitance, reverse recovery, parasitics, EMI, protection, sensor dynamics,
+  and hardware validation.
 - The native averaged Simulink converter omits PWM ripple and switching events.
   The native switching companion reproduces the Base MATLAB sampled controller
   and exact affine plant maps; its parity is not independent physical evidence.
@@ -332,7 +338,8 @@ an issue so the compatibility record can grow.
 The most useful next additions are likely to be:
 
 - a traceable physical-cell dataset for the two-RC identification workflow;
-- temperature-dependent semiconductor loss and electrothermal feedback;
+- dynamic semiconductor electrothermal feedback from a sourced transient
+  thermal network;
 - held-out measured reversal data for the hysteresis-aware SOC estimator; or
 - measured thermal-parameter identification and held-out drive-cycle validation.
 
