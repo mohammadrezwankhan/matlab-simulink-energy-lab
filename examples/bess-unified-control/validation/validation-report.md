@@ -2,6 +2,12 @@
 
 # Unified BESS Control Validation Report
 
+> [!NOTE]
+> This is the preserved `v0.9.0` unified-BESS publication record. For the
+> repository's current release and commit-specific CI provenance, use the
+> root [validation results](../../../docs/validation-results.md) and
+> [validation manifest](../../../docs/validation-manifest.md).
+
 ## Result
 
 All eight mandatory scenarios and all focused MATLAB/Simulink tests pass with
@@ -45,10 +51,10 @@ The public CI run tied to the release commit is the authoritative
 commit-specific validation record. `results.json` is regenerated from the
 same model and includes its source-commit field.
 
-Publication evidence:
+Historical `v0.9.0` publication evidence:
 
 - merge commit: `a77d8cda99204b197e479d11a10c069ea13995de`;
-- signed release tag: `v0.9.0`;
+- release tag: `v0.9.0`;
 - default-branch CI run:
   <https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/30364739430>;
 - public release:

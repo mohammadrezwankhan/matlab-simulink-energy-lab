@@ -32,7 +32,7 @@ block-diagram checks. The latest hosted executable-code evidence is
 at exact source commit
 [`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b);
 current `main` contains only documentation changes after that commit. The latest
-signed release is
+tagged release is
 [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0);
 the expected output below remains current for `main`.
 

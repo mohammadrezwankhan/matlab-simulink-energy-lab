@@ -7,9 +7,11 @@ on:
       - main
     paths:
       - "CITATION.cff"
+      - "codemeta.json"
   pull_request:
     paths:
       - "CITATION.cff"
+      - "codemeta.json"
 
 permissions:
   contents: read
@@ -29,3 +31,18 @@ jobs:
         uses: citation-file-format/cffconvert-github-action@4cf11baa70a673bfdf9dad0acc7ee33b3f4b6084 # 2.0.0
         with:
           args: "--validate"
+
+      - name: Validate CodeMeta JSON and release identity
+        shell: bash
+        run: |
+          jq empty codemeta.json
+          test "$(jq -r '."@context"' codemeta.json)" = \
+            "https://w3id.org/codemeta/3.1"
+          test "$(jq -r '.version' codemeta.json)" = "0.10.0"
+          test "$(jq -r '.datePublished' codemeta.json)" = "2026-08-19"
+          test "$(jq -r '.codeRepository' codemeta.json)" = \
+            "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab"
+          test "$(jq -r '.license' codemeta.json)" = \
+            "https://spdx.org/licenses/MIT.html"
+          test "$(jq -r '.author."@id"' codemeta.json)" = \
+            "https://orcid.org/0000-0002-1532-0598"
