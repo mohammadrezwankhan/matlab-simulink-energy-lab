@@ -1,0 +1,68 @@
+{
+  "@context": "https://w3id.org/codemeta/3.1",
+  "@type": "SoftwareSourceCode",
+  "@id": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
+  "name": "MATLAB Simulink Energy Lab",
+  "description": "Open, inspectable MATLAB and Simulink reduced-order reference models for lithium-ion battery equivalent circuits, state-of-charge estimation, battery thermal management, buck converters, and grid-following/grid-forming battery energy storage system control. Benchmarks and parameters are synthetic or illustrative; checks do not qualify physical cells, hardware, safety, or grid-code compliance.",
+  "codeRepository": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
+  "issueTracker": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues",
+  "url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
+  "license": "https://spdx.org/licenses/MIT.html",
+  "version": "0.10.0",
+  "datePublished": "2026-08-19",
+  "developmentStatus": "active",
+  "programmingLanguage": "MATLAB",
+  "runtimePlatform": [
+    "MATLAB R2026a",
+    "Simulink R2026a for generated block-diagram examples"
+  ],
+  "applicationCategory": "Engineering software",
+  "applicationSubCategory": [
+    "Battery modeling",
+    "Battery thermal management",
+    "State-of-charge estimation",
+    "Power electronics",
+    "Battery energy storage system control",
+    "Engineering education"
+  ],
+  "keywords": [
+    "MATLAB",
+    "Simulink",
+    "lithium-ion battery",
+    "equivalent circuit model",
+    "battery parameter identification",
+    "state of charge",
+    "extended Kalman filter",
+    "battery thermal management",
+    "liquid cooling",
+    "finite-volume method",
+    "buck converter",
+    "power electronics",
+    "battery energy storage system",
+    "grid-following control",
+    "grid-forming control",
+    "microgrid",
+    "model-based design"
+  ],
+  "author": {
+    "@type": "Person",
+    "givenName": "Mohammad Rezwan",
+    "familyName": "Khan",
+    "@id": "https://orcid.org/0000-0002-1532-0598"
+  },
+  "maintainer": {
+    "@type": "Person",
+    "givenName": "Mohammad Rezwan",
+    "familyName": "Khan",
+    "@id": "https://orcid.org/0000-0002-1532-0598"
+  },
+  "continuousIntegration": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml",
+  "releaseNotes": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CHANGELOG.md",
+  "softwareHelp": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/README.md",
+  "relatedLink": [
+    "https://rezwankhan.tech/models/matlab-simulink-energy-lab/",
+    "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/model-selection-guide.md",
+    "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/validation-results.md",
+    "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0"
+  ]
+}

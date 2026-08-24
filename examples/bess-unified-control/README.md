@@ -176,9 +176,12 @@ See [tuning.md](docs/tuning.md) for every replaceable control setting and
 | G | Invalid measurement | fault-safe, recovery, resynchronization |
 | H | DC availability and bounded bias | available-power limiting and validity |
 
-The checked metrics are in [validation-report.md](validation/validation-report.md)
-and [results.json](validation/results.json). Plots are supplementary evidence;
-the acceptance decision comes from `bess_score_scenario.m` and the test suite.
+The focused `v0.9.0` publication metrics are preserved in
+[validation-report.md](validation/validation-report.md); use the root
+[validation results](../../docs/validation-results.md) for current release and
+commit-specific CI provenance. The historical machine-readable metrics are in
+[results.json](validation/results.json). Plots are supplementary evidence; the
+acceptance decision comes from `bess_score_scenario.m` and the test suite.
 
 ## Source boundary
 

@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - "**.md"
+      - "llms.txt"
 
 permissions:
   contents: read
@@ -22,5 +23,5 @@ jobs:
       - name: Check Markdown links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
         with:
-          args: --verbose --no-progress README.md CHANGELOG.md CONTRIBUTING.md docs/*.md notes/*.md examples/README.md examples/*/README.md examples/bess-unified-control/**/*.md
+          args: --verbose --no-progress README.md FAQ.md llms.txt CHANGELOG.md CONTRIBUTING.md docs/*.md notes/*.md examples/README.md examples/*/README.md examples/guides/*.md examples/bess-unified-control/**/*.md
           fail: true

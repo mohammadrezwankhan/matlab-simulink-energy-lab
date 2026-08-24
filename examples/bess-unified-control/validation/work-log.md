@@ -87,7 +87,7 @@ project assumptions and extensions.
   regeneration, determinism, analytic, traceability, and A-H parity checks.
 - Validation artifacts: default-branch CI regenerated JSON and three original
   PNG plots for merge commit `a77d8cda99204b197e479d11a10c069ea13995de`.
-- Publication: PR #115 merged with all checks passing; signed tag `v0.9.0`
+- Publication: PR #115 merged with all checks passing; release tag `v0.9.0`
   and its executable package were published on 2026-07-28.
 - Website deployment: tracked separately after the public model release.
 

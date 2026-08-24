@@ -14,17 +14,25 @@
 
 > **See the equations become waveforms—and inspect every assumption in between.**
 
-MATLAB Simulink Energy Lab is a growing collection of small, runnable, and
-highly inspectable energy-system examples for students, researchers, and
-hobbyists. Start with a battery RC model or an averaged converter calculation,
-trace every parameter, run the checks, and extend the foundation for your own
-study.
+MATLAB Simulink Energy Lab is an open collection of runnable, reduced-order
+reference models for lithium-ion battery equivalent circuits, state-of-charge
+(SOC) estimation with extended Kalman filters (EKF), battery thermal
+management, buck converters, and battery energy storage system (BESS) control.
+It includes toolbox-free Base MATLAB examples and generated Simulink block
+diagrams with deterministic no-plot checks. Start with the model-selection
+guide, trace every parameter and limitation, and reproduce the exact validation
+evidence before adapting a model. Bundled benchmarks and parameters are
+synthetic or illustrative unless an example explicitly identifies another
+source; the checks are not physical-cell, hardware, certification, or grid-code
+validation.
 
 ## Shareable Documentation Map
 
 - [Start in 60 Seconds](#start-in-60-seconds) for the fastest runnable path.
 - [Model selection guide](docs/model-selection-guide.md) to choose the smallest
   battery, converter, thermal, SOC-estimation, or BESS model for your question.
+- [Technical FAQ](FAQ.md) for direct answers about models, requirements,
+  validation boundaries, reproduction, citation, and licensing.
 - [Models at a Glance](#models-at-a-glance) for the model-to-question map.
 - [Requirements](#requirements) for MATLAB and toolbox expectations.
 - [Scope and Limitations](#scope-and-limitations) before reusing outputs.
@@ -37,6 +45,8 @@ study.
   executable grid-following-to-islanding-to-reconnection walkthrough.
 - [Contribute a Scoped Improvement](#contribute-a-scoped-improvement) for focused changes.
 - [Citation metadata](CITATION.cff) and [release notes](CHANGELOG.md) for published or shared work.
+- [CodeMeta](codemeta.json) and [AI navigation index](llms.txt) for
+  machine-readable software metadata and source routing.
 
 > [!TIP]
 > **If a model helps you learn or saves you setup time, [star this repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab).**
@@ -142,7 +152,7 @@ matlab -batch "addpath('examples'); run_all_checks"
 
 ### Concise validation evidence
 
-The latest signed release is [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0).
+The latest tagged release is [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0).
 The latest hosted MATLAB R2026a executable-code evidence is
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
 at exact source commit
