@@ -44,5 +44,5 @@ jobs:
             "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab"
           test "$(jq -r '.license' codemeta.json)" = \
             "https://spdx.org/licenses/MIT.html"
-          test "$(jq -r '.author[\"@id\"]' codemeta.json)" = \
+          test "$(jq -r '.author."@id"' codemeta.json)" = \
             "https://orcid.org/0000-0002-1532-0598"
