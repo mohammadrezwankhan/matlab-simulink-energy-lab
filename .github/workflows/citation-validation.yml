@@ -35,7 +35,7 @@ jobs:
       - name: Validate CodeMeta JSON and release identity
         shell: bash
         run: |
-          jq --exit-status empty codemeta.json
+          jq empty codemeta.json
           test "$(jq -r '.[\"@context\"]' codemeta.json)" = \
             "https://w3id.org/codemeta/3.1"
           test "$(jq -r '.version' codemeta.json)" = "0.10.0"

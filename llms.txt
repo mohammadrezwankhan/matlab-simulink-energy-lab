@@ -10,7 +10,7 @@ Canonical repository: <https://github.com/mohammadrezwankhan/matlab-simulink-ene
 
 - [README](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/README.md): Project purpose, quick start, complete model table, requirements, validation evidence, scope, release, citation, and license.
 - [Model selection guide](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/model-selection-guide.md): Choose the smallest battery, SOC, thermal, converter, or BESS model for an engineering question.
-- [Technical FAQ](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/FAQ.md): Direct answers about dependencies, model coverage, evidence, synthetic data, limitations, reproduction, citation, and licensing.
+- [Technical FAQ](FAQ.md): Direct answers about dependencies, model coverage, evidence, synthetic data, limitations, reproduction, citation, and licensing.
 - [Examples index](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/examples/README.md): Every example, key source files, run commands, dependencies, and expected output.
 
 ## Validation and claim boundaries
@@ -43,7 +43,7 @@ Canonical repository: <https://github.com/mohammadrezwankhan/matlab-simulink-ene
 ## Software metadata and participation
 
 - [Citation metadata](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CITATION.cff): Author, ORCID, release, license, and repository citation metadata.
-- [CodeMeta](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/codemeta.json): Machine-readable software metadata consistent with CITATION.cff.
+- [CodeMeta](codemeta.json): Machine-readable software metadata consistent with CITATION.cff.
 - [Release notes](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CHANGELOG.md): Versioned changes and validation additions.
 - [Contributing](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CONTRIBUTING.md): Contribution workflow, modeling standard, validation expectations, and attribution policy.
 - [MIT License](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/LICENSE): Repository license.
