@@ -36,7 +36,7 @@ jobs:
         shell: bash
         run: |
           jq empty codemeta.json
-          test "$(jq -r '.[\"@context\"]' codemeta.json)" = \
+          test "$(jq -r '."@context"' codemeta.json)" = \
             "https://w3id.org/codemeta/3.1"
           test "$(jq -r '.version' codemeta.json)" = "0.10.0"
           test "$(jq -r '.datePublished' codemeta.json)" = "2026-08-19"
