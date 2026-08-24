@@ -8,10 +8,12 @@ on:
     paths:
       - "CITATION.cff"
       - "codemeta.json"
+      - ".github/workflows/citation-validation.yml"
   pull_request:
     paths:
       - "CITATION.cff"
       - "codemeta.json"
+      - ".github/workflows/citation-validation.yml"
 
 permissions:
   contents: read
