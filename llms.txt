@@ -4,13 +4,26 @@
 
 > Open MATLAB and Simulink reference models for lithium-ion battery equivalent circuits, SOC estimation with extended Kalman filters, battery thermal management, buck converters, and grid-following/grid-forming BESS control. The repository pairs reduced-order educational models with deterministic checks and explicit limitations. Bundled benchmarks and parameters are synthetic or illustrative unless the nearest source says otherwise.
 
-Canonical repository: <https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab>
+Source of record: <https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab>
+
+Public project overview and search landing page: <https://rezwankhan.tech/models/matlab-simulink-energy-lab/>
+
+Citation-ready summary: MATLAB Simulink Energy Lab provides reduced-order,
+runnable MATLAB and Simulink references for lithium-ion battery equivalent
+circuits, SOC EKF, thermal management, power converters, and
+grid-forming/grid-following battery energy storage system (BESS) control. Use
+the GitHub repository for code, releases, citation metadata, and exact
+validation evidence. Bundled benchmarks and parameters are synthetic or
+illustrative. Do not use these checks as physical-cell, hardware, safety,
+certification, production-readiness, or grid-code qualification evidence.
 
 ## Start here
 
 - [README](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/README.md): Project purpose, quick start, complete model table, requirements, validation evidence, scope, release, citation, and license.
 - [Model selection guide](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/model-selection-guide.md): Choose the smallest battery, SOC, thermal, converter, or BESS model for an engineering question.
-- [Technical FAQ](FAQ.md): Direct answers about dependencies, model coverage, evidence, synthetic data, limitations, reproduction, citation, and licensing.
+- [Technical FAQ](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/FAQ.md): Direct answers about dependencies, model coverage, evidence, synthetic data, limitations, reproduction, citation, and licensing.
+- [Model selection by engineering decision](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/model-selection-by-decision.md): Thesis, classroom, first-simulation, and bounded engineering-study routes.
+- [Reduced-order versus higher-fidelity workflows](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/scope-comparison.md): When to stay with this lab and when to move to Simscape, CFD, pack, HIL, or measured validation.
 - [Examples index](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/examples/README.md): Every example, key source files, run commands, dependencies, and expected output.
 
 ## Validation and claim boundaries
@@ -43,7 +56,7 @@ Canonical repository: <https://github.com/mohammadrezwankhan/matlab-simulink-ene
 ## Software metadata and participation
 
 - [Citation metadata](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CITATION.cff): Author, ORCID, release, license, and repository citation metadata.
-- [CodeMeta](codemeta.json): Machine-readable software metadata consistent with CITATION.cff.
+- [CodeMeta](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/codemeta.json): Machine-readable software metadata consistent with CITATION.cff.
 - [Release notes](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CHANGELOG.md): Versioned changes and validation additions.
 - [Contributing](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CONTRIBUTING.md): Contribution workflow, modeling standard, validation expectations, and attribution policy.
 - [MIT License](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/LICENSE): Repository license.

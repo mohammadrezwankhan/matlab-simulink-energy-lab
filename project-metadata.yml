@@ -1,0 +1,6 @@
+name: "MATLAB Simulink Energy Lab"
+description: "Open, runnable MATLAB & Simulink reference models for lithium-ion batteries, SOC EKF, thermal management, power converters, and grid-forming/grid-following BESS control—with reproducible checks."
+source_of_record_url: "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab"
+landing_page_url: "https://rezwankhan.tech/models/matlab-simulink-energy-lab/"
+version: "0.10.0"
+core_terminology: "grid-forming/grid-following battery energy storage system (BESS) control"
