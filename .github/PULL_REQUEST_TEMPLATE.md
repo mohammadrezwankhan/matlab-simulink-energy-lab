@@ -29,6 +29,8 @@ matlab -batch "run('examples/.../check_....m')"
 - [ ] New behavior has a deterministic no-plot check.
 - [ ] No generated artifacts are committed unless intentionally documented.
 - [ ] Documentation reflects changed commands, parameters, or outputs.
+- [ ] Project identity, version, URLs, or terminology changes are reflected in
+      `project-metadata.yml` and pass the metadata consistency check.
 
 ## Collaboration and Attribution
 

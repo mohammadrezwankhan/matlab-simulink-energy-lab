@@ -109,3 +109,26 @@ the responsibility of the human contributor who reviews and submits it.
 - [ ] New behavior has a deterministic check or a justified test update.
 - [ ] Documentation and expected outputs reflect the implementation.
 - [ ] Every named co-author materially contributed and approved attribution.
+
+## Release Metadata Checklist
+
+Complete this checklist for every versioned release. The repository metadata
+validator checks tracked files; GitHub settings and external surfaces still
+require authenticated review.
+
+- [ ] Update `project-metadata.yml`, `CITATION.cff`, `codemeta.json`, badges,
+      release links, and changelog to the same version and date.
+- [ ] Confirm the GitHub About description matches the description recorded in
+      `project-metadata.yml` and uses the core terminology exactly.
+- [ ] Review all 20 GitHub topics for accuracy; change a topic only with
+      discovery evidence and record the change in the release notes.
+- [ ] Confirm GitHub remains the source of record for code, releases, citation
+      metadata, and validation evidence.
+- [ ] Confirm the public project overview remains the search landing page and
+      links back to the source-of-record repository.
+- [ ] Regenerate or review the 1280×640 social preview against the current
+      model-family scope and upload it in the GitHub repository settings.
+- [ ] Run `.github/scripts/validate-project-metadata.sh`, Markdown links, CFF
+      validation, and all executable checks required by the changed paths.
+- [ ] Verify the release tag, downloadable assets, checksums, hosted validation
+      run, and citation control after publication.

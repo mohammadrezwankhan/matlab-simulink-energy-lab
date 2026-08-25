@@ -24,6 +24,11 @@ buck-converter calculations, or the
 [model-selection guide](docs/model-selection-guide.md) for electrical,
 thermal, estimation, converter, and BESS routes.
 
+For a thesis, classroom exercise, first simulation, or bounded engineering
+study, use the [decision-based selector](docs/model-selection-by-decision.md).
+If the decision may require Simscape, CFD, pack, HIL, or measured validation,
+read the [scope comparison](docs/scope-comparison.md) first.
+
 ## Can I run the repository with MATLAB only?
 
 Yes. The toolbox-free Base MATLAB profile runs 20 deterministic script checks:
@@ -176,10 +181,10 @@ The source and documentation are distributed under the
 [MIT License](LICENSE). External datasets, publications, datasheets, and tools
 linked from the documentation retain their own terms.
 
-## What is the canonical project URL?
+## Which project URL should I use?
 
-The canonical source repository is
-<https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab>. The linked
-[project page](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
-provides a public overview; repository source, checks, CI evidence, releases,
-and tracked metadata remain authoritative when descriptions conflict.
+The [GitHub repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
+is the source of record for code, releases, citation metadata, and validation
+evidence. The [public project overview](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
+is the search landing page and concise cross-model introduction. The two URLs
+have complementary roles rather than competing canonical claims.

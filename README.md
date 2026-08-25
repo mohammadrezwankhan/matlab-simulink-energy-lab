@@ -10,14 +10,15 @@
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 [![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
 
-![MATLAB Simulink Energy Lab preview highlighting battery modeling, two-RC held-out voltage validation, and unified BESS control](assets/social-preview.png)
+![MATLAB Simulink Energy Lab preview connecting battery and SOC, thermal response, power electronics, and grid-forming/grid-following BESS control](assets/social-preview-v2.png)
 
 > **See the equations become waveforms—and inspect every assumption in between.**
 
 MATLAB Simulink Energy Lab is an open collection of runnable, reduced-order
 reference models for lithium-ion battery equivalent circuits, state-of-charge
 (SOC) estimation with extended Kalman filters (EKF), battery thermal
-management, buck converters, and battery energy storage system (BESS) control.
+management, buck converters, and grid-forming/grid-following battery energy
+storage system (BESS) control.
 It includes toolbox-free Base MATLAB examples and generated Simulink block
 diagrams with deterministic no-plot checks. Start with the model-selection
 guide, trace every parameter and limitation, and reproduce the exact validation
@@ -26,11 +27,21 @@ synthetic or illustrative unless an example explicitly identifies another
 source; the checks are not physical-cell, hardware, certification, or grid-code
 validation.
 
+**Source of record:** this GitHub repository is authoritative for code,
+releases, citation metadata, and validation evidence. The
+[public project overview](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
+is the search landing page and concise cross-model introduction.
+
 ## Shareable Documentation Map
 
 - [Start in 60 Seconds](#start-in-60-seconds) for the fastest runnable path.
 - [Model selection guide](docs/model-selection-guide.md) to choose the smallest
   battery, converter, thermal, SOC-estimation, or BESS model for your question.
+- [Model selection by engineering decision](docs/model-selection-by-decision.md)
+  for thesis, classroom, first-simulation, and engineering-study routes.
+- [Reduced-order versus higher-fidelity workflows](docs/scope-comparison.md)
+  for the boundary between this lab and Simscape, CFD, pack, HIL, or measured
+  validation work.
 - [Technical FAQ](FAQ.md) for direct answers about models, requirements,
   validation boundaries, reproduction, citation, and licensing.
 - [Models at a Glance](#models-at-a-glance) for the model-to-question map.

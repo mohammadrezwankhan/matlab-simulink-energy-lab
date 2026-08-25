@@ -50,6 +50,8 @@ jobs:
           test "$(jq -r '.version' codemeta.json)" = "$cff_version"
           test "$(jq -r '.datePublished' codemeta.json)" = "$cff_date"
           test "$(jq -r '.codeRepository' codemeta.json)" = "$cff_repository"
-          test "$(jq -r '.url' codemeta.json)" = "$cff_repository"
+          test "$(jq -r '.sameAs' codemeta.json)" = "$cff_repository"
+          test "$(jq -r '.url' codemeta.json)" = \
+            "$(sed -n 's/^landing_page_url: "\(.*\)"/\1/p' project-metadata.yml)"
           test "$(jq -r '.license' codemeta.json | sed 's#https://spdx.org/licenses/##; s/\.html$//')" = "$cff_license"
           test "$(jq -r '.author."@id"' codemeta.json)" = "$cff_orcid"
