@@ -32,7 +32,7 @@ matlab -batch "addpath('examples'); run_all_checks"
 Evidence regeneration:
 
 ```bash
-matlab -batch "addpath('examples/bess-unified-control'); generate_bess_validation_evidence('COMMIT_SHA')"
+matlab -batch "addpath('examples/bess-unified-control'); [s,c]=system('git rev-parse HEAD'); assert(s==0); generate_bess_validation_evidence(strtrim(c))"
 ```
 
 ## Environment and dependencies

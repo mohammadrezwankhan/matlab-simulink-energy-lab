@@ -70,7 +70,9 @@ Regenerate machine-readable evidence and original plots:
 
 ```matlab
 addpath('examples/bess-unified-control')
-generate_bess_validation_evidence("YOUR_COMMIT_SHA")
+[gitStatus, sourceCommit] = system('git rev-parse HEAD');
+assert(gitStatus == 0)
+generate_bess_validation_evidence(strtrim(sourceCommit))
 ```
 
 ## Reproducible model construction

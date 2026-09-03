@@ -31,7 +31,8 @@ block-diagram checks. The latest hosted executable-code evidence is
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
 at exact source commit
 [`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b);
-current `main` contains only documentation changes after that commit. The latest
+no executable MATLAB or Simulink model files changed after that commit;
+subsequent changes are documentation, metadata, and CI validation. The latest
 tagged release is
 [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0);
 the expected output below remains current for `main`.

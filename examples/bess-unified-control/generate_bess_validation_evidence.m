@@ -1,9 +1,23 @@
 function evidence = generate_bess_validation_evidence(sourceCommit)
 %GENERATE_BESS_VALIDATION_EVIDENCE Regenerate metrics, JSON, and plots.
 
-if nargin < 1 || strlength(string(sourceCommit)) == 0
+if nargin < 1
+    sourceCommit = "";
+else
+    sourceCommit = string(sourceCommit);
+end
+if ~isscalar(sourceCommit)
+    error('BessUnifiedControl:InvalidSourceCommit', ...
+        'Source commit must be one string scalar.');
+end
+if strlength(sourceCommit) == 0
+    sourceCommit = string(getenv('GITHUB_SHA'));
+end
+if strlength(sourceCommit) == 0
     sourceCommit = "WORKTREE";
 end
+sourceCommit = lower(string(sourceCommit));
+verify_checkout_commit(sourceCommit);
 exampleDirectory = fileparts(mfilename('fullpath'));
 sourceDirectory = fullfile(exampleDirectory, 'src');
 validationDirectory = fullfile(exampleDirectory, 'validation');
@@ -36,7 +50,7 @@ end
 evidence.schema_version = "1.0.0";
 evidence.generated_utc = string(datetime('now', ...
     'TimeZone', 'UTC', 'Format', 'yyyy-MM-dd''T''HH:mm:ss''Z'''));
-evidence.source_commit = string(sourceCommit);
+evidence.source_commit = sourceCommit;
 evidence.matlab_release = string(version('-release'));
 evidence.matlab_version = string(version);
 evidence.required_products = ["MATLAB", "Simulink"];
@@ -69,6 +83,30 @@ create_limit_plot(results{6}, parameters, fullfile(validationDirectory, ...
 fprintf('Generated validation evidence for %d passing scenarios.\n', ...
     numel(scenarios));
 clear modelCleanup pathCleanup;
+end
+
+function verify_checkout_commit(sourceCommit)
+if sourceCommit == "worktree"
+    return;
+end
+isCommit = ~isempty(regexp(sourceCommit, '^[0-9a-f]{40}$', 'once'));
+if ~isCommit
+    error('BessUnifiedControl:InvalidSourceCommit', ...
+        ['Commit-bound evidence requires the resolved full 40-character ', ...
+        'Git commit SHA or WORKTREE for explicitly unbound local output.']);
+end
+[gitStatus, gitOutput] = system('git rev-parse HEAD');
+checkoutCommit = lower(strtrim(string(gitOutput)));
+if gitStatus ~= 0 || checkoutCommit ~= sourceCommit
+    error('BessUnifiedControl:CommitMismatch', ...
+        'Evidence source commit does not match the checked-out Git commit.');
+end
+[statusCode, statusOutput] = system( ...
+    'git status --porcelain --untracked-files=all');
+if statusCode ~= 0 || strlength(strtrim(string(statusOutput))) > 0
+    error('BessUnifiedControl:DirtyWorktree', ...
+        'Commit-bound BESS evidence requires a clean worktree.');
+end
 end
 
 function create_transition_plot(result, outputPath)

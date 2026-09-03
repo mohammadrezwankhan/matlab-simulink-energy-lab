@@ -50,13 +50,15 @@ test -f "$reproduction_template"
 for expected in \
   "name: Reproduction report" \
   "id: outcome" \
-  "id: version" \
+  "id: commit_sha" \
+  "id: release_tag" \
   "id: entrypoint" \
   "id: command" \
   "id: environment" \
   "id: observed" \
   "id: expected" \
-  "clean checkout of the stated release or commit" \
+  "clean checkout of the stated commit" \
+  "resolved 40-character SHA from git rev-parse HEAD" \
   "not hardware validation, certification evidence, or a broad compatibility claim"; do
   grep -Fq "$expected" "$reproduction_template"
 done

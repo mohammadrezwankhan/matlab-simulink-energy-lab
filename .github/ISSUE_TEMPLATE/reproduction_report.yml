@@ -1,11 +1,11 @@
 name: Reproduction report
-description: Report a successful, failed, or different run against an exact release or full commit SHA.
+description: Report a successful, failed, or different run against a resolved full commit SHA.
 title: "Reproduction: "
 body:
   - type: markdown
     attributes:
       value: |
-        A reproduction report records one exact source version, command, and environment. It improves the compatibility record without implying broader validation or adoption.
+        A reproduction report records one resolved commit, command, and environment. It improves the compatibility record without implying broader validation or adoption.
   - type: dropdown
     id: outcome
     attributes:
@@ -17,13 +17,19 @@ body:
     validations:
       required: true
   - type: input
-    id: version
+    id: commit_sha
     attributes:
-      label: Release tag or full commit SHA
-      description: Identify the exact source you ran. Use a release tag or the full 40-character commit SHA.
-      placeholder: v0.10.0 or bf36bfce071a8da2b49498d91518f766c00197c7
+      label: Resolved full commit SHA
+      description: Run git rev-parse HEAD in the checkout you tested and paste its full 40-character output.
+      placeholder: bf36bfce071a8da2b49498d91518f766c00197c7
     validations:
       required: true
+  - type: input
+    id: release_tag
+    attributes:
+      label: Release tag (optional)
+      description: If you started from a release, provide its tag in addition to the resolved commit SHA.
+      placeholder: v0.10.0
   - type: input
     id: entrypoint
     attributes:
@@ -72,7 +78,9 @@ body:
     attributes:
       label: Submission checks
       options:
-        - label: I ran this from a clean checkout of the stated release or commit and did not change tracked files before the run.
+        - label: I ran this from a clean checkout of the stated commit and did not change tracked files before the run.
+          required: true
+        - label: I copied the resolved 40-character SHA from git rev-parse HEAD in the checkout I ran.
           required: true
         - label: I removed proprietary, confidential, personal, credential, and license-server information.
           required: true

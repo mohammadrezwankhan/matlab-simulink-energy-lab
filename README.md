@@ -171,8 +171,9 @@ The latest hosted MATLAB R2026a executable-code evidence is
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
 at exact source commit
 [`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b).
-Current `main` contains only documentation changes after that source commit. The
-two CI jobs report:
+No executable MATLAB or Simulink model files changed after that source commit;
+subsequent changes are documentation, metadata, and CI validation. The two CI
+jobs report:
 
 | Evidence | Result |
 | --- | --- |
