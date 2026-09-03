@@ -8,6 +8,7 @@ on:
       - "llms.txt"
       - "project-metadata.yml"
       - "codemeta.json"
+      - ".github/ISSUE_TEMPLATE/reproduction_report.yml"
       - ".github/scripts/validate-project-metadata.sh"
       - ".github/workflows/markdown-maintenance.yml"
 

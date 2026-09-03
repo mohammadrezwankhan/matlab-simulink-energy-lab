@@ -7,7 +7,8 @@
 ![MATLAB R2026a](https://img.shields.io/badge/verified-MATLAB%20R2026a-e86e25.svg)
 [![Latest release](https://img.shields.io/github/v/release/mohammadrezwankhan/matlab-simulink-energy-lab)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2f6f5e.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
+[![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/network/members)
 [![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
 
 ![MATLAB Simulink Energy Lab preview connecting battery and SOC, thermal response, power electronics, and grid-forming/grid-following BESS control](assets/social-preview-v2.png)
@@ -50,6 +51,8 @@ is the search landing page and concise cross-model introduction.
 - [Validation results](docs/validation-results.md) for the complete expected output.
 - [Machine-readable validation manifest](docs/validation-manifest.md) for
   per-commit CI provenance and check status.
+- [Report a commit-bound reproduction result](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml)
+  for a successful, failed, or different run on one stated environment.
 - [Two-RC battery parameter-identification tutorial](docs/two-rc-battery-parameter-identification.md)
   for a reproducible fit-versus-held-out-validation workflow.
 - [Grid-forming BESS control tutorial](docs/grid-forming-bess-control.md) for an
@@ -333,8 +336,10 @@ Compatibility evidence is release-, environment-, and commit-specific:
 The R2025b row is a bounded compatibility record for that exact environment and
 commit, not a general support promise for other operating systems or releases.
 
-If you run the examples on another MATLAB release, please share the result in
-an issue so the compatibility record can grow.
+If you run the examples on another MATLAB release, please submit a
+[commit-bound reproduction report](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml)
+so the compatibility record can grow without turning one environment into a
+general support claim.
 
 ## Scope and Limitations
 
