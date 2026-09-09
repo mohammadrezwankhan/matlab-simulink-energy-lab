@@ -32,6 +32,16 @@ manifest and must not be presented as complete repository validation.
 
 ## Evidence split
 
+The workflow also defines a separate **Validate Base MATLAB without Simulink**
+job. It installs MATLAB R2026a without requesting Simulink, asserts that
+Simulink is absent, and runs the 20-check Base profile. A green result for that
+job supports the toolbox-free execution path for its checked commit; it does
+not replace the two MATLAB/Simulink jobs or establish physical validation.
+Check the job status before claiming that the profile passed in CI.
+The task is defined in `buildfile.m` and invoked as `buildtool base`; it
+deliberately fails if Simulink is installed. For an ordinary local run on an
+installation that includes Simulink, use `run_base_matlab_checks` instead.
+
 The manifest covers the 25 entry points in `run_all_checks(false)`, matching
 the general CI job. The
 unified BESS job remains separate because it regenerates a focused eight-scenario

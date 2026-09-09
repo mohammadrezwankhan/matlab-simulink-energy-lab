@@ -48,13 +48,18 @@ assert(score.passed)
 
 ```matlab
 addpath('examples/bess-unified-control')
-generate_bess_validation_evidence("COMMIT_SHA")
+[gitStatus, sourceCommit] = system('git rev-parse HEAD');
+assert(gitStatus == 0)
+generate_bess_validation_evidence(strtrim(sourceCommit))
 ```
 
 This compiles one generated model, runs scenarios A–H through Simulink,
 applies numeric gates, writes `validation/results.json`, and exports three
-original PNG plots. The GitHub Actions validation run and release evidence
-asset provide authoritative commit-bound provenance for the public release.
+original PNG plots. A full SHA must match a clean checkout before any
+commit-bound evidence is written. Passing `"WORKTREE"` instead creates
+explicitly unbound local output. The GitHub Actions validation run and release
+evidence asset provide authoritative commit-bound provenance for the public
+release.
 
 ## Determinism
 

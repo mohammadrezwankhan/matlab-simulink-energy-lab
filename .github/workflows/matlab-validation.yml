@@ -25,6 +25,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate-base-matlab:
+    name: Validate Base MATLAB without Simulink
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up MATLAB R2026a only
+        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
+        with:
+          release: R2026a
+
+      - name: Run toolbox-free checks
+        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
+        with:
+          command: buildtool base
+
   validate-examples:
     name: Validate executable examples
     runs-on: ubuntu-latest

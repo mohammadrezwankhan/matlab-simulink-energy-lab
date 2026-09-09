@@ -10,6 +10,9 @@ still evolving.
 
 ### Added
 
+- A two-command first battery result with expected output and workspace-safety
+  guidance, plus an independent Base MATLAB CI job that requires Simulink to
+  be absent before running the 20-check profile.
 - A nine-case prescribed BESS DC-reserve dynamic-profile sensitivity spanning
   three fixed requests and three reserve floors, with within-profile ordering,
   charge/discharge partitions, exact zero identity, independent state-energy
@@ -37,7 +40,7 @@ still evolving.
   exact affine plant branches, topology checks, and exact MATLAB parity.
 - A question-led model selection guide spanning battery electrical, SOC
   estimation, thermal, converter, and BESS workflows, with focused MATLAB
-  Online launch links for three Base MATLAB examples.
+  Online launch links for six Base MATLAB examples.
 - A hysteresis-aware three-state battery SOC EKF benchmark that compares
   against a two-state no-hysteresis baseline on a deterministic reversal-rich
   profile, with covariance, reduction, irregular-time, and malformed-input
@@ -56,6 +59,9 @@ still evolving.
 
 ### Changed
 
+- Labeled older hosted validation results as historical reference evidence,
+  completed the 26-entry validation command block, and expanded Markdown
+  maintenance to all tracked Markdown files and relevant main-branch pushes.
 - Updated the repository validation index and expected output for 26 MATLAB and
   Simulink check entry points.
 - Aligned reference and load events by integer grid index in the switched

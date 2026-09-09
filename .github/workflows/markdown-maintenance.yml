@@ -2,12 +2,24 @@ name: Markdown maintenance
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "**.md"
+      - "llms.txt"
+      - "project-metadata.yml"
+      - "codemeta.json"
+      - ".github/ISSUE_TEMPLATE/reproduction_report.yml"
+      - ".github/scripts/validate-project-metadata.sh"
+      - ".github/workflows/markdown-maintenance.yml"
   pull_request:
     paths:
       - "**.md"
       - "llms.txt"
       - "project-metadata.yml"
       - "codemeta.json"
+      - ".github/ISSUE_TEMPLATE/reproduction_report.yml"
       - ".github/scripts/validate-project-metadata.sh"
       - ".github/workflows/markdown-maintenance.yml"
 
@@ -24,10 +36,16 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: List tracked Markdown inputs
+        shell: bash
+        run: |
+          git ls-files '*.md' > "$RUNNER_TEMP/markdown-inputs.txt"
+          printf '%s\n' llms.txt >> "$RUNNER_TEMP/markdown-inputs.txt"
+
       - name: Check Markdown links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
         with:
-          args: --verbose --no-progress --exclude '^https://github\.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/(model-selection-by-decision|scope-comparison)\.md$' README.md FAQ.md llms.txt CHANGELOG.md CONTRIBUTING.md docs/*.md notes/*.md examples/README.md examples/*/README.md examples/guides/*.md examples/bess-unified-control/**/*.md
+          args: --verbose --no-progress --files-from '${{ runner.temp }}/markdown-inputs.txt' --exclude '^https://github\.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/(model-selection-by-decision|scope-comparison)\.md$'
           fail: true
 
       - name: Check project metadata and llms.txt portability

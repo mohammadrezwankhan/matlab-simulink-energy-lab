@@ -1,0 +1,88 @@
+name: Reproduction report
+description: Report a successful, failed, or different run against a resolved full commit SHA.
+title: "Reproduction: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A reproduction report records one resolved commit, command, and environment. It improves the compatibility record without implying broader validation or adoption.
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      options:
+        - Passed as documented
+        - Failed before completion
+        - Completed with different results
+    validations:
+      required: true
+  - type: input
+    id: commit_sha
+    attributes:
+      label: Resolved full commit SHA
+      description: Run git rev-parse HEAD in the checkout you tested and paste its full 40-character output.
+      placeholder: bf36bfce071a8da2b49498d91518f766c00197c7
+    validations:
+      required: true
+  - type: input
+    id: release_tag
+    attributes:
+      label: Release tag (optional)
+      description: If you started from a release, provide its tag in addition to the resolved commit SHA.
+      placeholder: v0.10.0
+  - type: input
+    id: entrypoint
+    attributes:
+      label: Entrypoint
+      description: Name the script, check, example, or documented command you ran.
+      placeholder: run_all_checks
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      description: Paste the exact MATLAB or shell command used to start the run.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include MATLAB release and update, operating system, architecture, and relevant installed toolboxes.
+      placeholder: MATLAB R2026a; Ubuntu 24.04; x86-64; Simulink installed
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed result
+      description: Summarize passed checks, differing outputs, or the first actionable error. Include numeric values and tolerances when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected comparison
+      description: Link to or name the repository result, documentation, or acceptance criterion used for comparison.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Optional evidence
+      description: Add a concise log excerpt, screenshot, artifact link, or checksum after removing sensitive information.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I ran this from a clean checkout of the stated commit and did not change tracked files before the run.
+          required: true
+        - label: I copied the resolved 40-character SHA from git rev-parse HEAD in the checkout I ran.
+          required: true
+        - label: I removed proprietary, confidential, personal, credential, and license-server information.
+          required: true
+        - label: I understand this report describes one environment and is not hardware validation, certification evidence, or a broad compatibility claim.
+          required: true
