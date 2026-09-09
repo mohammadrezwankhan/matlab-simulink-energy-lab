@@ -45,6 +45,12 @@ run_battery_rc_model
 The script loads the committed pulse profile, calls the shared simulator, and
 plots current, SOC, and terminal voltage.
 
+For a guided exercise with predictions, interpretation prompts, and a
+reproducibility checklist, follow the
+[60-minute battery pulse-response lab](../../docs/battery-pulse-response-lab.md).
+Use a fresh MATLAB session: the check clears workspace variables, and the
+plotting demo also closes open figures. Save existing work and figures first.
+
 Pass a positive scalar third argument to resample onto a uniform grid, as the
 starter scripts do with `dt_s = 1`. Omit that argument to preserve measured or
 irregular profile timestamps:
