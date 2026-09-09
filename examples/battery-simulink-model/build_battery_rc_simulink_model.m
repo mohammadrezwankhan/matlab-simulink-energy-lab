@@ -43,7 +43,10 @@ end
 modelName = 'battery_rc_simulink_model';
 modelPath = fullfile(outputDirectory, [modelName, '.slx']);
 if bdIsLoaded(modelName)
-    close_system(modelName, 0);
+    error('BatteryRCSimulink:ModelAlreadyLoaded', ...
+        ['Cannot build model "%s" because a model with that name is ', ...
+        'already loaded. Save and close the existing model before rebuilding.'], ...
+        modelName);
 end
 if isfile(modelPath)
     delete(modelPath);

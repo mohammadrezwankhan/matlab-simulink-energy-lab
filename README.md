@@ -385,10 +385,11 @@ general support claim.
 
 ## Scope and Limitations
 
-- Save and close open Simulink models before running a builder. Several
-  builders close a loaded model by its generated name without saving it, even
-  if that model came from another directory. Use a fresh session for model
-  regeneration until loaded-model ownership is guarded.
+- Save and close open Simulink models before running a builder or its checks.
+  The native builders reject a target name that is already loaded, including
+  a same-named model from another directory. They still replace generated
+  files at the selected output path when the target is not loaded; use a
+  separate output directory to preserve existing files.
 - These examples are educational engineering references, not calibrated design
   models.
 - The unified BESS controller is a transparent research translation rather

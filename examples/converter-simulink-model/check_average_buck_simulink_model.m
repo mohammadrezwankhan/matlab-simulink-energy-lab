@@ -13,9 +13,9 @@ parameters = average_buck_simulink_parameters();
 temporaryDirectory = tempname;
 mkdir(temporaryDirectory);
 modelName = 'average_buck_simulink_model';
-cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 modelPath = build_average_buck_simulink_model(...
     temporaryDirectory, parameters);
+cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 
 assert(isfile(modelPath), 'The builder must create a real SLX model file.');
 load_system(modelPath);
@@ -159,6 +159,17 @@ end
 assert(complexParameterRejected, ...
     'Builder must reject complex-valued parameters.');
 
+close_system(modelName, 0);
+verify_loaded_model_collision(modelName, @(directory) ...
+    build_average_buck_simulink_model(directory, parameters), ...
+    'AverageBuckSimulink:ModelAlreadyLoaded', 'cleanSaved');
+verify_loaded_model_collision(modelName, @(directory) ...
+    build_average_buck_simulink_model(directory, parameters), ...
+    'AverageBuckSimulink:ModelAlreadyLoaded', 'unsaved');
+verify_loaded_model_collision(modelName, @(directory) ...
+    build_average_buck_simulink_model(directory, parameters), ...
+    'AverageBuckSimulink:ModelAlreadyLoaded', 'dirtySaved');
+
 fprintf('Native Simulink averaged buck check passed.\n');
 fprintf('Final output voltage: %.3f V\n', outputVoltage_V(end));
 fprintf('Final inductor current: %.3f A\n', inductorCurrent_A(end));
@@ -178,10 +189,125 @@ assert(lineHandle ~= -1 && ...
 end
 
 function clean_generated_model(modelName, temporaryDirectory)
-if bdIsLoaded(modelName)
-    close_system(modelName, 0);
-end
+close_model_if_owned(modelName, temporaryDirectory);
 if isfolder(temporaryDirectory)
     rmdir(temporaryDirectory, 's');
 end
+end
+
+function verify_loaded_model_collision(modelName, buildFunction, errorId, ...
+        fixtureState)
+assert(~bdIsLoaded(modelName), ...
+    'Collision fixture must not replace a pre-existing caller model.');
+sourceDirectory = tempname;
+targetDirectory = tempname;
+mkdir(sourceDirectory);
+mkdir(targetDirectory);
+sourcePath = fullfile(sourceDirectory, [modelName, '.slx']);
+targetPath = fullfile(targetDirectory, [modelName, '.slx']);
+targetBytes = uint8([17, 34, 51, 68]);
+write_binary_file(targetPath, targetBytes);
+new_system(modelName);
+modelHandle = get_param(modelName, 'Handle');
+cleanup = onCleanup(@() clean_collision_fixture( ...
+    modelName, modelHandle, sourceDirectory, targetDirectory));
+isSaved = strcmp(fixtureState, 'cleanSaved') || ...
+    strcmp(fixtureState, 'dirtySaved');
+hasSentinel = strcmp(fixtureState, 'unsaved') || ...
+    strcmp(fixtureState, 'dirtySaved');
+sourceBytes = uint8.empty(0, 1);
+if isSaved
+    save_system(modelName, sourcePath);
+    sourceBytes = read_binary_file(sourcePath);
+end
+if hasSentinel
+    add_block('simulink/Sources/Constant', [modelName, '/Caller sentinel'], ...
+        'Value', '123', 'Position', [30, 30, 100, 60]);
+    modelWorkspace = get_param(modelName, 'ModelWorkspace');
+    assignin(modelWorkspace, 'callerSentinel', 42);
+end
+expectedDirty = get_param(modelName, 'Dirty');
+if strcmp(fixtureState, 'cleanSaved')
+    assert(strcmp(expectedDirty, 'off'), ...
+        'Clean saved collision fixture must start clean.');
+else
+    assert(strcmp(expectedDirty, 'on'), ...
+        'Dirty or unsaved collision fixture must start dirty.');
+end
+
+collisionRejected = false;
+try
+    buildFunction(targetDirectory);
+catch buildError
+    collisionRejected = strcmp(buildError.identifier, errorId);
+end
+assert(collisionRejected, ...
+    'Builder must reject a same-name model that is already loaded.');
+assert(bdIsLoaded(modelName), 'Loaded caller model must remain loaded.');
+assert(get_param(modelName, 'Handle') == modelHandle, ...
+    'Loaded caller model handle must remain unchanged.');
+assert(strcmp(get_param(modelName, 'Dirty'), expectedDirty), ...
+    'Loaded caller model dirty state must remain unchanged.');
+if isSaved
+    assert(strcmpi(get_param(modelName, 'FileName'), sourcePath), ...
+        'Loaded caller model path must remain unchanged.');
+    assert(isequal(read_binary_file(sourcePath), sourceBytes), ...
+        'Loaded caller model file bytes must remain unchanged.');
+else
+    assert(strcmp(get_param(modelName, 'FileName'), ''), ...
+        'Unsaved caller model must remain unsaved.');
+    assert(~isfile(sourcePath), ...
+        'Unsaved caller model must not gain a source file.');
+end
+if hasSentinel
+    assert(strcmp(get_param([modelName, '/Caller sentinel'], 'Value'), '123'), ...
+        'Loaded caller model content must remain unchanged.');
+    assert(evalin(modelWorkspace, 'callerSentinel') == 42, ...
+        'Loaded caller model workspace must remain unchanged.');
+end
+assert(isequal(read_binary_file(targetPath), targetBytes(:)), ...
+    'Target model file must remain unchanged after rejection.');
+clear cleanup;
+end
+
+function clean_collision_fixture(modelName, modelHandle, ...
+        sourceDirectory, targetDirectory)
+if bdIsLoaded(modelName) && ...
+        get_param(modelName, 'Handle') == modelHandle
+    close_system(modelName, 0);
+end
+if isfolder(sourceDirectory)
+    rmdir(sourceDirectory, 's');
+end
+if isfolder(targetDirectory)
+    rmdir(targetDirectory, 's');
+end
+end
+
+function close_model_if_owned(modelName, directory)
+if ~bdIsLoaded(modelName)
+    return;
+end
+fileName = string(get_param(modelName, 'FileName'));
+if strlength(fileName) == 0
+    return;
+end
+rootDirectory = string(fullfile(directory, filesep));
+if startsWith(fileName, rootDirectory, 'IgnoreCase', true)
+    close_system(modelName, 0);
+end
+end
+
+function write_binary_file(filePath, bytes)
+fileIdentifier = fopen(filePath, 'w');
+assert(fileIdentifier > 0, 'Could not create binary fixture file.');
+fwrite(fileIdentifier, bytes, 'uint8');
+fclose(fileIdentifier);
+end
+
+function bytes = read_binary_file(filePath)
+fileIdentifier = fopen(filePath, 'r');
+assert(fileIdentifier > 0, 'Could not open binary fixture file.');
+bytes = fread(fileIdentifier, inf, '*uint8');
+fclose(fileIdentifier);
 end
