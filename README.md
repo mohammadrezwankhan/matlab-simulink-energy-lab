@@ -58,6 +58,7 @@ close open figures; save any work you want to keep first.
 | What do you want to do next? | Follow this route |
 | --- | --- |
 | Understand the equations and change a parameter | [Battery RC assumptions and inputs](examples/battery-rc-model/README.md) |
+| Teach or study pulse response with a guided exercise | [Base MATLAB battery pulse lab](docs/battery-pulse-response-lab.md) |
 | Choose a different battery, thermal, converter, or BESS model | [Model selection by engineering decision](docs/model-selection-by-decision.md) |
 | Inspect a generated block diagram | [Focused Simulink first runs](docs/model-selection-guide.md#focused-simulink-first-runs) |
 | Check the entire repository or report a different result | [Validation profiles](#start-in-60-seconds) and [reproduction report](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml) |
@@ -69,6 +70,8 @@ Its worked numbers are explicitly bound to the source snapshot cited there.
 ## Shareable Documentation Map
 
 - [Your First Result](#your-first-result) for one runnable battery example.
+- [Battery pulse-response lab](docs/battery-pulse-response-lab.md) for a guided
+  exercise with expected output, parameter exploration, and a submission checklist.
 - [Validation profiles](#start-in-60-seconds) for Base MATLAB or full checks.
 - [Complete examples index](examples/README.md) for all model families and commands.
 - [Model selection guide](docs/model-selection-guide.md) to choose the smallest

@@ -13,6 +13,10 @@ not cell-test, hardware, protection, certification, or grid-code models.
 
 ### I need a battery electrical model
 
+For a guided first exercise, use the [Base MATLAB battery pulse-response lab](battery-pulse-response-lab.md).
+It walks through the baseline, trace interpretation, and one controlled parameter
+change, with a suggested lesson schedule and explicit modeling limitations.
+
 | Your question | Start here | Why | Do not use it for |
 | --- | --- | --- | --- |
 | How do current pulses change SOC and terminal voltage? | [First-order RC](../examples/battery-rc-model/README.md) | Smallest electrical baseline; nonlinear OCV and one polarization state. | Separating fast and slow relaxation. |
