@@ -21,11 +21,11 @@ secondDirectory = tempname;
 mkdir(firstDirectory);
 mkdir(secondDirectory);
 modelName = 'switching_closed_loop_buck_simulink_model';
-cleanup = onCleanup(@() clean_generated_models( ...
-    modelName, firstDirectory, secondDirectory));
 
 firstPath = build_switching_closed_loop_buck_simulink_model( ...
     firstDirectory, parameters);
+cleanup = onCleanup(@() clean_generated_models( ...
+    modelName, firstDirectory, secondDirectory));
 load_system(firstPath);
 firstSignature = model_signature(modelName);
 expectedBlocks = {
@@ -200,6 +200,17 @@ ccmParameters.end_time_s = 0.01;
 assert_error(@() simulate_switching_closed_loop_buck(ccmParameters), ...
     'SwitchingClosedLoopBuck:ConductionMode');
 close_system(modelName, 0);
+
+verify_loaded_model_collision(modelName, @(directory) ...
+    build_switching_closed_loop_buck_simulink_model(directory, parameters), ...
+    'SwitchingClosedLoopBuckSimulink:ModelAlreadyLoaded', 'cleanSaved');
+verify_loaded_model_collision(modelName, @(directory) ...
+    build_switching_closed_loop_buck_simulink_model(directory, parameters), ...
+    'SwitchingClosedLoopBuckSimulink:ModelAlreadyLoaded', 'dirtySaved');
+verify_loaded_model_collision(modelName, @(directory) ...
+    build_switching_closed_loop_buck_simulink_model(directory, parameters), ...
+    'SwitchingClosedLoopBuckSimulink:ModelAlreadyLoaded', 'unsaved');
+
 ccmPath = build_switching_closed_loop_buck_simulink_model( ...
     firstDirectory, ccmParameters);
 load_system(ccmPath);
@@ -243,13 +254,140 @@ error('SwitchingClosedLoopBuckSimulink:MissingError', ...
 end
 
 function clean_generated_models(modelName, firstDirectory, secondDirectory)
-if bdIsLoaded(modelName)
-    close_system(modelName, 0);
-end
+close_model_if_owned(modelName, {firstDirectory, secondDirectory});
 directories = {firstDirectory, secondDirectory};
 for directoryIndex = 1:numel(directories)
-    if isfolder(directories{directoryIndex})
-        rmdir(directories{directoryIndex}, 's');
+    remove_owned_temp_directory(directories{directoryIndex});
+end
+end
+
+function verify_loaded_model_collision(modelName, buildFunction, errorId, ...
+        fixtureState)
+assert(~bdIsLoaded(modelName), ...
+    'Collision fixture must not replace a pre-existing caller model.');
+sourceDirectory = tempname;
+targetDirectory = tempname;
+mkdir(sourceDirectory);
+mkdir(targetDirectory);
+sourcePath = fullfile(sourceDirectory, [modelName, '.slx']);
+targetPath = fullfile(targetDirectory, [modelName, '.slx']);
+targetBytes = uint8([17, 34, 51, 68]);
+write_binary_file(targetPath, targetBytes);
+new_system(modelName);
+modelHandle = get_param(modelName, 'Handle');
+cleanup = onCleanup(@() clean_collision_fixture(...
+    modelName, modelHandle, sourceDirectory, targetDirectory));
+
+isSaved = strcmp(fixtureState, 'cleanSaved') || ...
+    strcmp(fixtureState, 'dirtySaved');
+hasSentinel = strcmp(fixtureState, 'dirtySaved') || ...
+    strcmp(fixtureState, 'unsaved');
+sourceBytes = uint8.empty(0, 1);
+if isSaved
+    save_system(modelName, sourcePath);
+    sourceBytes = read_binary_file(sourcePath);
+end
+if hasSentinel
+    add_block('simulink/Sources/Constant', [modelName, '/Caller sentinel'], ...
+        'Value', '123', 'Position', [30, 30, 100, 60]);
+    modelWorkspace = get_param(modelName, 'ModelWorkspace');
+    assignin(modelWorkspace, 'callerSentinel', 42);
+end
+expectedDirty = get_param(modelName, 'Dirty');
+if strcmp(fixtureState, 'cleanSaved')
+    assert(strcmp(expectedDirty, 'off'), ...
+        'Clean saved collision fixture must start clean.');
+else
+    assert(strcmp(expectedDirty, 'on'), ...
+        'Dirty or unsaved collision fixture must start dirty.');
+end
+
+collisionRejected = false;
+try
+    buildFunction(targetDirectory);
+catch buildError
+    collisionRejected = strcmp(buildError.identifier, errorId);
+end
+assert(collisionRejected, ...
+    'Builder must reject a same-name model that is already loaded.');
+assert(bdIsLoaded(modelName), 'Loaded caller model must remain loaded.');
+assert(get_param(modelName, 'Handle') == modelHandle, ...
+    'Loaded caller model handle must remain unchanged.');
+assert(strcmp(get_param(modelName, 'Dirty'), expectedDirty), ...
+    'Loaded caller model dirty state must remain unchanged.');
+if isSaved
+    assert(strcmpi(get_param(modelName, 'FileName'), sourcePath), ...
+        'Loaded caller model path must remain unchanged.');
+    assert(isequal(read_binary_file(sourcePath), sourceBytes), ...
+        'Loaded caller model file bytes must remain unchanged.');
+else
+    assert(strcmp(get_param(modelName, 'FileName'), ''), ...
+        'Unsaved caller model must remain unsaved.');
+    assert(~isfile(sourcePath), ...
+        'Unsaved caller model must not gain a source file.');
+end
+if hasSentinel
+    assert(strcmp(get_param([modelName, '/Caller sentinel'], 'Value'), '123'), ...
+        'Loaded caller model content must remain unchanged.');
+    assert(evalin(modelWorkspace, 'callerSentinel') == 42, ...
+        'Loaded caller model workspace must remain unchanged.');
+end
+assert(isequal(read_binary_file(targetPath), targetBytes(:)), ...
+    'Target model file must remain unchanged after rejection.');
+clear cleanup;
+end
+
+function clean_collision_fixture(modelName, modelHandle, sourceDirectory, ...
+        targetDirectory)
+close_model_by_handle(modelName, modelHandle);
+remove_owned_temp_directory(sourceDirectory);
+remove_owned_temp_directory(targetDirectory);
+end
+
+function close_model_by_handle(modelName, modelHandle)
+if bdIsLoaded(modelName) && get_param(modelName, 'Handle') == modelHandle
+    close_system(modelName, 0);
+end
+end
+
+function close_model_if_owned(modelName, directories)
+if ~bdIsLoaded(modelName)
+    return;
+end
+fileName = string(get_param(modelName, 'FileName'));
+for directoryIndex = 1:numel(directories)
+    rootDirectory = string(fullfile(directories{directoryIndex}, filesep));
+    if strlength(fileName) > 0 && ...
+            startsWith(fileName, rootDirectory, 'IgnoreCase', true)
+        close_system(modelName, 0);
+        return;
     end
 end
+end
+
+function remove_owned_temp_directory(directory)
+if ~isfolder(directory)
+    return;
+end
+rootDirectory = string(fullfile(tempdir, filesep));
+candidate = string(directory);
+if strlength(candidate) <= strlength(rootDirectory) || ...
+        ~startsWith(candidate, rootDirectory, 'IgnoreCase', true)
+    return;
+end
+rmdir(char(candidate), 's');
+end
+
+function write_binary_file(filePath, bytes)
+fileIdentifier = fopen(filePath, 'w');
+assert(fileIdentifier > 0, 'Could not create binary fixture file.');
+fwrite(fileIdentifier, bytes, 'uint8');
+fclose(fileIdentifier);
+end
+
+function bytes = read_binary_file(filePath)
+fileIdentifier = fopen(filePath, 'r');
+assert(fileIdentifier > 0, 'Could not open binary fixture file.');
+bytes = fread(fileIdentifier, inf, '*uint8');
+fclose(fileIdentifier);
 end

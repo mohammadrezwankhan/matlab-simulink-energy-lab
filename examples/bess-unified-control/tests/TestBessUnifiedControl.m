@@ -329,6 +329,7 @@ classdef TestBessUnifiedControl < matlab.unittest.TestCase
             scenario = testCase.Scenarios(1);
             firstModel = build_bess_unified_control_model( ...
                 firstDirectory, scenario, testCase.Parameters);
+            close_system('bess_unified_control', 0);
             secondModel = build_bess_unified_control_model( ...
                 secondDirectory, scenario, testCase.Parameters);
 
@@ -390,6 +391,12 @@ classdef TestBessUnifiedControl < matlab.unittest.TestCase
             end
             clear cleanup;
         end
+
+        function preloadedModelIsRejectedWithoutDataLoss(testCase)
+            verify_bess_model_collision(testCase, 'cleanSaved');
+            verify_bess_model_collision(testCase, 'unsaved');
+            verify_bess_model_collision(testCase, 'dirtySaved');
+        end
     end
 end
 
@@ -419,10 +426,114 @@ clear cleanup fileGenerationCleanup;
 end
 
 function clean_directories(varargin)
+close_model_if_owned('bess_unified_control', varargin);
 for directoryIndex = 1:nargin
     directory = varargin{directoryIndex};
     if isfolder(directory)
         rmdir(directory, 's');
     end
 end
+end
+
+function clean_model_collision_fixture(modelName, modelHandle, ...
+        sourceDirectory, targetDirectory)
+if bdIsLoaded(modelName) && ...
+        get_param(modelName, 'Handle') == modelHandle
+    close_system(modelName, 0);
+end
+clean_directories(sourceDirectory, targetDirectory);
+end
+
+function verify_bess_model_collision(testCase, fixtureState)
+modelName = 'bess_unified_control';
+testCase.assertFalse(bdIsLoaded(modelName), ...
+    'Collision fixture must not replace a pre-existing caller model.');
+sourceDirectory = tempname;
+targetDirectory = tempname;
+mkdir(sourceDirectory);
+mkdir(targetDirectory);
+sourcePath = fullfile(sourceDirectory, [modelName, '.slx']);
+targetPath = fullfile(targetDirectory, [modelName, '.slx']);
+targetBytes = uint8([17, 34, 51, 68]);
+write_binary_file(targetPath, targetBytes);
+new_system(modelName);
+modelHandle = get_param(modelName, 'Handle');
+cleanup = onCleanup(@() clean_model_collision_fixture( ...
+    modelName, modelHandle, sourceDirectory, targetDirectory));
+isSaved = strcmp(fixtureState, 'cleanSaved') || ...
+    strcmp(fixtureState, 'dirtySaved');
+hasSentinel = strcmp(fixtureState, 'unsaved') || ...
+    strcmp(fixtureState, 'dirtySaved');
+sourceBytes = uint8.empty(0, 1);
+if isSaved
+    save_system(modelName, sourcePath);
+    sourceBytes = read_binary_file(sourcePath);
+end
+if hasSentinel
+    add_block('simulink/Sources/Constant', ...
+        [modelName, '/Caller sentinel'], ...
+        'Value', '123', 'Position', [30, 30, 100, 60]);
+    modelWorkspace = get_param(modelName, 'ModelWorkspace');
+    assignin(modelWorkspace, 'callerSentinel', 42);
+end
+expectedDirty = get_param(modelName, 'Dirty');
+if strcmp(fixtureState, 'cleanSaved')
+    testCase.assertEqual(expectedDirty, 'off');
+else
+    testCase.assertEqual(expectedDirty, 'on');
+end
+
+testCase.verifyError(@() build_bess_unified_control_model( ...
+    targetDirectory, testCase.Scenarios(1), testCase.Parameters), ...
+    'BessUnifiedControl:ModelAlreadyLoaded');
+testCase.verifyTrue(bdIsLoaded(modelName));
+testCase.verifyEqual(get_param(modelName, 'Handle'), modelHandle);
+testCase.verifyEqual(get_param(modelName, 'Dirty'), expectedDirty);
+if isSaved
+    testCase.verifyEqual(string(get_param(modelName, 'FileName')), ...
+        string(sourcePath));
+    testCase.verifyEqual(read_binary_file(sourcePath), sourceBytes);
+else
+    testCase.verifyEqual(string(get_param(modelName, 'FileName')), "");
+    testCase.verifyFalse(isfile(sourcePath));
+end
+if hasSentinel
+    testCase.verifyEqual(get_param( ...
+        [modelName, '/Caller sentinel'], 'Value'), '123');
+    testCase.verifyEqual(evalin(modelWorkspace, 'callerSentinel'), 42);
+end
+testCase.verifyEqual(read_binary_file(targetPath), targetBytes(:));
+clear cleanup;
+end
+
+function close_model_if_owned(modelName, directories)
+if ~bdIsLoaded(modelName)
+    return;
+end
+fileName = string(get_param(modelName, 'FileName'));
+if strlength(fileName) == 0
+    return;
+end
+ownedPaths = strings(numel(directories), 1);
+for directoryIndex = 1:numel(directories)
+    ownedPaths(directoryIndex) = string(fullfile( ...
+        directories{directoryIndex}, [modelName, '.slx']));
+end
+if any(strcmpi(fileName, ownedPaths))
+    close_system(modelName, 0);
+end
+end
+
+function write_binary_file(filePath, bytes)
+fileIdentifier = fopen(filePath, 'w');
+assert(fileIdentifier > 0, 'Could not create binary fixture file.');
+fwrite(fileIdentifier, bytes, 'uint8');
+fclose(fileIdentifier);
+end
+
+function bytes = read_binary_file(filePath)
+fileIdentifier = fopen(filePath, 'r');
+assert(fileIdentifier > 0, 'Could not open binary fixture file.');
+bytes = fread(fileIdentifier, inf, '*uint8');
+fclose(fileIdentifier);
 end
