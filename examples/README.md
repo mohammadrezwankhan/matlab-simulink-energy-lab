@@ -191,6 +191,8 @@ run('examples/battery-thermal-simulink-model/check_battery_thermal_simulink_mode
 run('examples/converter-average-model/check_converter_average_model.m')
 run('examples/converter-switching-model/check_switching_buck_converter.m')
 run('examples/converter-switching-closed-loop-model/check_switching_closed_loop_buck.m')
+run('examples/converter-switching-closed-loop-model/check_switching_closed_loop_buck_temperature_sensitivity.m')
+run('examples/converter-switching-closed-loop-simulink-model/check_switching_closed_loop_buck_simulink_model.m')
 run('examples/converter-closed-loop-model/check_closed_loop_converter.m')
 run('examples/converter-closed-loop-model/check_converter_controller_comparison.m')
 run('examples/converter-simulink-model/check_average_buck_simulink_model.m')

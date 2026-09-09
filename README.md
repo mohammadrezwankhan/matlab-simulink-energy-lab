@@ -33,9 +33,42 @@ releases, citation metadata, and validation evidence. The
 [public project overview](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
 is the search landing page and concise cross-model introduction.
 
+## Your First Result
+
+**New to the lab? Start with one battery pulse response, not the full suite.**
+Open this repository with the **MATLAB Online** badge above, or clone it and
+open its root folder in MATLAB. MATLAB R2026a is the tested release; this first
+example needs only MATLAB, not Simulink or a specialty toolbox.
+
+Run these commands in the MATLAB Command Window from the repository root:
+
+```matlab
+run('examples/battery-rc-model/check_battery_rc_model.m')
+run('examples/battery-rc-model/run_battery_rc_model.m')
+```
+
+The check should print `Battery RC check passed`, final SOC `0.767`, and a
+voltage range of `3.425 V to 3.877 V`. The second command opens the current,
+SOC, and terminal-voltage plots. These are deterministic illustrative results,
+not measured-cell accuracy. The example scripts clear their workspace and
+close open figures; save any work you want to keep first.
+
+| What do you want to do next? | Follow this route |
+| --- | --- |
+| Understand the equations and change a parameter | [Battery RC assumptions and inputs](examples/battery-rc-model/README.md) |
+| Choose a different battery, thermal, converter, or BESS model | [Model selection by engineering decision](docs/model-selection-by-decision.md) |
+| Inspect a generated block diagram | [Focused Simulink first runs](docs/model-selection-guide.md#focused-simulink-first-runs) |
+| Check the entire repository or report a different result | [Validation profiles](#start-in-60-seconds) and [reproduction report](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml) |
+
+For the reasoning behind the checks, read the
+[reviewable MATLAB models guide](https://rezwankhan.tech/insights/reviewable-matlab-models/).
+Its worked numbers are explicitly bound to the source snapshot cited there.
+
 ## Shareable Documentation Map
 
-- [Start in 60 Seconds](#start-in-60-seconds) for the fastest runnable path.
+- [Your First Result](#your-first-result) for one runnable battery example.
+- [Validation profiles](#start-in-60-seconds) for Base MATLAB or full checks.
+- [Complete examples index](examples/README.md) for all model families and commands.
 - [Model selection guide](docs/model-selection-guide.md) to choose the smallest
   battery, converter, thermal, SOC-estimation, or BESS model for your question.
 - [Model selection by engineering decision](docs/model-selection-by-decision.md)
@@ -63,9 +96,9 @@ is the search landing page and concise cross-model introduction.
   machine-readable software metadata and source routing.
 
 > [!TIP]
-> **If a model helps you learn or saves you setup time, [star this repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab).**
-> Your star helps more energy-engineering learners discover the lab and shows
-> which open examples are worth expanding next.
+> **If a model is useful to you, you can [star this repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab) to save it for later.**
+> For a correction or a model request, use an issue with the example and the
+> engineering question; a star alone does not tell us which model you used.
 
 ![First-order battery RC model response showing discharge and charge current pulses, state-of-charge change, and terminal-voltage transients](assets/battery-rc-response.png)
 
@@ -115,6 +148,10 @@ is the search landing page and concise cross-model introduction.
   a model.
 
 ## Start in 60 Seconds
+
+This section selects a validation profile; it is not a promise that the full
+suite finishes in 60 seconds. For one plot and a focused check, use
+[Your First Result](#your-first-result) above.
 
 Twenty-five established no-plot checks cover the battery, converter, and DC-side
 BESS examples. The unified BESS entry point adds a focused 31-result
@@ -167,13 +204,15 @@ matlab -batch "addpath('examples'); run_all_checks"
 ### Concise validation evidence
 
 The latest tagged release is [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0).
-The latest hosted MATLAB R2026a executable-code evidence is
+The following numerical summary records historical MATLAB R2026a evidence from
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
 at exact source commit
 [`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b).
-No executable MATLAB or Simulink model files changed after that source commit;
-subsequent changes are documentation, metadata, and CI validation. The two CI
-jobs report:
+This is a fixed reference record, not a claim that the run validates every
+later commit. For current branch checks and commit-bound artifacts, use the
+[validation workflow](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml)
+and [manifest guide](docs/validation-manifest.md). The two jobs in the reference
+run report:
 
 | Evidence | Result |
 | --- | --- |
@@ -291,7 +330,7 @@ the [modeling standards](notes/modeling-standards.md).
 ```text
 matlab-simulink-energy-lab/
 |-- assets/                         # Result images used in the documentation
-|-- docs/                           # Full expected validation output
+|-- docs/                           # Selection guides, tutorials, scope, evidence
 |-- examples/
 |   |-- battery-rc-model/           # RC simulation, pulse data, and check
 |   |-- battery-simulink-model/     # Generated native battery RC diagram
@@ -331,7 +370,7 @@ Compatibility evidence is release-, environment-, and commit-specific:
 
 | Release | Evidence status | Environment | Exact evidence |
 | --- | --- | --- | --- |
-| R2026a | Maintained primary CI baseline | Ubuntu, MATLAB and Simulink | [Latest executable-code run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625): 25 general checks and 31 focused unified-BESS results passed. |
+| R2026a | Maintained primary CI baseline | Ubuntu, MATLAB and Simulink | [Historical reference run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625): 25 general checks and 31 focused unified-BESS results passed at its recorded commit. Use the [workflow history](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml) for newer revisions. |
 | R2025b Update 6 | One-time maintainer-automated proof; not community-tested | Ubuntu 24, GLNXA64, MATLAB `25.2.0.3312555`, Simulink `25.2` | [Exact commit `c0a5a2c`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/c0a5a2c63772382cd77b156bc8fa328d43820126) and [hosted run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32669632185): 25 general checks and 31 focused unified-BESS results passed. |
 
 The R2025b row is a bounded compatibility record for that exact environment and
@@ -344,6 +383,10 @@ general support claim.
 
 ## Scope and Limitations
 
+- Save and close open Simulink models before running a builder. Several
+  builders close a loaded model by its generated name without saving it, even
+  if that model came from another directory. Use a fresh session for model
+  regeneration until loaded-model ownership is guarded.
 - These examples are educational engineering references, not calibrated design
   models.
 - The unified BESS controller is a transparent research translation rather

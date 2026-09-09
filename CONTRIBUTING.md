@@ -130,6 +130,10 @@ require authenticated review.
       links back to the source-of-record repository.
 - [ ] Regenerate or review the 1280×640 social preview against the current
       model-family scope and upload it in the GitHub repository settings.
+      The README currently uses `assets/social-preview-v2.png`; the older
+      `assets/generate_social_preview.m` produces `social-preview.png` with an
+      obsolete 18-check caption. Do not treat that legacy output as a current
+      preview or overwrite the repository-settings image without reviewing it.
 - [ ] Confirm `git status --short` is empty before generating commit-bound
       validation evidence or release assets.
 - [ ] Run `.github/scripts/validate-project-metadata.sh`, Markdown links, CFF
