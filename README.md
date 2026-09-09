@@ -11,7 +11,9 @@
 [![GitHub forks](https://img.shields.io/github/forks/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/network/members)
 [![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
 
-![MATLAB Simulink Energy Lab preview connecting battery and SOC, thermal response, power electronics, and grid-forming/grid-following BESS control](assets/social-preview-v2.png)
+[![MATLAB Simulink Energy Lab: runnable models and inspectable assumptions, with four independent example families—battery and SOC, thermal, converters, and BESS control](assets/social-preview-v3.jpg)](#your-first-result)
+
+*Conceptual model-family artwork, not simulation output. [Run your first example](#your-first-result).*
 
 > **See the equations become waveforms—and inspect every assumption in between.**
 

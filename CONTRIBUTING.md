@@ -128,9 +128,11 @@ require authenticated review.
       metadata, and validation evidence.
 - [ ] Confirm the public project overview remains the search landing page and
       links back to the source-of-record repository.
-- [ ] Regenerate or review the 1280×640 social preview against the current
+- [ ] Review the 2:1 social preview (1280×640 recommended by GitHub) against the current
       model-family scope and upload it in the GitHub repository settings.
-      The README currently uses `assets/social-preview-v2.png`; the older
+      The README currently uses `assets/social-preview-v3.jpg`, with generation
+      and export notes in `assets/social-preview-v3.md`. The previous v2 image
+      is retained for history. The older
       `assets/generate_social_preview.m` produces `social-preview.png` with an
       obsolete 18-check caption. Do not treat that legacy output as a current
       preview or overwrite the repository-settings image without reviewing it.
