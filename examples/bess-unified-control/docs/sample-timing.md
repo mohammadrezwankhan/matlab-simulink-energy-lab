@@ -33,5 +33,11 @@ test classes. Test source alone is not proof of a passing execution; use
 commit-specific CI results. Historical validation artifacts describe their
 original source and are not silently reinterpreted under this contract.
 
-The Simulink wrapper's separate logged-time validation and preloaded-model
-ownership limitations are not corrected by this interval-order change.
+The Simulink wrapper validates the actual logged clock against the scenario
+clock before assigning scenario labels to output rows. Nonfinite, repeated,
+reversed, missing, or misaligned timestamps are rejected, not interpolated.
+Row/column orientation and clock roundoff within 1e-12 seconds are accepted.
+Both clocks must use double-precision seconds, as the generated scenario and
+profile do. Single-precision and integer clocks are rejected, not silently
+converted; this avoids quantization ambiguity and lossy integer comparison.
+This check does not correct the separate preloaded-model ownership limitation.
