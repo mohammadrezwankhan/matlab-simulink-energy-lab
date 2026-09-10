@@ -35,6 +35,33 @@ does not present it as current French or any other grid-code certification.
   and
 - plant, protection, or grid-code qualification.
 
+## Sample-time labeling
+
+The current MATLAB runner and Simulink runtime both compute a controller
+command, advance the plant by one configured sample interval, and then record
+the result at the current input timestamp. This includes the sample labeled
+zero and the terminal sample. With the default 5 ms step, the time-zero output
+is therefore already a plant update, not the untouched initial state. For N
+input samples, the runners perform N plant updates rather than the N - 1
+intervals between those timestamps.
+
+The relevant source is
+[`simulate_bess_unified_control.m`](../simulate_bess_unified_control.m),
+[`bess_simulink_runtime.m`](../src/bess_simulink_runtime.m), and
+[`bess_plant_step.m`](../src/bess_plant_step.m). Agreement between the two
+runners cannot detect this shared timing convention. Do not interpret their
+parity checks or historical plots as independent validation of initial-state,
+event-response, or total-duration timing.
+
+Do not repair this by shifting the plotted time vector alone: the
+[`controller`](../src/bess_controller_step.m) also contains a one-step grid
+phase adjustment, timer updates, and sampled command limits. A behavioral
+correction needs a consistent input/command/state timing contract and
+independent tests for initialization, event boundaries, and final integration
+duration in both execution paths. Historical validation artifacts retain
+their original source provenance; this disclosure does not regenerate or
+revalidate them.
+
 ## Required qualification before engineering use
 
 A real deployment must replace every `PROJECT_ASSUMPTION`, use plant and

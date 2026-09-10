@@ -24,8 +24,10 @@ grid-forming voltage/frequency control, grid loss, islanded load support,
 synchronization, reconnection, saturation, measurement faults, and recovery
 with every important behavior covered by executable assertions?
 
-The answer for the documented reduced-order plant and starter parameters is
-yes. The model:
+The documented reduced-order plant and starter parameters exercise those
+behaviors, subject to the [sample-time limitation](docs/limitations.md#sample-time-labeling)
+below. Passing scenario assertions does not independently validate the timing
+contract. The model:
 
 - uses a 10 MVA, 690 V line-to-line, 50 Hz per-unit base;
 - represents a balanced dq-current/filter-equivalent converter/PCC plant;
