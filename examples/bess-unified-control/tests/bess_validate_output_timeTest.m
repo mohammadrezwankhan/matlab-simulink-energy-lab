@@ -17,6 +17,31 @@ classdef bess_validate_output_timeTest < matlab.unittest.TestCase
     end
 
     methods (Test)
+        function singlePrecisionClockRejected(testCase)
+            testCase.verifyError(@() bess_validate_output_time( ...
+                single([0 0.005 0.01]), [0 0.005 0.01]), ...
+                'BessUnifiedControl:ModelOutputTime');
+        end
+
+        function integerClockRejected(testCase)
+            testCase.verifyError(@() bess_validate_output_time( ...
+                uint64([0 1 2]), [0 1 2]), ...
+                'BessUnifiedControl:ModelOutputTime');
+        end
+
+        function largeDistinctIntegerClocksRejected(testCase)
+            clock = bitshift(uint64(1), 54);
+            testCase.verifyError(@() bess_validate_output_time( ...
+                clock, clock + uint64(1)), ...
+                'BessUnifiedControl:ModelOutputTime');
+        end
+
+        function nonDoubleExpectedClockRejected(testCase)
+            testCase.verifyError(@() bess_validate_output_time( ...
+                [0 1 2], single([0 1 2])), ...
+                'BessUnifiedControl:ModelOutputTime');
+        end
+
         function matchingClockAccepted(testCase)
             testCase.verifyWarningFree(@() bess_validate_output_time( ...
                 [0; 0.005; 0.01], [0 0.005 0.01]));

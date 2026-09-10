@@ -37,4 +37,7 @@ The Simulink wrapper validates the actual logged clock against the scenario
 clock before assigning scenario labels to output rows. Nonfinite, repeated,
 reversed, missing, or misaligned timestamps are rejected, not interpolated.
 Row/column orientation and clock roundoff within 1e-12 seconds are accepted.
+Both clocks must use double-precision seconds, as the generated scenario and
+profile do. Single-precision and integer clocks are rejected, not silently
+converted; this avoids quantization ambiguity and lossy integer comparison.
 This check does not correct the separate preloaded-model ownership limitation.
