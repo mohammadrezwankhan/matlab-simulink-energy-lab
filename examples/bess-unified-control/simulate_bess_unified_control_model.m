@@ -45,6 +45,7 @@ set_param(modelName, 'StopTime', sprintf('%.17g', scenario.time_s(end)));
 clear bess_simulink_runtime;
 simulationOutput = sim(modelName);
 loggedTimeseries = simulationOutput.bess_output_vector;
+bess_validate_output_time(loggedTimeseries.Time, scenario.time_s);
 loggedData = squeeze(loggedTimeseries.Data(:, 1, :)).';
 if size(loggedData, 1) ~= numel(scenario.time_s) || ...
         size(loggedData, 2) ~= 20
