@@ -1,5 +1,19 @@
-function state = bess_plant_step(inputVector, command, state, parameters)
+function state = bess_plant_step(inputVector, command, state, parameters, ...
+        elapsedTime_s)
 %BESS_PLANT_STEP Advance the reduced-order averaged three-phase plant.
+
+% Keep the existing four-argument helper behavior for direct callers.  An
+% explicit zero elapsed time is used at sample boundaries to apply
+% instantaneous breaker/phase alignment without advancing dynamic states.
+if nargin < 5 || isempty(elapsedTime_s)
+    elapsedTime_s = parameters.sample_time_s;
+    phaseAdvance_s = 0;
+else
+    validateattributes(elapsedTime_s, {'numeric'}, ...
+        {'real', 'finite', 'scalar', 'nonnegative'}, mfilename, ...
+        'elapsedTime_s');
+    phaseAdvance_s = elapsedTime_s;
+end
 
 input = bess_unpack_input(inputVector);
 states = bess_state_codes();
@@ -24,11 +38,11 @@ if command.state_code == states.FAULT_SAFE
     targetQ_pu = 0;
 end
 
-currentAlpha = 1 - exp(-parameters.sample_time_s / ...
+currentAlpha = 1 - exp(-elapsedTime_s / ...
     parameters.filter_current_time_constant_s);
-voltageAlpha = 1 - exp(-parameters.sample_time_s / ...
+voltageAlpha = 1 - exp(-elapsedTime_s / ...
     parameters.plant_voltage_time_constant_s);
-frequencyAlpha = 1 - exp(-parameters.sample_time_s / ...
+frequencyAlpha = 1 - exp(-elapsedTime_s / ...
     parameters.plant_frequency_time_constant_s);
 state.voltage_pu = state.voltage_pu + voltageAlpha * ...
     (targetVoltage_pu - state.voltage_pu);
@@ -52,9 +66,13 @@ end
 state.p_pu = state.voltage_pu * state.current_d_pu;
 state.q_pu = -state.voltage_pu * state.current_q_pu;
 if state.breaker_closed
-    state.phase_rad = input.grid_phase_rad;
+    % Explicit interval calls finish at the interval endpoint, including
+    % when the next boundary disconnects the grid. Legacy four-argument
+    % calls retain their historical same-input phase convention.
+    state.phase_rad = input.grid_phase_rad + ...
+        2 * pi * input.grid_frequency_Hz * phaseAdvance_s;
 else
     state.phase_rad = state.phase_rad + 2 * pi * ...
-        state.frequency_Hz * parameters.sample_time_s;
+        state.frequency_Hz * elapsedTime_s;
 end
 end

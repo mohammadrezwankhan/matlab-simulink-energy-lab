@@ -1,21 +1,27 @@
 function [command, state] = bess_controller_step(inputVector, ...
-        measurement, state, parameters)
+        measurement, state, parameters, elapsedTime_s)
 %BESS_CONTROLLER_STEP Execute conditioning, supervisor, control, and limits.
+
+% Preserve the historical four-argument helper contract.  The reference
+% runner and stateful runtime pass an explicit elapsed time so that the
+% first sample can be evaluated without consuming a control interval.
+if nargin < 5 || isempty(elapsedTime_s)
+    elapsedTime_s = parameters.sample_time_s;
+else
+    validateattributes(elapsedTime_s, {'numeric'}, ...
+        {'real', 'finite', 'scalar', 'nonnegative'}, mfilename, ...
+        'elapsedTime_s');
+end
 
 input = bess_unpack_input(inputVector);
 states = bess_state_codes();
 [conditioned, measurementValid] = bess_condition_measurement( ...
     measurement, input, parameters);
 if measurementValid
-    gridPhaseForSync_rad = input.grid_phase_rad;
-    if measurement.breaker_closed && input.time_s > 0
-        gridPhaseForSync_rad = input.grid_phase_rad - 2 * pi * ...
-            input.grid_frequency_Hz * parameters.sample_time_s;
-    end
     sync = bess_sync_metrics(conditioned.voltage_pu, ...
         conditioned.frequency_Hz, conditioned.phase_rad, ...
         input.grid_voltage_pu, input.grid_frequency_Hz, ...
-        gridPhaseForSync_rad, parameters);
+        input.grid_phase_rad, parameters);
 else
     sync.voltage_mismatch_pu = ...
         parameters.maximum_valid_voltage_pu + 1;
@@ -29,7 +35,7 @@ syncReady = sync.within_limits && measurementValid && ...
     input.grid_present && input.request_grid_following;
 
 previousMode = state.mode;
-state.state_timer_s = state.state_timer_s + parameters.sample_time_s;
+state.state_timer_s = state.state_timer_s + elapsedTime_s;
 faultRequested = ~measurementValid;
 if faultRequested && state.mode ~= states.FAULT_SAFE
     state.mode = states.FAULT_SAFE;
@@ -41,7 +47,7 @@ elseif state.mode == states.FAULT_SAFE
         state.state_timer_s = 0;
     end
 elseif state.mode == states.RECOVERY
-    if state.state_timer_s >= parameters.recovery_hold_time_s
+    if has_elapsed(state.state_timer_s, parameters.recovery_hold_time_s)
         if input.grid_present && input.request_grid_following
             state.mode = states.SYNCHRONIZING;
         else
@@ -55,12 +61,12 @@ elseif state.mode == states.GRID_FOLLOWING
         state.state_timer_s = 0;
     end
 elseif state.mode == states.PREPARE_ISLAND
-    if state.state_timer_s >= parameters.prepare_island_time_s
+    if has_elapsed(state.state_timer_s, parameters.prepare_island_time_s)
         state.mode = states.GRID_FORMING;
         state.state_timer_s = 0;
     end
 elseif state.mode == states.GRID_FORMING
-    if state.state_timer_s >= parameters.forming_prepare_time_s
+    if has_elapsed(state.state_timer_s, parameters.forming_prepare_time_s)
         state.mode = states.ISLANDED_SUPPORT;
         state.state_timer_s = 0;
     end
@@ -76,9 +82,13 @@ elseif state.mode == states.SYNCHRONIZING
         state.state_timer_s = 0;
         state.sync_timer_s = 0;
     elseif syncReady
-        state.sync_timer_s = state.sync_timer_s + ...
-            parameters.sample_time_s;
-        if state.sync_timer_s >= parameters.sync_hold_time_s
+        % A newly valid endpoint cannot certify the preceding interval.
+        if state.previous_sync_ready
+            state.sync_timer_s = state.sync_timer_s + elapsedTime_s;
+        else
+            state.sync_timer_s = 0;
+        end
+        if has_elapsed(state.sync_timer_s, parameters.sync_hold_time_s)
             state.mode = states.PREPARE_RECONNECT;
             state.state_timer_s = 0;
         end
@@ -90,7 +100,7 @@ elseif state.mode == states.PREPARE_RECONNECT
         state.mode = states.SYNCHRONIZING;
         state.state_timer_s = 0;
         state.sync_timer_s = 0;
-    elseif state.state_timer_s >= parameters.prepare_reconnect_time_s
+    elseif has_elapsed(state.state_timer_s, parameters.prepare_reconnect_time_s)
         state.mode = states.GRID_FOLLOWING;
         state.state_timer_s = 0;
     end
@@ -150,11 +160,11 @@ elseif formingState
         state.frequency_restoration_Hz = clamp( ...
             state.frequency_restoration_Hz + ...
             parameters.frequency_restoration_gain_per_s * ...
-            frequencyError_Hz * parameters.sample_time_s, -1, 1);
+            frequencyError_Hz * elapsedTime_s, -1, 1);
         state.voltage_restoration_pu = clamp( ...
             state.voltage_restoration_pu + ...
             parameters.voltage_restoration_gain_per_s * ...
-            voltageError_pu * parameters.sample_time_s, -0.2, 0.2);
+            voltageError_pu * elapsedTime_s, -0.2, 0.2);
         rawFrequencyCommand_Hz = input.frequency_ref_Hz - ...
             parameters.grid_frequency_droop_Hz_per_pu * ...
             (measuredP_pu - input.p_ref_pu) + ...
@@ -181,22 +191,20 @@ end
 
 command.p_command_pu = slew( ...
     state.previous_p_command_pu, limitedP_pu, ...
-    parameters.power_command_slew_pu_per_s * parameters.sample_time_s);
+    parameters.power_command_slew_pu_per_s * elapsedTime_s);
 command.q_command_pu = slew( ...
     state.previous_q_command_pu, limitedQ_pu, ...
-    parameters.power_command_slew_pu_per_s * parameters.sample_time_s);
+    parameters.power_command_slew_pu_per_s * elapsedTime_s);
 rawVoltageCommand_pu = clamp(rawVoltageCommand_pu, 0, 1.2);
 rawFrequencyCommand_Hz = clamp(rawFrequencyCommand_Hz, ...
     0.98 * parameters.nominal_frequency_Hz, ...
     1.02 * parameters.nominal_frequency_Hz);
 command.voltage_command_pu = slew( ...
     state.previous_voltage_command_pu, rawVoltageCommand_pu, ...
-    parameters.voltage_command_slew_pu_per_s * ...
-    parameters.sample_time_s);
+    parameters.voltage_command_slew_pu_per_s * elapsedTime_s);
 command.frequency_command_Hz = slew( ...
     state.previous_frequency_command_Hz, rawFrequencyCommand_Hz, ...
-    parameters.frequency_command_slew_Hz_per_s * ...
-    parameters.sample_time_s);
+    parameters.frequency_command_slew_Hz_per_s * elapsedTime_s);
 
 command.breaker_command = state.mode == states.GRID_FOLLOWING && ...
     input.grid_present && measurementValid && ...
@@ -216,6 +224,7 @@ state.previous_p_command_pu = command.p_command_pu;
 state.previous_q_command_pu = command.q_command_pu;
 state.previous_voltage_command_pu = command.voltage_command_pu;
 state.previous_frequency_command_Hz = command.frequency_command_Hz;
+state.previous_sync_ready = syncReady;
 end
 
 function value = clamp(value, lowerBound, upperBound)
@@ -225,4 +234,10 @@ end
 function value = slew(previousValue, targetValue, maximumStep)
 value = previousValue + min(max(targetValue - previousValue, ...
     -maximumStep), maximumStep);
+end
+
+function reached = has_elapsed(elapsedTime_s, requiredTime_s)
+% Compare accumulated sample durations without missing a boundary by one
+% floating-point ulp (the durations are educational, not safety-rated).
+reached = elapsedTime_s + 1e-12 >= requiredTime_s;
 end
