@@ -10,6 +10,7 @@ else
 end
 state.state_timer_s = 0;
 state.sync_timer_s = 0;
+state.previous_sync_ready = false;
 state.frequency_restoration_Hz = 0;
 state.voltage_restoration_pu = 0;
 state.previous_p_command_pu = measurement.p_pu;

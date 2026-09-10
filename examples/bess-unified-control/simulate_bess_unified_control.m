@@ -17,13 +17,31 @@ controllerState = bess_initialize_controller_state(inputVector, measurement);
 
 result = bess_initialize_result(scenario);
 sampleCount = numel(scenario.time_s);
+validate_time_grid(scenario.time_s);
+previousCommand = [];
 
 for sampleIndex = 1:sampleCount
     inputVector = bess_scenario_input_vector(scenario, sampleIndex);
+
+    if sampleIndex == 1
+        elapsedTime_s = 0;
+    else
+        elapsedTime_s = scenario.time_s(sampleIndex) - ...
+            scenario.time_s(sampleIndex - 1);
+        % Apply current-boundary exogenous events before evaluating the
+        % controller.  This is zero-duration: it cannot advance x_k, but it
+        % does open a breaker on a present grid loss and aligns a connected
+        % phase to the same-time grid sample.
+        plantState = bess_plant_step(inputVector, previousCommand, ...
+            plantState, parameters, 0);
+        measurement = bess_measure_plant(plantState);
+    end
+
     [command, controllerState] = bess_controller_step( ...
-        inputVector, measurement, controllerState, parameters);
+        inputVector, measurement, controllerState, parameters, ...
+        elapsedTime_s);
     plantState = bess_plant_step( ...
-        inputVector, command, plantState, parameters);
+        inputVector, command, plantState, parameters, 0);
     measurement = bess_measure_plant(plantState);
 
     result.p_pu(sampleIndex) = measurement.p_pu;
@@ -50,6 +68,25 @@ for sampleIndex = 1:sampleCount
         command.voltage_mismatch_pu;
     result.frequency_mismatch_Hz(sampleIndex) = ...
         command.frequency_mismatch_Hz;
+
+    previousCommand = command;
+    if sampleIndex < sampleCount
+        interval_s = scenario.time_s(sampleIndex + 1) - ...
+            scenario.time_s(sampleIndex);
+        % c_k is held over [t_k, t_(k+1)); no plant update is performed
+        % after the terminal sample.
+        plantState = bess_plant_step(inputVector, command, plantState, ...
+            parameters, interval_s);
+    end
 end
 clear pathCleanup;
+end
+
+function validate_time_grid(time_s)
+validateattributes(time_s, {'numeric'}, ...
+    {'real', 'finite', 'vector', 'nonempty'}, mfilename, 'time_s');
+if numel(time_s) > 1 && any(diff(time_s) <= 0)
+    error('BessUnifiedControl:TimeGrid', ...
+        'Scenario timestamps must be strictly increasing.');
+end
 end

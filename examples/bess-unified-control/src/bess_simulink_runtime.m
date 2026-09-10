@@ -2,19 +2,66 @@ function outputVector = bess_simulink_runtime(inputVector)
 %BESS_SIMULINK_RUNTIME Stateful interpreted kernel used by generated SLX.
 % The explicit time-zero reset makes repeated simulations deterministic.
 
+% The runtime receives one row per invocation, so it retains the command
+% computed at t_k until the next invocation advances the plant to t_(k+1).
 persistent parameters plantState controllerState measurement
-if isempty(parameters) || inputVector(1) <= 1e-12
+persistent previousInputVector previousCommand previousTime
+persistent previousOutput
+input = bess_unpack_input(inputVector);
+if ~isempty(previousTime) && input.time_s == previousTime && ...
+        isequal(inputVector, previousInputVector)
+    outputVector = previousOutput;
+    return;
+end
+isTimeZero = input.time_s <= 1e-12;
+if isempty(parameters) || isTimeZero
     parameters = bess_unified_control_parameters();
     plantState = bess_initialize_plant_state(inputVector, parameters);
     measurement = bess_measure_plant(plantState);
     controllerState = bess_initialize_controller_state( ...
         inputVector, measurement);
+    [command, controllerState] = bess_controller_step( ...
+        inputVector, measurement, controllerState, parameters, 0);
+    plantState = bess_plant_step( ...
+        inputVector, command, plantState, parameters, 0);
+    measurement = bess_measure_plant(plantState);
+    previousInputVector = inputVector;
+    previousCommand = command;
+    previousTime = input.time_s;
+else
+    elapsedTime_s = input.time_s - previousTime;
+    if elapsedTime_s < 0
+        error('BessUnifiedControl:NonmonotonicTime', ...
+            'Runtime timestamps must not move backwards.');
+    end
+
+    % Advance exactly once for the interval since the previous invocation,
+    % using the command and input held from that previous boundary.
+    if elapsedTime_s > 0
+        plantState = bess_plant_step(previousInputVector, previousCommand, ...
+            plantState, parameters, elapsedTime_s);
+    end
+
+    % Apply current-boundary events (and same-time phase alignment) without
+    % an additional dynamic advance before evaluating the new command.
+    plantState = bess_plant_step(inputVector, previousCommand, ...
+        plantState, parameters, 0);
+    measurement = bess_measure_plant(plantState);
+    [command, controllerState] = bess_controller_step( ...
+        inputVector, measurement, controllerState, parameters, ...
+        elapsedTime_s);
+    plantState = bess_plant_step( ...
+        inputVector, command, plantState, parameters, 0);
+    measurement = bess_measure_plant(plantState);
+    previousInputVector = inputVector;
+    previousCommand = command;
+    previousTime = input.time_s;
 end
-[command, controllerState] = bess_controller_step( ...
-    inputVector, measurement, controllerState, parameters);
-plantState = bess_plant_step( ...
-    inputVector, command, plantState, parameters);
-measurement = bess_measure_plant(plantState);
+outputVector = pack_output(measurement, command);
+previousOutput = outputVector;
+end
+
+function outputVector = pack_output(measurement, command)
 outputVector = [
     measurement.p_pu; ...
     measurement.q_pu; ...
