@@ -13,7 +13,11 @@ if ~isempty(previousTime) && input.time_s == previousTime && ...
     outputVector = previousOutput;
     return;
 end
-isTimeZero = input.time_s <= 1e-12;
+isTimeZero = abs(input.time_s) <= 1e-12;
+if isempty(parameters) && ~isTimeZero
+    error('BessUnifiedControl:TimeGrid', ...
+        'Start the runtime with a time-zero sample.');
+end
 if isempty(parameters) || isTimeZero
     parameters = bess_unified_control_parameters();
     plantState = bess_initialize_plant_state(inputVector, parameters);
@@ -33,6 +37,15 @@ else
     if elapsedTime_s < 0
         error('BessUnifiedControl:NonmonotonicTime', ...
             'Runtime timestamps must not move backwards.');
+    end
+    if elapsedTime_s > 0
+        if abs(elapsedTime_s - parameters.sample_time_s) > 1e-12
+            error('BessUnifiedControl:TimeGrid', ...
+                'Runtime samples must follow the configured sample period.');
+        end
+        % Use the fixed solver period, not subtraction roundoff from the
+        % interpolated time signal, as the integration duration.
+        elapsedTime_s = parameters.sample_time_s;
     end
 
     % Advance exactly once for the interval since the previous invocation,

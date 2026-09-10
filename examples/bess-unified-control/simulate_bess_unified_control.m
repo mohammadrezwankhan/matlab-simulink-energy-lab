@@ -17,7 +17,7 @@ controllerState = bess_initialize_controller_state(inputVector, measurement);
 
 result = bess_initialize_result(scenario);
 sampleCount = numel(scenario.time_s);
-validate_time_grid(scenario.time_s);
+validate_time_grid(scenario.time_s, parameters.sample_time_s);
 previousCommand = [];
 
 for sampleIndex = 1:sampleCount
@@ -26,8 +26,7 @@ for sampleIndex = 1:sampleCount
     if sampleIndex == 1
         elapsedTime_s = 0;
     else
-        elapsedTime_s = scenario.time_s(sampleIndex) - ...
-            scenario.time_s(sampleIndex - 1);
+        elapsedTime_s = parameters.sample_time_s;
         % Apply current-boundary exogenous events before evaluating the
         % controller.  This is zero-duration: it cannot advance x_k, but it
         % does open a breaker on a present grid loss and aligns a connected
@@ -71,8 +70,7 @@ for sampleIndex = 1:sampleCount
 
     previousCommand = command;
     if sampleIndex < sampleCount
-        interval_s = scenario.time_s(sampleIndex + 1) - ...
-            scenario.time_s(sampleIndex);
+        interval_s = parameters.sample_time_s;
         % c_k is held over [t_k, t_(k+1)); no plant update is performed
         % after the terminal sample.
         plantState = bess_plant_step(inputVector, command, plantState, ...
@@ -82,11 +80,13 @@ end
 clear pathCleanup;
 end
 
-function validate_time_grid(time_s)
+function validate_time_grid(time_s, sampleTime_s)
 validateattributes(time_s, {'numeric'}, ...
     {'real', 'finite', 'vector', 'nonempty'}, mfilename, 'time_s');
-if numel(time_s) > 1 && any(diff(time_s) <= 0)
+expectedTime_s = (0:numel(time_s)-1)' * sampleTime_s;
+if any(abs(time_s(:) - expectedTime_s) > 1e-12) || ...
+        any(diff(time_s(:)) <= 0)
     error('BessUnifiedControl:TimeGrid', ...
-        'Scenario timestamps must be strictly increasing.');
+        'Scenario timestamps must start at zero and follow the configured sample period.');
 end
 end

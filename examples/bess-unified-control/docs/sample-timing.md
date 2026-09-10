@@ -5,6 +5,11 @@ the command selected at that timestamp. Command `c_k` is held over
 `[t_k, t_(k+1))`. A profile with N samples therefore advances the plant over
 N - 1 intervals, with no extra update after the terminal sample.
 
+The time grid starts at zero and follows the configured fixed sample period.
+Timestamp roundoff within 1e-12 seconds is accepted, but each dynamic update
+uses the configured period rather than subtracting floating-point clock
+values. Irregular reference grids and skipped runtime samples are rejected.
+
 At the first sample, controller elapsed time is zero. Dynamic initialization
 is observable without initial timer, restoration, or slew credit. At later
 boundaries, grid loss and measurement faults can open the breaker without a

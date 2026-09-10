@@ -173,6 +173,40 @@ classdef TestBessSampleTiming < matlab.unittest.TestCase
             testCase.verifyEqual(nextState.sync_timer_s, ...
                 parameters.sample_time_s, 'AbsTol', 1e-12);
         end
+
+        function irregularReferenceGridIsRejected(testCase)
+            parameters = bess_unified_control_parameters();
+            scenario = short_scenario(parameters, 1, 3);
+            scenario.time_s(2) = 0.5 * parameters.sample_time_s;
+
+            testCase.verifyError(@() simulate_bess_unified_control( ...
+                scenario, parameters), 'BessUnifiedControl:TimeGrid');
+        end
+
+        function skippedRuntimeSampleIsRejected(testCase)
+            parameters = bess_unified_control_parameters();
+            scenario = short_scenario(parameters, 1, 3);
+            bess_simulink_runtime(bess_scenario_input_vector(scenario, 1));
+            skippedInput = bess_scenario_input_vector(scenario, 3);
+
+            testCase.verifyError(@() bess_simulink_runtime(skippedInput), ...
+                'BessUnifiedControl:TimeGrid');
+        end
+
+        function clockRoundoffDoesNotChangeIntegration(testCase)
+            parameters = bess_unified_control_parameters();
+            scenario = short_scenario(parameters, 4, 2);
+            firstInput = bess_scenario_input_vector(scenario, 1);
+            nextInput = bess_scenario_input_vector(scenario, 2);
+            nextInput(1) = nextInput(1) + eps(nextInput(1));
+            reference = simulate_bess_unified_control(scenario, parameters);
+
+            bess_simulink_runtime(firstInput);
+            output = bess_simulink_runtime(nextInput);
+
+            testCase.verifyEqual(output(5), reference.phase_rad(2), ...
+                'AbsTol', 1e-14);
+        end
     end
 end
 
