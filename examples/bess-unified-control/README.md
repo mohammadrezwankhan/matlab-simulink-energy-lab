@@ -22,10 +22,12 @@ rules, or initial conditions needed to recreate its results.
 Can one deterministic reference exercise grid-following P/Q control,
 grid-forming voltage/frequency control, grid loss, islanded load support,
 synchronization, reconnection, saturation, measurement faults, and recovery
-with every important behavior covered by executable assertions?
+with explicit, executable assertions for the documented scenarios?
 
-The answer for the documented reduced-order plant and starter parameters is
-yes. The model:
+The reduced-order plant and starter parameters exercise the scenarios below.
+Scenario assertions and independent [sample-timing tests](docs/sample-timing.md)
+cover specific sampled behaviors, not every possible operating condition or
+continuous-time safety property. The model:
 
 - uses a 10 MVA, 690 V line-to-line, 50 Hz per-unit base;
 - represents a balanced dq-current/filter-equivalent converter/PCC plant;
@@ -221,6 +223,7 @@ instead of silently selecting a “paper parameter.”
 - [Equations and reference frames](docs/equations.md)
 - [Tuning](docs/tuning.md)
 - [Reproduction](docs/reproduction.md)
+- [Sample timing contract and evidence boundaries](docs/sample-timing.md)
 - [Limitations and safety](docs/limitations.md)
 - [Validation report](validation/validation-report.md)
 
