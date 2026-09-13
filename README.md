@@ -69,6 +69,7 @@ Its worked numbers are explicitly bound to the source snapshot cited there.
 ## Shareable Documentation Map
 
 - [Your First Result](#your-first-result) for one runnable battery example.
+- [中文项目简介（Chinese)](docs/README-zh.md) for bilingual discoverability and onboarding.
 - [Validation profiles](#start-in-60-seconds) for Base MATLAB or full checks.
 - [Complete examples index](examples/README.md) for all model families and commands.
 - [Model selection guide](docs/model-selection-guide.md) to choose the smallest
