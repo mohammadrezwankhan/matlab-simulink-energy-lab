@@ -10,6 +10,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 [![GitHub forks](https://img.shields.io/github/forks/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/network/members)
 [![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
+[![Support me on Ko-fi](https://img.shields.io/badge/Support%20me%20on%20Ko--fi-72a4f2?logo=ko-fi&logoColor=white)](https://ko-fi.com/N7V826XG89)
 
 [![MATLAB Simulink Energy Lab: runnable models and inspectable assumptions, with four independent example families—battery and SOC, thermal, converters, and BESS control](assets/social-preview-v3.jpg)](#your-first-result)
 
@@ -492,7 +493,10 @@ checks, and clearer teaching notes. Read [CONTRIBUTING.md](CONTRIBUTING.md)
 before opening a pull request.
 
 If the lab saves you time or helps you understand a model, **please leave a ⭐**.
-It is the simplest way to support continued open engineering work.
+It is the simplest way to support continued open engineering work. You can also
+support continued development on [Ko-fi](https://ko-fi.com/N7V826XG89):
+
+[![Support me on Ko-fi](https://storage.ko-fi.com/cdn/kofi2.png?v=3)](https://ko-fi.com/N7V826XG89)
 
 ## License
 

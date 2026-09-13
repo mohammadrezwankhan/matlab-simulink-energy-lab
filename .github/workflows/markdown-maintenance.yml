@@ -45,7 +45,7 @@ jobs:
       - name: Check Markdown links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
         with:
-          args: --verbose --no-progress --files-from '${{ runner.temp }}/markdown-inputs.txt' --exclude '^https://github\.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/(model-selection-by-decision|scope-comparison)\.md$'
+          args: --verbose --no-progress --files-from '${{ runner.temp }}/markdown-inputs.txt' --exclude '^https://github\.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/(model-selection-by-decision|scope-comparison)\.md$' --exclude '^https://(storage\.)?ko-fi\.com/'
           fail: true
 
       - name: Check project metadata and llms.txt portability
