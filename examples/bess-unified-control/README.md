@@ -54,6 +54,15 @@ The builder creates the disposable native Simulink model configured for
 Scenario C. The runner separately simulates and plots the reduced-order MATLAB
 reference for that same scenario; the focused check below compares both paths.
 
+To simulate an existing generated model, call
+`simulate_bess_unified_control_model(scenarioC, parameters, modelPath)`.
+The wrapper temporarily overrides the scenario profile and stop time for that
+simulation. If the requested model is already loaded, it leaves it loaded and
+preserves its profile, stop time and unsaved state on success or error. A loaded
+model with the same name but a different file path is rejected. Models opened
+by the wrapper are closed when the call finishes. These guarantees concern the
+wrapper's own overrides; custom model callbacks can have their own side effects.
+
 Run the focused no-plot verification:
 
 ```matlab
