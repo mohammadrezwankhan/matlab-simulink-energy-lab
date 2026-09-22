@@ -8,6 +8,18 @@ still evolving.
 
 ## Unreleased
 
+## 0.11.0 - 2026-09-22
+
+### Fixed
+
+- Propagate supplied BESS parameters into the generated Simulink runtime,
+  including temporary solver-step overrides. Older generated models without
+  the parameter contract require regeneration.
+- Preserve caller-owned loaded models, workspace data, dirty state, MATLAB
+  path, and file-generation settings during BESS simulation and failures.
+- Align BESS outputs with causal sample boundaries and reject invalid logged
+  time grids rather than silently mislabel results.
+
 ### Added
 
 - A two-command first battery result with expected output and workspace-safety

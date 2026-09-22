@@ -172,7 +172,7 @@ for expected terminal output and evidence provenance.
 
 Use GitHub's **Cite this repository** control or the tracked
 [`CITATION.cff`](CITATION.cff). The machine-readable
-[`codemeta.json`](codemeta.json) describes the same v0.10.0 software release;
+[`codemeta.json`](codemeta.json) describes the same v0.11.0 software release;
 do not infer a DOI or journal publication because none is declared.
 
 ## What license applies?
