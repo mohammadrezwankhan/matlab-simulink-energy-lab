@@ -2,7 +2,7 @@ function result = simulate_bess_unified_control_model( ...
         scenario, parameters, modelPath)
 %SIMULATE_BESS_UNIFIED_CONTROL_MODEL Run a scenario through Simulink.
 % The optional modelPath permits one generated model to be reused across
-% scenarios while each model-workspace profile and stop time are replaced.
+% scenarios using temporary model-workspace profile and stop-time overrides.
 
 if nargin < 2 || isempty(parameters)
     parameters = bess_unified_control_parameters();
@@ -12,7 +12,17 @@ sourceDirectory = fullfile(exampleDirectory, 'src');
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
 addpath(exampleDirectory, sourceDirectory);
-if nargin < 3 || isempty(modelPath)
+if nargin < 3
+    modelPath = [];
+end
+% Restore the path only after Simulink/model cleanup has finished, including
+% during error unwinding. Multiple cleanup objects in one scope have no
+% guaranteed destruction order.
+result = simulate_scenario(scenario, parameters, modelPath);
+end
+
+function result = simulate_scenario(scenario, parameters, modelPath)
+if isempty(modelPath)
     modelPath = build_bess_unified_control_model( ...
         fullfile(tempdir, 'matlab-simulink-energy-lab-bess'), ...
         scenario, parameters);
@@ -23,6 +33,10 @@ if ~isfile(modelPath)
 end
 
 [modelDirectory, modelName] = fileparts(modelPath);
+modelWasLoaded = bdIsLoaded(modelName);
+if modelWasLoaded
+    validate_loaded_model_path(modelName, modelPath);
+end
 fileGenerationConfig = Simulink.fileGenControl('getConfig');
 fileGenerationCleanup = onCleanup(@() ...
     Simulink.fileGenControl('setConfig', ...
@@ -31,20 +45,21 @@ Simulink.fileGenControl('set', ...
     'CacheFolder', fullfile(modelDirectory, 'cache'), ...
     'CodeGenFolder', fullfile(modelDirectory, 'codegen'), ...
     'createDir', true);
-modelWasLoaded = bdIsLoaded(modelName);
 if ~modelWasLoaded
     load_system(modelPath);
 end
 modelCleanup = onCleanup(@() close_if_owned(modelName, modelWasLoaded));
-modelWorkspace = get_param(modelName, 'ModelWorkspace');
+validate_loaded_model_path(modelName, modelPath);
 profile = bess_scenario_profile(scenario);
-assignin(modelWorkspace, 'bess_profile', ...
-    timeseries(profile, profile(:, 1)));
-set_param(modelName, 'StopTime', sprintf('%.17g', scenario.time_s(end)));
+in = Simulink.SimulationInput(modelName);
+in = in.setVariable('bess_profile', ...
+    timeseries(profile, profile(:, 1)), 'Workspace', modelName);
+in = in.setModelParameter('StopTime', ...
+    sprintf('%.17g', scenario.time_s(end)));
 
 clear bess_simulink_runtime;
-simulationOutput = sim(modelName);
-loggedTimeseries = simulationOutput.bess_output_vector;
+out = sim(in);
+loggedTimeseries = out.bess_output_vector;
 bess_validate_output_time(loggedTimeseries.Time, scenario.time_s);
 loggedData = squeeze(loggedTimeseries.Data(:, 1, :)).';
 if size(loggedData, 1) ~= numel(scenario.time_s) || ...
@@ -74,11 +89,40 @@ result.frequency_command_Hz = loggedData(:, 17);
 result.phase_error_rad = loggedData(:, 18);
 result.voltage_mismatch_pu = loggedData(:, 19);
 result.frequency_mismatch_Hz = loggedData(:, 20);
-clear modelCleanup fileGenerationCleanup pathCleanup;
+clear modelCleanup fileGenerationCleanup;
 end
 
 function close_if_owned(modelName, modelWasLoaded)
 if ~modelWasLoaded && bdIsLoaded(modelName)
     close_system(modelName, 0);
+end
+end
+
+function validate_loaded_model_path(modelName, modelPath)
+loadedPath = get_param(modelName, 'FileName');
+if isempty(loadedPath)
+    error('BessUnifiedControl:ModelPathCollision', ...
+        ['A model named "%s" is already loaded without a file and ', ...
+        'cannot be used for the requested model at "%s".'], ...
+        modelName, modelPath);
+end
+[loadedPathExists, loadedAttributes] = fileattrib(loadedPath);
+[requestedPathExists, requestedAttributes] = fileattrib(modelPath);
+if ~loadedPathExists || ~requestedPathExists
+    error('BessUnifiedControl:ModelPathCollision', ...
+        ['A model named "%s" is already loaded from "%s" and cannot ', ...
+        'be used for the requested model at "%s".'], ...
+        modelName, loadedPath, modelPath);
+end
+if ispc
+    pathsMatch = strcmpi(loadedAttributes.Name, requestedAttributes.Name);
+else
+    pathsMatch = strcmp(loadedAttributes.Name, requestedAttributes.Name);
+end
+if ~pathsMatch
+    error('BessUnifiedControl:ModelPathCollision', ...
+        ['A model named "%s" is already loaded from "%s" and cannot ', ...
+        'be used for the requested model at "%s".'], ...
+        modelName, loadedPath, modelPath);
 end
 end
