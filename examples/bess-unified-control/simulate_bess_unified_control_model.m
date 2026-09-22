@@ -2,7 +2,9 @@ function result = simulate_bess_unified_control_model( ...
         scenario, parameters, modelPath)
 %SIMULATE_BESS_UNIFIED_CONTROL_MODEL Run a scenario through Simulink.
 % The optional modelPath permits one generated model to be reused across
-% scenarios using temporary model-workspace profile and stop-time overrides.
+% scenarios using temporary profile, parameter, and solver-time overrides.
+% Pass a parameter structure from bess_unified_control_parameters. Regenerate
+% older SLX files that do not expose the bess_parameters model-workspace data.
 
 if nargin < 2 || isempty(parameters)
     parameters = bess_unified_control_parameters();
@@ -50,12 +52,19 @@ if ~modelWasLoaded
 end
 modelCleanup = onCleanup(@() close_if_owned(modelName, modelWasLoaded));
 validate_loaded_model_path(modelName, modelPath);
+modelWorkspace = get_param(modelName, 'ModelWorkspace');
+if ~hasVariable(modelWorkspace, 'bess_parameters')
+    error('BessUnifiedControl:ModelParameterContract', ...
+        'Regenerate this model with build_bess_unified_control_model before reuse.');
+end
 profile = bess_scenario_profile(scenario);
 in = Simulink.SimulationInput(modelName);
 in = in.setVariable('bess_profile', ...
     timeseries(profile, profile(:, 1)), 'Workspace', modelName);
+in = in.setVariable('bess_parameters', parameters, 'Workspace', modelName);
 in = in.setModelParameter('StopTime', ...
-    sprintf('%.17g', scenario.time_s(end)));
+    sprintf('%.17g', scenario.time_s(end)), ...
+    'FixedStep', sprintf('%.17g', parameters.sample_time_s));
 
 clear bess_simulink_runtime;
 out = sim(in);

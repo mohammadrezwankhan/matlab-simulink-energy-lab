@@ -1,4 +1,4 @@
-function outputVector = bess_simulink_runtime(inputVector)
+function outputVector = bess_simulink_runtime(inputVector, runParameters)
 %BESS_SIMULINK_RUNTIME Stateful interpreted kernel used by generated SLX.
 % The explicit time-zero reset makes repeated simulations deterministic.
 
@@ -8,18 +8,27 @@ persistent parameters plantState controllerState measurement
 persistent previousInputVector previousCommand previousTime
 persistent previousOutput
 input = bess_unpack_input(inputVector);
+if nargin < 2
+    runParameters = bess_unified_control_parameters();
+end
+isTimeZero = abs(input.time_s) <= 1e-12;
+if ~isempty(parameters) && ~isTimeZero && ...
+        ~isequal(parameters, runParameters)
+    error('BessUnifiedControl:RuntimeParametersChanged', ...
+        'Parameters must remain constant until the next time-zero reset.');
+end
 if ~isempty(previousTime) && input.time_s == previousTime && ...
-        isequal(inputVector, previousInputVector)
+        isequal(inputVector, previousInputVector) && ...
+        isequal(parameters, runParameters)
     outputVector = previousOutput;
     return;
 end
-isTimeZero = abs(input.time_s) <= 1e-12;
 if isempty(parameters) && ~isTimeZero
     error('BessUnifiedControl:TimeGrid', ...
         'Start the runtime with a time-zero sample.');
 end
 if isempty(parameters) || isTimeZero
-    parameters = bess_unified_control_parameters();
+    parameters = runParameters;
     plantState = bess_initialize_plant_state(inputVector, parameters);
     measurement = bess_measure_plant(plantState);
     controllerState = bess_initialize_controller_state( ...

@@ -194,8 +194,11 @@ expectedState = capture_caller_state(modelName, modelPath, modelDirectory);
 
 scenario = short_scenario(testCase.Scenario, 3);
 scenario.inputs.p_ref_pu(:) = 0.4;
+parameters = bess_unified_control_parameters( ...
+    struct('active_power_limit_pu', 0.2, 'sample_time_s', 0.01));
+scenario.time_s = (0:2)' * parameters.sample_time_s;
 result = simulate_bess_unified_control_model( ...
-    scenario, testCase.Parameters, modelPath);
+    scenario, parameters, modelPath);
 
 testCase.verifyEqual(numel(result.time_s), numel(scenario.time_s));
 verify_caller_state(testCase, expectedState);
@@ -212,6 +215,8 @@ state.dirty = get_param(modelName, 'Dirty');
 state.description = get_param(modelName, 'Description');
 state.initFcn = get_param(modelName, 'InitFcn');
 state.stopTime = get_param(modelName, 'StopTime');
+state.fixedStep = get_param(modelName, 'FixedStep');
+state.parameters = evalin(modelWorkspace, 'bess_parameters');
 state.workspaceVariables = sort(evalin(modelWorkspace, 'who'));
 state.sentinel = evalin(modelWorkspace, 'callerSentinel');
 state.profileData = profile.Data;
@@ -233,6 +238,8 @@ testCase.verifyEqual(get_param(modelName, 'Description'), ...
     state.description);
 testCase.verifyEqual(get_param(modelName, 'InitFcn'), state.initFcn);
 testCase.verifyEqual(get_param(modelName, 'StopTime'), state.stopTime);
+testCase.verifyEqual(get_param(modelName, 'FixedStep'), state.fixedStep);
+testCase.verifyEqual(evalin(modelWorkspace, 'bess_parameters'), state.parameters);
 testCase.verifyEqual(sort(evalin(modelWorkspace, 'who')), ...
     state.workspaceVariables);
 testCase.verifyEqual(evalin(modelWorkspace, 'callerSentinel'), ...
