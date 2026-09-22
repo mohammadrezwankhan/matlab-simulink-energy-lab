@@ -2,6 +2,8 @@
 
 # ⚡ MATLAB Simulink Energy Lab
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 [![Markdown maintenance](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml)
 [![MATLAB validation](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml)
 ![MATLAB R2026a](https://img.shields.io/badge/verified-MATLAB%20R2026a-e86e25.svg)
@@ -68,8 +70,25 @@ For the reasoning behind the checks, read the
 [reviewable MATLAB models guide](https://rezwankhan.tech/insights/reviewable-matlab-models/).
 Its worked numbers are explicitly bound to the source snapshot cited there.
 
+## Read the Companion Book
+
+**[Battery Modeling and BESS Control in MATLAB](book/README.md)** is a
+twelve-chapter teaching manuscript built around the existing examples: battery
+equivalent circuits and identification, SOC estimation and hysteresis, thermal
+models, converter control, DC reserve, and grid-following/grid-forming BESS
+supervision. Each chapter develops the equations, connects them to runnable
+code, and includes four exercises with worked solutions.
+
+Start with [Chapter 1: From Current Pulses to Terminal Voltage](book/chapters/01-one-rc.md),
+or use the [chapter-to-code map](book/source-map.md). The manuscript and answers
+are in English; [Simplified Chinese onboarding](README.zh-CN.md) and a
+[bilingual terminology glossary](book/notation.md#english--简体中文-glossary)
+support readers using the same code. This is a first manuscript draft, not a
+claim of classroom, physical-cell, or hardware validation.
+
 ## Shareable Documentation Map
 
+- [Companion book and worked solutions](book/README.md) for a twelve-chapter course.
 - [Your First Result](#your-first-result) for one runnable battery example.
 - [Battery pulse-response lab](docs/battery-pulse-response-lab.md) for a guided
   exercise with expected output, parameter exploration, and a submission checklist.
@@ -160,11 +179,16 @@ suite finishes in 60 seconds. For one plot and a focused check, use
 [Your First Result](#your-first-result) above.
 
 Twenty-five established no-plot checks cover the battery, converter, and DC-side
-BESS examples. The unified BESS entry point adds a focused 31-result
+BESS examples. The unified BESS entry point adds a focused 77-test
 MATLAB/Simulink suite, so `run_all_checks` invokes 26 check entry points. CI
 also verifies the machine-readable manifest contract. All are configured
 for MATLAB R2026a, and the validation workflow runs them whenever executable
 model code changes.
+
+The 77-test count is bound to source `f0f4a93` and
+[run 34511290849](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/34511290849).
+The earlier numerical summary below remains a historical 31-result record at
+its explicitly cited source; it has not been relabelled as a current run.
 
 If you have MATLAB without Simulink, run the deterministic 20-check subset:
 
