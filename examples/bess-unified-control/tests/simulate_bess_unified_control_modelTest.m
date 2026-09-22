@@ -305,14 +305,18 @@ if isempty(loadedPath)
     matches = false;
     return;
 end
-[loadedExists, loadedAttributes] = fileattrib(loadedPath);
-[requestedExists, requestedAttributes] = fileattrib(modelPath);
-if ~loadedExists || ~requestedExists
+if ~isfile(loadedPath) || ~isfile(modelPath)
     matches = false;
-elseif ispc
-    matches = strcmpi(loadedAttributes.Name, requestedAttributes.Name);
+    return;
+end
+loadedPermissions = filePermissions(loadedPath);
+requestedPermissions = filePermissions(modelPath);
+if ispc
+    matches = strcmpi(loadedPermissions.AbsolutePath, ...
+        requestedPermissions.AbsolutePath);
 else
-    matches = strcmp(loadedAttributes.Name, requestedAttributes.Name);
+    matches = strcmp(loadedPermissions.AbsolutePath, ...
+        requestedPermissions.AbsolutePath);
 end
 end
 

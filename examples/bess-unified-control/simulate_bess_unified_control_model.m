@@ -106,18 +106,20 @@ if isempty(loadedPath)
         'cannot be used for the requested model at "%s".'], ...
         modelName, modelPath);
 end
-[loadedPathExists, loadedAttributes] = fileattrib(loadedPath);
-[requestedPathExists, requestedAttributes] = fileattrib(modelPath);
-if ~loadedPathExists || ~requestedPathExists
+if ~isfile(loadedPath) || ~isfile(modelPath)
     error('BessUnifiedControl:ModelPathCollision', ...
         ['A model named "%s" is already loaded from "%s" and cannot ', ...
         'be used for the requested model at "%s".'], ...
         modelName, loadedPath, modelPath);
 end
+loadedPermissions = filePermissions(loadedPath);
+requestedPermissions = filePermissions(modelPath);
 if ispc
-    pathsMatch = strcmpi(loadedAttributes.Name, requestedAttributes.Name);
+    pathsMatch = strcmpi(loadedPermissions.AbsolutePath, ...
+        requestedPermissions.AbsolutePath);
 else
-    pathsMatch = strcmp(loadedAttributes.Name, requestedAttributes.Name);
+    pathsMatch = strcmp(loadedPermissions.AbsolutePath, ...
+        requestedPermissions.AbsolutePath);
 end
 if ~pathsMatch
     error('BessUnifiedControl:ModelPathCollision', ...
