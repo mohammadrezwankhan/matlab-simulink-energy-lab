@@ -9,8 +9,8 @@
   "url": "https://rezwankhan.tech/models/matlab-simulink-energy-lab/",
   "sameAs": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
   "license": "https://spdx.org/licenses/MIT.html",
-  "version": "0.10.0",
-  "datePublished": "2026-08-19",
+  "version": "0.11.0",
+  "datePublished": "2026-09-22",
   "developmentStatus": "active",
   "programmingLanguage": "MATLAB",
   "runtimePlatform": [
@@ -66,6 +66,6 @@
     "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/model-selection-by-decision.md",
     "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/scope-comparison.md",
     "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/validation-results.md",
-    "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0"
+    "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.11.0"
   ]
 }

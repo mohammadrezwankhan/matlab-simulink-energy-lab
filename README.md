@@ -209,7 +209,8 @@ matlab -batch "addpath('examples'); run_all_checks"
 
 ### Concise validation evidence
 
-The latest tagged release is [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0).
+This checkout carries v0.11.0 metadata; published snapshots are on the
+[releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 The following numerical summary records historical MATLAB R2026a evidence from
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
 at exact source commit
@@ -475,9 +476,9 @@ standard, pull request workflow, and attribution policy.
 
 Versioned snapshots and engineering highlights are available on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
-For a checksum-verifiable snapshot, download the tracked
-[v0.10.0 source package](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/download/v0.10.0/matlab-simulink-energy-lab-v0.10.0.zip)
-and its published [SHA-256 checksum](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/download/v0.10.0/SHA256SUMS-v0.10.0.txt).
+For a checksum-verifiable snapshot, download the source package and matching
+`SHA256SUMS` file attached to the
+[latest published release](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest).
 See the [changelog](CHANGELOG.md) for the model and validation history.
 
 If you use the lab in research, coursework, or teaching material, use GitHub's
