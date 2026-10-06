@@ -185,6 +185,6 @@ linked from the documentation retain their own terms.
 
 The [GitHub repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 is the source of record for code, releases, citation metadata, and validation
-evidence. The [public project overview](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
+evidence. The [public project overview](https://mrkhan.co.technology/models/matlab-simulink-energy-lab/)
 is the search landing page and concise cross-model introduction. The two URLs
 have complementary roles rather than competing canonical claims.

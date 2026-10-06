@@ -6,7 +6,7 @@
   "description": "Open, inspectable MATLAB and Simulink reduced-order reference models for lithium-ion battery equivalent circuits, state-of-charge estimation, battery thermal management, buck converters, and grid-following/grid-forming battery energy storage system control. Benchmarks and parameters are synthetic or illustrative; checks do not qualify physical cells, hardware, safety, or grid-code compliance.",
   "codeRepository": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
   "issueTracker": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues",
-  "url": "https://rezwankhan.tech/models/matlab-simulink-energy-lab/",
+  "url": "https://mrkhan.co.technology/models/matlab-simulink-energy-lab/",
   "sameAs": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
   "license": "https://spdx.org/licenses/MIT.html",
   "version": "0.11.0",
@@ -61,7 +61,7 @@
   "releaseNotes": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/CHANGELOG.md",
   "softwareHelp": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/README.md",
   "relatedLink": [
-    "https://rezwankhan.tech/models/matlab-simulink-energy-lab/",
+    "https://mrkhan.co.technology/models/matlab-simulink-energy-lab/",
     "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/model-selection-guide.md",
     "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/model-selection-by-decision.md",
     "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/scope-comparison.md",

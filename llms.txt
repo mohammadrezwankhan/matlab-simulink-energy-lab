@@ -6,7 +6,7 @@
 
 Source of record: <https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab>
 
-Public project overview and search landing page: <https://rezwankhan.tech/models/matlab-simulink-energy-lab/>
+Public project overview and search landing page: <https://mrkhan.co.technology/models/matlab-simulink-energy-lab/>
 
 Citation-ready summary: MATLAB Simulink Energy Lab provides reduced-order,
 runnable MATLAB and Simulink references for lithium-ion battery equivalent
@@ -63,4 +63,4 @@ certification, production-readiness, or grid-code qualification evidence.
 
 ## Optional overview
 
-- [Canonical project page](https://rezwankhan.tech/models/matlab-simulink-energy-lab/): Public portfolio overview; repository source and exact CI evidence take precedence if descriptions differ.
+- [Canonical project page](https://mrkhan.co.technology/models/matlab-simulink-energy-lab/): Public portfolio overview; repository source and exact CI evidence take precedence if descriptions differ.

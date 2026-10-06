@@ -33,7 +33,7 @@ validation.
 
 **Source of record:** this GitHub repository is authoritative for code,
 releases, citation metadata, and validation evidence. The
-[public project overview](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
+[public project overview](https://mrkhan.co.technology/models/matlab-simulink-energy-lab/)
 is the search landing page and concise cross-model introduction.
 
 ## Your First Result
@@ -65,7 +65,7 @@ close open figures; save any work you want to keep first.
 | Check the entire repository or report a different result | [Validation profiles](#start-in-60-seconds) and [reproduction report](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml) |
 
 For the reasoning behind the checks, read the
-[reviewable MATLAB models guide](https://rezwankhan.tech/insights/reviewable-matlab-models/).
+[reviewable MATLAB models guide](https://mrkhan.co.technology/insights/reviewable-matlab-models/).
 Its worked numbers are explicitly bound to the source snapshot cited there.
 
 ## Shareable Documentation Map
