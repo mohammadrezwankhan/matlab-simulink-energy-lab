@@ -36,7 +36,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up MATLAB R2026a only
-        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a
 
@@ -56,7 +56,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up MATLAB R2026a
-        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a
           products: Simulink
@@ -85,7 +85,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up MATLAB R2026a
-        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a
           products: Simulink
