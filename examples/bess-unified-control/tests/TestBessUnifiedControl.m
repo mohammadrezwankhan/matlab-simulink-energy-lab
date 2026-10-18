@@ -128,6 +128,13 @@ classdef TestBessUnifiedControl < matlab.unittest.TestCase
                 'AbsTol', 1e-12);
         end
 
+        function transformsRejectNonfiniteSecondInputs(testCase)
+            testCase.verifyError(@() bess_clarke_transform(1, NaN, 0), ...
+                'MATLAB:expectedFinite');
+            testCase.verifyError(@() bess_park_transform(1, Inf, 0), ...
+                'MATLAB:expectedFinite');
+        end
+
         function dqPlantStatesDeterminePowerAndCurrent(testCase)
             scenario = testCase.Scenarios(1);
             inputVector = bess_scenario_input_vector(scenario, 1);

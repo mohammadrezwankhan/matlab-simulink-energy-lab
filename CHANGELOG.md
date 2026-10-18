@@ -8,6 +8,11 @@ still evolving.
 
 ## Unreleased
 
+### Fixed
+
+- Reject nonfinite or nonnumeric second inputs in the standalone BESS Clarke
+  and Park transforms, matching the validation applied to their other inputs.
+
 ## 0.11.0 - 2026-09-22
 
 ### Fixed
