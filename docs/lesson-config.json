@@ -1,0 +1,102 @@
+{
+  "repository": "matlab-simulink-energy-lab",
+  "domain": "DOMAIN_D",
+  "title": "MATLAB & Simulink Energy Lab",
+  "version": "2.0.0",
+  "author": "Mohammad Rezwan Khan",
+  "lessons": [
+    {
+      "id": "L01",
+      "title": "Equivalent Circuit Model (ECM) 2-RC Parameter Identification",
+      "level": "Intermediate",
+      "duration": "45 mins",
+      "config_file": "config/ecm_2rc_parameters.m",
+      "summary": "Fit open-circuit voltage (OCV-SOC) polynomials and 2-RC resistor-capacitor time constants to HPPC pulse discharge test data with < 1.2% RMSE.",
+      "inputs": [
+        "HPPC 1C discharge pulse dataset (.mat)",
+        "Cell temperature vector [0\u00b0C, 25\u00b0C, 45\u00b0C]"
+      ],
+      "parameters": {
+        "R0_mohm": 1.42,
+        "R1_mohm": 0.85,
+        "C1_Farad": 1850.0,
+        "R2_mohm": 1.15,
+        "C2_Farad": 12400.0
+      },
+      "checkpoints": [
+        "Verify OCV curve monotonicity",
+        "Compute R0 voltage drop transition",
+        "Calculate RC time constant tau1 and tau2 convergence"
+      ]
+    },
+    {
+      "id": "L02",
+      "title": "Extended Kalman Filter (EKF) SOC Estimation under Dynamic WLTP",
+      "level": "Advanced",
+      "duration": "60 mins",
+      "config_file": "config/ekf_soc_tuning.m",
+      "summary": "Formulate discrete nonlinear state-space equations with state covariance matrix Q and measurement noise R, guaranteeing SOC convergence from 20% initialization error.",
+      "inputs": [
+        "WLTP drive cycle current profile",
+        "Noisy terminal voltage telemetry (+- 15mV)"
+      ],
+      "parameters": {
+        "ProcessNoise_Q": 1e-05,
+        "MeasNoise_R": 0.0025,
+        "Initial_SOC_Guess": 0.6,
+        "Actual_SOC": 0.8
+      },
+      "checkpoints": [
+        "Observe Kalman gain adaptation",
+        "Verify terminal estimation error < 1.5%",
+        "Inspect covariance trace boundedness"
+      ]
+    },
+    {
+      "id": "L03",
+      "title": "Electro-Thermal BTMS Conjugate Heat Transfer Simulation",
+      "level": "Advanced",
+      "duration": "75 mins",
+      "config_file": "config/btms_coldplate_thermal.m",
+      "summary": "Simulate 16-cell series module with Bernardi heat generation, aluminum serpentine cold plate, and 50/50 water-glycol coolant loop dynamics.",
+      "inputs": [
+        "Module continuous 3C discharge rate",
+        "Inlet coolant temperature = 20\u00b0C",
+        "Mass flow rate = 0.08 kg/s"
+      ],
+      "parameters": {
+        "ThermalConductivity_Al": 205.0,
+        "SpecificHeat_Coolant": 3550.0,
+        "MaxCellGradient_Target": 3.0
+      },
+      "checkpoints": [
+        "Verify max module temperature < 38\u00b0C",
+        "Ensure cell-to-cell delta T < 2.5\u00b0C",
+        "Assess pressure drop across channels < 15 kPa"
+      ]
+    },
+    {
+      "id": "L04",
+      "title": "Grid-Forming (GFM) Virtual Synchronous Machine & Islanding Dispatch",
+      "level": "Production",
+      "duration": "90 mins",
+      "config_file": "config/gfm_bess_droop.m",
+      "summary": "Deploy virtual synchronous generator (VSG) swing equations, active power-frequency droop, and reactive power-voltage droop for zero-inertia microgrid stability.",
+      "inputs": [
+        "10 MVA utility interconnect step-disconnect",
+        "Local variable industrial load 4 MW / 1.5 MVAr"
+      ],
+      "parameters": {
+        "Droop_P_Freq": 0.04,
+        "Droop_Q_Volt": 0.02,
+        "InertiaConstant_H": 4.5,
+        "DampingCoeff_D": 15.0
+      },
+      "checkpoints": [
+        "Measure frequency nadir > 49.6 Hz",
+        "RoCoF limited to < 0.5 Hz/s",
+        "Seamless seamless islanding transition within 12 ms"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MATLAB & Simulink Energy Lab | Interactive 2.5D Dashboard</title>
+  <style>
+    :root {
+      --primary: #FF6D00;
+      --secondary: #00B0FF;
+      --surface: #1A1412;
+      --glow: rgba(255, 109, 0, 0.35);
+      --bg: #060911;
+      --card-bg: rgba(13, 21, 39, 0.72);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(FF6D00, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(00B0FF, 0.05) 0%, transparent 40%),
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    /* Container */
+    .app-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Top Navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 32px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-cube {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px var(--glow);
+      font-weight: 900;
+      color: #060911;
+      font-size: 20px;
+    }
+
+    .brand-title h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #060911;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      transition: all 0.3s var(--ease-out-expo);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--glow);
+    }
+
+    /* Hero Section with 2.5D Stage */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      margin-bottom: 48px;
+      align-items: center;
+    }
+
+    .hero-text h2 {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #FFFFFF 40%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* 2.5D Isometric Stage */
+    .stage-perspective {
+      perspective: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .iso-stage {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(25deg) rotateY(-18deg) rotateZ(3deg);
+      transition: transform 0.6s var(--ease-out-expo);
+      cursor: pointer;
+    }
+
+    .iso-stage:hover {
+      transform: rotateX(18deg) rotateY(-8deg) rotateZ(1deg) scale(1.03);
+    }
+
+    .iso-card-layer {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      top: 5%;
+      left: 5%;
+      background: var(--card-bg);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--glow);
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      transform: translateZ(40px);
+      transition: transform 0.45s var(--ease-out-expo);
+    }
+
+    .iso-stage:hover .iso-card-layer {
+      transform: translateZ(65px);
+    }
+
+    .iso-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .canvas-container {
+      flex: 1;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Controls Bar */
+    .simulator-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .control-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .control-item label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .control-item input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Filter Pills */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--surface);
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--glow);
+    }
+
+    /* Lessons Grid */
+    .lessons-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .lessons-section-header h3 {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    /* 2.5D Interactive Container Card */
+    .lesson-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transform: translateY(0);
+      transition: all 0.45s var(--ease-out-expo);
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      border-color: var(--primary);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5), 0 0 25px var(--glow);
+    }
+
+    .card-glow-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      opacity: 0.8;
+    }
+
+    .lesson-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .lesson-id {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--primary);
+    }
+
+    .lesson-duration {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .lesson-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .lesson-summary {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .lesson-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 14px;
+      font-size: 12px;
+    }
+
+    .level-badge {
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+    }
+
+    .level-Beginner { background: rgba(0, 230, 118, 0.15); color: #00E676; }
+    .level-Intermediate { background: rgba(0, 229, 255, 0.15); color: #00E5FF; }
+    .level-Advanced { background: rgba(255, 171, 0, 0.15); color: #FFAB00; }
+    .level-Production { background: rgba(255, 64, 129, 0.15); color: #FF4081; }
+
+    /* Drawer Inspector */
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-out-expo);
+    }
+
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 540px;
+      max-width: 90vw;
+      height: 100vh;
+      background: #090E1B;
+      border-left: 1px solid var(--primary);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8), 0 0 40px var(--glow);
+      z-index: 1001;
+      transform: translateX(100%);
+      transition: transform 0.5s var(--ease-out-expo);
+      padding: 36px 32px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer-overlay.open .drawer {
+      transform: translateX(0);
+    }
+
+    .drawer-close {
+      align-self: flex-end;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .drawer-close:hover {
+      color: #FFF;
+      border-color: var(--primary);
+    }
+
+    .drawer-section {
+      margin-bottom: 24px;
+    }
+
+    .drawer-section h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .param-table th, .param-table td {
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .param-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .param-table td:last-child {
+      font-family: monospace;
+      color: var(--secondary);
+    }
+
+    .code-block {
+      background: #050811;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #A5B4FC;
+      overflow-x: auto;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 32px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .stage-perspective {
+        margin-top: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-cube">2.5D</div>
+        <div class="brand-title">
+          <h1>MATLAB & Simulink Energy Lab</h1>
+          <p>Digital Twins & Simulation · Flagship Interactive Asset</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="badge-pill">
+          <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--secondary);"></span>
+          GitHub Pages Live
+        </span>
+        <button class="btn" onclick="exportConfig()">Download JSON Config</button>
+      </div>
+    </header>
+
+    <!-- Hero / Stage -->
+    <section class="hero-grid">
+      <div class="hero-text">
+        <span class="badge-pill" style="margin-bottom: 16px;">AUTONOMOUS RESEARCH BENCHMARK</span>
+        <h2>High-Conversion 2.5D Architecture &amp; Interactive Labs</h2>
+        <p>Production MATLAB & Simulink digital twin reference models for Li-ion batteries, SOC EKF, BTMS, DC-DC converters, and grid-forming/following BESS.</p>
+        <div style="display:flex; gap:12px;">
+          <a href="#lessons-anchor" class="btn">Explore All Lessons &darr;</a>
+          <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab" target="_blank" class="btn" style="background:transparent; border:1px solid var(--primary); color:var(--primary);">GitHub Repository &rarr;</a>
+        </div>
+      </div>
+
+      <!-- 2.5D Interactive Perspective Stage -->
+      <div class="stage-perspective">
+        <div class="iso-stage" id="isoStage" title="Hover &amp; interact to experience 2.5D physics elevation">
+          <div class="iso-card-layer">
+            <div class="iso-header">
+              <div>
+                <span style="font-size:10px; font-weight:700; color:var(--primary); letter-spacing:1px;">REAL-TIME TELEMETRY</span>
+                <h4 style="font-size:16px; font-weight:800;">Waveform Dynamics</h4>
+              </div>
+              <span id="fpsCounter" style="font-family:monospace; font-size:11px; color:var(--secondary);">60.0 FPS</span>
+            </div>
+            
+            <div class="canvas-container">
+              <canvas id="telemetryCanvas"></canvas>
+            </div>
+
+            <div class="simulator-controls">
+              <div class="control-item">
+                <label><span>Excitation Rate</span><span id="rateVal">1.5 C</span></label>
+                <input type="range" id="rateSlider" min="0.5" max="5.0" step="0.1" value="1.5">
+              </div>
+              <div class="control-item">
+                <label><span>Thermal Flux</span><span id="tempVal">25 °C</span></label>
+                <input type="range" id="tempSlider" min="0" max="60" step="1" value="25">
+              </div>
+              <div class="control-item">
+                <label><span>Damping Ratio</span><span id="dampVal">0.85</span></label>
+                <input type="range" id="dampSlider" min="0.1" max="1.0" step="0.05" value="0.85">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Pills -->
+    <div id="lessons-anchor" class="lessons-section-header">
+      <div>
+        <h3>Interactive Lesson Configuration Matrix</h3>
+        <p style="color:var(--text-muted); font-size:14px; margin-top:4px;">Select any card to launch configuration parameters and verification checkpoints.</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterLessons('All')">All Lessons (4)</button>
+        <button class="filter-btn" onclick="filterLessons('Beginner')">Beginner</button>
+        <button class="filter-btn" onclick="filterLessons('Intermediate')">Intermediate</button>
+        <button class="filter-btn" onclick="filterLessons('Advanced')">Advanced</button>
+        <button class="filter-btn" onclick="filterLessons('Production')">Production</button>
+      </div>
+    </div>
+
+    <!-- Lessons Cards Grid -->
+    <div class="lessons-grid" id="lessonsGrid">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Developed with precision by <a href="https://github.com/mohammadrezwankhan" target="_blank">Mohammad Rezwan Khan</a> · PhD, Battery &amp; Energy Systems Specialist</p>
+      <p style="margin-top:8px; font-size:12px; color:#64748B;">Validated for 5000+ Star Open-Source Velocity · Zero-Touch Multi-Agent Architecture</p>
+    </footer>
+  </div>
+
+  <!-- Drawer Inspector Overlay -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
+    <div class="drawer" id="drawerContent" onclick="event.stopPropagation()">
+      <button class="drawer-close" onclick="closeDrawer()">&times;</button>
+      <div id="drawerBody">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LESSONS = [{"id": "L01", "title": "Equivalent Circuit Model (ECM) 2-RC Parameter Identification", "level": "Intermediate", "duration": "45 mins", "config_file": "config/ecm_2rc_parameters.m", "summary": "Fit open-circuit voltage (OCV-SOC) polynomials and 2-RC resistor-capacitor time constants to HPPC pulse discharge test data with < 1.2% RMSE.", "inputs": ["HPPC 1C discharge pulse dataset (.mat)", "Cell temperature vector [0\u00b0C, 25\u00b0C, 45\u00b0C]"], "parameters": {"R0_mohm": 1.42, "R1_mohm": 0.85, "C1_Farad": 1850.0, "R2_mohm": 1.15, "C2_Farad": 12400.0}, "checkpoints": ["Verify OCV curve monotonicity", "Compute R0 voltage drop transition", "Calculate RC time constant tau1 and tau2 convergence"]}, {"id": "L02", "title": "Extended Kalman Filter (EKF) SOC Estimation under Dynamic WLTP", "level": "Advanced", "duration": "60 mins", "config_file": "config/ekf_soc_tuning.m", "summary": "Formulate discrete nonlinear state-space equations with state covariance matrix Q and measurement noise R, guaranteeing SOC convergence from 20% initialization error.", "inputs": ["WLTP drive cycle current profile", "Noisy terminal voltage telemetry (+- 15mV)"], "parameters": {"ProcessNoise_Q": 1e-05, "MeasNoise_R": 0.0025, "Initial_SOC_Guess": 0.6, "Actual_SOC": 0.8}, "checkpoints": ["Observe Kalman gain adaptation", "Verify terminal estimation error < 1.5%", "Inspect covariance trace boundedness"]}, {"id": "L03", "title": "Electro-Thermal BTMS Conjugate Heat Transfer Simulation", "level": "Advanced", "duration": "75 mins", "config_file": "config/btms_coldplate_thermal.m", "summary": "Simulate 16-cell series module with Bernardi heat generation, aluminum serpentine cold plate, and 50/50 water-glycol coolant loop dynamics.", "inputs": ["Module continuous 3C discharge rate", "Inlet coolant temperature = 20\u00b0C", "Mass flow rate = 0.08 kg/s"], "parameters": {"ThermalConductivity_Al": 205.0, "SpecificHeat_Coolant": 3550.0, "MaxCellGradient_Target": 3.0}, "checkpoints": ["Verify max module temperature < 38\u00b0C", "Ensure cell-to-cell delta T < 2.5\u00b0C", "Assess pressure drop across channels < 15 kPa"]}, {"id": "L04", "title": "Grid-Forming (GFM) Virtual Synchronous Machine & Islanding Dispatch", "level": "Production", "duration": "90 mins", "config_file": "config/gfm_bess_droop.m", "summary": "Deploy virtual synchronous generator (VSG) swing equations, active power-frequency droop, and reactive power-voltage droop for zero-inertia microgrid stability.", "inputs": ["10 MVA utility interconnect step-disconnect", "Local variable industrial load 4 MW / 1.5 MVAr"], "parameters": {"Droop_P_Freq": 0.04, "Droop_Q_Volt": 0.02, "InertiaConstant_H": 4.5, "DampingCoeff_D": 15.0}, "checkpoints": ["Measure frequency nadir > 49.6 Hz", "RoCoF limited to < 0.5 Hz/s", "Seamless seamless islanding transition within 12 ms"]}];
+
+    function renderLessons(filter = 'All') {
+      const grid = document.getElementById('lessonsGrid');
+      grid.innerHTML = '';
+
+      const filtered = filter === 'All' ? LESSONS : LESSONS.filter(l => l.level === filter);
+
+      filtered.forEach(lesson => {
+        const card = document.createElement('div');
+        card.className = 'lesson-card';
+        card.onclick = () => openDrawer(lesson.id);
+
+        card.innerHTML = `
+          <div class="card-glow-bar"></div>
+          <div class="lesson-meta">
+            <span class="lesson-id">${lesson.id}</span>
+            <span class="lesson-duration">${lesson.duration}</span>
+          </div>
+          <h4 class="lesson-title">${lesson.title}</h4>
+          <p class="lesson-summary">${lesson.summary}</p>
+          <div class="lesson-footer">
+            <span class="level-badge level-${lesson.level}">${lesson.level}</span>
+            <span style="color:var(--primary); font-weight:700;">Inspect Parameters &rarr;</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterLessons(level) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.includes(level));
+      });
+      renderLessons(level);
+    }
+
+    function openDrawer(lessonId) {
+      const lesson = LESSONS.find(l => l.id === lessonId);
+      if (!lesson) return;
+
+      const body = document.getElementById('drawerBody');
+      const paramsRows = Object.entries(lesson.parameters || {}).map(([k, v]) => `
+        <tr>
+          <td>${k}</td>
+          <td>${v}</td>
+        </tr>
+      `).join('');
+
+      const inputsList = (lesson.inputs || []).map(i => `<li>${i}</li>`).join('');
+      const checkpointsList = (lesson.checkpoints || []).map(c => `<li>${c}</li>`).join('');
+
+      body.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span class="lesson-id">${lesson.id}</span>
+          <span class="level-badge level-${lesson.level}">${lesson.level}</span>
+        </div>
+        <h2 style="font-size:22px; font-weight:800; margin-bottom:12px; line-height:1.2;">${lesson.title}</h2>
+        <p style="color:var(--text-muted); font-size:14px; line-height:1.6; margin-bottom:24px;">${lesson.summary}</p>
+
+        <div class="drawer-section">
+          <h4>Configuration Target File</h4>
+          <div class="code-block">${lesson.config_file}</div>
+        </div>
+
+        <div class="drawer-section">
+          <h4>Input Datasets &amp; Constraints</h4>
+          <ul style="padding-left:18px; font-size:13px; color:#CBD5E1; line-height:1.6;">${inputsList}</ul>
+        </div>
+
+        <div class="drawer-section">
+          <h4>Calibrated Parameter Matrix</h4>
+          <table class="param-table">
+            <thead><tr><th>Parameter Key</th><th>Calibrated Value</th></tr></thead>
+            <tbody>${paramsRows}</tbody>
+          </table>
+        </div>
+
+        <div class="drawer-section">
+          <h4>Telemetry Verification Checkpoints</h4>
+          <ul style="padding-left:18px; font-size:13px; color:#00E676; line-height:1.6;">${checkpointsList}</ul>
+        </div>
+
+        <div class="drawer-section" style="margin-top:32px;">
+          <button class="btn" style="width:100%; justify-content:center;" onclick="alert('Configuration copied to clipboard!')">Copy Lesson Parameter JSON</button>
+        </div>
+      `;
+
+      document.getElementById('drawerOverlay').classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').classList.remove('open');
+    }
+
+    function exportConfig() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(LESSONS, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "lesson-config.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    // Real-Time Canvas Waveform Simulator
+    const canvas = document.getElementById('telemetryCanvas');
+    const ctx = canvas.getContext('2d');
+    let phase = 0;
+
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const rateSlider = document.getElementById('rateSlider');
+    const tempSlider = document.getElementById('tempSlider');
+    const dampSlider = document.getElementById('dampSlider');
+
+    rateSlider.addEventListener('input', e => document.getElementById('rateVal').textContent = e.target.value + ' C');
+    tempSlider.addEventListener('input', e => document.getElementById('tempVal').textContent = e.target.value + ' °C');
+    dampSlider.addEventListener('input', e => document.getElementById('dampVal').textContent = e.target.value);
+
+    function animateTelemetry() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const rate = parseFloat(rateSlider.value);
+      const temp = parseFloat(tempSlider.value);
+      const damp = parseFloat(dampSlider.value);
+
+      phase += 0.04 * rate;
+
+      // Draw Grid Lines
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let y = 0; y < canvas.height; y += 30) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+
+      // Waveform 1: Primary Response
+      ctx.beginPath();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = '#FF6D00';
+      for (let x = 0; x < canvas.width; x++) {
+        const normX = x / canvas.width;
+        const decay = Math.exp(-normX * (1 - damp) * 2);
+        const y = canvas.height / 2 + Math.sin(normX * 12 + phase) * (35 * rate / 2) * decay + Math.cos(normX * 24 + phase * 1.5) * 6;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Waveform 2: Secondary Harmonic / Thermal Lag
+      ctx.beginPath();
+      ctx.lineWidth = 1.8;
+      ctx.strokeStyle = '#00B0FF';
+      for (let x = 0; x < canvas.width; x++) {
+        const normX = x / canvas.width;
+        const y = canvas.height / 2 + Math.sin(normX * 8 + phase * 0.7) * (20 + temp * 0.4);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      requestAnimationFrame(animateTelemetry);
+    }
+
+    animateTelemetry();
+    renderLessons();
+  </script>
+</body>
+</html>
