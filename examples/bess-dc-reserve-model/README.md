@@ -1,11 +1,15 @@
 # BESS DC-Link and SOC Reserve Model
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This Base-MATLAB benchmark makes the battery and DC-side availability behind a
 BESS converter explicit. It connects an affine OCV-SOC battery, internal loss,
 charge/discharge current limits, SOC reserve taper, a finite DC-link capacitor,
 and requested-versus-delivered converter power without requiring Simulink.
 
 ## Engineering Question
+
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
 
 How do battery SOC reserve, current capability, and finite DC-link energy turn
 an AC-side power request into a smaller deliverable-power envelope?
@@ -59,6 +63,8 @@ controller, or site energy-management algorithm.
 | Request breakpoints | 0, 120, 240, 360 | s |
 
 ## Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 From the repository root:
 
@@ -168,6 +174,8 @@ SOC, current capability, and DC-link energy. The two examples remain separate
 so neither implies an unvalidated closed-loop battery-to-grid integration.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - OCV is affine and internal resistance is constant. Polarization, hysteresis,
   temperature, ageing, cell imbalance, estimation error, and contactor states

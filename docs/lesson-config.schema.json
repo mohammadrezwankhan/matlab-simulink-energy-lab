@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Repository Interactive Lab Configuration",
+  "description": "Four progressive, source-linked modules for a deterministic educational simulation. Checkpoint times use model.timeUnit. Values are illustrative and analytically checked, not empirically calibrated.",
+  "type": "object",
+  "required": ["schema_version", "repository", "domain", "model", "modules", "source", "dashboard_url"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "1.0"},
+    "dashboard_url": {"type": "string", "format": "uri"},
+    "repository": {
+      "type": "object",
+      "required": ["owner", "slug", "title", "url", "default_branch", "description", "summary", "audience", "topics", "source_paths", "is_fork"],
+      "properties": {
+        "owner": {"const": "mohammadrezwankhan"},
+        "slug": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+$"},
+        "name": {"type": "string"},
+        "title": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "default_branch": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1, "maxLength": 120},
+        "summary": {"type": "string", "minLength": 1},
+        "audience": {"type": "string", "minLength": 1},
+        "topics": {"type": "array", "minItems": 15, "maxItems": 15, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,49}$"}},
+        "source_paths": {"$ref": "#/$defs/sourcePaths"},
+        "is_fork": {"type": "boolean"},
+        "upstream": {"type": ["string", "object", "null"]},
+        "legacy_demo": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "domain": {
+      "type": "object", "required": ["id", "name", "primary", "secondary", "surface", "glow"],
+      "properties": {
+        "id": {"enum": ["A", "B", "C", "D"]}, "name": {"type": "string"},
+        "primary": {"$ref": "#/$defs/colour"}, "secondary": {"$ref": "#/$defs/colour"}, "surface": {"$ref": "#/$defs/colour"},
+        "glow": {"type": "string"}
+      }, "additionalProperties": false
+    },
+    "model": {
+      "type": "object", "required": ["kind", "title", "timeUnit", "horizon", "parameters", "metrics", "equation", "assumptions"],
+      "properties": {
+        "kind": {"enum": ["battery", "thermal", "degradation", "grid", "cooling", "agents", "markets", "control", "security", "charging"]},
+        "title": {"type": "string"}, "introduction": {"type": "string"}, "calibration_status": {"type": "string"},
+        "timeUnit": {"type": "string", "minLength": 1}, "horizon": {"type": "number", "exclusiveMinimum": 0},
+        "equation": {"type": "string", "minLength": 1},
+        "assumptions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "parameters": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/parameter"}},
+        "metrics": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["key", "label", "unit", "decimals"], "properties": {"key": {"type": "string"}, "label": {"type": "string"}, "unit": {"type": "string"}, "decimals": {"type": "integer", "minimum": 0, "maximum": 8}}, "additionalProperties": false}}
+      }, "additionalProperties": false
+    },
+    "modules": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/module"}},
+    "source": {
+      "type": "object", "required": ["commit", "audited_at", "url", "calibration_status", "scope"],
+      "properties": {"commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "audited_at": {"type": "string", "format": "date-time"}, "url": {"type": "string", "format": "uri"}, "calibration_status": {"const": "synthetic-analytical-fixtures"}, "scope": {"type": "string"}},
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "colour": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+    "sourcePaths": {"type": "array", "items": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\]+$"}},
+    "parameter": {
+      "type": "object", "required": ["key", "label", "unit", "min", "max", "step", "default", "calibration"],
+      "properties": {"key": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9]*$"}, "label": {"type": "string"}, "unit": {"type": "string"}, "min": {"type": "number"}, "max": {"type": "number"}, "step": {"type": "number", "exclusiveMinimum": 0}, "default": {"type": "number"}, "calibration": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "checkpoint": {
+      "type": "object", "required": ["label", "metric", "operator", "expected", "atTime"],
+      "properties": {"label": {"type": "string", "minLength": 1}, "metric": {"type": "string"}, "operator": {"enum": [">=", "<=", ">", "<", "==", "=", "eq", "gte", "lte", "gt", "lt", "≈"]}, "expected": {"type": "number"}, "tolerance": {"type": "number", "minimum": 0}, "atTime": {"type": "number", "minimum": 0}, "explanation": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "module": {
+      "type": "object", "required": ["id", "title", "objective", "minutes", "steps", "preset", "checkpoints", "reflection", "source_paths", "level"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1}, "title": {"type": "string", "minLength": 1}, "objective": {"type": "string", "minLength": 1},
+        "minutes": {"type": "integer", "minimum": 1, "maximum": 240}, "level": {"type": "string"},
+        "steps": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "preset": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "number"}},
+        "checkpoints": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/checkpoint"}},
+        "reflection": {"type": "string", "minLength": 1}, "source_paths": {"$ref": "#/$defs/sourcePaths"}
+      }, "additionalProperties": false
+    }
+  }
+}

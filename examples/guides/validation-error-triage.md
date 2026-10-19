@@ -1,5 +1,7 @@
 # Validation Error Triage
 
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
+
 Use this guide for separating expected-output drift, parameter errors, and environment problems during checks. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.
 
 | Review Area | Prompt | Expected Record |

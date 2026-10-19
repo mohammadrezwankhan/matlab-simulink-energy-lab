@@ -1,0 +1,14 @@
+{
+  "repository": "matlab-simulink-energy-lab",
+  "diagrams": [
+    "diagrams/cell-rc-network.svg",
+    "diagrams/pouch-cell-thermal-gradient.svg",
+    "diagrams/grid-forming-inverter.svg"
+  ],
+  "fidelity": {
+    "diagrams/cell-rc-network.svg": "Conceptual one-RC reference; not asserted as an exact example implementation.",
+    "diagrams/pouch-cell-thermal-gradient.svg": "Source-defined 1D finite-volume example topology: 15 cell-centred states across thickness.",
+    "diagrams/grid-forming-inverter.svg": "Reduced-order reference topology; not an exact block-level mapping."
+  },
+  "reason": "Includes the native 15-volume pouch example topology; other diagrams are reference subsystem views, not exact block-level models."
+}

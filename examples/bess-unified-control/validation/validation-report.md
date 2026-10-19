@@ -2,6 +2,8 @@
 
 # Unified BESS Control Validation Report
 
+![Section 04 · Verification / output](../../../docs/visuals/sections/section-04-verification.svg)
+
 > [!NOTE]
 > This is the preserved `v0.9.0` unified-BESS publication record. For the
 > repository's current release and commit-specific CI provenance, use the
@@ -16,6 +18,8 @@ translation evaluated against the documented project gates; it is not an exact
 paper reproduction or a grid-code qualification result.
 
 ## Commands
+
+![Section 03 · Reproduce / parameters](../../../docs/visuals/sections/section-03-reproduce.svg)
 
 Focused suite:
 
@@ -114,6 +118,8 @@ second controller implementation.
 
 ## Model regeneration
 
+![Section 02 · Equations / provenance](../../../docs/visuals/sections/section-02-equations.svg)
+
 The test suite builds the model in two empty temporary directories, compiles
 both, and compares their block paths, solver type, solver name, fixed step, and
 Outport count. It then executes the first model. The `.slx` binary is not used
@@ -148,6 +154,8 @@ numeric assertions decide pass/fail.
   in the source ledger and are not treated as executable parameters.
 
 ## Scope statement
+
+![Section 05 · Scope / limitations](../../../docs/visuals/sections/section-05-scope.svg)
 
 Results apply only to the documented reduced-order balanced averaged plant,
 starter parameters, and deterministic scenarios. See

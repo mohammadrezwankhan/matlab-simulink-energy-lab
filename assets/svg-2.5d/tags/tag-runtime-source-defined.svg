@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="52" viewBox="0 0 300 52" role="img" aria-labelledby="tag-runtime-source-defined-title tag-runtime-source-defined-desc">
+<title id="tag-runtime-source-defined-title">Runtime: SOURCE-DEFINED</title><desc id="tag-runtime-source-defined-desc">Runtime: SOURCE-DEFINED</desc>
+<defs><style>:root{color-scheme:dark light;--ink:#ecf5fb;--muted:#b8c9d7}@media(prefers-color-scheme:light){:root{--ink:#11253a;--muted:#344c62}}text{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.k{font-size:10px;font-weight:760;letter-spacing:1.25px;fill:#F59E0B}.v{font-size:12px;font-weight:650;fill:var(--ink)}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style></defs>
+<rect x="1" y="1" width="298" height="50" rx="12" fill="#451A03" stroke="#F59E0B" stroke-width="1.4"/>
+<circle cx="18" cy="26" r="4" fill="#F59E0B"/><text class="k" x="31" y="22">RUNTIME</text><text class="v" x="31" y="39">SOURCE-DEFINED</text>
+</svg>

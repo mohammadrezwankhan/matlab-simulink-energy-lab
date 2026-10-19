@@ -2,6 +2,8 @@
 
 # Grid-Forming BESS Control in MATLAB and Simulink: An Executable Walkthrough
 
+![Section 03 · Reproduce / parameters](visuals/sections/section-03-reproduce.svg)
+
 Grid-forming control is easiest to learn when operating modes, transition
 guards, signal limits, and validation scenarios are visible together. This
 tutorial uses the repository's unified BESS reference to move from
@@ -13,6 +15,8 @@ reconnection.
 > for converter, battery, network, hardware-in-the-loop, or site validation.
 
 ## What the runnable model covers
+
+![Section 02 · Equations / provenance](visuals/sections/section-02-equations.svg)
 
 The reference uses a 10 MVA, 690 V line-line, 50 Hz per-unit starter base and
 a fixed 5 ms discrete solver. It combines a balanced dq-current/filter-
@@ -110,6 +114,8 @@ This distinction is the key to using the model responsibly: change an
 assumption openly, then update the associated check and its evidence.
 
 ## Inspect the evidence
+
+![Section 04 · Verification / output](visuals/sections/section-04-verification.svg)
 
 - [Unified BESS example README](../examples/bess-unified-control/README.md)
   lists signals, limits, scenarios, requirements, and scope.

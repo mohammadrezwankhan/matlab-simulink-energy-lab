@@ -7,6 +7,8 @@ PWM, anti-windup decision, and four exact affine plant-update branches.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 Can an inspectable generated Simulink diagram reproduce the Base MATLAB
 controller, PWM sequence, and exact ON/OFF plant states without changing the
 underlying model?
@@ -31,6 +33,8 @@ The MATLAB builder remains the reviewable source of the diagram.
 
 ## Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 ```matlab
 run_switching_closed_loop_buck_simulink_model
 ```
@@ -50,6 +54,8 @@ Matched PWM intervals / controller periods: 180000 / 1800
 ```
 
 ## Evidence Boundary
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 The check establishes implementation consistency between two representations
 of the same reduced-order equations. A perturbed grid and near-boundary event

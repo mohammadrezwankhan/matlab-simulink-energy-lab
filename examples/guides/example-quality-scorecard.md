@@ -1,5 +1,7 @@
 # Example Quality Scorecard
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 Use this guide for scoring starter examples on clarity, runnability, assumptions, outputs, and validation readiness. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.
 
 | Review Area | Prompt | Expected Record |

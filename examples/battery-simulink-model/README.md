@@ -1,11 +1,15 @@
 # Native Simulink Battery RC Model
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This example generates an inspectable Simulink block diagram for the existing
 first-order battery equivalent-circuit reference. It reuses the validated input
 and parameter pipeline, then independently computes SOC, RC polarization, OCV,
 and terminal voltage with native Simulink blocks.
 
 ## Engineering Question
+
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
 
 Can a generated Simulink diagram reproduce the exact pulse-profile response of
 the Base-MATLAB battery RC solver, including a replaceable nonlinear OCV curve?
@@ -58,6 +62,8 @@ native diagram reproduces the model dynamics and output balance.
 
 ## Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 Generate the model in a temporary workspace, simulate the canonical pulse
 profile, plot current/SOC/voltage, and open the diagram:
 
@@ -91,6 +97,8 @@ against the exact MATLAB reference for both the canonical profile and a shorter
 case with a nonlinear OCV table, then removes the generated models.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - The current trace is prevalidated and SOC-limited by the MATLAB reference;
   the diagram does not implement current, voltage, thermal, or power limits.

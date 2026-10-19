@@ -9,10 +9,14 @@ toolbox.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 Can a period-sampled controller regulate an explicitly switched lossy buck
 converter through a 300-to-400 V reference step and a 20-to-10 Ohm load step?
 
 ## Plant and Switching Model
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 The high-side switch state `s` is zero or one. Positive inductor current
 freewheels through a diode while the switch is off:
@@ -29,6 +33,8 @@ switching grid. The default case remains in continuous conduction; the
 simulator raises an error if that assumption is violated.
 
 ## Semiconductor-Loss Evidence
+
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
 
 The default high-side switch is the Infineon IMZC120R040M2H only as a
 transparent nominal parameter reference. Its official
@@ -117,6 +123,8 @@ The duty command is bounded and quantized to an integer number of ON intervals.
 
 ## Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 To plot the reference and load transients, current loop, duty command, and
 final five PWM periods:
 
@@ -174,6 +182,8 @@ reduced-order model. They are not hardware validation or controller-design
 qualification.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - The diode is a constant forward-voltage element; reverse recovery and
   discontinuous-conduction state logic are omitted.

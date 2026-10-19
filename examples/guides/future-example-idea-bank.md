@@ -1,5 +1,7 @@
 # Future Example Idea Bank
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 Use this guide for collecting small future example ideas with validation and data requirements. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.
 
 | Review Area | Prompt | Expected Record |

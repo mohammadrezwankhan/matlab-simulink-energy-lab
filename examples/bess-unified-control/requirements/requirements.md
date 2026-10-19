@@ -2,6 +2,8 @@
 
 ## Status and scope
 
+![Section 05 · Scope / limitations](../../../docs/visuals/sections/section-05-scope.svg)
+
 This example is a transparent engineering translation of the unified BESS
 controller framework described by Khan et al. It is not a numerically exact
 paper reproduction. The publication supplies operating concepts, controller
@@ -110,6 +112,8 @@ are project-defined extensions.
   availability boundary, and invalid parameter rejection.
 
 ### Evidence and reproducibility
+
+![Section 04 · Verification / output](../../../docs/visuals/sections/section-04-verification.svg)
 
 - `BESS-PROV-001`: Every material equation, parameter, scenario, and
   acceptance criterion shall be traceable as `DIRECT_SOURCE`, `DERIVED`, or

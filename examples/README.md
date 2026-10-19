@@ -59,6 +59,8 @@ BESS suite; it is not a substitute for complete repository validation.
 
 ## Example Guides
 
+![Section 03 · Reproduce / parameters](../docs/visuals/sections/section-03-reproduce.svg)
+
 - [Example troubleshooting notes](guides/example-troubleshooting-notes.md)
 
 - [Parameter Review Guide](guides/parameter-review-guide.md)
@@ -170,6 +172,8 @@ BESS suite; it is not a substitute for complete repository validation.
 
 ## Validation Commands
 
+![Section 04 · Verification / output](../docs/visuals/sections/section-04-verification.svg)
+
 Run these no-plot checks from the repository root. Root-relative `run` calls
 keep the complete block copy/paste-safe:
 
@@ -218,6 +222,8 @@ the no-plot checks for quick validation before future automation.
 | Validation note is updated after model changes | Documentation should change when assumptions or outputs change. |
 
 ## Assumptions Checklist
+
+![Section 02 · Equations / provenance](../docs/visuals/sections/section-02-equations.svg)
 
 | Check | Prompt |
 |---|---|

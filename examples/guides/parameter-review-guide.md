@@ -1,5 +1,7 @@
 # Parameter Review Guide
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 Use this guide for checking example parameters for units, source, range, and educational placeholder status. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.
 
 | Review Area | Prompt | Expected Record |

@@ -1,102 +1,315 @@
 {
-  "repository": "matlab-simulink-energy-lab",
-  "domain": "DOMAIN_D",
-  "title": "MATLAB & Simulink Energy Lab",
-  "version": "2.0.0",
-  "author": "Mohammad Rezwan Khan",
-  "lessons": [
+  "$schema": "./lesson-config.schema.json",
+  "schema_version": "1.0",
+  "repository": {
+    "owner": "mohammadrezwankhan",
+    "slug": "matlab-simulink-energy-lab",
+    "name": "matlab-simulink-energy-lab",
+    "title": "MATLAB Simulink Energy Lab",
+    "url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
+    "default_branch": "main",
+    "description": "Run reduced-order battery, thermal, converter and BESS control models with transparent equations and repeatable testing.",
+    "summary": "The native repository contains Base MATLAB and generated Simulink models for batteries, thermal response, converters, and BESS control. A second-order response exercise develops control intuition before the bounded native examples.",
+    "audience": "Electrical-engineering students, MATLAB users, and researchers studying reproducible reduced-order models.",
+    "topics": [
+      "matlab",
+      "simulink",
+      "battery-modeling",
+      "state-of-charge",
+      "extended-kalman-filter",
+      "battery-thermal-management",
+      "power-electronics",
+      "dc-dc-converter",
+      "bess",
+      "grid-forming",
+      "grid-following",
+      "control-systems",
+      "model-based-design",
+      "simulation",
+      "engineering-education"
+    ],
+    "source_paths": [
+      "README.md",
+      "buildfile.m",
+      "examples/README.md",
+      "docs/model-selection-guide.md",
+      "docs/battery-pulse-response-lab.md",
+      "examples/battery-rc-model/check_battery_rc_model.m",
+      "examples/converter-closed-loop-model/README.md",
+      "examples/converter-closed-loop-model/simulate_closed_loop_converter.m",
+      "examples/run_base_matlab_checks.m",
+      "examples/bess-unified-control/docs/limitations.md"
+    ],
+    "is_fork": false,
+    "upstream": null
+  },
+  "domain": {
+    "id": "D",
+    "name": "Simulation and digital twins",
+    "primary": "#FF6D00",
+    "secondary": "#00B0FF",
+    "surface": "#1A1412",
+    "glow": "rgba(255,109,0,0.35)"
+  },
+  "model": {
+    "title": "Control intuition · analytic step response",
+    "timeUnit": "s",
+    "horizon": 20,
+    "parameters": [
+      {
+        "key": "setpoint",
+        "label": "Step target",
+        "unit": "units",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "default": 60,
+        "calibration": "Illustrative input; verified against the declared analytical model, not field measurements."
+      },
+      {
+        "key": "damping",
+        "label": "Damping ratio",
+        "unit": "ζ",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.05,
+        "default": 0.5,
+        "calibration": "Illustrative input; verified against the declared analytical model, not field measurements."
+      },
+      {
+        "key": "naturalFrequency",
+        "label": "Natural frequency",
+        "unit": "rad/s",
+        "min": 0.2,
+        "max": 3,
+        "step": 0.1,
+        "default": 1,
+        "calibration": "Illustrative input; verified against the declared analytical model, not field measurements."
+      },
+      {
+        "key": "gain",
+        "label": "Steady-state gain",
+        "unit": "×",
+        "min": 0.5,
+        "max": 1.5,
+        "step": 0.05,
+        "default": 1,
+        "calibration": "Illustrative input; verified against the declared analytical model, not field measurements."
+      }
+    ],
+    "metrics": [
+      {
+        "key": "output",
+        "label": "System output",
+        "unit": "units",
+        "decimals": 2
+      },
+      {
+        "key": "error",
+        "label": "Tracking error",
+        "unit": "units",
+        "decimals": 2
+      },
+      {
+        "key": "velocity",
+        "label": "Output rate",
+        "unit": "units/s",
+        "decimals": 2
+      },
+      {
+        "key": "overshootPct",
+        "label": "Theoretical overshoot",
+        "unit": "%",
+        "decimals": 1
+      }
+    ],
+    "equation": "y″ + 2ζωₙy′ + ωₙ²y = Kωₙ²r. Closed-form unit-step response is evaluated for underdamped, critical, and overdamped regimes.",
+    "assumptions": [
+      "A linear time-invariant second-order system starts at rest.",
+      "No transport delay, saturation, sensor noise, or discrete controller is represented.",
+      "Overshoot is relative to the final K·r level; tracking error remains relative to the requested r.",
+      "The 20-second response is deliberately rescaled for learning; it does not use the native converter’s electrical constants or subsecond scenario.",
+      "No MATLAB or Simulink engine is embedded in this page. Native scripts and toolbox requirements remain available through the source links.",
+      "Analytic agreement is numerical verification, not measured battery, inverter, grid-code, or hardware validation."
+    ],
+    "kind": "control",
+    "introduction": "The browser uses an ideal linear second-order system, not the repository’s actual buck-converter, EKF, or BESS controller. Use it to predict damping and gain effects before inspecting the native saturation, sample-time, and validation contracts.",
+    "calibration_status": "Uncalibrated synthetic teaching proxy"
+  },
+  "modules": [
     {
-      "id": "L01",
-      "title": "Equivalent Circuit Model (ECM) 2-RC Parameter Identification",
-      "level": "Intermediate",
-      "duration": "45 mins",
-      "config_file": "config/ecm_2rc_parameters.m",
-      "summary": "Fit open-circuit voltage (OCV-SOC) polynomials and 2-RC resistor-capacitor time constants to HPPC pulse discharge test data with < 1.2% RMSE.",
-      "inputs": [
-        "HPPC 1C discharge pulse dataset (.mat)",
-        "Cell temperature vector [0\u00b0C, 25\u00b0C, 45\u00b0C]"
+      "id": "module-1",
+      "title": "Predict a control response from its equation",
+      "objective": "Identify target, damping, natural frequency, and gain in a small dynamic model.",
+      "minutes": 12,
+      "steps": [
+        "Read the native closed-loop converter engineering question and its two state equations.",
+        "Apply a 60-unit step with damping 0.5, natural frequency 1 rad/s, and unit gain.",
+        "Predict overshoot and final tracking before running the deliberately slower browser response."
       ],
-      "parameters": {
-        "R0_mohm": 1.42,
-        "R1_mohm": 0.85,
-        "C1_Farad": 1850.0,
-        "R2_mohm": 1.15,
-        "C2_Farad": 12400.0
+      "preset": {
+        "setpoint": 60,
+        "damping": 0.5,
+        "naturalFrequency": 1,
+        "gain": 1
       },
       "checkpoints": [
-        "Verify OCV curve monotonicity",
-        "Compute R0 voltage drop transition",
-        "Calculate RC time constant tau1 and tau2 convergence"
-      ]
+        {
+          "label": "Theoretical overshoot for the initial damping",
+          "metric": "overshootPct",
+          "operator": "==",
+          "expected": 16.303353,
+          "tolerance": 0.02,
+          "atTime": 20
+        },
+        {
+          "label": "Output near the 60-unit final target",
+          "metric": "output",
+          "operator": "==",
+          "expected": 60.001458,
+          "tolerance": 0.02,
+          "atTime": 20
+        }
+      ],
+      "reflection": "Which native converter states, actuator limits, and sample-time choices are absent from this ideal response?",
+      "source_paths": [
+        "examples/converter-closed-loop-model/README.md",
+        "examples/converter-closed-loop-model/simulate_closed_loop_converter.m"
+      ],
+      "level": "Foundation"
     },
     {
-      "id": "L02",
-      "title": "Extended Kalman Filter (EKF) SOC Estimation under Dynamic WLTP",
-      "level": "Advanced",
-      "duration": "60 mins",
-      "config_file": "config/ekf_soc_tuning.m",
-      "summary": "Formulate discrete nonlinear state-space equations with state covariance matrix Q and measurement noise R, guaranteeing SOC convergence from 20% initialization error.",
-      "inputs": [
-        "WLTP drive cycle current profile",
-        "Noisy terminal voltage telemetry (+- 15mV)"
+      "id": "module-2",
+      "title": "Change response speed while keeping damping",
+      "objective": "Distinguish natural frequency from damping and steady-state gain.",
+      "minutes": 15,
+      "steps": [
+        "Keep the step, gain, and damping fixed; double natural frequency to 2 rad/s.",
+        "Compare the response at two seconds and the theoretical overshoot.",
+        "Read the model-selection guide and identify a native model suitable for a converter-control question."
       ],
-      "parameters": {
-        "ProcessNoise_Q": 1e-05,
-        "MeasNoise_R": 0.0025,
-        "Initial_SOC_Guess": 0.6,
-        "Actual_SOC": 0.8
+      "preset": {
+        "setpoint": 60,
+        "damping": 0.5,
+        "naturalFrequency": 2,
+        "gain": 1
       },
       "checkpoints": [
-        "Observe Kalman gain adaptation",
-        "Verify terminal estimation error < 1.5%",
-        "Inspect covariance trace boundedness"
-      ]
+        {
+          "label": "Faster system output after two seconds",
+          "metric": "output",
+          "operator": "==",
+          "expected": 69.187366,
+          "tolerance": 0.02,
+          "atTime": 2
+        },
+        {
+          "label": "Theoretical overshoot is unchanged",
+          "metric": "overshootPct",
+          "operator": "==",
+          "expected": 16.303353,
+          "tolerance": 0.02,
+          "atTime": 20
+        }
+      ],
+      "reflection": "Why does doubling a natural frequency in this toy not justify doubling controller gains in the native plant?",
+      "source_paths": [
+        "docs/model-selection-guide.md",
+        "examples/converter-closed-loop-model/README.md"
+      ],
+      "level": "Parameter study"
     },
     {
-      "id": "L03",
-      "title": "Electro-Thermal BTMS Conjugate Heat Transfer Simulation",
-      "level": "Advanced",
-      "duration": "75 mins",
-      "config_file": "config/btms_coldplate_thermal.m",
-      "summary": "Simulate 16-cell series module with Bernardi heat generation, aluminum serpentine cold plate, and 50/50 water-glycol coolant loop dynamics.",
-      "inputs": [
-        "Module continuous 3C discharge rate",
-        "Inlet coolant temperature = 20\u00b0C",
-        "Mass flow rate = 0.08 kg/s"
+      "id": "module-3",
+      "title": "Use a limiting case as a verification check",
+      "objective": "Explain the value and scope of an analytic reference case.",
+      "minutes": 15,
+      "steps": [
+        "Set damping to 1, frequency to 1 rad/s, and keep unit gain.",
+        "Predict a monotonic critical response and inspect the one-second and final outputs.",
+        "Find the Base MATLAB check entry point and distinguish a no-plot regression from a displayed figure."
       ],
-      "parameters": {
-        "ThermalConductivity_Al": 205.0,
-        "SpecificHeat_Coolant": 3550.0,
-        "MaxCellGradient_Target": 3.0
+      "preset": {
+        "setpoint": 60,
+        "damping": 1,
+        "naturalFrequency": 1,
+        "gain": 1
       },
       "checkpoints": [
-        "Verify max module temperature < 38\u00b0C",
-        "Ensure cell-to-cell delta T < 2.5\u00b0C",
-        "Assess pressure drop across channels < 15 kPa"
-      ]
+        {
+          "label": "Critical response has no theoretical overshoot",
+          "metric": "overshootPct",
+          "operator": "==",
+          "expected": 0,
+          "tolerance": 0.02,
+          "atTime": 20
+        },
+        {
+          "label": "Final tracking error is below 0.01 unit",
+          "metric": "error",
+          "operator": "<",
+          "expected": 0.01,
+          "tolerance": 0.02,
+          "atTime": 20
+        }
+      ],
+      "reflection": "What would a deterministic passing check establish, and what independent measurement evidence would still be missing?",
+      "source_paths": [
+        "examples/run_base_matlab_checks.m",
+        "examples/battery-rc-model/check_battery_rc_model.m",
+        "docs/battery-pulse-response-lab.md"
+      ],
+      "level": "Stress test"
     },
     {
-      "id": "L04",
-      "title": "Grid-Forming (GFM) Virtual Synchronous Machine & Islanding Dispatch",
-      "level": "Production",
-      "duration": "90 mins",
-      "config_file": "config/gfm_bess_droop.m",
-      "summary": "Deploy virtual synchronous generator (VSG) swing equations, active power-frequency droop, and reactive power-voltage droop for zero-inertia microgrid stability.",
-      "inputs": [
-        "10 MVA utility interconnect step-disconnect",
-        "Local variable industrial load 4 MW / 1.5 MVAr"
+      "id": "module-4",
+      "title": "Choose the smallest defensible native model",
+      "objective": "Carry an explicit control question into the repository’s model and validation map.",
+      "minutes": 18,
+      "steps": [
+        "Apply gain 0.8 with damping 0.7 and natural frequency 1.5 rad/s.",
+        "Predict the nonzero steady-state error even though the response is well damped.",
+        "Use the native converter and BESS limitations to write a study plan with inputs, limits, checks, expected outputs, and excluded claims."
       ],
-      "parameters": {
-        "Droop_P_Freq": 0.04,
-        "Droop_Q_Volt": 0.02,
-        "InertiaConstant_H": 4.5,
-        "DampingCoeff_D": 15.0
+      "preset": {
+        "setpoint": 60,
+        "damping": 0.7,
+        "naturalFrequency": 1.5,
+        "gain": 0.8
       },
       "checkpoints": [
-        "Measure frequency nadir > 49.6 Hz",
-        "RoCoF limited to < 0.5 Hz/s",
-        "Seamless seamless islanding transition within 12 ms"
-      ]
+        {
+          "label": "Final output reflects the 0.8 gain",
+          "metric": "output",
+          "operator": "==",
+          "expected": 48,
+          "tolerance": 0.02,
+          "atTime": 20
+        },
+        {
+          "label": "Steady tracking error remains about 12 units",
+          "metric": "error",
+          "operator": "==",
+          "expected": 12,
+          "tolerance": 0.03,
+          "atTime": 20
+        }
+      ],
+      "reflection": "Which extension—saturation, measurement bias, discrete timing, or grid transition—requires a richer native model, and why?",
+      "source_paths": [
+        "docs/model-selection-guide.md",
+        "examples/converter-closed-loop-model/README.md",
+        "examples/bess-unified-control/docs/limitations.md"
+      ],
+      "level": "Transfer to source"
     }
-  ]
+  ],
+  "source": {
+    "commit": "ed410f7db8c6f425c0d38ca5d03358975300872e",
+    "audited_at": "2026-10-19T08:39:24Z",
+    "url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/tree/ed410f7db8c6f425c0d38ca5d03358975300872e",
+    "calibration_status": "synthetic-analytical-fixtures",
+    "scope": "This browser lab is a standalone teaching approximation. Use the linked source for the project implementation."
+  },
+  "dashboard_url": "https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/"
 }

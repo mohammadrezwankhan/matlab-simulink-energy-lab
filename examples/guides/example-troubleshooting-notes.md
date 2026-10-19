@@ -1,5 +1,7 @@
 # Example Troubleshooting Notes
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 Use these notes to triage common run, path, data, and expected-output problems in the MATLAB examples.
 
 | Symptom | Likely Cause | First Check | Recovery Action |

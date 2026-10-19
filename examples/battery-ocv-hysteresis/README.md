@@ -1,6 +1,10 @@
 # Battery OCV Hysteresis Model
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 ## Engineering Question
+
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
 
 How can a small equivalent-circuit model preserve charge/discharge history so
 that the predicted equilibrium voltage is not a single-valued function of SOC?
@@ -47,6 +51,8 @@ The paper's broader model also discusses additional effects and identification.
 
 ## Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 From this folder:
 
 ```matlab
@@ -65,6 +71,8 @@ Same-SOC minor-loop voltage gap: 8.13 mV
 
 ## What the Check Proves
 
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
+
 - SOC closes against net applied-current ampere-hours.
 - The RC and hysteresis states use exact zero-order-hold interval updates.
 - The normalized hysteresis state remains inside `[-1, 1]`.
@@ -77,6 +85,8 @@ Same-SOC minor-loop voltage gap: 8.13 mV
 - Invalid timestamps, OCV curves, and hysteresis states are rejected.
 
 ## Assumptions and Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - Parameters are illustrative and are not fitted to a physical cell.
 - Coulombic efficiency is one and capacity is constant.

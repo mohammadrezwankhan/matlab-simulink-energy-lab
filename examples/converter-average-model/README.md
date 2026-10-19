@@ -1,8 +1,12 @@
 # Converter Average Model Scaffold
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This scaffold captures assumptions and signals for a simple averaged DC-DC converter example. It is intentionally small so the model intent can be reviewed before a detailed switching or Simulink implementation is added.
 
 ## Engineering Question
+
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
 
 How can an averaged converter model estimate output voltage, inductor current, and capacitor ripple for a first-pass power-electronics study?
 
@@ -28,6 +32,8 @@ How can an averaged converter model estimate output voltage, inductor current, a
 | `estimated_current_ripple_A` | Simple first-pass ripple estimate. |
 
 ## How To Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 Open MATLAB, navigate to this folder, and run:
 

@@ -1,5 +1,7 @@
 # Reproduction
 
+![Section 03 · Reproduce / parameters](../../../docs/visuals/sections/section-03-reproduce.svg)
+
 ## Environment
 
 Verified with MATLAB R2026a and Simulink. No additional toolbox is required.
@@ -13,6 +15,8 @@ matlab -batch "addpath('examples'); run_all_checks"
 ```
 
 ## Rebuild the Simulink model
+
+![Section 02 · Equations / provenance](../../../docs/visuals/sections/section-02-equations.svg)
 
 ```matlab
 addpath('examples/bess-unified-control')
@@ -69,6 +73,8 @@ Custom parameters need their own scenario assessment; passing the default
 scenario gates does not validate every override.
 
 ## Regenerate evidence
+
+![Section 04 · Verification / output](../../../docs/visuals/sections/section-04-verification.svg)
 
 ```matlab
 addpath('examples/bess-unified-control')

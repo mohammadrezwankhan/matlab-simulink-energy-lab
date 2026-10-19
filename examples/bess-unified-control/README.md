@@ -19,6 +19,8 @@ rules, or initial conditions needed to recreate its results.
 
 ## Engineering question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 Can one deterministic reference exercise grid-following P/Q control,
 grid-forming voltage/frequency control, grid loss, islanded load support,
 synchronization, reconnection, saturation, measurement faults, and recovery
@@ -38,6 +40,8 @@ continuous-time safety property. The model:
 - checks scenarios A through H in both MATLAB and Simulink.
 
 ## Quick start
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 From the repository root:
 
@@ -87,6 +91,8 @@ generate_bess_validation_evidence(strtrim(sourceCommit))
 ```
 
 ## Reproducible model construction
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 `build_bess_unified_control_model.m` is the source of truth. It creates a new
 model with `new_system`, configures a fixed-step discrete solver, adds and
@@ -178,6 +184,8 @@ See [tuning.md](docs/tuning.md) for every replaceable control setting and
 
 ## Mandatory validation scenarios
 
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
+
 | ID | Scenario | Main executable evidence |
 | --- | --- | --- |
 | A | Separate grid-following P and Q steps | 2% tracking and current gates |
@@ -197,6 +205,8 @@ commit-specific CI provenance. The historical machine-readable metrics are in
 acceptance decision comes from `bess_score_scenario.m` and the test suite.
 
 ## Source boundary
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 Directly source-backed concepts include grid-following P/Q operation,
 PLL/synchronization context, grid-forming P-frequency and Q-voltage behavior,

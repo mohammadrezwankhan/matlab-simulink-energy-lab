@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark">
+<meta name="description" content="Search source-backed native lessons, examples, commands, and scope notes for mohammadrezwankhan/matlab-simulink-energy-lab.">
+<title>Matlab Simulink Energy Lab · Native lesson catalog</title>
+<style>
+:root{color-scheme:light dark;--bg:#f7fafc;--panel:#fff;--ink:#142333;--muted:#526578;--line:#d8e1ea;--cyan:#007b8b;--green:#08734e;--amber:#8b5200;--violet:#6444a6;--rose:#a91d43;--focus:#005fcc;font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}@media(prefers-color-scheme:dark){:root{--bg:#0b111b;--panel:#121c29;--ink:#ecf3f9;--muted:#b2c0ce;--line:#293848;--cyan:#48d9e8;--green:#58d6a1;--amber:#ffc15a;--violet:#b99cff;--rose:#ff8ca4;--focus:#8cc8ff}}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}a{color:var(--cyan);text-underline-offset:.16em}a:hover{text-decoration-thickness:2px}button,input{font:inherit}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.skip-link{position:absolute;top:-6rem;left:1rem;background:var(--panel);padding:.65rem 1rem;z-index:5}.skip-link:focus{top:1rem}.shell{width:min(1180px,calc(100% - 2rem));margin:auto}.surface-nav{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--line);font-size:.92rem}.surface-nav a[aria-current]{font-weight:700;color:var(--ink)}.hero{padding:2rem 0 1.4rem}h1{font-size:clamp(2rem,4vw,3.2rem);line-height:1.12;margin:.35rem 0 .75rem}h2{font-size:1.55rem;line-height:1.25;margin:1.4rem 0 .8rem}h3{font-size:1.1rem;line-height:1.3;margin:.2rem 0 .55rem}p{margin:.4rem 0}.eyebrow,.source-path,.command-source,.command-label,.revision{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.82rem}.eyebrow{letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.lede{max-width:78ch;color:var(--muted)}.revision{overflow-wrap:anywhere}.surface-note{margin:1rem 0;padding:1rem 1.1rem;border-left:5px solid var(--rose);background:var(--panel);border-radius:.35rem}.surface-note strong{color:var(--rose)}.model-figure{margin:1.2rem 0;padding:1rem;background:var(--panel);border:1px solid var(--line);border-radius:.65rem}.model-figure img{display:block;max-width:100%;height:auto;margin:auto}.model-figure figcaption{margin-top:.6rem;color:var(--muted);font-size:.9rem}.section-navigation{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.65rem;padding:1rem 0 1.4rem}.section-link{display:block;border-radius:.65rem;overflow:hidden}.section-link img,.section-banner img{display:block;width:100%;height:auto}.catalog-section{padding:1.4rem 0;border-top:1px solid var(--line);scroll-margin-top:1rem}.catalog-section h2{margin:.75rem 0 1rem}.lesson-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,315px),1fr));gap:.8rem}.lesson-card,.command-card{background:var(--panel);border:1px solid var(--line);border-radius:.7rem;padding:1rem;min-width:0}.lesson-card[hidden]{display:none!important}.card-meta{display:flex;justify-content:space-between;gap:1rem;color:var(--muted);font-size:.78rem;margin-bottom:.5rem}.excerpt{color:var(--muted);font-size:.93rem}.source-path{overflow-wrap:anywhere;color:var(--muted)}.card-links{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin:.6rem 0}.tags{display:flex;flex-wrap:wrap;gap:.35rem}.tag,.filter-chip{border:1px solid var(--line);border-radius:999px;padding:.24rem .58rem;font-size:.78rem;color:var(--muted);background:transparent}.controls{padding:1rem;background:var(--panel);border:1px solid var(--line);border-radius:.7rem;margin:1.4rem 0}.controls label{display:block;font-weight:650;margin-bottom:.4rem}input[type=search]{width:min(100%,620px);padding:.65rem .75rem;background:var(--bg);border:1px solid var(--line);border-radius:.4rem;color:var(--ink)}.filter-list{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}.filter-chip[aria-pressed=true]{color:var(--ink);border-color:var(--cyan);box-shadow:inset 0 0 0 1px var(--cyan)}.results-count{color:var(--muted);font-size:.9rem}.reproduction{padding:1.25rem 0 1.6rem;border-top:1px solid var(--line)}.command-list{display:grid;gap:.7rem}.command-card{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}.command-card pre{margin:.2rem 0;white-space:pre-wrap;overflow-wrap:anywhere}.command-source,.command-label{color:var(--muted)}.copy-button{flex:none;border:1px solid var(--line);border-radius:.4rem;padding:.45rem .7rem;background:transparent;color:var(--ink);cursor:pointer}.copy-button:hover{border-color:var(--cyan)}.setup-note,.lab-provenance{color:var(--muted);font-size:.9rem;max-width:90ch}.footer{border-top:1px solid var(--line);padding:1.2rem 0 2rem;color:var(--muted);font-size:.88rem}@media(max-width:620px){.command-card{display:block}.copy-button{margin-top:.5rem}.surface-nav{gap:.55rem .85rem}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style></head>
+<body><a class="skip-link" href="#catalog">Skip to native catalog</a><main class="shell">
+<nav class="surface-nav" aria-label="Learning surfaces">
+      <a href="index.html">Educational browser lab</a>
+      <a href="portfolio/index.html">Source-linked portfolio guide</a>
+      <a href="#catalog" aria-current="page">Native lesson catalog</a>
+    </nav>
+<section class="hero" aria-labelledby="page-title"><p class="eyebrow">Native source materials / 61 indexed</p><h1 id="page-title">Native lessons and source materials</h1>
+<p class="lede">This index links to repository-authored course records, examples, tutorials, and technical reading. The separate browser lab is an educational surrogate; its sliders and checkpoints do not execute this repository's native engine.</p>
+<p class="revision">Current audited native source: <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/tree/6fed303797dff87409879b4dc3715b0a1e01c1a4" target="_blank" rel="noopener noreferrer">6fed303797dff87409879b4dc3715b0a1e01c1a4</a></p>
+<figure class="model-figure"><img src="visuals/diagrams/cell-rc-network.svg" alt="Conceptual teaching diagram selected from the repository visual mapping"><figcaption>Conceptual one-RC reference; not asserted as an exact example implementation.</figcaption></figure>
+<aside class="surface-note"><strong>Two distinct surfaces.</strong> Use the <a href="index.html">browser teaching lab</a> for its clearly scoped surrogate model. Use the source links below to read the native lessons and implementation. This catalog does not run source code or claim native-engine results.</aside>
+<p class="lab-provenance">Browser-lab provenance from the reconciled package: <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/tree/ed410f7db8c6f425c0d38ca5d03358975300872e" target="_blank" rel="noopener noreferrer">package source revision ed410f7db8c6f425c0d38ca5d03358975300872e</a>. This is separate from the current native source revision above.</p></section>
+<nav class="section-navigation" aria-label="Five-color learning sections"><a class="section-link section-question" href="#question"><img src="visuals/sections/section-01-question.svg" alt="Section 01: Question / topology"></a>
+<a class="section-link section-equations" href="#equations"><img src="visuals/sections/section-02-equations.svg" alt="Section 02: Equations / provenance"></a>
+<a class="section-link section-reproduce" href="#reproduce"><img src="visuals/sections/section-03-reproduce.svg" alt="Section 03: Reproduce / parameters"></a>
+<a class="section-link section-verification" href="#verification"><img src="visuals/sections/section-04-verification.svg" alt="Section 04: Verification / output"></a>
+<a class="section-link section-scope" href="#scope"><img src="visuals/sections/section-05-scope.svg" alt="Section 05: Scope / limitations"></a></nav>
+<section class="reproduction" id="reproduction" aria-labelledby="reproduction-title"><div class="section-banner"><img src="visuals/sections/section-03-reproduce.svg" alt="Section 03: Reproduce / parameters"></div>
+<h2 id="reproduction-title">Source-defined reproduction commands</h2>
+<p class="setup-note">These exact one-line commands were observed in the audited repository workflow records and link to their source location. Expected setup, tool licensing, data, and environment vary by repository; the dashboard does not execute these commands or promise a completion time.</p>
+<div class="command-list"><article class="command-card">
+          <div><p class="command-label">Source-defined MATLAB validation command · Context: MATLAB Command Window (matlab-actions/run-command; not shell)</p><pre><code>buildtool base</code></pre>
+          <p class="command-source">Observed in <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/.github/workflows/matlab-validation.yml#L46" target="_blank" rel="noopener noreferrer">.github/workflows/matlab-validation.yml:L46</a></p></div>
+          <button class="copy-button" type="button" data-copy="buildtool base" aria-label="Copy command 1">Copy command</button>
+        </article><article class="command-card">
+          <div><p class="command-label">Source-defined MATLAB validation command · Context: MATLAB Command Window (matlab-actions/run-command; not shell)</p><pre><code>addpath(&#x27;examples&#x27;); run(&#x27;examples/validation-manifest/check_validation_manifest.m&#x27;); generate_validation_manifest(getenv(&#x27;GITHUB_SHA&#x27;))</code></pre>
+          <p class="command-source">Observed in <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/.github/workflows/matlab-validation.yml#L67" target="_blank" rel="noopener noreferrer">.github/workflows/matlab-validation.yml:L67</a></p></div>
+          <button class="copy-button" type="button" data-copy="addpath(&#x27;examples&#x27;); run(&#x27;examples/validation-manifest/check_validation_manifest.m&#x27;); generate_validation_manifest(getenv(&#x27;GITHUB_SHA&#x27;))" aria-label="Copy command 2">Copy command</button>
+        </article><article class="command-card">
+          <div><p class="command-label">Source-defined MATLAB validation command · Context: MATLAB Command Window (matlab-actions/run-command; not shell)</p><pre><code>addpath(&#x27;examples/bess-unified-control&#x27;); run(&#x27;examples/bess-unified-control/check_bess_unified_control.m&#x27;)</code></pre>
+          <p class="command-source">Observed in <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/.github/workflows/matlab-validation.yml#L96" target="_blank" rel="noopener noreferrer">.github/workflows/matlab-validation.yml:L96</a></p></div>
+          <button class="copy-button" type="button" data-copy="addpath(&#x27;examples/bess-unified-control&#x27;); run(&#x27;examples/bess-unified-control/check_bess_unified_control.m&#x27;)" aria-label="Copy command 3">Copy command</button>
+        </article><article class="command-card">
+          <div><p class="command-label">Source-defined MATLAB validation command · Context: MATLAB Command Window (matlab-actions/run-command; not shell)</p><pre><code>addpath(&#x27;examples/bess-unified-control&#x27;); generate_bess_validation_evidence(getenv(&#x27;GITHUB_SHA&#x27;))</code></pre>
+          <p class="command-source">Observed in <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/.github/workflows/matlab-validation.yml#L101" target="_blank" rel="noopener noreferrer">.github/workflows/matlab-validation.yml:L101</a></p></div>
+          <button class="copy-button" type="button" data-copy="addpath(&#x27;examples/bess-unified-control&#x27;); generate_bess_validation_evidence(getenv(&#x27;GITHUB_SHA&#x27;))" aria-label="Copy command 4">Copy command</button>
+        </article></div></section>
+<section class="controls" id="catalog" aria-labelledby="catalog-title"><h2 id="catalog-title">Search the native catalog</h2><label for="lesson-search">Search titles, paths, descriptions, and tags</label><input id="lesson-search" type="search" autocomplete="off" placeholder="Try “validation”, “thermal”, or a filename">
+<div class="filter-list" role="group" aria-label="Filter native materials by smart tag"><button class="filter-chip" type="button" data-tag-filter="model" aria-pressed="false">model</button>
+<button class="filter-chip" type="button" data-tag-filter="native-lesson" aria-pressed="false">native lesson</button>
+<button class="filter-chip" type="button" data-tag-filter="reproduction" aria-pressed="false">reproduction</button>
+<button class="filter-chip" type="button" data-tag-filter="scope" aria-pressed="false">scope</button>
+<button class="filter-chip" type="button" data-tag-filter="verification" aria-pressed="false">verification</button></div><p class="results-count" id="result-count" role="status" aria-live="polite">61 materials</p>
+<p><a href="native-lessons.json">Read the machine-readable native catalog</a></p></section>
+<section class="catalog-section section-question" id="question" aria-labelledby="heading-question">
+          <div class="section-banner"><img src="visuals/sections/section-01-question.svg" alt="Section 01: Question / topology"></div>
+          <h2 id="heading-question">Question / topology</h2>
+          <div class="lesson-grid"><article class="lesson-card" data-search="battery soc hysteresis ekf examples/battery-soc-hysteresis-ekf/readme.md what happens when an soc estimator treats equilibrium voltage as a native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Battery SOC Hysteresis EKF</h3><p class="excerpt">What happens when an SOC estimator treats equilibrium voltage as a</p>
+              <p class="source-path"><code>examples/battery-soc-hysteresis-ekf/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-soc-hysteresis-ekf/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="battery state-of-charge ekf examples/battery-soc-ekf/readme.md how can a transparent extended kalman filter correct a biased native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Battery State-of-Charge EKF</h3><p class="excerpt">How can a transparent extended Kalman filter correct a biased</p>
+              <p class="source-path"><code>examples/battery-soc-ekf/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-soc-ekf/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="closed-loop averaged converter examples/converter-closed-loop-model/readme.md this base-matlab reference adds bounded closed-loop control to an averaged native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Closed-Loop Averaged Converter</h3><p class="excerpt">This base-MATLAB reference adds bounded closed-loop control to an averaged</p>
+              <p class="source-path"><code>examples/converter-closed-loop-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/converter-closed-loop-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="sample timing contract examples/bess-unified-control/docs/sample-timing.md the runners record plant state at the input timestamp, before integrating native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Sample timing contract</h3><p class="excerpt">The runners record plant state at the input timestamp, before integrating</p>
+              <p class="source-path"><code>examples/bess-unified-control/docs/sample-timing.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/docs/sample-timing.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="switching buck converter examples/converter-switching-model/readme.md this base-matlab reference resolves ideal pulse-width modulation and the native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Switching Buck Converter</h3><p class="excerpt">This Base-MATLAB reference resolves ideal pulse-width modulation and the</p>
+              <p class="source-path"><code>examples/converter-switching-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/converter-switching-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="switching closed-loop buck converter examples/converter-switching-closed-loop-model/readme.md this base-matlab benchmark connects a bounded cascaded voltage/current native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Switching Closed-Loop Buck Converter</h3><p class="excerpt">This Base-MATLAB benchmark connects a bounded cascaded voltage/current</p>
+              <p class="source-path"><code>examples/converter-switching-closed-loop-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/converter-switching-closed-loop-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article></div>
+        </section><section class="catalog-section section-equations" id="equations" aria-labelledby="heading-equations">
+          <div class="section-banner"><img src="visuals/sections/section-02-equations.svg" alt="Section 02: Equations / provenance"></div>
+          <h2 id="heading-equations">Equations / provenance</h2>
+          <div class="lesson-grid"><article class="lesson-card" data-search="architecture examples/bess-unified-control/docs/architecture.md the generated simulink model is an executable shell around readable matlab native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Architecture</h3><p class="excerpt">The generated Simulink model is an executable shell around readable MATLAB</p>
+              <p class="source-path"><code>examples/bess-unified-control/docs/architecture.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/docs/architecture.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="battery ocv hysteresis model examples/battery-ocv-hysteresis/readme.md how can a small equivalent-circuit model preserve charge/discharge history so native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Battery OCV Hysteresis Model</h3><p class="excerpt">How can a small equivalent-circuit model preserve charge/discharge history so</p>
+              <p class="source-path"><code>examples/battery-ocv-hysteresis/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-ocv-hysteresis/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="battery pulse-response lab in base matlab docs/battery-pulse-response-lab.md use a first-order equivalent-circuit model to explain how current pulses change native reading model" data-tags="model">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Battery pulse-response lab in Base MATLAB</h3><p class="excerpt">Use a first-order equivalent-circuit model to explain how current pulses change</p>
+              <p class="source-path"><code>docs/battery-pulse-response-lab.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/battery-pulse-response-lab.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span></div>
+            </article><article class="lesson-card" data-search="bess dc-link and soc reserve model examples/bess-dc-reserve-model/readme.md this base-matlab benchmark makes the battery and dc-side availability behind a native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>BESS DC-Link and SOC Reserve Model</h3><p class="excerpt">This Base-MATLAB benchmark makes the battery and DC-side availability behind a</p>
+              <p class="source-path"><code>examples/bess-dc-reserve-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-dc-reserve-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="equations, frames, and conventions examples/bess-unified-control/docs/equations.md for three-phase rated apparent power \(s_b\), line-to-line rms voltage native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Equations, Frames, and Conventions</h3><p class="excerpt">For three-phase rated apparent power \(S_b\), line-to-line RMS voltage</p>
+              <p class="source-path"><code>examples/bess-unified-control/docs/equations.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/docs/equations.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="model selection by engineering decision docs/model-selection-by-decision.md choose the smallest model that can answer the decision you actually need to native reading model" data-tags="model">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Model Selection by Engineering Decision</h3><p class="excerpt">Choose the smallest model that can answer the decision you actually need to</p>
+              <p class="source-path"><code>docs/model-selection-by-decision.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/model-selection-by-decision.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span></div>
+            </article><article class="lesson-card" data-search="tuning and parameter replacement examples/bess-unified-control/docs/tuning.md all tunable values live in bess_unified_control_parameters.m; callers can native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Tuning and Parameter Replacement</h3><p class="excerpt">All tunable values live in bess_unified_control_parameters.m; callers can</p>
+              <p class="source-path"><code>examples/bess-unified-control/docs/tuning.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/docs/tuning.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="unified bess control work log examples/bess-unified-control/validation/work-log.md model repository: native lesson / example model native-lesson verification" data-tags="model native-lesson verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Unified BESS Control Work Log</h3><p class="excerpt">Model repository:</p>
+              <p class="source-path"><code>examples/bess-unified-control/validation/work-log.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/validation/work-log.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="which matlab battery, converter, or bess model should i use? docs/model-selection-guide.md use this guide to choose the smallest model that answers your engineering native reading model" data-tags="model">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Which MATLAB Battery, Converter, or BESS Model Should I Use?</h3><p class="excerpt">Use this guide to choose the smallest model that answers your engineering</p>
+              <p class="source-path"><code>docs/model-selection-guide.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/model-selection-guide.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span></div>
+            </article></div>
+        </section><section class="catalog-section section-reproduce" id="reproduce" aria-labelledby="heading-reproduce">
+          <div class="section-banner"><img src="visuals/sections/section-03-reproduce.svg" alt="Section 03: Reproduce / parameters"></div>
+          <h2 id="heading-reproduce">Reproduce / parameters</h2>
+          <div class="lesson-grid"><article class="lesson-card" data-search="battery module liquid-cooling thermal network examples/battery-module-cooling-network/readme.md this base-matlab example models six battery-cell thermal masses along a serial native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Battery Module Liquid-Cooling Thermal Network</h3><p class="excerpt">This base-MATLAB example models six battery-cell thermal masses along a serial</p>
+              <p class="source-path"><code>examples/battery-module-cooling-network/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-module-cooling-network/README.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="battery rc model example examples/battery-rc-model/readme.md this runnable example implements a simple first-order battery equivalent-circuit model in matlab. native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Battery RC Model Example</h3><p class="excerpt">This runnable example implements a simple first-order battery equivalent-circuit model in MATLAB.</p>
+              <p class="source-path"><code>examples/battery-rc-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-rc-model/README.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="example troubleshooting notes examples/guides/example-troubleshooting-notes.md use these notes to triage common run, path, data, and expected-output problems in the matlab examples. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Example Troubleshooting Notes</h3><p class="excerpt">Use these notes to triage common run, path, data, and expected-output problems in the MATLAB examples.</p>
+              <p class="source-path"><code>examples/guides/example-troubleshooting-notes.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/example-troubleshooting-notes.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="grid-forming bess control in matlab and simulink: an executable walkthrough docs/grid-forming-bess-control.md grid-forming control is easiest to learn when operating modes, transition native reading native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Grid-Forming BESS Control in MATLAB and Simulink: An Executable Walkthrough</h3><p class="excerpt">Grid-forming control is easiest to learn when operating modes, transition</p>
+              <p class="source-path"><code>docs/grid-forming-bess-control.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/grid-forming-bess-control.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="matlab examples index examples/readme.md this index lists the starter matlab examples, their purpose, key files, and run commands. native lesson / example native-lesson reproduction" data-tags="native-lesson reproduction">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>MATLAB Examples Index</h3><p class="excerpt">This index lists the starter MATLAB examples, their purpose, key files, and run commands.</p>
+              <p class="source-path"><code>examples/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/README.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">reproduction</span></div>
+            </article><article class="lesson-card" data-search="modeling standards notes/modeling-standards.md use these standards for examples in this repository. native reading model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Modeling Standards</h3><p class="excerpt">Use these standards for examples in this repository.</p>
+              <p class="source-path"><code>notes/modeling-standards.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/notes/modeling-standards.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="native simulink averaged buck converter examples/converter-simulink-model/readme.md this example generates a genuine simulink block diagram from readable matlab native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Native Simulink Averaged Buck Converter</h3><p class="excerpt">This example generates a genuine Simulink block diagram from readable MATLAB</p>
+              <p class="source-path"><code>examples/converter-simulink-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/converter-simulink-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="native simulink battery 2rc model examples/battery-2rc-simulink-model/readme.md this example generates an inspectable simulink block diagram for the existing native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Native Simulink Battery 2RC Model</h3><p class="excerpt">This example generates an inspectable Simulink block diagram for the existing</p>
+              <p class="source-path"><code>examples/battery-2rc-simulink-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-2rc-simulink-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="native simulink battery rc model examples/battery-simulink-model/readme.md this example generates an inspectable simulink block diagram for the existing native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Native Simulink Battery RC Model</h3><p class="excerpt">This example generates an inspectable Simulink block diagram for the existing</p>
+              <p class="source-path"><code>examples/battery-simulink-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-simulink-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="native simulink battery thermal model examples/battery-thermal-simulink-model/readme.md this example generates an inspectable discrete simulink diagram for the native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Native Simulink Battery Thermal Model</h3><p class="excerpt">This example generates an inspectable discrete Simulink diagram for the</p>
+              <p class="source-path"><code>examples/battery-thermal-simulink-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-thermal-simulink-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="native simulink switching closed-loop buck examples/converter-switching-closed-loop-simulink-model/readme.md this example generates a genuine fixed-step simulink block diagram for the native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Native Simulink Switching Closed-Loop Buck</h3><p class="excerpt">This example generates a genuine fixed-step Simulink block diagram for the</p>
+              <p class="source-path"><code>examples/converter-switching-closed-loop-simulink-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/converter-switching-closed-loop-simulink-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="pouch-cell through-thickness thermal gradient examples/pouch-cell-thermal-gradient/readme.md this base-matlab example resolves a pouch cell as a one-dimensional slab of native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Pouch-Cell Through-Thickness Thermal Gradient</h3><p class="excerpt">This base-MATLAB example resolves a pouch cell as a one-dimensional slab of</p>
+              <p class="source-path"><code>examples/pouch-cell-thermal-gradient/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/pouch-cell-thermal-gradient/README.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="temperature-aware battery model examples/battery-thermal-model/readme.md this runnable matlab example couples a first-order battery equivalent circuit native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Temperature-Aware Battery Model</h3><p class="excerpt">This runnable MATLAB example couples a first-order battery equivalent circuit</p>
+              <p class="source-path"><code>examples/battery-thermal-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-thermal-model/README.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="unified bess control requirements examples/bess-unified-control/requirements/requirements.md this example is a transparent engineering translation of the unified bess native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Unified BESS Control Requirements</h3><p class="excerpt">This example is a transparent engineering translation of the unified BESS</p>
+              <p class="source-path"><code>examples/bess-unified-control/requirements/requirements.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/requirements/requirements.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="unified grid-tied and grid-forming bess control examples/bess-unified-control/readme.md this example is a transparent, executable engineering translation of the native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Unified Grid-Tied and Grid-Forming BESS Control</h3><p class="excerpt">This example is a transparent, executable engineering translation of the</p>
+              <p class="source-path"><code>examples/bess-unified-control/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/README.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="⚡ matlab simulink energy lab readme.md conceptual model-family artwork, not simulation output. run your first example. native overview model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native overview</span></div>
+              <h3>⚡ MATLAB Simulink Energy Lab</h3><p class="excerpt">Conceptual model-family artwork, not simulation output. Run your first example.</p>
+              <p class="source-path"><code>README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/README.md#L3" target="_blank" rel="noopener noreferrer">Historical README/source guide at ed410f7db8c6</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article></div>
+        </section><section class="catalog-section section-verification" id="verification" aria-labelledby="heading-verification">
+          <div class="section-banner"><img src="visuals/sections/section-04-verification.svg" alt="Section 04: Verification / output"></div>
+          <h2 id="heading-verification">Verification / output</h2>
+          <div class="lesson-grid"><article class="lesson-card" data-search="automation readiness guide examples/guides/automation-readiness-guide.md use this guide for making examples easier to validate through fast, no-plot automation checks. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Automation Readiness Guide</h3><p class="excerpt">Use this guide for making examples easier to validate through fast, no-plot automation checks. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/automation-readiness-guide.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/automation-readiness-guide.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="battery 2rc model example examples/battery-2rc-model/readme.md this runnable example extends the validated battery state pipeline with two native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Battery 2RC Model Example</h3><p class="excerpt">This runnable example extends the validated battery state pipeline with two</p>
+              <p class="source-path"><code>examples/battery-2rc-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/battery-2rc-model/README.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="dependency inventory guide examples/guides/dependency-inventory-guide.md use this guide for identifying required matlab products, files, and local data before example publication. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Dependency Inventory Guide</h3><p class="excerpt">Use this guide for identifying required MATLAB products, files, and local data before example publication. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/dependency-inventory-guide.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/dependency-inventory-guide.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="documentation update playbook examples/guides/documentation-update-playbook.md use this guide for keeping readme text, expected outputs, and validation commands synchronized after edits. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson reproduction verification" data-tags="native-lesson reproduction verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Documentation Update Playbook</h3><p class="excerpt">Use this guide for keeping README text, expected outputs, and validation commands synchronized after edits. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/documentation-update-playbook.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/documentation-update-playbook.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">reproduction</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="example release checklist examples/guides/example-release-checklist.md use this guide for checking documentation, sample data, and validation commands before an example is treated as ready. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson reproduction verification" data-tags="native-lesson reproduction verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Example Release Checklist</h3><p class="excerpt">Use this guide for checking documentation, sample data, and validation commands before an example is treated as ready. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/example-release-checklist.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/example-release-checklist.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">reproduction</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="expected output change log examples/guides/expected-output-change-log.md use this guide for documenting intentional changes to example outputs so checks and readme text stay aligned. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Expected Output Change Log</h3><p class="excerpt">Use this guide for documenting intentional changes to example outputs so checks and README text stay aligned. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/expected-output-change-log.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/expected-output-change-log.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="future example idea bank examples/guides/future-example-idea-bank.md use this guide for collecting small future example ideas with validation and data requirements. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson verification" data-tags="native-lesson verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Future Example Idea Bank</h3><p class="excerpt">Use this guide for collecting small future example ideas with validation and data requirements. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/future-example-idea-bank.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/future-example-idea-bank.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="input profile review guide examples/guides/input-profile-review-guide.md use this guide for checking current, load, irradiance, or control input profiles before they drive examples. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Input Profile Review Guide</h3><p class="excerpt">Use this guide for checking current, load, irradiance, or control input profiles before they drive examples. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/input-profile-review-guide.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/input-profile-review-guide.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="machine-readable validation manifest docs/validation-manifest.md the general matlab validation job native reading verification" data-tags="verification">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Machine-Readable Validation Manifest</h3><p class="excerpt">The general MATLAB validation job</p>
+              <p class="source-path"><code>docs/validation-manifest.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/validation-manifest.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="parameter review guide examples/guides/parameter-review-guide.md use this guide for checking example parameters for units, source, range, and educational placeholder status. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Parameter Review Guide</h3><p class="excerpt">Use this guide for checking example parameters for units, source, range, and educational placeholder status. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/parameter-review-guide.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/parameter-review-guide.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="plotting script review examples/guides/plotting-script-review.md use this guide for checking that plotting scripts remain useful for explanation without hiding model logic. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Plotting Script Review</h3><p class="excerpt">Use this guide for checking that plotting scripts remain useful for explanation without hiding model logic. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/plotting-script-review.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/plotting-script-review.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="reproducibility checklist examples/guides/reproducibility-checklist.md use this guide for checking whether another reviewer can run and understand the example from the repository alone. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson reproduction" data-tags="native-lesson reproduction">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Reproducibility Checklist</h3><p class="excerpt">Use this guide for checking whether another reviewer can run and understand the example from the repository alone. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/reproducibility-checklist.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/reproducibility-checklist.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">reproduction</span></div>
+            </article><article class="lesson-card" data-search="reproduction examples/bess-unified-control/docs/reproduction.md verified with matlab r2026a and simulink. no additional toolbox is required. native lesson / example native-lesson reproduction" data-tags="native-lesson reproduction">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Reproduction</h3><p class="excerpt">Verified with MATLAB R2026a and Simulink. No additional toolbox is required.</p>
+              <p class="source-path"><code>examples/bess-unified-control/docs/reproduction.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/docs/reproduction.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">reproduction</span></div>
+            </article><article class="lesson-card" data-search="reviewer runbook examples/guides/reviewer-runbook.md use this guide for giving reviewers a short path through example purpose, execution, and validation checks. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson verification" data-tags="native-lesson verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Reviewer Runbook</h3><p class="excerpt">Use this guide for giving reviewers a short path through example purpose, execution, and validation checks. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/reviewer-runbook.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/reviewer-runbook.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="sample data quality checklist examples/guides/sample-data-quality-checklist.md use this guide for checking local sample data before it becomes part of an executable example. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Sample Data Quality Checklist</h3><p class="excerpt">Use this guide for checking local sample data before it becomes part of an executable example. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/sample-data-quality-checklist.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/sample-data-quality-checklist.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="script structure review examples/guides/script-structure-review.md use this guide for keeping small example scripts readable, inspectable, and suitable for future checks. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Script Structure Review</h3><p class="excerpt">Use this guide for keeping small example scripts readable, inspectable, and suitable for future checks. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/script-structure-review.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/script-structure-review.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="small model extension plan examples/guides/small-model-extension-plan.md use this guide for planning small, reviewable example extensions without making starter models too large. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example model native-lesson" data-tags="model native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Small Model Extension Plan</h3><p class="excerpt">Use this guide for planning small, reviewable example extensions without making starter models too large. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/small-model-extension-plan.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/small-model-extension-plan.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="unified bess control validation report examples/bess-unified-control/validation/validation-report.md all eight mandatory scenarios and all focused matlab/simulink tests pass with native lesson / example native-lesson verification" data-tags="native-lesson verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Unified BESS Control Validation Report</h3><p class="excerpt">All eight mandatory scenarios and all focused MATLAB/Simulink tests pass with</p>
+              <p class="source-path"><code>examples/bess-unified-control/validation/validation-report.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/validation/validation-report.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="unit consistency checklist examples/guides/unit-consistency-checklist.md use this guide for catching unit mismatches before example scripts are reused or automated. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson" data-tags="native-lesson">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Unit Consistency Checklist</h3><p class="excerpt">Use this guide for catching unit mismatches before example scripts are reused or automated. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/unit-consistency-checklist.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/unit-consistency-checklist.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span></div>
+            </article><article class="lesson-card" data-search="validation error triage examples/guides/validation-error-triage.md use this guide for separating expected-output drift, parameter errors, and environment problems during checks. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example model native-lesson verification" data-tags="model native-lesson verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Validation Error Triage</h3><p class="excerpt">Use this guide for separating expected-output drift, parameter errors, and environment problems during checks. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/validation-error-triage.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/validation-error-triage.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="validation results docs/validation-results.md this page keeps the complete expected output for the repository regression native reading verification" data-tags="verification">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Validation Results</h3><p class="excerpt">This page keeps the complete expected output for the repository regression</p>
+              <p class="source-path"><code>docs/validation-results.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/validation-results.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">verification</span></div>
+            </article></div>
+        </section><section class="catalog-section section-scope" id="scope" aria-labelledby="heading-scope">
+          <div class="section-banner"><img src="visuals/sections/section-05-scope.svg" alt="Section 05: Scope / limitations"></div>
+          <h2 id="heading-scope">Scope / limitations</h2>
+          <div class="lesson-grid"><article class="lesson-card" data-search="a reproducible two-rc battery parameter-identification workflow in matlab docs/two-rc-battery-parameter-identification.md an equivalent-circuit model is useful when its assumptions, fitted parameters, native reading model reproduction scope" data-tags="model reproduction scope">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>A Reproducible Two-RC Battery Parameter-Identification Workflow in MATLAB</h3><p class="excerpt">An equivalent-circuit model is useful when its assumptions, fitted parameters,</p>
+              <p class="source-path"><code>docs/two-rc-battery-parameter-identification.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/two-rc-battery-parameter-identification.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">reproduction</span> <span class="tag">scope</span></div>
+            </article><article class="lesson-card" data-search="assumptions to tests map examples/guides/assumptions-to-tests-map.md use this guide for mapping example assumptions to the checks or outputs that should change if they are edited. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson scope verification" data-tags="native-lesson scope verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Assumptions To Tests Map</h3><p class="excerpt">Use this guide for mapping example assumptions to the checks or outputs that should change if they are edited. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/assumptions-to-tests-map.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/assumptions-to-tests-map.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">scope</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="converter average model scaffold examples/converter-average-model/readme.md this scaffold captures assumptions and signals for a simple averaged dc-dc converter example. it is intentionally small so the model intent can be reviewed before a detailed switching or simulink implementation is added. native lesson / example model native-lesson scope" data-tags="model native-lesson scope">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Converter Average Model Scaffold</h3><p class="excerpt">This scaffold captures assumptions and signals for a simple averaged DC-DC converter example. It is intentionally small so the model intent can be reviewed before a detailed switching or Simulink implementation is added.</p>
+              <p class="source-path"><code>examples/converter-average-model/README.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/converter-average-model/README.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">native lesson</span> <span class="tag">scope</span></div>
+            </article><article class="lesson-card" data-search="educational scaffold guidance examples/guides/educational-scaffold-guidance.md use this guide for separating teaching simplifications from project-ready engineering assumptions. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson scope" data-tags="native-lesson scope">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Educational Scaffold Guidance</h3><p class="excerpt">Use this guide for separating teaching simplifications from project-ready engineering assumptions. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/educational-scaffold-guidance.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/educational-scaffold-guidance.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">scope</span></div>
+            </article><article class="lesson-card" data-search="example quality scorecard examples/guides/example-quality-scorecard.md use this guide for scoring starter examples on clarity, runnability, assumptions, outputs, and validation readiness. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson scope verification" data-tags="native-lesson scope verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Example Quality Scorecard</h3><p class="excerpt">Use this guide for scoring starter examples on clarity, runnability, assumptions, outputs, and validation readiness. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/example-quality-scorecard.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/example-quality-scorecard.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">scope</span> <span class="tag">verification</span></div>
+            </article><article class="lesson-card" data-search="limitations, safety, and qualification examples/bess-unified-control/docs/limitations.md this implementation is a transparent research translation and educational native lesson / example native-lesson scope" data-tags="native-lesson scope">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Limitations, Safety, and Qualification</h3><p class="excerpt">This implementation is a transparent research translation and educational</p>
+              <p class="source-path"><code>examples/bess-unified-control/docs/limitations.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/docs/limitations.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">scope</span></div>
+            </article><article class="lesson-card" data-search="project assumptions examples/bess-unified-control/requirements/assumptions.md the identifiers in this register are stable. numerical values live in the native lesson / example native-lesson scope" data-tags="native-lesson scope">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Project Assumptions</h3><p class="excerpt">The identifiers in this register are stable. Numerical values live in the</p>
+              <p class="source-path"><code>examples/bess-unified-control/requirements/assumptions.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/bess-unified-control/requirements/assumptions.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">scope</span></div>
+            </article><article class="lesson-card" data-search="reduced-order matlab and simulink models versus higher-fidelity workflows docs/scope-comparison.md matlab simulink energy lab favors small, inspectable models whose assumptions, native reading model reproduction scope" data-tags="model reproduction scope">
+              <div class="card-meta"><span>Native reading</span></div>
+              <h3>Reduced-Order MATLAB and Simulink Models Versus Higher-Fidelity Workflows</h3><p class="excerpt">MATLAB Simulink Energy Lab favors small, inspectable models whose assumptions,</p>
+              <p class="source-path"><code>docs/scope-comparison.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/scope-comparison.md#L3" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">model</span> <span class="tag">reproduction</span> <span class="tag">scope</span></div>
+            </article><article class="lesson-card" data-search="result interpretation notes examples/guides/result-interpretation-notes.md use this guide for explaining how to interpret starter example outputs without overstating their scope. it is written for small matlab and simulink examples that should remain easy to run, inspect, and validate. native lesson / example native-lesson scope verification" data-tags="native-lesson scope verification">
+              <div class="card-meta"><span>Native lesson / example</span></div>
+              <h3>Result Interpretation Notes</h3><p class="excerpt">Use this guide for explaining how to interpret starter example outputs without overstating their scope. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.</p>
+              <p class="source-path"><code>examples/guides/result-interpretation-notes.md</code></p>
+              <div class="card-links"><a class="source-link" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/examples/guides/result-interpretation-notes.md#L1" target="_blank" rel="noopener noreferrer">Source at 6fed303797df</a></div><div class="tags"><span class="tag">native lesson</span> <span class="tag">scope</span> <span class="tag">verification</span></div>
+            </article></div>
+        </section>
+<footer class="footer"><p>Repository: <a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab" target="_blank" rel="noopener noreferrer">mohammadrezwankhan/matlab-simulink-energy-lab</a> · audited source revision 6fed303797dff87409879b4dc3715b0a1e01c1a4.</p><p>The page is a source navigator. It is not a native runtime, verification result, peer review, or physical-fidelity claim.</p></footer>
+</main><script>
+(() => {
+  const search = document.getElementById('lesson-search');
+  const cards = [...document.querySelectorAll('.lesson-card')];
+  const filters = new Set();
+  const count = document.getElementById('result-count');
+  const filterButtons = [...document.querySelectorAll('[data-tag-filter]')];
+  function applyFilters() {
+    const query = (search.value || '').trim().toLocaleLowerCase();
+    let shown = 0;
+    for (const card of cards) {
+      const matchesText = !query || card.dataset.search.includes(query);
+      const cardTags = new Set((card.dataset.tags || '').split(/\s+/).filter(Boolean));
+      const matchesTags = filters.size === 0 || [...filters].every(tag => cardTags.has(tag));
+      card.hidden = !(matchesText && matchesTags);
+      if (!card.hidden) shown += 1;
+    }
+    count.textContent = `${shown} of ${cards.length} materials`;
+  }
+  search.addEventListener('input', applyFilters);
+  for (const button of filterButtons) button.addEventListener('click', () => {
+    const tag = button.dataset.tagFilter;
+    if (filters.has(tag)) filters.delete(tag); else filters.add(tag);
+    button.setAttribute('aria-pressed', filters.has(tag) ? 'true' : 'false');
+    applyFilters();
+  });
+  async function copyText(text) {
+    try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(text); return true; } } catch (_) {}
+    const field = document.createElement('textarea');
+    field.value = text; field.setAttribute('readonly', '');
+    field.style.position = 'fixed'; field.style.opacity = '0';
+    document.body.append(field); field.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch (_) { copied = false; }
+    field.remove(); return copied;
+  }
+  for (const button of document.querySelectorAll('[data-copy]')) button.addEventListener('click', async () => {
+    const original = button.textContent;
+    const copied = await copyText(button.dataset.copy || '');
+    button.textContent = copied ? 'Copied' : 'Select command';
+    if (!copied) {
+      const code = button.closest('.command-card').querySelector('code');
+      const range = document.createRange(); range.selectNodeContents(code);
+      const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
+      code.setAttribute('tabindex', '-1'); code.focus();
+    }
+    window.setTimeout(() => { button.textContent = original; }, 1800);
+  });
+  applyFilters();
+})();
+</script></body></html>

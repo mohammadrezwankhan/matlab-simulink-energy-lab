@@ -2,6 +2,8 @@
 
 # Equations, Frames, and Conventions
 
+![Section 02 · Equations / provenance](../../../docs/visuals/sections/section-02-equations.svg)
+
 ## Per-unit bases
 
 For three-phase rated apparent power \(S_b\), line-to-line RMS voltage

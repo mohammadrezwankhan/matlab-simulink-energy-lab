@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="pouch-gradient-title pouch-gradient-desc">
+<title id="pouch-gradient-title">POUCH CELL — 1D through-thickness finite volumes</title>
+<desc id="pouch-gradient-desc">A source-faithful finite-volume schematic with 15 cell-centered thermal states across pouch thickness, uniform prescribed cell heat divided among nodes, conduction between adjacent volumes, and distinct left/right convective boundaries. It is one-dimensional and does not resolve in-plane or layer-specific detail. Decorative dash motion is not runtime telemetry and stops when reduced motion is requested.</desc>
+<defs>
+  <linearGradient id="pouch-gradient-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--bg-top)"/><stop offset="1" stop-color="var(--bg)"/></linearGradient>
+  <pattern id="pouch-gradient-dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="var(--grid)" opacity=".28"/></pattern>
+  <marker id="pouch-gradient-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00E5FF"/></marker>
+  <style>
+    :root { color-scheme: dark light; --bg:#07111F; --bg-top:#0D2235; --surface:#102237; --surface-2:#142B42; --ink:#E8F2FB; --muted:#A6BAD0; --grid:#5F7891; --outline:#36516A; --shadow:#020711; --accent:#00E5FF; }
+    @media (prefers-color-scheme: light) { :root { --bg:#F5F9FC; --bg-top:#EAF3F9; --surface:#FFFFFF; --surface-2:#F1F7FA; --ink:#102237; --muted:#40566C; --grid:#AFC2D1; --outline:#9AB0C2; --shadow:#426078; --accent:#083344; } }
+    text { font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill:var(--ink); }
+    .eyebrow { font-size:12px; font-weight:750; letter-spacing:2px; fill:var(--accent); }
+    .title { font-size:26px; font-weight:650; letter-spacing:-.35px; }
+    .micro { font-size:12px; fill:var(--muted); }
+    .label { font-size:15px; font-weight:620; }
+    .small-label { font-size:13px; font-weight:620; }
+    .stage-top { fill:var(--surface-2); stroke:var(--outline); stroke-width:1.4; }
+    .stage-front { fill:var(--surface); stroke:var(--outline); stroke-width:1.2; }
+    .edge { stroke:var(--outline); stroke-width:1.3; fill:none; }
+    .wire { fill:none; stroke:var(--ink); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    .thin-wire { fill:none; stroke:var(--muted); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .flow { stroke-dasharray:10 9; animation:pouch-gradient-flow 1.8s linear infinite; }
+    @keyframes pouch-gradient-flow { to { stroke-dashoffset:-38; } }
+    .box-shadow { fill:var(--shadow); opacity:.38; }
+    .panel { fill:var(--surface); stroke:var(--outline); stroke-width:1.35; }
+    .capsule { fill:var(--surface-2); stroke:var(--outline); stroke-width:1.1; }
+    .physics { stroke:#00E5FF; } .estimation { stroke:#10B981; } .power { stroke:#F59E0B; } .qa { stroke:#8B5CF6; } .limits { stroke:#F43F5E; }
+    .fill-physics { fill:#083344; stroke:#00E5FF; } .fill-estimation { fill:#064E3B; stroke:#10B981; } .fill-power { fill:#451A03; stroke:#F59E0B; } .fill-qa { fill:#2E1065; stroke:#8B5CF6; } .fill-limits { fill:#4C0519; stroke:#F43F5E; }
+    .component { stroke-width:1.7; stroke-linejoin:round; }
+    .on-color { fill:#F8FBFF !important; }
+    .note { fill:var(--surface); stroke:#F43F5E; stroke-width:1.15; }
+    .note-text { font-size:13px; font-weight:560; }
+    @media (prefers-reduced-motion: reduce) { .flow { animation:none !important; stroke-dashoffset:0; } }
+  </style>
+</defs>
+<rect width="960" height="560" rx="24" fill="url(#pouch-gradient-bg)"/>
+<rect width="960" height="560" rx="24" fill="url(#pouch-gradient-dots)" opacity=".42"/>
+<text class="eyebrow" x="40" y="39">POUCH CELL</text>
+<text class="title" x="40" y="77">1D through-thickness finite volumes</text>
+<text class="micro" x="920" y="42" text-anchor="end" letter-spacing="1.5">2.5D / CONCEPTUAL</text>
+<g aria-hidden="true">
+  <polygon class="box-shadow" points="480,139 882,278 480,417 78,278" transform="translate(0 18)"/>
+  <polygon class="stage-front" points="78,278 480,417 480,443 78,304"/>
+  <polygon class="stage-front" points="882,278 480,417 480,443 882,304"/>
+  <polygon class="stage-top" points="480,139 882,278 480,417 78,278"/>
+  <path d="M160 278 480 168 800 278 480 388Z" fill="none" stroke="var(--grid)" stroke-width=".9" opacity=".26"/>
+  <path d="M240 278 480 195 720 278 480 361Z" fill="none" stroke="var(--grid)" stroke-width=".9" opacity=".22"/>
+</g>
+
+<!-- One-dimensional, cell-centred slab mesh. Equal face fills deliberately avoid presenting a fabricated temperature field. -->
+<rect x="211" y="194" width="540" height="28" rx="10" class="fill-power component"/>
+<text class="small-label on-color" x="481" y="213" text-anchor="middle">uniform prescribed heat Qcell / N to each control volume</text>
+<text class="micro" x="480" y="177" text-anchor="middle">through-thickness coordinate z  →</text>
+<!-- Both broad-face fluid boundaries are independent. -->
+<rect x="56" y="260" width="142" height="102" rx="13" class="fill-estimation component"/>
+<text class="small-label on-color" x="127" y="286" text-anchor="middle">left fluid</text><text class="micro on-color" x="127" y="307" text-anchor="middle">T∞,L = 25 °C</text><text class="micro on-color" x="127" y="332" text-anchor="middle">hL = 35 W/m²K</text><text class="micro on-color" x="127" y="351" text-anchor="middle">Gboundary,L</text>
+<rect x="762" y="260" width="142" height="102" rx="13" class="fill-estimation component"/>
+<text class="small-label on-color" x="833" y="286" text-anchor="middle">right fluid</text><text class="micro on-color" x="833" y="307" text-anchor="middle">T∞,R = 25 °C</text><text class="micro on-color" x="833" y="332" text-anchor="middle">hR = 12 W/m²K</text><text class="micro on-color" x="833" y="351" text-anchor="middle">Gboundary,R</text>
+<path d="M211 309h-13 M751 309h11" fill="none" stroke="#10B981" stroke-width="3" marker-end="url(#pouch-gradient-arrow)"/>
+<g aria-label="Control volume 1">
+  <polygon points="211,247 215,243 247,243 243,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="211" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="243,247 247,243 247,354 243,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="227" cy="293" r="3.2" fill="#10B981"/>
+  <text x="227" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T1</text>
+  <path d="M227 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 2">
+  <polygon points="247,247 251,243 283,243 279,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="247" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="279,247 283,243 283,354 279,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="263" cy="293" r="3.2" fill="#10B981"/>
+  <text x="263" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T2</text>
+  <path d="M263 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 3">
+  <polygon points="283,247 287,243 319,243 315,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="283" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="315,247 319,243 319,354 315,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="299" cy="293" r="3.2" fill="#10B981"/>
+  <text x="299" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T3</text>
+  <path d="M299 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 4">
+  <polygon points="319,247 323,243 355,243 351,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="319" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="351,247 355,243 355,354 351,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="335" cy="293" r="3.2" fill="#10B981"/>
+  <text x="335" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T4</text>
+  <path d="M335 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 5">
+  <polygon points="355,247 359,243 391,243 387,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="355" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="387,247 391,243 391,354 387,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="371" cy="293" r="3.2" fill="#10B981"/>
+  <text x="371" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T5</text>
+  <path d="M371 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 6">
+  <polygon points="391,247 395,243 427,243 423,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="391" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="423,247 427,243 427,354 423,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="407" cy="293" r="3.2" fill="#10B981"/>
+  <text x="407" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T6</text>
+  <path d="M407 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 7">
+  <polygon points="427,247 431,243 463,243 459,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="427" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="459,247 463,243 463,354 459,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="443" cy="293" r="3.2" fill="#10B981"/>
+  <text x="443" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T7</text>
+  <path d="M443 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 8">
+  <polygon points="463,247 467,243 499,243 495,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="463" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="495,247 499,243 499,354 495,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="479" cy="293" r="3.2" fill="#10B981"/>
+  <text x="479" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T8</text>
+  <path d="M479 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 9">
+  <polygon points="499,247 503,243 535,243 531,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="499" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="531,247 535,243 535,354 531,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="515" cy="293" r="3.2" fill="#10B981"/>
+  <text x="515" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T9</text>
+  <path d="M515 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 10">
+  <polygon points="535,247 539,243 571,243 567,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="535" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="567,247 571,243 571,354 567,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="551" cy="293" r="3.2" fill="#10B981"/>
+  <text x="551" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T10</text>
+  <path d="M551 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 11">
+  <polygon points="571,247 575,243 607,243 603,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="571" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="603,247 607,243 607,354 603,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="587" cy="293" r="3.2" fill="#10B981"/>
+  <text x="587" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T11</text>
+  <path d="M587 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 12">
+  <polygon points="607,247 611,243 643,243 639,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="607" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="639,247 643,243 643,354 639,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="623" cy="293" r="3.2" fill="#10B981"/>
+  <text x="623" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T12</text>
+  <path d="M623 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 13">
+  <polygon points="643,247 647,243 679,243 675,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="643" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="675,247 679,243 679,354 675,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="659" cy="293" r="3.2" fill="#10B981"/>
+  <text x="659" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T13</text>
+  <path d="M659 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 14">
+  <polygon points="679,247 683,243 715,243 711,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="679" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="711,247 715,243 715,354 711,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="695" cy="293" r="3.2" fill="#10B981"/>
+  <text x="695" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T14</text>
+  <path d="M695 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+<g aria-label="Control volume 15">
+  <polygon points="715,247 719,243 751,243 747,247" fill="#064252" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="715" y="247" width="32" height="111" fill="#083344" stroke="#00E5FF" stroke-width="1.15"/>
+  <polygon points="747,247 751,243 751,354 747,358" fill="#052A36" stroke="#00E5FF" stroke-width="1"/>
+  <circle cx="731" cy="293" r="3.2" fill="#10B981"/>
+  <text x="731" y="322" text-anchor="middle" font-size="9" font-weight="650" fill="#F8FBFF">T15</text>
+  <path d="M731 222v14" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#pouch-gradient-arrow)"/>
+</g>
+
+<!-- The adjacent-node conduction chain and the two combined half-cell/convection boundaries. -->
+<path d="M227 375h504" fill="none" stroke="#00E5FF" stroke-width="2.5"/>
+<path d="M250 375h34 M322 375h34 M394 375h34 M466 375h34 M538 375h34 M610 375h34 M682 375h34" fill="none" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 5"/>
+<path d="M227 368v15 M731 368v15" stroke="#00E5FF" stroke-width="2"/>
+<text class="small-label" x="480" y="399" text-anchor="middle">Gz = kz·A/Δz  ·  signed interface flows cancel in the whole-cell sum</text>
+<rect x="78" y="415" width="526" height="43" rx="11" class="capsule"/>
+<text class="small-label" x="341" y="433" text-anchor="middle">Cnode·dTi/dt = Qcell/N + Gz(Ti−1−Ti) + Gz(Ti+1−Ti)</text>
+<text class="micro" x="341" y="450" text-anchor="middle">interior-node balance; flow direction follows ΔT, end nodes use separate boundary conductance</text>
+<rect x="627" y="415" width="255" height="43" rx="11" class="capsule"/>
+<text class="small-label" x="754" y="433" text-anchor="middle">source defaults: N = 15 · L = 8 mm</text>
+<text class="micro" x="754" y="450" text-anchor="middle">illustrative properties; not cell-calibrated</text>
+<rect class="note" x="40" y="478" width="880" height="54" rx="12"/>
+<circle cx="62" cy="505" r="7" fill="#F43F5E"/>
+<text class="note-text" x="80" y="501">SCOPE</text><text class="micro" x="80" y="519">1D cell-centred model: uniform heat, asymmetric face cooling. No in-plane, tab, layer-data, or safety claims.</text>
+</svg>

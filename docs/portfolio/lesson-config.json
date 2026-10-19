@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "repository": "mohammadrezwankhan/matlab-simulink-energy-lab",
+  "display_name": "MATLAB & Simulink Energy Lab",
+  "description": "Runnable MATLAB and Simulink energy models with guided experiments, transparent assumptions and focused checks.",
+  "domain": "DOMAIN_D",
+  "theme": {
+    "accent": "#FF6D00",
+    "secondary": "#00B0FF",
+    "surface": "#1A1412",
+    "glow": "rgba(255, 109, 0, 0.35)",
+    "label": "Simulation & digital twins",
+    "short": "Simulation"
+  },
+  "repo_type": "research model",
+  "source_revision": "ed410f7db8c6f425c0d38ca5d03358975300872e",
+  "source_snapshot_date": "2026-10-19",
+  "repo_url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab",
+  "homepage": "https://mrkhan.co.technology/models/matlab-simulink-energy-lab/",
+  "upstream": null,
+  "lessons": [
+    {
+      "id": "path-01",
+      "title": "Battery pulse response",
+      "summary": "Relate current pulses to SOC, polarization and terminal voltage.",
+      "objective": "Relate current pulses to SOC, polarization and terminal voltage.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Foundation",
+      "tags": [
+        "foundations",
+        "engineering",
+        "battery",
+        "state-estimation",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/battery-rc-model/README.md",
+        "examples/battery-rc-model/simulate_battery_rc_model.m",
+        "examples/battery-rc-model/check_battery_rc_model.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-rc-model/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-rc-model/simulate_battery_rc_model.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-rc-model/check_battery_rc_model.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "current profile",
+            "capacity and RC parameters"
+          ],
+          "expected_outputs": [
+            "current/SOC/voltage and duty-cycle outputs"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    },
+    {
+      "id": "path-02",
+      "title": "Two-RC identification",
+      "summary": "Identify positive fast/slow parameters and test on a held-out pulse profile.",
+      "objective": "Identify positive fast/slow parameters and test on a held-out pulse profile.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Foundation",
+      "tags": [
+        "foundations",
+        "engineering",
+        "battery",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/battery-2rc-model/README.md",
+        "examples/battery-2rc-model/fit_battery_2rc_parameters.m",
+        "examples/battery-2rc-model/check_battery_2rc_fit.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-2rc-model/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-2rc-model/fit_battery_2rc_parameters.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-2rc-model/check_battery_2rc_fit.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "fit pulse data",
+            "held-out validation data"
+          ],
+          "expected_outputs": [
+            "fit parameters",
+            "independent residuals"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    },
+    {
+      "id": "path-03",
+      "title": "SOC estimation and bias",
+      "summary": "Interpret noisy voltage/current, SOC estimates and sensor-bias sensitivity.",
+      "objective": "Interpret noisy voltage/current, SOC estimates and sensor-bias sensitivity.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Applied",
+      "tags": [
+        "application",
+        "engineering",
+        "battery",
+        "state-estimation",
+        "uncertainty",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/battery-soc-ekf/README.md",
+        "examples/battery-soc-ekf/estimate_battery_soc_ekf.m",
+        "examples/battery-soc-ekf/check_battery_soc_ekf_current_bias.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-soc-ekf/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-soc-ekf/estimate_battery_soc_ekf.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-soc-ekf/check_battery_soc_ekf_current_bias.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "sensor noise",
+            "initial state",
+            "prescribed current bias"
+          ],
+          "expected_outputs": [
+            "SOC error",
+            "voltage residual",
+            "consistency diagnostics"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    },
+    {
+      "id": "path-04",
+      "title": "Thermal response and cooling",
+      "summary": "Connect electrical losses, cooling and temperature-dependent resistance.",
+      "objective": "Connect electrical losses, cooling and temperature-dependent resistance.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Applied",
+      "tags": [
+        "application",
+        "engineering",
+        "battery",
+        "thermal",
+        "uncertainty",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/battery-thermal-model/README.md",
+        "examples/battery-thermal-model/simulate_battery_thermal_model.m",
+        "examples/battery-thermal-model/check_battery_cooling_sensitivity.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-thermal-model/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-thermal-model/simulate_battery_thermal_model.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-thermal-model/check_battery_cooling_sensitivity.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "current duty cycle",
+            "thermal capacity",
+            "cooling conductance"
+          ],
+          "expected_outputs": [
+            "peak temperature",
+            "limit exposure",
+            "cooling energy"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    },
+    {
+      "id": "path-05",
+      "title": "Spatial module cooling",
+      "summary": "Follow serial coolant warming and cell-to-cell heat transfer.",
+      "objective": "Follow serial coolant warming and cell-to-cell heat transfer.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Applied",
+      "tags": [
+        "application",
+        "engineering",
+        "battery",
+        "thermal",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/battery-module-cooling-network/README.md",
+        "examples/battery-module-cooling-network/simulate_battery_module_cooling_network.m",
+        "examples/battery-module-cooling-network/check_battery_module_cooling_network.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-module-cooling-network/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-module-cooling-network/simulate_battery_module_cooling_network.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/battery-module-cooling-network/check_battery_module_cooling_network.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "six-cell module parameters",
+            "coolant and pulse profile"
+          ],
+          "expected_outputs": [
+            "cell temperatures",
+            "coolant temperatures",
+            "module spread"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    },
+    {
+      "id": "path-06",
+      "title": "Switching buck control",
+      "summary": "Explain controlled switching response and the limits of fixed-temperature loss models.",
+      "objective": "Explain controlled switching response and the limits of fixed-temperature loss models.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Applied",
+      "tags": [
+        "application",
+        "engineering",
+        "thermal",
+        "power-conversion",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/converter-switching-closed-loop-model/README.md",
+        "examples/converter-switching-closed-loop-model/simulate_switching_closed_loop_buck.m",
+        "examples/converter-switching-closed-loop-model/check_switching_closed_loop_buck.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/converter-switching-closed-loop-model/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/converter-switching-closed-loop-model/simulate_switching_closed_loop_buck.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/converter-switching-closed-loop-model/check_switching_closed_loop_buck.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "converter component values",
+            "switching settings",
+            "load step"
+          ],
+          "expected_outputs": [
+            "output voltage",
+            "ripple",
+            "current",
+            "loss estimates"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    },
+    {
+      "id": "path-07",
+      "title": "BESS DC reserve",
+      "summary": "Separate requested converter power from deliverable power constrained by SOC reserve/current/DC-link energy.",
+      "objective": "Separate requested converter power from deliverable power constrained by SOC reserve/current/DC-link energy.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Advanced",
+      "tags": [
+        "verification",
+        "engineering",
+        "battery",
+        "state-estimation",
+        "power-conversion",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/bess-dc-reserve-model/README.md",
+        "examples/bess-dc-reserve-model/simulate_bess_dc_reserve.m",
+        "examples/bess-dc-reserve-model/check_bess_dc_reserve_envelope.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/bess-dc-reserve-model/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/bess-dc-reserve-model/simulate_bess_dc_reserve.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/bess-dc-reserve-model/check_bess_dc_reserve_envelope.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "power request",
+            "SOC floor",
+            "battery/DC-link parameters"
+          ],
+          "expected_outputs": [
+            "deliverable power",
+            "curtailment time",
+            "SOC/DC-link state"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    },
+    {
+      "id": "path-08",
+      "title": "Unified grid-following/forming BESS control",
+      "summary": "Trace islanding, load support, synchronization and reconnection through the existing controller.",
+      "objective": "Trace islanding, load support, synchronization and reconnection through the existing controller.",
+      "checkpoint": "Run the named existing focused check; retain exact MATLAB/toolbox versions. Compare parameter-change outcomes to the documented assumptions and limits. Do not equate synthetic consistency with measured-cell, hardware or grid-code validation.",
+      "level": "Advanced",
+      "tags": [
+        "verification",
+        "engineering",
+        "battery",
+        "grid-control",
+        "evidence"
+      ],
+      "source_paths": [
+        "examples/bess-unified-control/README.md",
+        "examples/bess-unified-control/simulate_bess_unified_control.m",
+        "examples/bess-unified-control/check_bess_unified_control.m"
+      ],
+      "source_urls": [
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/bess-unified-control/README.md",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/bess-unified-control/simulate_bess_unified_control.m",
+        "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/ed410f7db8c6f425c0d38ca5d03358975300872e/examples/bess-unified-control/check_bess_unified_control.m"
+      ],
+      "parameters": [
+        {
+          "source_inputs": [
+            "predeclared validation scenario",
+            "controller and plant settings"
+          ],
+          "expected_outputs": [
+            "controller states",
+            "power/voltage traces",
+            "requirement scores"
+          ],
+          "note": "Source reference; execution and scientific verification are separate."
+        }
+      ],
+      "command": null,
+      "native_id": null,
+      "native_route": null,
+      "execution_status": "source-linked guide; no execution by this dashboard"
+    }
+  ]
+}

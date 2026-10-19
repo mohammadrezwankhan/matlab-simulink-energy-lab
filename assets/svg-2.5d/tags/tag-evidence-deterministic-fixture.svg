@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="52" viewBox="0 0 300 52" role="img" aria-labelledby="tag-evidence-deterministic-fixture-title tag-evidence-deterministic-fixture-desc">
+<title id="tag-evidence-deterministic-fixture-title">Evidence: DETERMINISTIC · FIXTURE-SCOPED</title><desc id="tag-evidence-deterministic-fixture-desc">Evidence: DETERMINISTIC · FIXTURE-SCOPED</desc>
+<defs><style>:root{color-scheme:dark light;--ink:#ecf5fb;--muted:#b8c9d7}@media(prefers-color-scheme:light){:root{--ink:#11253a;--muted:#344c62}}text{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.k{font-size:10px;font-weight:760;letter-spacing:1.25px;fill:#8B5CF6}.v{font-size:12px;font-weight:650;fill:var(--ink)}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style></defs>
+<rect x="1" y="1" width="298" height="50" rx="12" fill="#2E1065" stroke="#8B5CF6" stroke-width="1.4"/>
+<circle cx="18" cy="26" r="4" fill="#8B5CF6"/><text class="k" x="31" y="22">EVIDENCE</text><text class="v" x="31" y="39">DETERMINISTIC · FIXTURE-SCOPED</text>
+</svg>
