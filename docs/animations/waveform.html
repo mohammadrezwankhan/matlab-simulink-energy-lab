@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Previous waveform animation · matlab-simulink-energy-lab</title><style>:root {
+      --primary: #FF6D00;
+      --secondary: #00B0FF;
+      --surface: #1A1412;
+      --glow: rgba(255, 109, 0, 0.35);
+      --bg: #060911;
+      --card-bg: rgba(13, 21, 39, 0.72);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+.stage-perspective {
+      perspective: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .iso-stage {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(25deg) rotateY(-18deg) rotateZ(3deg);
+      transition: transform 0.6s var(--ease-out-expo);
+      cursor: pointer;
+    }
+
+    .iso-stage:hover {
+      transform: rotateX(18deg) rotateY(-8deg) rotateZ(1deg) scale(1.03);
+    }
+
+    .iso-card-layer {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      top: 5%;
+      left: 5%;
+      background: var(--card-bg);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--glow);
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      transform: translateZ(40px);
+      transition: transform 0.45s var(--ease-out-expo);
+    }
+
+    .iso-stage:hover .iso-card-layer {
+      transform: translateZ(65px);
+    }
+
+    .iso-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .canvas-container {
+      flex: 1;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Controls Bar */
+    .simulator-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .control-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .control-item label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .control-item input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+
+*{box-sizing:border-box}body{margin:0;background:#080e18;color:#eef5ff;font:16px/1.65 system-ui,sans-serif}main{max-width:1050px;margin:auto;padding:30px 24px}h1{font-size:clamp(27px,4vw,40px);line-height:1.2}p{color:#bdcce0;max-width:850px}a{color:var(--primary);text-underline-offset:4px}nav{display:flex;gap:20px;flex-wrap:wrap}button{font:inherit;color:#eef5ff;background:#20364e;border:1px solid #66819b;border-radius:9px;padding:10px 18px;min-height:44px;cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--primary);outline-offset:4px}.playback{display:flex;gap:16px;align-items:center;margin:24px 0}.stage-perspective{margin:40px 0 55px}.iso-stage{max-width:930px;height:440px}.iso-header{gap:12px}.iso-header h4{margin:0}.canvas-container{min-height:100px}.control-item{min-width:0}.control-item label{gap:6px;flex-wrap:wrap}.control-item input{margin:0}.boundary{border-left:3px solid #e99aac;padding:14px 18px;background:#35202e}body[data-playing=false] .iso-stage,body[data-playing=false] .iso-card-layer{transition:none!important}@media(max-width:620px){main{padding:24px 16px}.iso-stage{height:540px;transform:none}.iso-stage:hover{transform:none}.iso-card-layer{padding:16px;width:100%;left:0}.simulator-controls{grid-template-columns:1fr;gap:7px}.control-item{padding:6px 10px}.stage-perspective{margin:15px 0 40px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}.iso-stage,.iso-stage:hover{transform:none!important}.iso-card-layer,.iso-stage:hover .iso-card-layer{transform:none!important}}</style></head>
+<body data-playing="false"><main><nav aria-label="Animation navigation"><a href="index.html">All previous animations</a><a href="../index.html">Current interactive lab</a></nav>
+<h1>Original perspective &amp; waveform animation</h1><p>The earlier dashboard’s moving curves and hover tilt are available here. The three sliders control the original visual formulas. Playback starts paused.</p>
+<p class="boundary">Illustrative animation only. These curves are not telemetry, a calibrated model, or evidence of engineering performance. Use the current lab and native project documentation for model assumptions and verification.</p>
+<div class="playback"><button id="toggle" aria-pressed="false">Play animation</button><span id="status" role="status">Paused</span></div><div class="stage-perspective">
+        <div class="iso-stage" id="isoStage" title="Hover to tilt the original perspective card">
+          <div class="iso-card-layer">
+            <div class="iso-header">
+              <div>
+                <span style="font-size:10px; font-weight:700; color:var(--primary); letter-spacing:1px;">ARCHIVED MOTION STUDY</span>
+                <h4 style="font-size:16px; font-weight:800;">Waveform Dynamics</h4>
+              </div>
+              <span id="fpsCounter" style="font-family:monospace; font-size:11px; color:var(--secondary);">Illustrative</span>
+            </div>
+
+            <div class="canvas-container">
+              <canvas id="telemetryCanvas" role="img" aria-label="Two illustrative moving waveforms; these are decorative curves, not measured data."></canvas>
+            </div>
+
+            <div class="simulator-controls">
+              <div class="control-item">
+                <label for="rateSlider"><span>Animation speed</span><span id="rateVal">1.5</span></label>
+                <input type="range" id="rateSlider" min="0.5" max="5.0" step="0.1" value="1.5">
+              </div>
+              <div class="control-item">
+                <label for="tempSlider"><span>Wave amplitude</span><span id="tempVal">25</span></label>
+                <input type="range" id="tempSlider" min="0" max="60" step="1" value="25">
+              </div>
+              <div class="control-item">
+                <label for="dampSlider"><span>Damping Ratio</span><span id="dampVal">0.85</span></label>
+                <input type="range" id="dampSlider" min="0.1" max="1.0" step="0.05" value="0.85">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<p><a href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/index.html">View the exact earlier dashboard source</a>. The drawing formulas and perspective transforms are retained; labels and playback controls were updated for this archive.</p>
+<noscript><p>JavaScript is required to play the waveform. The source link remains available.</p></noscript></main><script>const canvas = document.getElementById('telemetryCanvas');
+const ctx = canvas.getContext('2d');
+const rateSlider = document.getElementById('rateSlider');
+const tempSlider = document.getElementById('tempSlider');
+const dampSlider = document.getElementById('dampSlider');
+const toggle = document.getElementById('toggle');
+let phase = 0, running = false, frame = 0;
+function resizeCanvas(){canvas.width=canvas.parentElement.clientWidth;canvas.height=canvas.parentElement.clientHeight;if(!running)animateTelemetry();}
+function animateTelemetry(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const rate = parseFloat(rateSlider.value);
+      const temp = parseFloat(tempSlider.value);
+      const damp = parseFloat(dampSlider.value);
+
+      if (running) phase += 0.04 * rate;
+
+      // Draw Grid Lines
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let y = 0; y < canvas.height; y += 30) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+
+      // Waveform 1: Primary Response
+      ctx.beginPath();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = '#FF6D00';
+      for (let x = 0; x < canvas.width; x++) {
+        const normX = x / canvas.width;
+        const decay = Math.exp(-normX * (1 - damp) * 2);
+        const y = canvas.height / 2 + Math.sin(normX * 12 + phase) * (35 * rate / 2) * decay + Math.cos(normX * 24 + phase * 1.5) * 6;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Waveform 2: Secondary Harmonic / Thermal Lag
+      ctx.beginPath();
+      ctx.lineWidth = 1.8;
+      ctx.strokeStyle = '#00B0FF';
+      for (let x = 0; x < canvas.width; x++) {
+        const normX = x / canvas.width;
+        const y = canvas.height / 2 + Math.sin(normX * 8 + phase * 0.7) * (20 + temp * 0.4);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      if (running) frame = requestAnimationFrame(animateTelemetry);
+}
+function setRunning(value){running=value;cancelAnimationFrame(frame);document.body.dataset.playing=String(value);toggle.setAttribute('aria-pressed',String(value));toggle.textContent=value?'Pause animation':'Play animation';document.getElementById('status').textContent=value?'Playing · illustrative curves':'Paused';animateTelemetry();}
+toggle.addEventListener('click',()=>setRunning(!running));
+for(const [control,output] of [[rateSlider,'rateVal'],[tempSlider,'tempVal'],[dampSlider,'dampVal']])control.addEventListener('input',()=>{document.getElementById(output).textContent=control.value;if(!running)animateTelemetry();});
+window.addEventListener('resize',resizeCanvas);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)setRunning(false);});
+window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',()=>setRunning(false));
+resizeCanvas();
+</script></body></html>
