@@ -199,7 +199,7 @@
       <polygon points="0,14 36,-4 36,28 0,46" fill="#00B0FF" />
       <!-- Glowing Beacon Ray -->
       <line x1="0" y1="46" x2="0" y2="90" stroke="url(#primaryGrad)" stroke-width="2" class="pulsing-circuit" />
-      <text x="-45" y="-30" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="10" font-weight="800">5000+ STAR READY</text>
+      <text x="-45" y="-30" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="10" font-weight="800">PRODUCTION READY</text>
     </g>
 
     <!-- Pulsing Vertical Data Beams Connecting Tiers -->
