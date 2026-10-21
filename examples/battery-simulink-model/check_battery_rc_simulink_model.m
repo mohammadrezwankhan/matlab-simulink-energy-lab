@@ -1,8 +1,10 @@
 %% Native Simulink Battery RC Check
 % Builds and validates canonical and nonlinear-OCV generated models.
 
-clearvars; clc;
 
+run_checks();
+
+function run_checks()
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-rc-model');
 originalPath = path;
@@ -15,11 +17,11 @@ assert(~isempty(ver('simulink')) && license('test', 'Simulink'), ...
 temporaryDirectory = tempname;
 mkdir(temporaryDirectory);
 modelName = 'battery_rc_simulink_model';
+cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 
 defaultDirectory = fullfile(temporaryDirectory, 'default');
 [defaultModelPath, defaultReference] = ...
     build_battery_rc_simulink_model(defaultDirectory);
-cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 assert(isfile(defaultModelPath), ...
     'The builder must create a real battery RC SLX model file.');
 load_system(defaultModelPath);
@@ -152,6 +154,7 @@ fprintf(['Maximum parity errors: %.3e A, %.3e SOC, %.3e Vrc, ', ...
     maximumCurrentError_A, maximumSocError, ...
     maximumPolarizationError_V, maximumOcvError_V, ...
     maximumTerminalError_V);
+end
 
 function metrics = compare_model_to_reference(modelName, referenceResult)
 simulationOutput = sim(modelName);

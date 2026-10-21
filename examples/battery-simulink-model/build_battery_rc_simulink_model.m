@@ -48,6 +48,7 @@ if bdIsLoaded(modelName)
         'already loaded. Save and close the existing model before rebuilding.'], ...
         modelName);
 end
+[destinationCleanup, backupPath] = protect_model_destination(modelPath, modelName);
 if isfile(modelPath)
     delete(modelPath);
 end
@@ -187,7 +188,10 @@ add_line(modelName, 'Terminal voltage balance/1', ...
 
 set_param(modelName, 'SimulationCommand', 'update');
 save_system(modelName, modelPath);
-clear modelCleanup pathCleanup;
+clear modelCleanup;
+delete(backupPath);
+clear destinationCleanup;
+clear pathCleanup;
 end
 
 function add_output_and_logger(modelName, outputName, variableName, ...
@@ -216,4 +220,52 @@ function close_model_if_loaded(modelName)
 if bdIsLoaded(modelName)
     close_system(modelName, 0);
 end
+end
+
+function [cleanup, backupPath] = protect_model_destination(modelPath, modelName)
+% Keep the previous bytes until the complete build and save have succeeded.
+hadExistingFile = isfile(modelPath);
+backupPath = tempname(fileparts(modelPath));
+if hadExistingFile
+    [copied, message] = copyfile(modelPath, backupPath);
+    if ~copied
+        if isfile(backupPath)
+            delete(backupPath);
+        end
+        error('GeneratedModel:DestinationBackup', ...
+            'Could not preserve the existing model: %s', message);
+    end
+else
+    [fileId, message] = fopen(backupPath, 'w');
+    if fileId < 0
+        error('GeneratedModel:DestinationBackup', ...
+            'Could not create a model transaction marker: %s', message);
+    end
+    fclose(fileId);
+end
+cleanup = onCleanup(@() restore_model_destination( ...
+    modelPath, backupPath, hadExistingFile, modelName));
+end
+
+function restore_model_destination(modelPath, backupPath, hadExistingFile, modelName)
+% Deleting the backup/marker after a successful save commits the destination.
+if ~isfile(backupPath)
+    return;
+end
+% The preloaded-name guard runs before this transaction is created. Close
+% this build's model before touching saved bytes, regardless of the order
+% in which MATLAB destroys destinationCleanup and modelCleanup on error.
+close_model_if_loaded(modelName);
+if hadExistingFile
+    [restored, message] = copyfile(backupPath, modelPath, 'f');
+    if ~restored
+        warning('GeneratedModel:DestinationRestore', ...
+            'Original model retained at %s; restore failed: %s', ...
+            backupPath, message);
+        return;
+    end
+elseif isfile(modelPath)
+    delete(modelPath);
+end
+delete(backupPath);
 end

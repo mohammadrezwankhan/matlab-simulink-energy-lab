@@ -1,8 +1,10 @@
 %% Native Simulink Battery 2RC Check
 % Builds and validates canonical and custom generated two-RC models.
 
-clearvars; clc;
 
+run_checks();
+
+function run_checks()
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-2rc-model');
 baseReferenceDirectory = fullfile(modelDirectory, '..', 'battery-rc-model');
@@ -16,11 +18,11 @@ assert(~isempty(ver('simulink')) && license('test', 'Simulink'), ...
 temporaryDirectory = tempname;
 mkdir(temporaryDirectory);
 modelName = 'battery_2rc_simulink_model';
+cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 
 defaultDirectory = fullfile(temporaryDirectory, 'default');
 [defaultModelPath, defaultReference] = ...
     build_battery_2rc_simulink_model(defaultDirectory);
-cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 assert(isfile(defaultModelPath), ...
     'The builder must create a real battery 2RC SLX model file.');
 load_system(defaultModelPath);
@@ -182,6 +184,7 @@ fprintf(['Maximum parity errors: %.3e A, %.3e SOC, %.3e Vrc1, ', ...
     maximumCurrentError_A, maximumSocError, maximumFastError_V, ...
     maximumSlowError_V, maximumTotalError_V, maximumOcvError_V, ...
     maximumTerminalError_V);
+end
 
 function metrics = compare_model_to_reference(modelName, referenceResult)
 simulationOutput = sim(modelName);

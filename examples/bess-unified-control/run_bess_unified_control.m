@@ -19,6 +19,7 @@ end
 scenario = scenarios(scenarioIndex);
 result = simulate_bess_unified_control(scenario, parameters);
 
+figure('Name', ['BESS scenario ', scenario.id], 'Color', 'white');
 tiledlayout(4, 1);
 nexttile;
 plot(result.time_s, result.p_pu, result.time_s, result.q_pu, ...

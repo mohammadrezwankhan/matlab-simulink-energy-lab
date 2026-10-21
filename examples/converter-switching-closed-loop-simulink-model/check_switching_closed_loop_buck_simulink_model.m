@@ -1,9 +1,10 @@
 %% Native Simulink Switching Closed-Loop Buck Check
 % Generates, inspects, simulates, and compares the native block diagram.
 
-clearvars;
-clc;
 
+run_checks();
+
+function run_checks()
 modelDirectory = fileparts(mfilename('fullpath'));
 examplesDirectory = fileparts(modelDirectory);
 referenceDirectory = fullfile(examplesDirectory, ...
@@ -21,11 +22,11 @@ secondDirectory = tempname;
 mkdir(firstDirectory);
 mkdir(secondDirectory);
 modelName = 'switching_closed_loop_buck_simulink_model';
+cleanup = onCleanup(@() clean_generated_models( ...
+    modelName, firstDirectory, secondDirectory));
 
 firstPath = build_switching_closed_loop_buck_simulink_model( ...
     firstDirectory, parameters);
-cleanup = onCleanup(@() clean_generated_models( ...
-    modelName, firstDirectory, secondDirectory));
 load_system(firstPath);
 firstSignature = model_signature(modelName);
 expectedBlocks = {
@@ -221,6 +222,7 @@ fprintf('Maximum MATLAB parity error: %.3e A, %.3e V\n', ...
     maximumCurrentError_A, maximumVoltageError_V);
 fprintf('Matched PWM intervals / controller periods: %d / %d\n', ...
     numel(reference.switch_state), reference.period_count);
+end
 
 function signature = model_signature(modelName)
 blocks = find_system(modelName, 'Type', 'Block');

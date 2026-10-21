@@ -1,8 +1,10 @@
 %% Native Simulink Battery 2RC Example
 % Generates, simulates, plots, and opens the two-RC block diagram.
 
-clear; clc; close all;
 
+run_example();
+
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-2rc-model');
 baseReferenceDirectory = fullfile(modelDirectory, '..', 'battery-rc-model');
@@ -12,7 +14,12 @@ addpath(modelDirectory, referenceDirectory, baseReferenceDirectory);
 
 [modelPath, referenceResult] = build_battery_2rc_simulink_model();
 [~, modelName] = fileparts(modelPath);
+keepModelOpen = false;
+ownedModelHandle = [];
+plotFigure = [];
+modelCleanup = onCleanup(@close_failed_model);
 load_system(modelPath);
+ownedModelHandle = get_param(modelName, 'Handle');
 simulationOutput = sim(modelName);
 current = simulationOutput.get('current_A');
 soc = simulationOutput.get('soc');
@@ -20,7 +27,7 @@ fastPolarization = simulationOutput.get('v_rc1_V');
 slowPolarization = simulationOutput.get('v_rc2_V');
 terminalVoltage = simulationOutput.get('terminal_voltage_V');
 
-figure('Name', 'Native Simulink Battery 2RC', 'Color', 'w');
+plotFigure = figure('Name', 'Native Simulink Battery 2RC', 'Color', 'w');
 tiledlayout(4, 1, 'TileSpacing', 'compact');
 
 nexttile;
@@ -58,3 +65,25 @@ fprintf('Final SOC: %.3f\n', soc.Data(end));
 fprintf('Voltage range: %.3f V to %.3f V\n', ...
     min(terminalVoltage.Data), max(terminalVoltage.Data));
 fprintf('Reference final SOC: %.3f\n', referenceResult.soc(end));
+keepModelOpen = true;
+
+    function close_failed_model()
+        if keepModelOpen
+            return;
+        end
+        if isgraphics(plotFigure)
+            delete(plotFigure);
+        end
+        if bdIsLoaded(modelName)
+            if isempty(ownedModelHandle)
+                loadedPath = get_param(modelName, 'FileName');
+                ownsModel = isempty(loadedPath) || strcmp(loadedPath, modelPath);
+            else
+                ownsModel = get_param(modelName, 'Handle') == ownedModelHandle;
+            end
+            if ownsModel
+                close_system(modelName, 0);
+            end
+        end
+    end
+end

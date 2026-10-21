@@ -1,20 +1,29 @@
 %% Native Simulink Averaged Buck Example
 % Generates the model, simulates startup, and opens the block diagram.
 
-clear; clc; close all;
 
+run_example();
+
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(modelDirectory);
 
 parameters = average_buck_simulink_parameters();
 modelPath = build_average_buck_simulink_model();
 [~, modelName] = fileparts(modelPath);
+keepModelOpen = false;
+ownedModelHandle = [];
+plotFigure = [];
+modelCleanup = onCleanup(@close_failed_model);
 load_system(modelPath);
+ownedModelHandle = get_param(modelName, 'Handle');
 simulationOutput = sim(modelName);
 inductorCurrent = simulationOutput.get('inductor_current');
 outputVoltage = simulationOutput.get('output_voltage');
 
-figure('Name', 'Native Simulink Averaged Buck', 'Color', 'w');
+plotFigure = figure('Name', 'Native Simulink Averaged Buck', 'Color', 'w');
 tiledlayout(2, 1, 'TileSpacing', 'compact');
 
 nexttile;
@@ -40,3 +49,25 @@ fprintf('Lossy steady-state expectation: %.3f V\n', ...
     parameters.duty_cycle * parameters.input_voltage_V / ...
     (1 + parameters.inductor_resistance_Ohm / ...
     parameters.load_resistance_Ohm));
+keepModelOpen = true;
+
+    function close_failed_model()
+        if keepModelOpen
+            return;
+        end
+        if isgraphics(plotFigure)
+            delete(plotFigure);
+        end
+        if bdIsLoaded(modelName)
+            if isempty(ownedModelHandle)
+                loadedPath = get_param(modelName, 'FileName');
+                ownsModel = isempty(loadedPath) || strcmp(loadedPath, modelPath);
+            else
+                ownsModel = get_param(modelName, 'Handle') == ownedModelHandle;
+            end
+            if ownsModel
+                close_system(modelName, 0);
+            end
+        end
+    end
+end
