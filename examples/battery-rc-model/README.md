@@ -56,7 +56,7 @@ plots current, SOC, and terminal voltage.
 For a guided exercise with predictions, interpretation prompts, and a
 reproducibility checklist, follow the
 [60-minute battery pulse-response lab](../../docs/battery-pulse-response-lab.md).
-The proposed 1.12.0 check and plotting scripts use local workspaces and preserve
+The 1.12.0 check and plotting scripts use local workspaces and preserve
 caller variables and existing figures. They do not leave their local `profile`
 or `result` in the caller. Capture data through the simulator, as below.
 

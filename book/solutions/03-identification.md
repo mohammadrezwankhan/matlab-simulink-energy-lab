@@ -86,7 +86,7 @@ Only the first call to `fit_battery_2rc_parameters` receives calibration data.
 The validation data is not used until after the parameters are fixed. The
 source check additionally expects the held-out error below 1.5 mV and checks
 that the selected design is well conditioned. Those values are source/check
-expectations for the deterministic synthetic record. The proposed 1.12.0
+expectations for the deterministic synthetic record. The 1.12.0
 plotting script preserves caller variables and existing figures; capture the
 fit through its public function. Use a fresh session for the initial pinned
 book snapshot, whose cleanup is destructive.

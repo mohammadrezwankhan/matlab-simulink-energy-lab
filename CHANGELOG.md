@@ -6,19 +6,14 @@ Notable changes to MATLAB Simulink Energy Lab are recorded here. The project
 uses semantic versioning while its public model and validation interfaces are
 still evolving.
 
-## Unreleased
+## 1.12.0 — 2026-10-21
 
-### Fixed
-
-- Reject nonfinite or nonnumeric second inputs in the standalone BESS Clarke
-  and Park transforms, matching the validation applied to their other inputs.
-
-## 1.12.0 — Proposed, unreleased
-
-The metadata in this candidate targets 1.12.0. No publication date or release
-tag is asserted. The candidate requires the exact-commit native verification
-described in [release readiness](docs/release-readiness.md) before publication.
-Historical results below remain bound to their recorded versions and commits.
+This release addresses all 35 findings in the source audit and the native
+integration defects found during verification. Release assets include the
+source archive, exact-commit verification evidence, repair report, and
+SHA-256 checksums. See [release readiness](docs/release-readiness.md) for
+reproduction and migration. Historical results below remain bound to their
+recorded versions and commits.
 
 ### Added
 
@@ -52,13 +47,15 @@ Historical results below remain bound to their recorded versions and commits.
   interval now raise `BatteryThermal:SOCProfile` before integration. This
   hardens the documented clipping limitation; feasible default trajectories
   and the existing electrical/thermal equations remain unchanged.
-- Publication metadata is staged consistently at 1.12.0 in `CITATION.cff`,
-  `codemeta.json`, and `project-metadata.yml`; publication dates remain absent
-  until an actual release. No existing numerical snapshot is relabeled as
-  candidate evidence.
+- Publication metadata consistently identifies 1.12.0 in `CITATION.cff`,
+  `codemeta.json`, and `project-metadata.yml`, with matching citation and
+  CodeMeta publication dates. Historical numerical snapshots retain their
+  original provenance.
 
 ### Fixed
 
+- Reject nonfinite or nonnumeric second inputs in the standalone BESS Clarke
+  and Park transforms, matching the validation applied to their other inputs.
 - Project tolerated covariance roundoff to a valid symmetric positive-
   semidefinite input in both SOC EKFs and reject invalid innovation variance.
 - Reject complex or incorrectly shaped physical inputs, retain accepted
@@ -81,16 +78,16 @@ Historical results below remain bound to their recorded versions and commits.
   archival in release CI. Static dependency reports retain uncertain product
   matches separately from confirmed undeclared requirements.
 
-### Release gates still required
+### Release verification
 
-- Execute every required phase on MATLAB R2026a with Simulink; inspect actual
-  Code Analyzer, dependency, numerical, lifecycle, solver and model results.
-- Regenerate commit-bound manifests and selected result images from the
-  verified source. `assets/social-preview.png` has been regenerated and reviewed
-  with MATLAB R2026a for the 1.12.0 candidate and 26-check catalog.
-- Commit any final metadata date change, rerun the release gate on that exact
-  clean commit, create and check the archive/checksum, then create a local tag.
-  Publication remains a separate maintainer action.
+- The release gate runs Code Analyzer and dependency analysis, 26 catalog
+  entries, 123 focused BESS tests, 15 infrastructure tests, 31 demo/runner
+  checks, and six generated-model audits on MATLAB R2026a with Simulink.
+- The verification archive records actual outcomes and source commits,
+  including independent Base MATLAB and MATLAB-plus-Simulink CI jobs,
+  eight BESS scenarios, regenerated plots, and caller-state preservation.
+- `assets/social-preview.png` was regenerated and reviewed with MATLAB
+  R2026a for the 1.12.0 release and 26-check catalog.
 
 ## 0.11.0 - 2026-09-22
 

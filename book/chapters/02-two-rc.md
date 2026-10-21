@@ -193,7 +193,7 @@ The source example's plotting entry point is
 [`run_battery_2rc_model.m`](../../examples/battery-2rc-model/run_battery_2rc_model.m),
 and its no-plot check is
 [`check_battery_2rc_model.m`](../../examples/battery-2rc-model/check_battery_2rc_model.m).
-The proposed 1.12.0 plotting script preserves caller variables and existing
+The 1.12.0 plotting script preserves caller variables and existing
 figures; the numerical result is captured through the public function above.
 The initial pinned book snapshot retains its older workspace behavior. The existing figure
 [`battery-2rc-identification-response.png`](../../assets/battery-2rc-identification-response.png)

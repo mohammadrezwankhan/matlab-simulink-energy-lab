@@ -16,19 +16,19 @@ repeated maintenance material; it is not a count of finished book prose. The
 chapters reorganize the technical content into a teaching sequence rather than
 claiming the old documentation was already a textbook.
 
-## 1.12.0 candidate adaptation
+## 1.12.0 release adaptation
 
 The historical model and manuscript receipts below remain unchanged. The
-proposed 1.12.0 source introduces local script workspaces: entry points preserve
+1.12.0 source introduces local script workspaces: entry points preserve
 caller state and numerical results must be captured through public functions.
 The initial pinned clone above still uses its older destructive cleanup and
 should be run in a fresh session. Chapter run notes distinguish these revisions.
 
-The candidate also rejects lumped-thermal current profiles that would push
+Version 1.12.0 also rejects lumped-thermal current profiles that would push
 the prescribed, unbounded SOC trajectory outside `[0, 1]` (apart from a
 `1e-12` roundoff tolerance). Its historical clipping discussion is retained to
-explain the original snapshot; it is not the candidate's accepted input domain.
-Native MATLAB verification of these candidate changes is pending. See
+explain the original snapshot; it is not the release's accepted input domain.
+Commit-bound native MATLAB evidence is distributed with the release. See
 [release readiness](../docs/release-readiness.md) for inherited baseline
 evidence, current release gates, and migration instructions.
 

@@ -79,8 +79,7 @@ The voltage equation must use `current_A`, the applied current, not
 `requested_current_A`. The simulator may clip a request at an SOC boundary;
 the applied value is the one used for both branch updates and the ohmic drop.
 The no-plot source check also compares shared SOC/current/first-branch traces
-against the one-RC result and checks deterministic repeatability. The proposed
-1.12.0 plotting runner preserves caller variables and existing figures. Use a
+against the one-RC result and checks deterministic repeatability. The 1.12.0 plotting runner preserves caller variables and existing figures. Use a
 fresh session for the initial pinned book snapshot, whose cleanup is destructive.
 The public simulator call above is the data interface.
 

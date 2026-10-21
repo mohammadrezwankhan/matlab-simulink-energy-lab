@@ -67,7 +67,7 @@ cell, or grid-code qualification evidence.
 
 ## Full release audit
 
-The proposed 1.12.0 release adds the root command
+The 1.12.0 release adds the root command
 `matlab -batch "buildtool check test archive"`. Its archive task also runs
 `demos` and `simulink` and requires all four reports to be complete and passed
 for the exact current clean commit. This is a stricter gate than a passing
@@ -75,7 +75,7 @@ general manifest or a passing Base subset.
 
 Deterministic `validation-artifacts/audit-<phase>.json` and Markdown reports
 are separate from `audit-<phase>-telemetry.json`, which contains volatile
-execution timing and console output. No candidate native result is asserted
-until these commands have actually executed. See
+execution timing and console output. Release assets contain the actual
+commit-bound reports; rerun the gate to verify a different revision. See
 [release readiness](release-readiness.md) for the evidence states, migration,
 metadata dates, and local tag checklist.

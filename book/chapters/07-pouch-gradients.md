@@ -188,7 +188,7 @@ run(fullfile('examples', 'pouch-cell-thermal-gradient', ...
     'check_pouch_cell_thermal_model.m'))
 ```
 
-The proposed 1.12.0 plotting and check scripts use local workspaces and preserve
+The 1.12.0 plotting and check scripts use local workspaces and preserve
 caller variables and existing figures. Both restore the previous MATLAB path;
 the initial pinned book snapshot retains its older destructive cleanup.
 Capture results explicitly. A direct analytic comparison can be reproduced with:

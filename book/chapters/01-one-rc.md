@@ -212,7 +212,7 @@ not a copied state-update loop. For a no-plot reproduction, run
 [`check_battery_rc_model.m`](../../examples/battery-rc-model/check_battery_rc_model.m);
 for a visual inspection, use
 [`run_battery_rc_model.m`](../../examples/battery-rc-model/run_battery_rc_model.m).
-The proposed 1.12.0 runner uses a local workspace and preserves existing
+The 1.12.0 runner uses a local workspace and preserves existing
 variables and figures. Capture results with the public simulator as above.
 The book's initial pinned snapshot retains its older workspace behavior; see
 the [revision boundary](../source-map.md#revision-boundary).

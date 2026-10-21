@@ -115,7 +115,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 **Match workspace behavior to the source revision.** The initial pinned
 snapshot above includes scripts that clear variables and close figures; use a
-fresh session for that historical clone. In the proposed 1.12.0 source, script
+fresh session for that historical clone. In the 1.12.0 source, script
 entry points use local workspaces and preserve caller variables and existing
 figures. Capture data through public simulator functions; script-local results
 are not exported. See [release migration](../docs/release-readiness.md#script-workspace-migration).

@@ -212,9 +212,9 @@ clipped state is bounded, while the requested-current charge balance is not
 conserved at the boundary. A physical controller must limit current before the
 state update and report that limitation explicitly.
 
-The proposed 1.12.0 simulator rejects this profile before integration with
+The 1.12.0 simulator rejects this profile before integration with
 `BatteryThermal:SOCProfile`: its unbounded charge trajectory falls below zero
 by more than the `1e-12` numerical tolerance. This is an input-domain guard,
 not a battery current controller. An exactly feasible boundary profile remains
 accepted. The historical calculation explains the guard; it must not be
-presented as an accepted candidate run or a new native execution receipt.
+presented as an accepted 1.12.0 run or a new native execution receipt.

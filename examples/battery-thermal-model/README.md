@@ -76,7 +76,7 @@ The scripts share the same validated simulator. It accepts native irregular
 timestamps or a requested uniform sample time, checks explicit-Euler stability,
 and returns every electrical and thermal state plus energy-balance diagnostics.
 
-The 1.12.0 candidate also checks the unbounded SOC trajectory implied by the
+The 1.12.0 release also checks the unbounded SOC trajectory implied by the
 whole prescribed current profile. It rejects charge demands outside `[0, 1]`
 beyond `1e-12` roundoff with `BatteryThermal:SOCProfile`; it does not silently
 clip an infeasible profile or curtail its current. The default profile is

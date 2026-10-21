@@ -158,7 +158,7 @@ require authenticated review.
       and export notes in `assets/social-preview-v3.md`. The previous v2 image
       is retained for history. The older
       `assets/social-preview.png` was regenerated and visually reviewed with
-      MATLAB R2026a for the 1.12.0 candidate and 26-check catalog. Its generator
+      MATLAB R2026a for the 1.12.0 release and 26-check catalog. Its generator
       reads current version/catalog metadata. Regenerate and review it after
       those inputs change; repository settings are managed separately.
 - [ ] Confirm `git status --short` is empty before generating commit-bound

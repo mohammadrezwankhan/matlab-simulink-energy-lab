@@ -176,7 +176,7 @@ run('examples/converter-switching-closed-loop-model/check_switching_closed_loop_
 run('examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m')
 ```
 
-The proposed 1.12.0 scripts preserve caller variables and existing figures;
+The 1.12.0 scripts preserve caller variables and existing figures;
 the initial pinned book snapshot retains its older workspace behavior. The primary
 workflow uses Base MATLAB. The optional
 [native Simulink companion](../../examples/converter-switching-closed-loop-simulink-model/README.md)

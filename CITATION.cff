@@ -3,7 +3,7 @@ message: "If you use this software in research or teaching, please cite it using
 type: software
 title: "MATLAB Simulink Energy Lab"
 version: "1.12.0"
-# Proposed release: add date-released only when this version is published.
+date-released: "2026-10-21"
 authors:
   - family-names: "Khan"
     given-names: "Mohammad Rezwan"

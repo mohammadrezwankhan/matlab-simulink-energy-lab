@@ -3,8 +3,8 @@
 # Validation Results
 
 This page preserves a historical expected-output snapshot for the repository
-regression command. It is not the execution report for the proposed 1.12.0
-candidate. Current verification commands and evidence gates are in
+regression command. It is not the execution report for the 1.12.0
+release. Current verification commands and evidence gates are in
 [release readiness](release-readiness.md).
 
 ## Reproduce the check
@@ -43,7 +43,7 @@ at `125b0a818c3c42292cfebc7c5dcb6b50689a70eb` reports 20 Base checks, 25 general
 checks plus the manifest contract, and 92 focused BESS results. The changes
 from that source to audited source `a8ea7b9093b596bb169bb31841b77cb4fe88ccb9`
 are Markdown-only. This supports inherited code evidence for that baseline;
-it does not validate executable changes in the 1.12.0 candidate. Do not replace
+it does not validate executable changes in the 1.12.0 release. Do not replace
 the historical 31-result transcript below with an unexecuted candidate count.
 
 ## Expected output

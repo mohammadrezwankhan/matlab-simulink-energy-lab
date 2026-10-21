@@ -134,8 +134,8 @@ integration.
 
 The complete catalog contains 26 check entry points: 25 general checks plus
 one focused unified-BESS entry point. Its focused result count is recorded per
-commit; inherited run 39592416496 reports 92, and the 1.12.0 candidate requires
-a new run. The repository also validates its machine-readable manifest contract.
+commit; inherited run 39592416496 reports 92. The 1.12.0 verification archive
+records 123 focused tests. The repository also validates its manifest contract.
 The root runner detects Simulink availability and marks a MATLAB-only subset
 with `complete_suite=false`. Exact
 expected outputs, source commit, CI run, environment, and claim boundaries are
@@ -175,9 +175,9 @@ for expected terminal output and evidence provenance.
 
 Use GitHub's **Cite this repository** control or the tracked
 [`CITATION.cff`](CITATION.cff). The machine-readable
-[`codemeta.json`](codemeta.json) describes the same proposed 1.12.0 version.
-The candidate is unreleased and both publication dates remain absent. Cite the
-actual commit used, or a published tag with its matching metadata. No DOI or
+[`codemeta.json`](codemeta.json) describes the same 1.12.0 version.
+Both publication dates are 2026-10-21 (UTC). Cite the actual commit used, or
+a published tag with its matching metadata. No DOI or
 journal publication is declared. See [release readiness](docs/release-readiness.md).
 
 ## What license applies?

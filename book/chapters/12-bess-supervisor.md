@@ -132,7 +132,7 @@ also slew-limited, and plant current is projected to its hard circle. These
 layers help the example remain bounded; they do not replace a hardware
 overcurrent protection design.
 
-In the proposed 1.12.0 controller, the final active-power command is projected
+In the 1.12.0 controller, the final active-power command is projected
 into the current DC-availability bound after the normal slew calculation. A
 contracting availability bound therefore takes priority over the slew limit;
 the projected command is stored, and subsequent recovery resumes normal slew
@@ -214,7 +214,7 @@ result = run_bess_unified_control('C');
 ```
 
 This runs the MATLAB reference grid-loss scenario and plots power, voltage,
-frequency and state code. The proposed 1.12.0 workflow preserves pre-existing
+frequency and state code. The 1.12.0 workflow preserves pre-existing
 figures; use a fresh session for the initial pinned book snapshot. Scenario C
 removes the grid at 2 s. Run `'E'` separately
 for grid return and reconnection; it is a separate prescribed experiment,

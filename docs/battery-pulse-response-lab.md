@@ -12,12 +12,12 @@ safety, production BMS performance, or classroom adoption.
 ## Before you start
 
 Download or clone the repository and set MATLAB's current folder to its root.
-The 1.12.0 candidate runs these script entry points in local workspaces and
+The 1.12.0 release runs these script entry points in local workspaces and
 preserves existing variables and figures. Plotting demos create their own
 figures; numerical results should be captured through the public simulator as
 shown below. Neither entry point needs a Simulink model to be opened or rebuilt.
-The candidate's state-preservation behavior requires its own native release
-verification; the historical receipt below does not establish it.
+The release verification archive records the state-preservation checks;
+the historical receipt below remains bound to its original source.
 
 The two entry points below were run on MATLAB R2026a Update 4 for the
 [source-bound receipt](#reproduction-receipt). This is not a claim of testing

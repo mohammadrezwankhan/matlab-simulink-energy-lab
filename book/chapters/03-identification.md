@@ -175,7 +175,7 @@ fprintf('%.3f mV / %.3f mV\n', ...
 
 Use repository-root paths as shown and the current source APIs. The plotting
 entry point [`run_battery_2rc_fit.m`](../../examples/battery-2rc-model/run_battery_2rc_fit.m)
-uses a local workspace in the 1.12.0 candidate and preserves existing variables
+uses a local workspace in the 1.12.0 release and preserves existing variables
 and figures. Its local fit results do not escape into the caller; use the public
 functions above. The initial pinned book snapshot retains its older workspace
 behavior. The deterministic check is

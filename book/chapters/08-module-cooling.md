@@ -180,7 +180,7 @@ run(fullfile('examples', 'battery-module-cooling-network', ...
     'check_battery_module_cooling_network.m'))
 ```
 
-The proposed 1.12.0 plotting and check scripts use local workspaces, preserve
+The 1.12.0 plotting and check scripts use local workspaces, preserve
 caller variables and existing figures, and restore the previous MATLAB path.
 Capture module results explicitly through the simulator. The initial pinned
 book snapshot retains its older destructive script cleanup; use a fresh

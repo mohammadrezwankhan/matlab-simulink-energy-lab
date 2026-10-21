@@ -53,7 +53,7 @@ $$
 The one-/two-RC models limit applied current to available interval charge.
 In the book's initial pinned snapshot, the lumped electrothermal example
 instead clips its updated SOC and does not enforce the same boundary charge
-accounting. The proposed 1.12.0 version rejects prescribed current profiles
+accounting. The 1.12.0 version rejects prescribed current profiles
 whose unbounded SOC trajectory would leave `[0, 1]` beyond `1e-12` roundoff;
 it does not silently impose the one-/two-RC current-limiter policy. Always
 read a model's input-domain and limit semantics before transferring another

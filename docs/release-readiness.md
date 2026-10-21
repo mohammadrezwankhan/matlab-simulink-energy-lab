@@ -1,9 +1,11 @@
 # 1.12.0 release readiness and migration
 
-**Status: proposed and unreleased.** The tracked version metadata targets
-1.12.0. MATLAB/Simulink verification is recorded per exact source commit in
-`validation-artifacts/`. Publication dates and the release tag remain pending.
-A source audit or patch package alone does not establish a release pass.
+**Release: 1.12.0, dated 2026-10-21 (UTC).** The
+[release assets](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases)
+include a source archive, verification archive, repair report, and
+`SHA256SUMS.txt`. MATLAB/Simulink verification is recorded per exact source
+commit in `validation-artifacts/` and the verification archive. A source
+audit or patch package alone does not establish a release pass.
 
 ## Evidence states
 
@@ -11,7 +13,7 @@ A source audit or patch package alone does not establish a release pass.
 | --- | --- | --- |
 | `125b0a818c3c42292cfebc7c5dcb6b50689a70eb` | [Hosted run 39592416496](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/39592416496): 20 Base checks, 25 general checks and manifest contract, 92 focused BESS results | Observed native results for that source and environment |
 | `a8ea7b9093b596bb169bb31841b77cb4fe88ccb9` | Audited baseline; only Markdown differs from the hosted run's source | Inherited code evidence, not a new native execution |
-| 1.12.0 candidate | Exact-commit `audit-check`, `audit-test`, `audit-demos`, and `audit-simulink` reports from the release gate | Accept only reports with `passed=true`, `complete=true`, and `source_state="clean"` matching the source commit |
+| 1.12.0 release | Exact-commit `audit-check`, `audit-test`, `audit-demos`, and `audit-simulink` reports from the release gate | Accept only reports with `passed=true`, `complete=true`, and `source_state="clean"` matching the source commit |
 | Historical 31-result BESS JSON/report and older expected-output tables | Their original commits, environments, and dates | Preserve as historical records; never relabel as current execution |
 
 The catalog has 20 Base MATLAB checks, five additional general Simulink
@@ -102,12 +104,12 @@ signals; no random-number seeding is needed for those signals.
    numerical reference change.
 2. Keep `CITATION.cff`, `codemeta.json`, and `project-metadata.yml` at the same
    version. For a candidate, omit both `date-released` and `datePublished`.
-   Cite the actual commit used. The metadata does not establish a published
-   1.12.0 release or a DOI.
+   For a published version, use the same actual UTC publication date in both.
+   Cite the actual commit used; no DOI is asserted by this metadata.
 3. Review CFF/CodeMeta and local/external documentation links. Regenerate
    commit-bound validation manifests and result images on native MATLAB.
    `assets/social-preview.png` was regenerated and reviewed with MATLAB R2026a
-   for the 1.12.0 candidate and 26-check catalog. Repeat generation and review
+   for the 1.12.0 release and 26-check catalog. Repeat generation and review
    when the source inputs change. Preserve historical BESS evidence separately
    when producing current evidence.
 4. When publication is ready, insert the same actual publication date in CFF

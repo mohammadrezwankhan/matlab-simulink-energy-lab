@@ -232,7 +232,7 @@ For the compact no-plot contract use
 [`check_battery_soc_ekf.m`](../../examples/battery-soc-ekf/check_battery_soc_ekf.m);
 for the prescribed bias grid use
 [`check_battery_soc_ekf_current_bias.m`](../../examples/battery-soc-ekf/check_battery_soc_ekf_current_bias.m).
-The proposed 1.12.0 plotting runners preserve caller variables and existing
+The 1.12.0 plotting runners preserve caller variables and existing
 figures; obtain estimator data through the public functions above. The initial
 pinned book snapshot retains its older workspace behavior. The benchmark reports
 about 0.0066 SOC RMSE and 1.581 mV posterior voltage RMSE in the source

@@ -1,7 +1,7 @@
 ![MATLAB Simulink Energy Lab: original vector system illustration](assets/hero-25d.svg)
 
-> **1.12.0 candidate — unreleased.** This checkout stages the next version.
-> Verification is recorded for each exact source commit; release publication remains pending.
+> **Version 1.12.0 — 2026-10-21.** Release archives, verification evidence,
+> and SHA-256 checksums are available on the [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 > See [release readiness and migration](docs/release-readiness.md) for the
 > exact gates and the distinction between current source and historical CI.
 
@@ -140,7 +140,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 The check should print `Battery RC check passed`, final SOC `0.767`, and a
 voltage range of `3.425 V to 3.877 V`. The second command opens the current,
 SOC, and terminal-voltage plots. These are deterministic illustrative results,
-not measured-cell accuracy. In the 1.12.0 candidate, these script entry points
+not measured-cell accuracy. In the 1.12.0 release, these script entry points
 use local workspaces and preserve existing variables and figures. Plotting
 demos create new figures. To retain numerical results, call the public
 simulator and capture its return value; see the
@@ -276,7 +276,7 @@ The latest inherited evidence used for this audit is
 at source `125b0a818c3c42292cfebc7c5dcb6b50689a70eb`: 20 Base MATLAB checks,
 25 general checks plus the manifest contract, and 92 focused BESS results.
 Only Markdown changed between that source and audited source
-`a8ea7b9093b596bb169bb31841b77cb4fe88ccb9`. The 1.12.0 candidate changes executable
+`a8ea7b9093b596bb169bb31841b77cb4fe88ccb9`. The 1.12.0 release changes executable
 code and is not validated by that inherited run. Its focused-test count must
 be taken from its own generated results. The older numerical summary below
 remains a historical 31-result record at its explicitly cited source.
@@ -329,8 +329,8 @@ matlab -batch "buildtool check test"
 
 ### Concise validation evidence
 
-This checkout carries proposed 1.12.0 metadata. Its publication date and tag
-remain unset; published snapshots are on the
+This checkout carries the 1.12.0 release metadata dated 2026-10-21.
+Source archives and commit-bound verification evidence are on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 The following numerical summary records historical MATLAB R2026a evidence from
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
@@ -601,10 +601,10 @@ standard, pull request workflow, and attribution policy.
 Versioned snapshots and engineering highlights are available on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 For a checksum-verifiable snapshot, download the source package and matching
-`SHA256SUMS` file attached to the
+`SHA256SUMS.txt` file attached to the
 [latest published release](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest).
 See the [changelog](CHANGELOG.md) for the model and validation history.
-The 1.12.0 candidate is not yet a published release. Its full local gate is
+The full local release gate for 1.12.0 is
 `matlab -batch "buildtool check test archive"`, which requires Simulink and a
 clean committed source tree. The archive task does not create a tag or publish
 anything. Follow [release readiness](docs/release-readiness.md) before tagging.
