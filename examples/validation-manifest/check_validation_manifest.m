@@ -1,7 +1,9 @@
 %% Validation Manifest Contract Check
 % Verifies the catalog and deterministic commit-bound JSON contract.
 
-clearvars; clc;
+check_manifest_locally;
+
+function check_manifest_locally
 
 examplesDirectory = fileparts(fileparts(mfilename('fullpath')));
 [checks, requiresSimulink] = validation_check_catalog(false);
@@ -86,3 +88,4 @@ assert(failedManifest.status == "failed" && ...
     'Failed checks must retain machine-readable status and error evidence.');
 
 fprintf('Validation manifest contract check passed.\n');
+end
