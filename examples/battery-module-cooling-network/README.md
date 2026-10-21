@@ -11,10 +11,14 @@ cell-level, and module-level energy balances.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 How do a nonuniform cell heat load and a warming coolant stream combine to set
 the hottest-cell location and temperature spread in a battery module?
 
 ## Model Topology
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 ```text
 coolant supply -> [cell 1] -> [cell 2] -> ... -> [cell 6] -> outlet
@@ -80,6 +84,8 @@ examples/battery-module-cooling-network/
 
 ## How To Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 From this folder:
 
 ```matlab
@@ -135,6 +141,8 @@ peak cell temperature, module temperature spread, and coolant outlet warming.
 
 ## Validation Checks
 
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
+
 The check script verifies that:
 
 - allocated cell heat sums to the module heat input;
@@ -153,6 +161,8 @@ The check script verifies that:
 - repeated simulations are deterministic.
 
 ## Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - Parameters and heat fractions are illustrative and are not fitted to a
   particular cell, cold plate, or module.

@@ -1,5 +1,7 @@
 # Result Interpretation Notes
 
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
+
 Use this guide for explaining how to interpret starter example outputs without overstating their scope. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.
 
 | Review Area | Prompt | Expected Record |

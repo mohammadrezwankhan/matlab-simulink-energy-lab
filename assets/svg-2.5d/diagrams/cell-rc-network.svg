@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="cell-rc-title cell-rc-desc">
+<title id="cell-rc-title">CELL MODEL — One-RC Thevenin network</title>
+<desc id="cell-rc-desc">A schematic of an open-circuit-voltage source in series with ohmic resistance and a parallel polarization resistor-capacitor branch. The diagram is a teaching topology, not a fitted cell model. Decorative dash motion is not runtime telemetry and stops when reduced motion is requested.</desc>
+<defs>
+  <linearGradient id="cell-rc-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--bg-top)"/><stop offset="1" stop-color="var(--bg)"/></linearGradient>
+  <pattern id="cell-rc-dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="var(--grid)" opacity=".28"/></pattern>
+  <marker id="cell-rc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00E5FF"/></marker>
+  <style>
+    :root { color-scheme: dark light; --bg:#07111F; --bg-top:#0D2235; --surface:#102237; --surface-2:#142B42; --ink:#E8F2FB; --muted:#A6BAD0; --grid:#5F7891; --outline:#36516A; --shadow:#020711; --accent:#00E5FF; }
+    @media (prefers-color-scheme: light) { :root { --bg:#F5F9FC; --bg-top:#EAF3F9; --surface:#FFFFFF; --surface-2:#F1F7FA; --ink:#102237; --muted:#40566C; --grid:#AFC2D1; --outline:#9AB0C2; --shadow:#426078; --accent:#083344; } }
+    text { font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill:var(--ink); }
+    .eyebrow { font-size:12px; font-weight:750; letter-spacing:2px; fill:var(--accent); }
+    .title { font-size:26px; font-weight:650; letter-spacing:-.35px; }
+    .micro { font-size:12px; fill:var(--muted); }
+    .label { font-size:15px; font-weight:620; }
+    .small-label { font-size:13px; font-weight:620; }
+    .stage-top { fill:var(--surface-2); stroke:var(--outline); stroke-width:1.4; }
+    .stage-front { fill:var(--surface); stroke:var(--outline); stroke-width:1.2; }
+    .edge { stroke:var(--outline); stroke-width:1.3; fill:none; }
+    .wire { fill:none; stroke:var(--ink); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    .thin-wire { fill:none; stroke:var(--muted); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .flow { stroke-dasharray:10 9; animation:cell-rc-flow 1.8s linear infinite; }
+    @keyframes cell-rc-flow { to { stroke-dashoffset:-38; } }
+    .box-shadow { fill:var(--shadow); opacity:.38; }
+    .panel { fill:var(--surface); stroke:var(--outline); stroke-width:1.35; }
+    .capsule { fill:var(--surface-2); stroke:var(--outline); stroke-width:1.1; }
+    .physics { stroke:#00E5FF; } .estimation { stroke:#10B981; } .power { stroke:#F59E0B; } .qa { stroke:#8B5CF6; } .limits { stroke:#F43F5E; }
+    .fill-physics { fill:#083344; stroke:#00E5FF; } .fill-estimation { fill:#064E3B; stroke:#10B981; } .fill-power { fill:#451A03; stroke:#F59E0B; } .fill-qa { fill:#2E1065; stroke:#8B5CF6; } .fill-limits { fill:#4C0519; stroke:#F43F5E; }
+    .component { stroke-width:1.7; stroke-linejoin:round; }
+    .on-color { fill:#F8FBFF !important; }
+    .note { fill:var(--surface); stroke:#F43F5E; stroke-width:1.15; }
+    .note-text { font-size:13px; font-weight:560; }
+    @media (prefers-reduced-motion: reduce) { .flow { animation:none !important; stroke-dashoffset:0; } }
+  </style>
+</defs>
+<rect width="960" height="560" rx="24" fill="url(#cell-rc-bg)"/>
+<rect width="960" height="560" rx="24" fill="url(#cell-rc-dots)" opacity=".42"/>
+<text class="eyebrow" x="40" y="39">CELL MODEL</text>
+<text class="title" x="40" y="77">One-RC Thevenin network</text>
+<text class="micro" x="920" y="42" text-anchor="end" letter-spacing="1.5">2.5D / CONCEPTUAL</text>
+<g aria-hidden="true">
+  <polygon class="box-shadow" points="480,139 882,278 480,417 78,278" transform="translate(0 18)"/>
+  <polygon class="stage-front" points="78,278 480,417 480,443 78,304"/>
+  <polygon class="stage-front" points="882,278 480,417 480,443 882,304"/>
+  <polygon class="stage-top" points="480,139 882,278 480,417 78,278"/>
+  <path d="M160 278 480 168 800 278 480 388Z" fill="none" stroke="var(--grid)" stroke-width=".9" opacity=".26"/>
+  <path d="M240 278 480 195 720 278 480 361Z" fill="none" stroke="var(--grid)" stroke-width=".9" opacity=".22"/>
+</g>
+
+<!-- Schematic rests on an isometric circuit-board slab; electrical connectivity is shown in a conventional, readable projection. -->
+<path class="wire" d="M170 282H214 M269 282H326 M326 282H389 M479 282H553 M553 282H630"/>
+<path class="wire" d="M170 282V389H630V340"/>
+<path class="wire" d="M389 282V338H450 M474 338H553V282"/>
+<!-- ideal voltage source -->
+<circle cx="170" cy="282" r="33" fill="#083344" stroke="#00E5FF" stroke-width="2.4"/>
+<text x="170" y="277" class="small-label on-color" text-anchor="middle">Uoc</text><text x="170" y="296" class="micro on-color" text-anchor="middle">OCV</text>
+<text x="157" y="242" class="small-label" fill="#00E5FF">+</text><text x="157" y="335" class="small-label" fill="#00E5FF">−</text>
+<!-- R0 zigzag -->
+<path d="M214 282l8-12 10 24 10-24 10 24 10-24 7 12" fill="none" stroke="#00E5FF" stroke-width="3" stroke-linejoin="round"/>
+<text class="small-label" x="241" y="250" text-anchor="middle">R₀ · ohmic</text>
+<!-- R1 branch, parallel C1 across the same nodes -->
+<path d="M389 282h11l8-12 10 24 10-24 10 24 10-24 8 12h15" fill="none" stroke="#10B981" stroke-width="3" stroke-linejoin="round"/>
+<text class="small-label" x="435" y="250" text-anchor="middle">Rₚ · polarization</text>
+<path d="M456 326v24 M468 326v24" stroke="#10B981" stroke-width="3"/>
+<text class="small-label" x="455" y="366" text-anchor="middle">Cₚ</text>
+<!-- node and output -->
+<circle cx="389" cy="282" r="5" fill="#00E5FF"/><circle cx="553" cy="282" r="5" fill="#00E5FF"/>
+<rect x="630" y="253" width="106" height="58" rx="9" class="fill-physics component"/>
+<text class="small-label on-color" x="683" y="278" text-anchor="middle">terminal</text><text class="small-label on-color" x="683" y="297" text-anchor="middle">voltage Vₜ</text>
+<path d="M736 282h35" class="wire"/><circle cx="782" cy="282" r="5" fill="#00E5FF"/>
+<path d="M782 282v107h-152" class="thin-wire"/>
+<text class="micro" x="727" y="375">return reference</text>
+<path d="M288 276h27" stroke="#00E5FF" stroke-width="2" marker-end="url(#cell-rc-arrow)" class="flow"/>
+<text class="micro" x="301" y="266" text-anchor="middle">I</text>
+<rect x="300" y="425" width="360" height="36" rx="10" class="capsule"/>
+<text class="small-label" x="480" y="448" text-anchor="middle">Vₜ = Uoc − I·R₀ − Vₚ  ·  τₚ = RₚCₚ</text>
+<rect class="note" x="40" y="478" width="880" height="54" rx="12"/>
+<circle cx="62" cy="505" r="7" fill="#F43F5E"/>
+<text class="note-text" x="80" y="501">SCOPE</text><text class="micro" x="80" y="519">A one-polarization-branch teaching circuit; no chemistry-specific fit, SOC dependence, hysteresis, or parameter values are implied.</text>
+</svg>

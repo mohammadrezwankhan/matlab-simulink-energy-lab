@@ -1,11 +1,15 @@
 # Native Simulink Battery 2RC Model
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This example generates an inspectable Simulink block diagram for the existing
 two-RC battery reference. It independently integrates fast and slow
 polarization states while reusing the validated current, parameter, SOC, and
 OCV preprocessing pipeline.
 
 ## Engineering Question
+
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
 
 Can a generated Simulink diagram preserve both battery recovery time scales
 and reproduce the exact two-RC MATLAB reference over pulse-current profiles?
@@ -63,6 +67,8 @@ dynamic diagram.
 
 ## Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 Generate the model in a temporary workspace, simulate the canonical pulse
 profile, plot both branch states, and open the diagram:
 
@@ -97,6 +103,8 @@ custom case with different branch time constants and a nonlinear OCV table.
 Generated models are removed after validation.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - The current trace is prevalidated and SOC-limited by the MATLAB reference;
   the diagram does not implement current, voltage, thermal, or power limits.

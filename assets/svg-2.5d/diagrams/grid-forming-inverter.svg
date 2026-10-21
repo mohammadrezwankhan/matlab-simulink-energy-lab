@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="grid-forming-title grid-forming-desc">
+<title id="grid-forming-title">GRID-FORMING — Reduced-order inverter path</title>
+<desc id="grid-forming-desc">A conceptual DC link, voltage-source inverter, series L-filter, and point of common coupling. A reduced-order voltage and frequency controller reads the PCC and forms inverter references; detailed switching and network transients are omitted. Decorative dash motion is not runtime telemetry and stops when reduced motion is requested.</desc>
+<defs>
+  <linearGradient id="grid-forming-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--bg-top)"/><stop offset="1" stop-color="var(--bg)"/></linearGradient>
+  <pattern id="grid-forming-dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="var(--grid)" opacity=".28"/></pattern>
+  <marker id="grid-forming-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F59E0B"/></marker>
+  <style>
+    :root { color-scheme: dark light; --bg:#07111F; --bg-top:#0D2235; --surface:#102237; --surface-2:#142B42; --ink:#E8F2FB; --muted:#A6BAD0; --grid:#5F7891; --outline:#36516A; --shadow:#020711; --accent:#F59E0B; }
+    @media (prefers-color-scheme: light) { :root { --bg:#F5F9FC; --bg-top:#EAF3F9; --surface:#FFFFFF; --surface-2:#F1F7FA; --ink:#102237; --muted:#40566C; --grid:#AFC2D1; --outline:#9AB0C2; --shadow:#426078; --accent:#451A03; } }
+    text { font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill:var(--ink); }
+    .eyebrow { font-size:12px; font-weight:750; letter-spacing:2px; fill:var(--accent); }
+    .title { font-size:26px; font-weight:650; letter-spacing:-.35px; }
+    .micro { font-size:12px; fill:var(--muted); }
+    .label { font-size:15px; font-weight:620; }
+    .small-label { font-size:13px; font-weight:620; }
+    .stage-top { fill:var(--surface-2); stroke:var(--outline); stroke-width:1.4; }
+    .stage-front { fill:var(--surface); stroke:var(--outline); stroke-width:1.2; }
+    .edge { stroke:var(--outline); stroke-width:1.3; fill:none; }
+    .wire { fill:none; stroke:var(--ink); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    .thin-wire { fill:none; stroke:var(--muted); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .flow { stroke-dasharray:10 9; animation:grid-forming-flow 1.8s linear infinite; }
+    @keyframes grid-forming-flow { to { stroke-dashoffset:-38; } }
+    .box-shadow { fill:var(--shadow); opacity:.38; }
+    .panel { fill:var(--surface); stroke:var(--outline); stroke-width:1.35; }
+    .capsule { fill:var(--surface-2); stroke:var(--outline); stroke-width:1.1; }
+    .physics { stroke:#00E5FF; } .estimation { stroke:#10B981; } .power { stroke:#F59E0B; } .qa { stroke:#8B5CF6; } .limits { stroke:#F43F5E; }
+    .fill-physics { fill:#083344; stroke:#00E5FF; } .fill-estimation { fill:#064E3B; stroke:#10B981; } .fill-power { fill:#451A03; stroke:#F59E0B; } .fill-qa { fill:#2E1065; stroke:#8B5CF6; } .fill-limits { fill:#4C0519; stroke:#F43F5E; }
+    .component { stroke-width:1.7; stroke-linejoin:round; }
+    .on-color { fill:#F8FBFF !important; }
+    .note { fill:var(--surface); stroke:#F43F5E; stroke-width:1.15; }
+    .note-text { font-size:13px; font-weight:560; }
+    @media (prefers-reduced-motion: reduce) { .flow { animation:none !important; stroke-dashoffset:0; } }
+  </style>
+</defs>
+<rect width="960" height="560" rx="24" fill="url(#grid-forming-bg)"/>
+<rect width="960" height="560" rx="24" fill="url(#grid-forming-dots)" opacity=".42"/>
+<text class="eyebrow" x="40" y="39">GRID-FORMING</text>
+<text class="title" x="40" y="77">Reduced-order inverter path</text>
+<text class="micro" x="920" y="42" text-anchor="end" letter-spacing="1.5">2.5D / CONCEPTUAL</text>
+<g aria-hidden="true">
+  <polygon class="box-shadow" points="480,139 882,278 480,417 78,278" transform="translate(0 18)"/>
+  <polygon class="stage-front" points="78,278 480,417 480,443 78,304"/>
+  <polygon class="stage-front" points="882,278 480,417 480,443 882,304"/>
+  <polygon class="stage-top" points="480,139 882,278 480,417 78,278"/>
+  <path d="M160 278 480 168 800 278 480 388Z" fill="none" stroke="var(--grid)" stroke-width=".9" opacity=".26"/>
+  <path d="M240 278 480 195 720 278 480 361Z" fill="none" stroke="var(--grid)" stroke-width=".9" opacity=".22"/>
+</g>
+
+<!-- converter plant path -->
+<polygon points="105,254 264,254 289,267 130,267" fill="#083344" stroke="#00E5FF" stroke-width="1.4"/><polygon points="130,267 289,267 289,348 130,348" fill="#0A2937" stroke="#00E5FF" stroke-width="1.4"/><polygon points="264,254 289,267 289,348 264,335" fill="#05232F" stroke="#00E5FF" stroke-width="1.4"/>
+<text class="small-label on-color" x="205" y="296" text-anchor="middle">DC link</text><text class="micro on-color" x="205" y="319" text-anchor="middle">Vdc · capacitor</text>
+<path d="M160 325h40m10 0h35M182 283v16m-11-8h22" stroke="#00E5FF" stroke-width="2.5" fill="none"/>
+<!-- DC conductors -->
+<path d="M289 280h39M289 323h39" class="wire"/><path d="M297 280h24 M297 323h24" fill="none" stroke="#F59E0B" stroke-width="2" class="flow"/>
+<!-- two-level VSC bridge -->
+<polygon points="330,226 504,226 530,240 356,240" fill="#451A03" stroke="#F59E0B" stroke-width="1.5"/><polygon points="356,240 530,240 530,360 356,360" fill="#2F1708" stroke="#F59E0B" stroke-width="1.5"/><polygon points="504,226 530,240 530,360 504,346" fill="#371C08" stroke="#F59E0B" stroke-width="1.5"/>
+<text class="small-label on-color" x="432" y="267" text-anchor="middle">VSC bridge</text><text class="micro on-color" x="432" y="344" text-anchor="middle">switch average model</text>
+<path d="M382 283v34m14-34v34m-25-26h36m-30 25h24 M448 283v34m14-34v34m-25-26h36m-30 25h24" fill="none" stroke="#F59E0B" stroke-width="2"/>
+<path d="M530 300h38" class="wire"/><path d="M535 300h28" class="power flow" fill="none" stroke-width="2.4"/>
+<!-- Lf, Rf series filter -->
+<rect x="568" y="270" width="116" height="60" rx="10" class="fill-power component"/><text class="small-label on-color" x="626" y="294" text-anchor="middle">Lƒ · Rƒ</text><text class="micro on-color" x="626" y="315" text-anchor="middle">series filter</text>
+<path d="M684 300h40" class="wire"/>
+<!-- PCC/grid bus -->
+<path d="M730 246v112" stroke="#10B981" stroke-width="6" stroke-linecap="round"/><circle cx="730" cy="300" r="6" fill="#10B981"/>
+<text class="small-label" x="757" y="270">PCC</text><text class="micro" x="757" y="291">V, f</text>
+<path d="M730 300h125" fill="none" stroke="#10B981" stroke-width="3" marker-end="url(#grid-forming-arrow)"/><text class="small-label" x="813" y="286" text-anchor="middle">grid</text>
+<!-- reduced-order control and feedback -->
+<rect x="337" y="390" width="284" height="55" rx="12" class="fill-qa component"/><text class="small-label on-color" x="479" y="412" text-anchor="middle">voltage / frequency forming law</text><text class="micro on-color" x="479" y="432" text-anchor="middle">P–f and Q–V reference layer</text>
+<path d="M730 359v52h-109" fill="none" stroke="#8B5CF6" stroke-width="2.3" stroke-dasharray="6 5" marker-end="url(#grid-forming-arrow)"/>
+<path d="M337 408h-22v-74h41" fill="none" stroke="#8B5CF6" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#grid-forming-arrow)"/>
+<text class="micro" x="658" y="397">feedback</text>
+<rect x="93" y="391" width="205" height="48" rx="11" class="capsule"/><text class="small-label" x="195" y="413" text-anchor="middle">energy source</text><text class="micro" x="195" y="431" text-anchor="middle">battery / DC supply</text>
+<rect class="note" x="40" y="478" width="880" height="54" rx="12"/>
+<circle cx="62" cy="505" r="7" fill="#F43F5E"/>
+<text class="note-text" x="80" y="501">SCOPE</text><text class="micro" x="80" y="519">Reduced-order control and average converter topology for explanation. No detailed PWM, protection, impedance scan, or grid-code compliance is asserted.</text>
+</svg>

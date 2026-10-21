@@ -1,5 +1,7 @@
 # Limitations, Safety, and Qualification
 
+![Section 05 · Scope / limitations](../../../docs/visuals/sections/section-05-scope.svg)
+
 This implementation is a transparent research translation and educational
 starter. It is not a qualified controller, protection relay, grid-code
 compliance model, or safety case.
@@ -18,6 +20,8 @@ above 50% in 150 ms. This example retains that historical source statement but
 does not present it as current French or any other grid-code certification.
 
 ## Model omissions
+
+![Section 02 · Equations / provenance](../../../docs/visuals/sections/section-02-equations.svg)
 
 - switching harmonics, PWM delay, dead time, semiconductor loss, and thermal
   limits;

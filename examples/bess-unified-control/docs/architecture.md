@@ -1,6 +1,10 @@
 # Architecture
 
+![Section 01 · Question / topology](../../../docs/visuals/sections/section-01-question.svg)
+
 ## Executable boundary
+
+![Section 05 · Scope / limitations](../../../docs/visuals/sections/section-05-scope.svg)
 
 The generated Simulink model is an executable shell around readable MATLAB
 kernels. The shell supplies a deterministic 16-signal scenario profile, runs

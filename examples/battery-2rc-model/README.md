@@ -2,12 +2,16 @@
 
 # Battery 2RC Model Example
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This runnable example extends the validated battery state pipeline with two
 exact polarization branches: one fast and one slow. It also includes a
 toolbox-free parameter-identification workflow and an independent held-out
 pulse-profile check.
 
 ## Engineering Question
+
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
 
 How does a second RC branch separate short and long terminal-voltage recovery
 after battery current pulses?
@@ -17,6 +21,8 @@ known-OCV voltage record without using an optimization toolbox, and do those
 parameters generalize to an unseen current profile?
 
 ## Model Scope
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 | Element | Meaning |
 |---|---|
@@ -65,6 +71,8 @@ generates an inspectable block diagram and compares both numerical RC states
 with this exact interval-update reference.
 
 ## How To Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 Open MATLAB, navigate to this folder, and run:
 
@@ -141,6 +149,8 @@ record is held out until `evaluate_battery_2rc_fit` calculates its error. The
 voltage perturbation is deterministic so CI results are reproducible.
 
 ## Fit Result Fields
+
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
 
 | Result Field | Meaning |
 |---|---|

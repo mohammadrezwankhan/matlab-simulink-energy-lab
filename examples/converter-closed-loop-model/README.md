@@ -7,11 +7,15 @@ requiring a control-system toolbox.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 How does a cascaded voltage and current controller track a DC voltage step while
 respecting current-reference and duty-cycle limits, and how do open-loop, PI,
 and filtered-PID strategies respond to the same load disturbance?
 
 ## Model Structure
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 The plant uses the continuous-conduction averaged buck equations:
 
@@ -59,6 +63,8 @@ policy, not a claim of optimal controller synthesis.
 | Simulation step | 10 | microseconds |
 
 ## Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 To inspect the voltage, current, and duty-cycle traces:
 
@@ -118,6 +124,8 @@ that tuning tradeoff visible instead of treating one controller as universally
 better.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - The converter is an averaged buck model, not a switching simulation.
 - Semiconductor losses, dead time, quantization, delays, and measurement noise

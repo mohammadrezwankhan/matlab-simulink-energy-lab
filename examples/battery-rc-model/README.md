@@ -2,15 +2,21 @@
 
 # Battery RC Model Example
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This runnable example implements a simple first-order battery equivalent-circuit model in MATLAB.
 
 ![First-order battery RC model response showing discharge and charge current pulses, state-of-charge change, and terminal-voltage transients](../../assets/battery-rc-response.png)
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 How can a first-order RC equivalent circuit help explain terminal-voltage response during charge and discharge pulses?
 
 ## Model Scope
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 | Element | Meaning |
 |---|---|
@@ -35,6 +41,8 @@ examples/battery-rc-model/
 ```
 
 ## How To Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 Open MATLAB, navigate to this folder, and run:
 
@@ -162,6 +170,8 @@ one; OCV values must be positive and nondecreasing. The simulator rejects a
 malformed curve instead of extrapolating beyond the supplied data.
 
 ## Validation Notes
+
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
 
 - State units for every parameter.
 - Compare simulated terminal voltage with a known pulse response.

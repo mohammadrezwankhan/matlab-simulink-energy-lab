@@ -1,3 +1,83 @@
+![MATLAB Simulink Energy Lab: original vector system illustration](assets/hero-25d.svg)
+
+The native repository contains Base MATLAB and generated Simulink models for batteries, thermal response, converters, and BESS control. A second-order response exercise develops control intuition before the bounded native examples.
+
+**[Native-source lesson guide](docs/portfolio/) · [Offline interactive lab](docs/index.html) · [Lesson configuration](docs/lesson-config.json) · [Configuration schema](docs/lesson-config.schema.json)**
+
+## Previous animations
+
+[Open the previous-animation gallery](https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/animations/) · [Local gallery](docs/animations/index.html)
+
+Earlier animated artwork, waveform demos, and original interactive experiences are linked alongside the current animations.
+
+## Your first interactive result
+
+1. Download or clone this repository and open `docs/index.html` in a modern browser.
+2. Select **Module 1**, apply its preset, and compare the declared checkpoint with the plotted result.
+3. Change one slider, inspect the model assumptions, then export the configuration or telemetry for your notes.
+
+The browser lab runs offline with no packages, accounts, or live data feeds. Its numbers are deterministic teaching simulations. Each checkpoint states its model time and tolerance; passing it demonstrates agreement with that model, not field calibration or production readiness.
+
+<!-- source-mapped-visuals:start -->
+
+<details>
+<summary>System topology and model boundaries</summary>
+
+![Cell rc network](assets/svg-2.5d/diagrams/cell-rc-network.svg)
+
+Conceptual one-RC reference; not asserted as an exact example implementation.
+
+![Pouch cell thermal gradient](assets/svg-2.5d/diagrams/pouch-cell-thermal-gradient.svg)
+
+Source-defined 1D finite-volume example topology: 15 cell-centred states across thickness.
+
+![Grid forming inverter](assets/svg-2.5d/diagrams/grid-forming-inverter.svg)
+
+Reduced-order reference topology; not an exact block-level mapping.
+
+Motion is optional; the vector topology remains readable with reduced motion enabled.
+
+</details>
+
+<!-- source-mapped-visuals:end -->
+
+## Four-module learning path
+
+| Module | Investigation | Approximate time |
+|---|---|---:|
+| 1. Predict a control response from its equation | Identify target, damping, natural frequency, and gain in a small dynamic model. | 12 min |
+| 2. Change response speed while keeping damping | Distinguish natural frequency from damping and steady-state gain. | 15 min |
+| 3. Use a limiting case as a verification check | Explain the value and scope of an analytic reference case. | 15 min |
+| 4. Choose the smallest defensible native model | Carry an explicit control question into the repository’s model and validation map. | 18 min |
+
+**Who this is for:** Electrical-engineering students, MATLAB users, and researchers studying reproducible reduced-order models.
+
+### Continue into the implementation
+
+- [README.md](README.md)
+- [buildfile.m](buildfile.m)
+- [examples/README.md](examples/README.md)
+- [docs/model-selection-guide.md](docs/model-selection-guide.md)
+- [docs/battery-pulse-response-lab.md](docs/battery-pulse-response-lab.md)
+- [examples/battery-rc-model/check_battery_rc_model.m](examples/battery-rc-model/check_battery_rc_model.m)
+- [examples/converter-closed-loop-model/README.md](examples/converter-closed-loop-model/README.md)
+
+### Explore or run the source
+
+MATLAB for native runs; README identifies R2026a as the tested release. The first battery check and Base MATLAB profile require no Simulink toolbox.
+
+```bash
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m')"
+matlab -batch "addpath('examples'); run_base_matlab_checks"
+```
+
+These commands come from the audited source revision. Runtime requirements and the project's own validation limits are documented below; the standalone browser lab does not execute these commands.
+
+The detailed project guide below remains the source for installation, supported features, licences, and scientific limits. The browser equations and laboratory settings do not change the original application or numerical engine.
+
+<details>
+<summary>Project documentation, installation, attribution, and existing validation</summary>
+
 <!-- markdownlint-disable MD013 -->
 
 # ⚡ MATLAB Simulink Energy Lab
@@ -12,6 +92,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 [![GitHub forks](https://img.shields.io/github/forks/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/network/members)
 [![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
+[![Support me on Ko-fi](https://img.shields.io/badge/Support%20me%20on%20Ko--fi-72a4f2?logo=ko-fi&logoColor=white)](https://ko-fi.com/N7V826XG89)
 
 [![MATLAB Simulink Energy Lab: runnable models and inspectable assumptions, with four independent example families—battery and SOC, thermal, converters, and BESS control](assets/social-preview-v3.jpg)](#your-first-result)
 
@@ -34,7 +115,7 @@ validation.
 
 **Source of record:** this GitHub repository is authoritative for code,
 releases, citation metadata, and validation evidence. The
-[public project overview](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
+[public project overview](https://mrkhan.co.technology/models/matlab-simulink-energy-lab/)
 is the search landing page and concise cross-model introduction.
 
 ## Your First Result
@@ -66,7 +147,7 @@ close open figures; save any work you want to keep first.
 | Check the entire repository or report a different result | [Validation profiles](#start-in-60-seconds) and [reproduction report](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml) |
 
 For the reasoning behind the checks, read the
-[reviewable MATLAB models guide](https://rezwankhan.tech/insights/reviewable-matlab-models/).
+[reviewable MATLAB models guide](https://mrkhan.co.technology/insights/reviewable-matlab-models/).
 Its worked numbers are explicitly bound to the source snapshot cited there.
 
 ## Read the Companion Book
@@ -232,7 +313,8 @@ matlab -batch "addpath('examples'); run_all_checks"
 
 ### Concise validation evidence
 
-The latest tagged release is [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0).
+This checkout carries v0.11.0 metadata; published snapshots are on the
+[releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 The following numerical summary records historical MATLAB R2026a evidence from
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
 at exact source commit
@@ -498,9 +580,9 @@ standard, pull request workflow, and attribution policy.
 
 Versioned snapshots and engineering highlights are available on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
-For a checksum-verifiable snapshot, download the tracked
-[v0.10.0 source package](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/download/v0.10.0/matlab-simulink-energy-lab-v0.10.0.zip)
-and its published [SHA-256 checksum](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/download/v0.10.0/SHA256SUMS-v0.10.0.txt).
+For a checksum-verifiable snapshot, download the source package and matching
+`SHA256SUMS` file attached to the
+[latest published release](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest).
 See the [changelog](CHANGELOG.md) for the model and validation history.
 
 If you use the lab in research, coursework, or teaching material, use GitHub's
@@ -516,8 +598,13 @@ checks, and clearer teaching notes. Read [CONTRIBUTING.md](CONTRIBUTING.md)
 before opening a pull request.
 
 If the lab saves you time or helps you understand a model, **please leave a ⭐**.
-It is the simplest way to support continued open engineering work.
+It is the simplest way to support continued open engineering work. You can also
+support continued development on [Ko-fi](https://ko-fi.com/N7V826XG89):
+
+[![Support me on Ko-fi](https://storage.ko-fi.com/cdn/kofi2.png?v=3)](https://ko-fi.com/N7V826XG89)
 
 ## License
 
 Released under the [MIT License](LICENSE).
+
+</details>

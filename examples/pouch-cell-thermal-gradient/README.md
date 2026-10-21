@@ -11,11 +11,15 @@ broad faces.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 When the two pouch-cell faces see different cooling conditions, where does the
 hot spot move, how large is the through-thickness temperature gradient, and
 does the numerical model conserve energy?
 
 ## Model Topology
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 ```text
 left fluid <-> [CV 1] - [CV 2] - ... - [CV N] <-> right fluid
@@ -88,6 +92,8 @@ examples/pouch-cell-thermal-gradient/
 
 ## How To Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 From this folder:
 
 ```matlab
@@ -127,6 +133,8 @@ and node-level and whole-cell energy-balance diagnostics.
 
 ## Validation Checks
 
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
+
 The no-plot script verifies that:
 
 - uniform heat allocation sums to the prescribed whole-cell heat;
@@ -155,6 +163,8 @@ The check compares the finite-volume transient against this independent
 reference after the thermal response has settled.
 
 ## Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - Parameters are educational placeholders and are not fitted to a particular
   cell or cooling plate.

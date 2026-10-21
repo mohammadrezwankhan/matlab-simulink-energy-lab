@@ -1,5 +1,7 @@
 # Project Assumptions
 
+![Section 02 · Equations / provenance](../../../docs/visuals/sections/section-02-equations.svg)
+
 The identifiers in this register are stable. Numerical values live in the
 central parameter function and are repeated here only after validation.
 
@@ -34,6 +36,8 @@ loss or invalid measurement and cannot reclose without the full
 synchronization guard.
 
 ## `PROJECT_ASSUMPTION:ASM-003` — acceptance thresholds
+
+![Section 04 · Verification / output](../../../docs/visuals/sections/section-04-verification.svg)
 
 Where the publication is silent, this example uses the goal-defined fallback
 criteria:

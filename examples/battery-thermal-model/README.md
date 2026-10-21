@@ -2,6 +2,8 @@
 
 # Temperature-Aware Battery Model
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This runnable MATLAB example couples a first-order battery equivalent circuit
 to a lumped thermal balance. It separates irreversible electrical loss from
 SOC-dependent reversible entropic heat, then applies ambient cooling and
@@ -11,10 +13,14 @@ temperature-dependent resistance feedback during charge and discharge.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 How do electrical losses and reversible electrochemical heat combine during a
 pulse-current cycle, and how does temperature feed back into ohmic resistance?
 
 ## Model Scope
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 | Element  | Meaning                                 |               Placeholder Value |
 | -------- | --------------------------------------- | ------------------------------: |
@@ -81,6 +87,8 @@ this discrete reference.
 - No Simulink or additional toolbox is required.
 
 ## How To Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 From MATLAB, navigate to this folder and run:
 
@@ -175,6 +183,8 @@ Translate convection coefficients, contact conductances, coolant conditions,
 and geometry into a defensible lumped `hA` value before applying it to hardware.
 
 ## Validation Checks
+
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
 
 The no-plot script verifies that:
 

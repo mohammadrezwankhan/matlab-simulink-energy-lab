@@ -31,17 +31,17 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up MATLAB R2026a only
-        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a
 
       - name: Run toolbox-free checks
-        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
+        uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5 # v3
         with:
           command: buildtool base
 
@@ -51,24 +51,24 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up MATLAB R2026a
-        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a
           products: Simulink
 
       - name: Run model checks
-        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
+        uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5 # v3
         with:
           command: addpath('examples'); run('examples/validation-manifest/check_validation_manifest.m'); generate_validation_manifest(getenv('GITHUB_SHA'))
 
       - name: Upload commit-bound validation manifest
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: validation-summary-${{ github.sha }}
           path: validation-artifacts/validation-summary.json
@@ -80,28 +80,28 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up MATLAB R2026a
-        uses: matlab-actions/setup-matlab@2323adb8243827ea460b0def4c413545aaec46a9 # v3
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a
           products: Simulink
 
       - name: Run focused unified BESS checks
-        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
+        uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5 # v3
         with:
           command: addpath('examples/bess-unified-control'); run('examples/bess-unified-control/check_bess_unified_control.m')
 
       - name: Generate commit-bound BESS evidence
-        uses: matlab-actions/run-command@75644028e1e2aa374bbfdc968a65718a178cc264 # v3
+        uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5 # v3
         with:
           command: addpath('examples/bess-unified-control'); generate_bess_validation_evidence(getenv('GITHUB_SHA'))
 
       - name: Upload BESS validation evidence
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: bess-validation-${{ github.sha }}
           path: |

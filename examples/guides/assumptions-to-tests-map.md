@@ -1,5 +1,7 @@
 # Assumptions To Tests Map
 
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
+
 Use this guide for mapping example assumptions to the checks or outputs that should change if they are edited. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.
 
 | Review Area | Prompt | Expected Record |

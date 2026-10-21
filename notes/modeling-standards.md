@@ -1,8 +1,12 @@
 # Modeling Standards
 
+![Section 02 · Equations / provenance](../docs/visuals/sections/section-02-equations.svg)
+
 Use these standards for examples in this repository.
 
 ## Minimum Example Requirements
+
+![Section 03 · Reproduce / parameters](../docs/visuals/sections/section-03-reproduce.svg)
 
 | Requirement | Why It Matters |
 |---|---|

@@ -172,7 +172,7 @@ for expected terminal output and evidence provenance.
 
 Use GitHub's **Cite this repository** control or the tracked
 [`CITATION.cff`](CITATION.cff). The machine-readable
-[`codemeta.json`](codemeta.json) describes the same v0.10.0 software release;
+[`codemeta.json`](codemeta.json) describes the same v0.11.0 software release;
 do not infer a DOI or journal publication because none is declared.
 
 ## What license applies?
@@ -185,6 +185,6 @@ linked from the documentation retain their own terms.
 
 The [GitHub repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
 is the source of record for code, releases, citation metadata, and validation
-evidence. The [public project overview](https://rezwankhan.tech/models/matlab-simulink-energy-lab/)
+evidence. The [public project overview](https://mrkhan.co.technology/models/matlab-simulink-energy-lab/)
 is the search landing page and concise cross-model introduction. The two URLs
 have complementary roles rather than competing canonical claims.

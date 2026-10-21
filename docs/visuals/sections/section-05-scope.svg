@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="132" viewBox="0 0 960 132" role="img" aria-labelledby="section-05-title section-05-desc">
+<title id="section-05-title">05 · Scope / limitations</title><desc id="section-05-desc">Section 05: Scope / limitations. Name what the evidence does not establish.</desc>
+<defs><style>:root{color-scheme:dark light;--bg:#08121f;--ink:#ecf5fb;--muted:#adc0d0;--accent:#F43F5E}@media(prefers-color-scheme:light){:root{--bg:#f5f9fc;--ink:#11253a;--muted:#40566c;--accent:#4C0519}}text{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}.small{font-size:12px;letter-spacing:2px;font-weight:760;fill:var(--accent)}.title{font-size:25px;font-weight:680}.sub{font-size:14px;fill:var(--muted)}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style></defs>
+<rect width="960" height="132" rx="18" fill="var(--bg)" stroke="#F43F5E" stroke-opacity=".42"/>
+<path d="M0 18Q0 0 18 0h13v132H18Q0 132 0 114Z" fill="#4C0519" stroke="#F43F5E" stroke-width="2"/>
+<text class="small" x="55" y="38">SECTION 05 / 05</text><text class="title" x="55" y="73">Scope / limitations</text><text class="sub" x="55" y="101">Name what the evidence does not establish.</text>
+<path d="M855 41l25 14v28l-25 14-25-14V55Z" fill="#4C0519" stroke="#F43F5E" stroke-width="2"/><text x="855" y="76" font-size="18" font-weight="760" text-anchor="middle" fill="var(--accent)">05</text>
+</svg>

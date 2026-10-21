@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="h-matlab-simulink-energy-lab-title h-matlab-simulink-energy-lab-desc">
+<title id="h-matlab-simulink-energy-lab-title">MATLAB Simulink Energy Lab — 2.5D teaching laboratory</title>
+<desc id="h-matlab-simulink-energy-lab-desc">An isometric vector illustration of dynamic system. Decorative animation only; all dashboard telemetry is synthetic.</desc>
+<defs>
+      <linearGradient id="h-matlab-simulink-energy-lab-bg" x2="1" y2="1"><stop stop-color="#1A1412"/><stop offset="1" stop-color="#070C16"/></linearGradient>
+      <linearGradient id="h-matlab-simulink-energy-lab-top" x2="0.8" y2="1"><stop stop-color="#FF6D00" stop-opacity=".3"/><stop offset="1" stop-color="#1A1412"/></linearGradient>
+      <radialGradient id="h-matlab-simulink-energy-lab-halo"><stop stop-color="#FF6D00" stop-opacity=".16"/><stop offset="1" stop-color="#FF6D00" stop-opacity="0"/></radialGradient>
+      <pattern id="h-matlab-simulink-energy-lab-dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#BDD8EB" opacity=".12"/></pattern>
+      <clipPath id="h-matlab-simulink-energy-lab-clip"><rect width="960" height="560" rx="24"/></clipPath>
+    </defs>
+    <style>
+      text{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+      .flow{animation:h-matlab-simulink-energy-lab-flow 2.4s linear infinite}
+      .float{animation:h-matlab-simulink-energy-lab-float 5s ease-in-out infinite}
+      .signal{animation:h-matlab-simulink-energy-lab-signal 2.6s ease-in-out infinite}
+      @keyframes h-matlab-simulink-energy-lab-flow{to{stroke-dashoffset:-34}}
+      @keyframes h-matlab-simulink-energy-lab-float{50%{transform:translateY(-6px)}}
+      @keyframes h-matlab-simulink-energy-lab-signal{50%{opacity:.35}}
+      @media(prefers-reduced-motion:reduce){.flow,.float,.signal{animation:none!important}}
+    </style>
+    <g clip-path="url(#h-matlab-simulink-energy-lab-clip)">
+      <rect width="960" height="560" rx="24" fill="url(#h-matlab-simulink-energy-lab-bg)"/>
+      <rect width="960" height="560" fill="url(#h-matlab-simulink-energy-lab-dots)"/>
+      <ellipse cx="480" cy="326" rx="360" ry="225" fill="url(#h-matlab-simulink-energy-lab-halo)"/>
+      <path d="M40 102H920" stroke="#FF6D00" stroke-opacity=".16"/>
+
+<text x="40" y="39" fill="#FF6D00" font-size="11" font-weight="700" letter-spacing="2.8">DYNAMIC SYSTEM</text>
+<text x="40" y="76" fill="#F1F6FB" font-size="26" font-weight="600" >MATLAB Simulink Energy Lab</text>
+<text x="920" y="40" fill="#8195AD" font-size="11" font-weight="500" text-anchor="end" letter-spacing="2">25D / 01</text>
+<polygon points="480.0,135.2 790.8,298.0 480.0,460.8 169.2,298.0" fill="#070D18" stroke="#FF6D00" stroke-width="1.2" opacity="0.7" />
+<polyline points="509.4,150.6 198.6,313.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="450.6,150.6 761.4,313.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="551.4,172.6 240.6,335.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="408.6,172.6 719.4,335.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="593.4,194.6 282.6,357.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="366.6,194.6 677.4,357.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="635.4,216.6 324.6,379.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="324.6,216.6 635.4,379.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="677.4,238.6 366.6,401.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="282.6,238.6 593.4,401.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="719.4,260.6 408.6,423.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="240.6,260.6 551.4,423.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="761.4,282.6 450.6,445.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="198.6,282.6 509.4,445.4" fill="none" stroke="#FF6D00" stroke-width="0.7" opacity="0.14" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="169.2,298.0 480.0,460.8 790.8,298.0" fill="none" stroke="#FF6D00" stroke-width="1.8" opacity="0.6" stroke-linecap="round" stroke-linejoin="round" />
+<g class="float">
+<polygon points="343.5,243.1 402.3,273.9 402.3,236.4 343.5,205.6" fill="#0D1828" stroke="#FF6D00" stroke-width="1.2" opacity="0.95" />
+<polygon points="448.5,249.7 402.3,273.9 402.3,236.4 448.5,212.2" fill="#182D41" stroke="#FF6D00" stroke-width="1.2" opacity="0.95" />
+<polygon points="389.7,181.4 448.5,212.2 402.3,236.4 343.5,205.6" fill="url(#h-matlab-simulink-energy-lab-top)" stroke="#FF6D00" stroke-width="1.2" opacity="1" />
+<polyline points="441.6,244.0 409.2,260.9" fill="none" stroke="#FF6D00" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="441.6,234.6 409.2,251.5" fill="none" stroke="#FF6D00" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="441.6,225.2 409.2,242.1" fill="none" stroke="#FF6D00" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
+<polygon points="492.6,321.2 557.7,355.3 557.7,317.8 492.6,283.7" fill="#0D1828" stroke="#00B0FF" stroke-width="1.2" opacity="0.95" />
+<polygon points="603.9,331.1 557.7,355.3 557.7,317.8 603.9,293.6" fill="#182D41" stroke="#00B0FF" stroke-width="1.2" opacity="0.95" />
+<polygon points="538.8,259.5 603.9,293.6 557.7,317.8 492.6,283.7" fill="url(#h-matlab-simulink-energy-lab-top)" stroke="#00B0FF" stroke-width="1.2" opacity="1" />
+<polyline points="597.0,325.4 564.6,342.3" fill="none" stroke="#00B0FF" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="597.0,316.0 564.6,332.9" fill="none" stroke="#00B0FF" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="597.0,306.6 564.6,323.5" fill="none" stroke="#00B0FF" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="425.4,240.8 515.7,288.1" fill="none" stroke="#FF6D00" stroke-width="5.4" opacity="0.08" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="425.4,240.8 515.7,288.1" fill="none" stroke="#FF6D00" stroke-width="2.4" opacity="0.8" stroke-linecap="round" stroke-linejoin="round" class="flow" stroke-dasharray="9 8"/>
+<circle cx="425.4" cy="240.8" r="3" fill="#FF6D00"/>
+<circle cx="515.7" cy="288.1" r="3" fill="#FF6D00"/>
+<polyline points="566.1,329.9 538.8,375.2 286.8,243.2 349.8,201.2 366.6,210.0" fill="none" stroke="#00B0FF" stroke-width="5.4" opacity="0.08" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="566.1,329.9 538.8,375.2 286.8,243.2 349.8,201.2 366.6,210.0" fill="none" stroke="#00B0FF" stroke-width="2.4" opacity="0.8" stroke-linecap="round" stroke-linejoin="round" class="flow" stroke-dasharray="9 8"/>
+<circle cx="566.1" cy="329.9" r="3" fill="#00B0FF"/>
+<circle cx="366.6" cy="210.0" r="3" fill="#00B0FF"/>
+<polyline points="360.0,211.0 360.0,131.0 640.0,131.0" fill="none" stroke="#FF6D00" stroke-width="0.8" opacity="0.3" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="360.0,163.0 640.0,163.0" fill="none" stroke="#00B0FF" stroke-width="1" opacity="0.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 5"/>
+<polyline points="360.0,211.0 362.8,210.8 365.6,210.1 368.4,209.1 371.2,207.7 374.0,206.0 376.8,204.1 379.6,201.9 382.4,199.6 385.2,197.2 388.0,194.7 390.8,192.1 393.6,189.5 396.4,186.8 399.2,184.2 402.0,181.7 404.8,179.2 407.6,176.8 410.4,174.5 413.2,172.3 416.0,170.2 418.8,168.3 421.6,166.5 424.4,164.8 427.2,163.3 430.0,161.9 432.8,160.6 435.6,159.5 438.4,158.6 441.2,157.7 444.0,157.0 446.8,156.5 449.6,156.0 452.4,155.6 455.2,155.4 458.0,155.2 460.8,155.2 463.6,155.2 466.4,155.3 469.2,155.4 472.0,155.7 474.8,155.9 477.6,156.2 480.4,156.6 483.2,156.9 486.0,157.3 488.8,157.7 491.6,158.1 494.4,158.6 497.2,159.0 500.0,159.4 502.8,159.8 505.6,160.2 508.4,160.6 511.2,161.0 514.0,161.4 516.8,161.7 519.6,162.1 522.4,162.4 525.2,162.6 528.0,162.9 530.8,163.1 533.6,163.3 536.4,163.5 539.2,163.7 542.0,163.8 544.8,163.9 547.6,164.0 550.4,164.1 553.2,164.2 556.0,164.2 558.8,164.3 561.6,164.3 564.4,164.3 567.2,164.3 570.0,164.2 572.8,164.2 575.6,164.2 578.4,164.1 581.2,164.1 584.0,164.0 586.8,163.9 589.6,163.9 592.4,163.8 595.2,163.7 598.0,163.7 600.8,163.6 603.6,163.5 606.4,163.5 609.2,163.4 612.0,163.3 614.8,163.3 617.6,163.2 620.4,163.2 623.2,163.1 626.0,163.1 628.8,163.0 631.6,163.0 634.4,163.0 637.2,162.9 640.0,162.9" fill="none" stroke="#FF6D00" stroke-width="2.7" opacity="1" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<polyline points="70.0,352.0 166.0,352.0 208.0,374.0" fill="none" stroke="#FF6D00" stroke-width="1" opacity="0.4" stroke-linecap="round" stroke-linejoin="round" />
+<text x="40" y="326" fill="#8195AD" font-size="11" font-weight="500" letter-spacing="2">EXPLORE THE</text>
+<text x="40" y="345" fill="#FF6D00" font-size="16" font-weight="600" letter-spacing="1">SYSTEM</text>
+<polyline points="770.0,213.0 819.0,186.0 916.0,186.0" fill="none" stroke="#00B0FF" stroke-width="1" opacity="0.4" stroke-linecap="round" stroke-linejoin="round" />
+<text x="918" y="173" fill="#00B0FF" font-size="11" font-weight="600" text-anchor="end" letter-spacing="1">ADJUST → OBSERVE</text>
+<path d="M40 506H920" stroke="#FF6D00" stroke-opacity=".15"/>
+<text x="40" y="532" fill="#8EA4BD" font-size="10" font-weight="500" letter-spacing="2">TARGET / RESPONSE / DAMPING</text>
+<circle cx="746.0" cy="528.0" r="3" fill="#00B0FF" class="signal"/>
+<text x="759" y="532" fill="#8EA4BD" font-size="9" font-weight="600" letter-spacing="1.1">SYNTHETIC TEACHING MODEL</text>
+</g></svg>

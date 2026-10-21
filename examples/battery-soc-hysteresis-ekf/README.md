@@ -2,6 +2,8 @@
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 What happens when an SOC estimator treats equilibrium voltage as a
 single-valued function of SOC even though the simulated cell preserves
 charge/discharge history?
@@ -15,6 +17,8 @@ hysteresis while the three-state filter models it.
 ![Hysteresis-aware and two-state SOC estimators compared on a synthetic reversal-rich current profile](../../assets/battery-soc-hysteresis-ekf-response.png)
 
 ## Model
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 The state is `x = [SOC; Vrc; h]`. Positive current denotes discharge. SOC and
 RC polarization use the same exact interval updates as the existing battery
@@ -53,6 +57,8 @@ The example reuses the validated reversal profile and plant from
 `battery-soc-ekf`.
 
 ## Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 From the repository root:
 
@@ -97,6 +103,8 @@ hysteresis prevents the voltage offset from being absorbed as SOC error.
 - This example is not a battery-management-system safety function.
 
 ## Next Evidence Step
+
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
 
 A cell-specific claim would require separately measured mean-OCV data,
 charge/discharge reversals across relevant SOC and temperature ranges,

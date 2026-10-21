@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "repository": "matlab-simulink-energy-lab",
+  "preserved_current_commit": "a6cd2e41296c8f1243a3fb3f6539d8dc8a6f8daa",
+  "animations": [
+    {
+      "kind": "image",
+      "title": "Original floating-layer SVG",
+      "badge": "Earlier animated media",
+      "description": "Floating isometric tiers, pulsing circuits, and flowing dashed traces from the earlier repository hero.",
+      "format": "Animated SVG",
+      "preview": "media/hero-25d-54447d2d4385.svg",
+      "preview_sha256": "7c78d90f5ebee80a5c5bc388cd355078abefe27f6eff312acac350488698f290",
+      "motion_identity": "54447d2d4385823d30868a73b991bfa00e531a474378dc67a3cce411474f820b",
+      "sources": [
+        {
+          "path": "assets/hero-25d.svg",
+          "commit": "6fed303797dff87409879b4dc3715b0a1e01c1a4",
+          "sha256": "9002cadc3ee5582b5489a5be2d4613114200fe37ef919160f2d8372571085a63",
+          "blob": "1b464263fae9a6d249a4f35ea75d8e6547b3a113",
+          "url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/assets/hero-25d.svg"
+        },
+        {
+          "path": "assets/hero-25d.svg",
+          "commit": "807f96f22363ba4c5e71925a83c22369be6c5f5a",
+          "sha256": "2de0234ea1a5c08c6da42a0bb5134e108f90c7bf78822eb86d3e4d4969ce1288",
+          "blob": "f1e519dbf70e8565cad1498aa78c27774ad6fa41",
+          "url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/807f96f22363ba4c5e71925a83c22369be6c5f5a/assets/hero-25d.svg"
+        }
+      ]
+    },
+    {
+      "kind": "waveform",
+      "title": "Original interactive waveform",
+      "badge": "Previous dashboard animation",
+      "description": "The earlier 2.5D perspective card and its moving waveform, with the original visual formulas and sliders.",
+      "preview": "waveform.html",
+      "preview_sha256": "8bb0d9cb228f3eaceae7a5fad282df021cc7438592a1a762640278e69f1b2ccc",
+      "sources": [
+        {
+          "path": "docs/index.html",
+          "commit": "6fed303797dff87409879b4dc3715b0a1e01c1a4",
+          "blob": "33cd1b79f4a6989f91aad96d7a51c3bc2eddee89",
+          "sha256": "3243a767a6ba7ad5d32ebdf4d91545d8919b21df4950dbd55ceedd7582b5fe66",
+          "url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/6fed303797dff87409879b4dc3715b0a1e01c1a4/docs/index.html"
+        },
+        {
+          "path": "docs/index.html",
+          "commit": "807f96f22363ba4c5e71925a83c22369be6c5f5a",
+          "blob": "f62ff2c5428339a7b48e1e326a3c9acd1c9a2297",
+          "sha256": "f71cfac24bb1faf7b34acc3e021a292899fba28320544c40d3ec1b74923712fd",
+          "url": "https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/807f96f22363ba4c5e71925a83c22369be6c5f5a/docs/index.html"
+        }
+      ]
+    }
+  ],
+  "native_links": [],
+  "historical_source_links": []
+}

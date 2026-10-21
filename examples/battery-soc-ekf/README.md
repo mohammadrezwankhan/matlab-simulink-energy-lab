@@ -2,10 +2,14 @@
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 How can a transparent extended Kalman filter correct a biased
 state-of-charge estimate using measured current and terminal voltage?
 
 ## Model Scope
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 This base-MATLAB example estimates two states from a first-order battery
 equivalent circuit:
@@ -40,6 +44,8 @@ covariance symmetry and positive-semidefinite structure under finite precision.
 
 ## Assumptions
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 | Quantity | Default | Unit | Role |
 |---|---:|---|---|
 | Capacity | 5 | Ah | Coulomb-counting scale |
@@ -56,6 +62,8 @@ sensor data. The OCV table is also illustrative and must be replaced before
 cell-specific interpretation.
 
 ## Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 From the repository root:
 
@@ -86,6 +94,8 @@ run_all_checks
 ```
 
 ## Validation
+
+![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
 
 The deterministic check requires:
 

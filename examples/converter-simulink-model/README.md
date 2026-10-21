@@ -6,6 +6,8 @@ and parameter gains instead of treating the model as an opaque binary file.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 Can a programmatically generated Simulink model reproduce the exact transient
 and lossy steady state of the averaged buck-converter equations?
 
@@ -24,6 +26,8 @@ The builder uses `new_system`, `add_block`, `add_line`, `set_param`, and
 the source of truth, so the generated binary does not need to be committed.
 
 ## Starter Parameters
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 | Parameter           | Value | Unit |
 | ------------------- | ----: | ---- |
@@ -51,6 +55,8 @@ iL   = Vout / Rload               = 17.910 A
 - No power-electronics, control, or testing toolbox is required.
 
 ## Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 Generate the model in a temporary workspace, simulate startup, plot both
 states, and open the block diagram:
@@ -87,6 +93,8 @@ exponential solution. It also verifies parameter rejection and removes the
 temporary model afterward.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - This is an averaged continuous-time model. PWM ripple, switching loss, dead
   time, semiconductor drops, and discontinuous conduction are excluded.

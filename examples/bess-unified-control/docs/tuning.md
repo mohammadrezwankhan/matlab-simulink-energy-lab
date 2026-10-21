@@ -1,5 +1,7 @@
 # Tuning and Parameter Replacement
 
+![Section 02 · Equations / provenance](../../../docs/visuals/sections/section-02-equations.svg)
+
 All tunable values live in `bess_unified_control_parameters.m`; callers can
 provide a scalar override structure. Unknown fields, nonfinite values,
 nonpositive time constants, invalid ranges, and a sample time not smaller than
@@ -46,6 +48,8 @@ These values produce a readable deterministic example. They are not vendor,
 plant, stability-study, protection, or grid-code settings.
 
 ## Sensitivity and boundaries
+
+![Section 05 · Scope / limitations](../../../docs/visuals/sections/section-05-scope.svg)
 
 Scenario F stresses the combined P/Q current boundary and confirms recovery.
 Scenario H limits DC-side active-power availability to 0.2 p.u., exercises zero

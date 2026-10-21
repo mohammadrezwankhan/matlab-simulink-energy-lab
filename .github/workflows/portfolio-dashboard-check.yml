@@ -1,0 +1,18 @@
+name: Portfolio guide checks
+on:
+  pull_request:
+    paths: ['docs/portfolio/**', 'assets/portfolio/**', 'scripts/portfolio/**', '.github/workflows/portfolio-dashboard-check.yml']
+  push:
+    paths: ['docs/portfolio/**', 'assets/portfolio/**', 'scripts/portfolio/**', '.github/workflows/portfolio-dashboard-check.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Validate guide data, source paths and SVG
+        run: python3 scripts/portfolio/validate_guide.py

@@ -1,6 +1,7 @@
 function [dAxis, qAxis] = bess_park_transform(alpha, beta, angle_rad)
 %BESS_PARK_TRANSFORM Rotate alpha-beta quantities into a dq frame.
 
+validateattributes(beta, {'numeric'}, {'real', 'finite'});
 validateattributes(alpha, {'numeric'}, {'real', 'finite', ...
     'size', size(beta)});
 validateattributes(angle_rad, {'numeric'}, {'real', 'finite', ...

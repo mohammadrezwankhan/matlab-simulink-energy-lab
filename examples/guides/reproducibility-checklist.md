@@ -1,5 +1,7 @@
 # Reproducibility Checklist
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 Use this guide for checking whether another reviewer can run and understand the example from the repository alone. It is written for small MATLAB and Simulink examples that should remain easy to run, inspect, and validate.
 
 | Review Area | Prompt | Expected Record |

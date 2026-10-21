@@ -1,11 +1,15 @@
 # Native Simulink Battery Thermal Model
 
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
+
 This example generates an inspectable discrete Simulink diagram for the
 temperature-aware battery reference. It exposes how current, polarization,
 temperature-dependent resistance, SOC-dependent reversible heat, irreversible
 loss, and ambient cooling form a closed electro-thermal feedback path.
 
 ## Engineering Question
+
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
 
 Can a generated block diagram reproduce every sample of the validated thermal
 battery recurrence while making each electrical and heat-flow balance visible?
@@ -73,6 +77,8 @@ relations, and energy closure therefore have one maintained implementation.
 
 ## Run
 
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
+
 Generate and open the model, simulate the canonical profile, and plot voltage,
 temperature, and heat generation:
 
@@ -108,6 +114,8 @@ MATLAB reference cases, checks thermal energy closure, rejects invalid
 parameters and lookup tables, and removes generated models.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - The model is a discrete educational recurrence, not a continuous
   electrochemical or spatial thermal model.

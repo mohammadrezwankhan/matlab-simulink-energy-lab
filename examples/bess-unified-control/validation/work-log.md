@@ -59,6 +59,8 @@ and `save_system`.
 
 ## Source-review boundary
 
+![Section 05 · Scope / limitations](../../../docs/visuals/sections/section-05-scope.svg)
+
 The publisher DOI, the CC BY 4.0 Zenodo author deposit, the public BESS
 specification page, the public research summary, and repository standards were
 reviewed. No paywall was bypassed and no paper figure will be copied.
@@ -77,6 +79,8 @@ Accordingly, the executable plant and transition/fault supervisor are labeled
 project assumptions and extensions.
 
 ## Implementation and verification checkpoint
+
+![Section 04 · Verification / output](../../../docs/visuals/sections/section-04-verification.svg)
 
 - Requirements and source ledger: complete; stable IDs and source/assumption
   classifications recorded.

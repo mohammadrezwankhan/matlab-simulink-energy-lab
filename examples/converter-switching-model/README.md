@@ -7,10 +7,14 @@ without requiring Simulink or a power-electronics toolbox.
 
 ## Engineering Question
 
+![Section 01 · Question / topology](../../docs/visuals/sections/section-01-question.svg)
+
 How closely do the steady average and ripple of a switched buck converter match
 the corresponding averaged continuous-conduction estimates?
 
 ## Model Structure
+
+![Section 02 · Equations / provenance](../../docs/visuals/sections/section-02-equations.svg)
 
 The ideal complementary switch state `s` is either zero or one. During each
 event-aligned PWM interval, the model propagates the linear state exactly:
@@ -40,6 +44,8 @@ straddling a switching event.
 | Steps per switching period | 100 | - |
 
 ## Run
+
+![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
 
 To inspect startup and the final three PWM periods:
 
@@ -82,6 +88,8 @@ continuous-conduction triangular ripple estimates. These comparisons are
 regression checks for the stated assumptions, not validation against hardware.
 
 ## Explicit Limitations
+
+![Section 05 · Scope / limitations](../../docs/visuals/sections/section-05-scope.svg)
 
 - The switches are ideal and complementary; dead time, diode drops, output
   capacitance, reverse recovery, switching energy, and gate-drive behavior are
