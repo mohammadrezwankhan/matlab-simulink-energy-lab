@@ -133,8 +133,7 @@ publication before advertising 1.12.0 as released.
 
 ### Static dependency ambiguity
 
-The native dependency report keeps the complete
-[`requiredFilesAndProducts`](https://www.mathworks.com/help/matlab/ref/matlab.codetools.requiredfilesandproducts.html)
+The native dependency report keeps the complete `requiredFilesAndProducts`
 result, including its `Certain` flags. Confirmed undeclared products fail the
 check. Possible undeclared products remain visible in
 `possible_undeclared_products`: on a fully installed R2026a system,
@@ -144,7 +143,7 @@ establish runtime requirements. The independent MATLAB-only job and the
 MATLAB-plus-Simulink release job remain required product-isolation evidence.
 The audit does not interpret a clean static report as proof of a minimal runtime.
 
-Cleanup callbacks capture their inputs and use
-[`onCleanup.cancel`](https://www.mathworks.com/help/matlab/ref/oncleanup.cancel.html)
-after success, which is available from R2025a. R2026a remains the maintained
-verification target.
+Cleanup callbacks capture their inputs and use `onCleanup.cancel` after success,
+which is available from R2025a. R2026a remains the maintained verification target.
+Open the authoritative references directly in MATLAB with
+`doc matlab.codetools.requiredFilesAndProducts` and `doc onCleanup.cancel`.
