@@ -26,11 +26,7 @@ if ~isfolder(fullfile(repositoryRoot, 'examples'))
         'Repository root must contain the examples directory.');
 end
 % Resolve a relative root before entering the temporary working directory.
-[resolved, attributes] = fileattrib(repositoryRoot);
-if ~resolved
-    error('RepositoryAudit:RepositoryRoot', 'Cannot resolve repository root.');
-end
-repositoryRoot = attributes.Name;
+repositoryRoot = absolute_folder(repositoryRoot);
 if ~isempty(outputPath) && ~is_absolute_path(outputPath)
     outputPath = fullfile(pwd, outputPath);
 end
@@ -80,9 +76,11 @@ end
 originalPath = path;
 originalDirectory = pwd;
 originalFigures = findall(groot, 'Type', 'figure');
-fileGenerationConfig = [];
+fileGenerationConfig = Simulink.fileGenControl('getConfig');
 temporaryDirectory = tempname;
-environmentCleanup = onCleanup(@restore_environment);
+restoreEnvironment = @() restore_environment(originalFigures, originalDirectory, ...
+    fileGenerationConfig, originalPath, temporaryDirectory);
+environmentCleanup = onCleanup(restoreEnvironment);
 report.cleanup.status = 'pending';
 try
     mkdir(temporaryDirectory);
@@ -95,7 +93,6 @@ try
         fullfile(examplesDirectory, 'battery-thermal-model'), ...
         fullfile(examplesDirectory, 'converter-switching-closed-loop-model'), ...
         fullfile(examplesDirectory, 'bess-unified-control', 'src'));
-    fileGenerationConfig = Simulink.fileGenControl('getConfig');
     Simulink.fileGenControl('set', ...
         'CacheFolder', fullfile(temporaryDirectory, 'cache'), ...
         'CodeGenFolder', fullfile(temporaryDirectory, 'codegen'), ...
@@ -122,47 +119,51 @@ catch exception
     report.status = 'failed';
     report.error = exception_summary(exception);
 end
-clear environmentCleanup;
+report.cleanup = restoreEnvironment();
 if strcmp(report.cleanup.status, 'failed')
     report.status = 'failed';
+else
+    cancel(environmentCleanup);
 end
 write_report(report, outputPath);
 
-    function restore_environment()
-        errors = {};
-        try
-            close_new_figures(originalFigures);
-        catch exception
-            errors{end + 1} = exception.message;
-        end
-        try
-            cd(originalDirectory);
-        catch exception
-            errors{end + 1} = exception.message;
-        end
-        try
-            if ~isempty(fileGenerationConfig)
-                Simulink.fileGenControl('setConfig', ...
-                    'config', fileGenerationConfig);
-            end
-        catch exception
-            errors{end + 1} = exception.message;
-        end
-        path(originalPath);
-        try
-            if isfolder(temporaryDirectory)
-                rmdir(temporaryDirectory, 's');
-            end
-        catch exception
-            errors{end + 1} = exception.message;
-        end
-        report.cleanup.errors = errors;
-        if isempty(errors)
-            report.cleanup.status = 'passed';
-        else
-            report.cleanup.status = 'failed';
-        end
+end
+
+function cleanup = restore_environment(originalFigures, originalDirectory, ...
+        fileGenerationConfig, originalPath, temporaryDirectory)
+errors = {};
+try
+    close_new_figures(originalFigures);
+catch exception
+    errors{end + 1} = exception.message;
+end
+try
+    cd(originalDirectory);
+catch exception
+    errors{end + 1} = exception.message;
+end
+try
+    if ~isempty(fileGenerationConfig)
+        Simulink.fileGenControl('setConfig', ...
+            'config', fileGenerationConfig);
     end
+catch exception
+    errors{end + 1} = exception.message;
+end
+path(originalPath);
+try
+    if isfolder(temporaryDirectory)
+        rmdir(temporaryDirectory, 's');
+    end
+catch exception
+    errors{end + 1} = exception.message;
+end
+cleanup.errors = errors;
+if isempty(errors)
+    cleanup.status = 'passed';
+else
+    cleanup.status = 'failed';
+end
 end
 
 function entry = inspect_model(entry, builderName, directory, runAdvisor, hasCheck)
@@ -174,16 +175,16 @@ if bdIsLoaded(modelName)
     return;
 end
 ownedHandle = [];
-% Predeclare outputs assigned by evalc in this function's static workspace.
-modelPath = '';
-loops = [];
-viewer = [];
 figuresBefore = findall(groot, 'Type', 'figure');
-modelCleanup = onCleanup(@close_owned_model);
+loadCleanup = onCleanup(@() close_owned_model(modelName, [], figuresBefore));
+modelCleanup = [];
 try
-    entry.build_log = evalc('modelPath = feval(builderName, directory);');
+    buildModel = @() feval(builderName, directory); %#ok<NASGU> Used by the constant evalc expression below.
+    [entry.build_log, modelPath] = evalc('buildModel()');
     load_system(modelPath);
     ownedHandle = get_param(modelName, 'Handle');
+    modelCleanup = onCleanup(@() close_owned_model(modelName, ownedHandle, figuresBefore));
+    cancel(loadCleanup);
     entry.compile_log = evalc( ...
         'set_param(modelName, ''SimulationCommand'', ''update'');');
     parameterNames = {'SolverType', 'Solver', 'FixedStep', 'MaxStep', ...
@@ -218,8 +219,8 @@ try
             'owner_block', property_text(sampleTime, 'OwnerBlock'), ...
             'annotation', property_text(sampleTime, 'Annotation'));
     end
-    entry.algebraic_loops.query_log = evalc( ...
-        '[loops, viewer] = Simulink.BlockDiagram.getAlgebraicLoops(modelName);');
+    [entry.algebraic_loops.query_log, loops, viewer] = evalc( ...
+        'Simulink.BlockDiagram.getAlgebraicLoops(modelName)');
     entry.algebraic_loops.count = numel(loops);
     for index = 1:numel(loops)
         loop = loops(index);
@@ -247,27 +248,42 @@ end
 % Logs can contain the ephemeral destination path. Keep the report stable.
 entry.build_log = strrep(entry.build_log, directory, '<model-audit-directory>');
 entry.compile_log = strrep(entry.compile_log, directory, '<model-audit-directory>');
-clear modelCleanup;
+entry.cleanup = close_owned_model(modelName, ownedHandle, figuresBefore);
+if strcmp(entry.cleanup.status, 'failed')
+    entry.status = 'failed';
+else
+    cancel(loadCleanup);
+    if ~isempty(modelCleanup)
+        cancel(modelCleanup);
+    end
+end
+end
 
-    function close_owned_model()
-        try
-            close_new_figures(figuresBefore);
-            if bdIsLoaded(modelName)
-                % The name was not loaded when this synchronous build began.
-                if isempty(ownedHandle) || get_param(modelName, 'Handle') == ownedHandle
-                    close_system(modelName, 0);
-                else
-                    error('RepositoryAudit:ModelOwnershipChanged', ...
-                        'Model handle changed during the audit; left it untouched.');
-                end
-            end
-            entry.cleanup.status = 'passed';
-        catch exception
-            entry.cleanup.status = 'failed';
-            entry.cleanup.error = exception_summary(exception);
-            entry.status = 'failed';
+function cleanup = close_owned_model(modelName, ownedHandle, figuresBefore)
+cleanup = struct('status', 'passed', 'error', struct('identifier', '', 'message', ''));
+try
+    close_new_figures(figuresBefore);
+    if bdIsLoaded(modelName)
+        % The name was not loaded when this synchronous build began.
+        if isempty(ownedHandle) || get_param(modelName, 'Handle') == ownedHandle
+            close_system(modelName, 0);
+        else
+            error('RepositoryAudit:ModelOwnershipChanged', ...
+                'Model handle changed during the audit; left it untouched.');
         end
     end
+catch exception
+    cleanup.status = 'failed';
+    cleanup.error = exception_summary(exception);
+end
+end
+
+function folder = absolute_folder(folder)
+originalDirectory = pwd;
+cleanup = onCleanup(@() cd(originalDirectory));
+cd(folder);
+folder = pwd;
+clear cleanup;
 end
 
 function result = run_model_advisor(modelName, hasCheck)

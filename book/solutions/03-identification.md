@@ -86,14 +86,15 @@ Only the first call to `fit_battery_2rc_parameters` receives calibration data.
 The validation data is not used until after the parameters are fixed. The
 source check additionally expects the held-out error below 1.5 mV and checks
 that the selected design is well conditioned. Those values are source/check
-expectations for the deterministic synthetic record. The plotting script
-clears workspace variables and closes figures; use every source runner only in
-a fresh MATLAB session and save any important state first.
+expectations for the deterministic synthetic record. The proposed 1.12.0
+plotting script preserves caller variables and existing figures; capture the
+fit through its public function. Use a fresh session for the initial pinned
+book snapshot, whose cleanup is destructive.
 
 ## Exercise 4 — Interpretation and limits solution
 
-A condition number of (2.5\times10^6) is 250 times larger than the source
-screen's (10^4) ceiling. The columns of the design matrix are effectively
+A condition number of $2.5\times10^6$ is 250 times larger than the source
+screen's $10^4$ ceiling. The columns of the design matrix are effectively
 too similar, or the problem is badly scaled, so small voltage noise or OCV
 error can produce large changes in fitted resistances. The fit may still return
 finite positive values, but those values should not be treated as stable

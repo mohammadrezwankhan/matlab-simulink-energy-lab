@@ -18,12 +18,16 @@ or open one focused Base MATLAB script in MATLAB Online:
 Run every no-plot check from the repository root with:
 
 ```matlab
-addpath('examples')
-run_all_checks
+report = run_all_checks(true, true, true);
+assert(report.all_checks_passed && report.complete_suite)
 ```
 
-The runner invokes each script in an isolated function workspace because the
-checks intentionally clear their own variables.
+This explicit full-catalog command requires Simulink. The no-argument root
+runner detects available capabilities and reports an incomplete Base subset
+when Simulink is absent. Script entry points execute in local workspaces and
+preserve caller state; obtain numerical data from public simulator/estimator
+functions rather than residual script variables. See the
+[1.12.0 migration and release gate](../docs/release-readiness.md).
 
 For MATLAB without Simulink, run the 20-check toolbox-free subset:
 

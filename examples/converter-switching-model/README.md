@@ -94,8 +94,11 @@ regression checks for the stated assumptions, not validation against hardware.
 - The switches are ideal and complementary; dead time, diode drops, output
   capacitance, reverse recovery, switching energy, and gate-drive behavior are
   excluded.
-- Fixed-duty open-loop PWM is used. The closed-loop example remains an averaged
-  model and is not coupled to this switching plant.
+- This example uses fixed-duty open-loop PWM. The separate
+  [switching closed-loop buck](../converter-switching-closed-loop-model/README.md)
+  adds sampled control and a different lossy switched plant; the
+  [averaged closed-loop example](../converter-closed-loop-model/README.md)
+  remains a distinct comparison route.
 - A synchronous topology permits bidirectional inductor current; diode-emulated
   discontinuous-conduction behavior is not modeled.
 - The source and resistive load are fixed, and capacitor ESR is omitted.

@@ -41,6 +41,9 @@ switch phase
     case "check"
         [report.files, telemetry] = inspect_code(root, files, ...
             report.simulink_available);
+        report.dependency_analysis_boundary = ...
+            "Confirmed undeclared products fail; possible products remain recorded. " + ...
+            "Product-isolated CI is required to verify runtime product boundaries.";
         report.passed = all([report.files.analyzer_clean]) && ...
             ~any(string({report.files.dependency_status}) == "failed");
         report.complete = all(string({report.files.dependency_status}) == "passed");
@@ -70,6 +73,7 @@ switch phase
         selected = files(startsWith(last_component(files), "run_"));
         entries = repmat(empty_execution(""), numel(selected), 1);
         for index = 1:numel(selected)
+            fprintf('[%d/%d] Auditing %s\n', index, numel(selected), selected(index));
             if requires_simulink(selected(index)) && ~report.simulink_available
                 entries(index) = empty_execution(selected(index));
                 entries(index).status = "unavailable";
@@ -77,6 +81,8 @@ switch phase
             else
                 entries(index) = execute_entry(root, selected(index));
             end
+            fprintf('  %s; cleanup=%s\n', entries(index).status, ...
+                entries(index).cleanup_status);
         end
         telemetry.entries = entries;
         report.entries = rmfield(entries, {'elapsed_seconds', 'stdout'});
@@ -130,6 +136,7 @@ template = struct('path', "", 'analyzer_clean', false, ...
     'diagnostics', struct([]), 'complexity', struct([]), ...
     'dependency_status', "not_run", 'required_files', strings(0, 1), ...
     'required_products', struct([]), 'allowed_products', strings(0, 1), ...
+    'possible_undeclared_products', strings(0, 1), ...
     'error_identifier', "", 'error_message', "");
 records = repmat(template, numel(files), 1);
 seconds = zeros(numel(files), 1);
@@ -172,10 +179,16 @@ for index = 1:numel(files)
                 products = products(productOrder);
             end
             records(index).required_products = products;
-            unexpected = setdiff(string({products.Name}), allowed);
+            % Certain=false includes overloaded Simulink load/save/close
+            % methods from unrelated installed products. Retain those candidates
+            % verbatim; product-isolated CI, not static guesses, proves runtime use.
+            certain = logical([products.Certain]);
+            records(index).possible_undeclared_products = ...
+                setdiff(string({products(~certain).Name}), allowed);
+            unexpected = setdiff(string({products(certain).Name}), allowed);
             if ~isempty(unexpected)
                 error('ReleaseAudit:ToolboxLeak', ...
-                    'Undeclared products: %s', strjoin(unexpected, ', '));
+                    'Confirmed undeclared products: %s', strjoin(unexpected, ', '));
             end
             records(index).dependency_status = "passed";
         end
@@ -203,10 +216,9 @@ if hasSimulink
     originalDiagrams = Simulink.allBlockDiagrams;
     fileGenerationConfig = Simulink.fileGenControl('getConfig');
 end
-restorationError = [];
-cleanup = onCleanup(@restore_owned_context);
-% evalc assigns into this static workspace; the variable must already exist.
-executionError = [];
+restoreContext = @() restore_entry(originalFolder, originalPath, originalRng, ...
+    originalFigures, originalDiagrams, fileGenerationConfig);
+cleanup = onCleanup(restoreContext);
 started = tic;
 try
     source = fullfile(root, relativePath);
@@ -216,8 +228,9 @@ try
     codeLines = codeLines(strlength(codeLines) > 0 & ~startsWith(codeLines, "%"));
     firstCode = codeLines(1);
     isFunction = startsWith(strtrim(string(firstCode)), "function");
-    result.stdout = string(evalc( ...
-        'executionError = execute_selected(source, isFunction);'));
+    executeSelected = @() execute_selected(source, isFunction); %#ok<NASGU> Used by the constant evalc expression below.
+    [stdout, executionError] = evalc('executeSelected()');
+    result.stdout = string(stdout);
     if isempty(executionError)
         result.status = "passed";
     else
@@ -253,23 +266,16 @@ if hasSimulink
         result.error_message = "The entry point closed a caller-owned model or library.";
     end
 end
-clear cleanup;
-result.cleanup_status = "passed";
-if ~isempty(restorationError)
+try
+    restoreContext();
+    cancel(cleanup);
+    result.cleanup_status = "passed";
+catch restorationError
     result.cleanup_status = "failed";
     result.status = "failed";
     result.error_identifier = string(restorationError.identifier);
     result.error_message = string(restorationError.message);
 end
-
-    function restore_owned_context
-        try
-            restore_entry(originalFolder, originalPath, originalRng, ...
-                originalFigures, originalDiagrams, fileGenerationConfig);
-        catch cleanupError
-            restorationError = cleanupError;
-        end
-    end
 end
 
 function executionError = execute_selected(source, isFunction)

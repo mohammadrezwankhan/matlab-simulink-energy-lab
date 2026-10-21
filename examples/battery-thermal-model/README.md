@@ -76,6 +76,13 @@ The scripts share the same validated simulator. It accepts native irregular
 timestamps or a requested uniform sample time, checks explicit-Euler stability,
 and returns every electrical and thermal state plus energy-balance diagnostics.
 
+The 1.12.0 candidate also checks the unbounded SOC trajectory implied by the
+whole prescribed current profile. It rejects charge demands outside `[0, 1]`
+beyond `1e-12` roundoff with `BatteryThermal:SOCProfile`; it does not silently
+clip an infeasible profile or curtail its current. The default profile is
+unchanged. The remaining state clamp only protects against roundoff on
+accepted trajectories. Candidate native verification remains a release gate.
+
 The [native Simulink counterpart](../battery-thermal-simulink-model/README.md)
 generates an inspectable feedback diagram and compares thirteen logged signals with
 this discrete reference.
@@ -120,10 +127,17 @@ Assess one or more project-defined temperature limits from any validated
 thermal result:
 
 ```matlab
+profile = battery_thermal_default_profile();
+parameters = battery_thermal_default_parameters();
+result = simulate_battery_thermal_model(profile, parameters, 1);
 limits_C = [35; 40];
 limitSummary = summarize_battery_temperature_limits(result, limits_C);
 writetable(limitSummary, 'temperature-limit-summary.csv');
 ```
+
+Call this from the example directory, or add that directory to the path in
+your own script. The 1.12.0 plotting entry point uses a local workspace and
+does not leave `result` in the caller workspace.
 
 The returned table preserves the requested limit order and reports whether
 each limit was exceeded, first exceedance time, total time above the limit,
@@ -189,6 +203,8 @@ and geometry into a defensible lumped `hA` value before applying it to hardware.
 The no-plot script verifies that:
 
 - SOC remains in the physical interval `[0, 1]`;
+- infeasible prescribed SOC trajectories are rejected before integration,
+  while exactly feasible boundary profiles are accepted;
 - the pulse case heats above ambient but remains below 45 degC;
 - ohmic resistance decreases as temperature rises;
 - irreversible heat remains nonnegative for the defined current profile;

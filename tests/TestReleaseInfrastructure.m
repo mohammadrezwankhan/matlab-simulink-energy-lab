@@ -1,6 +1,20 @@
 classdef TestReleaseInfrastructure < matlab.unittest.TestCase
     % Contract tests for release evidence; no physical model is mocked.
     methods (Test)
+        function completeCatalogIncludesEveryCheck(testCase)
+            root = fileparts(fileparts(mfilename('fullpath')));
+            examplesDirectory = fullfile(root, 'examples');
+            testCase.applyFixture(matlab.unittest.fixtures.PathFixture(examplesDirectory));
+            files = dir(fullfile(examplesDirectory, '**', 'check_*.m'));
+            discovered = fullfile(string({files.folder}), string({files.name}));
+            discovered = replace(extractAfter(discovered, ...
+                string(examplesDirectory) + filesep), filesep, '/');
+            expected = [validation_check_catalog(true, true); ...
+                "validation-manifest/check_validation_manifest.m"];
+            testCase.verifyEqual(sort(discovered(:)), sort(expected(:)), ...
+                'Every check must be cataloged or covered by the explicit manifest contract.');
+        end
+
         function baseManifestRetainsItsProductBoundary(testCase)
             root = fileparts(fileparts(mfilename('fullpath')));
             originalPath = path;

@@ -24,7 +24,9 @@ the model-workspace profile, compiles the model, and saves a disposable `.slx`.
 4. `bess_controller_step.m` advances the explicit eight-state supervisor.
 5. The active mode generates P/Q or voltage/frequency commands.
 6. `bess_limit_pq.m` applies active, reactive, current, and available-power
-   constraints; slew logic bounds command movement.
+   constraints; slew logic bounds command movement. A final active-power clamp
+   enforces a reduced availability limit immediately, then normal slew resumes
+   when power becomes available again.
 7. `bess_plant_step.m` advances reduced-order P/Q/V/f dynamics and breaker
    state.
 8. All observable measurements, commands, flags, and mismatch metrics are

@@ -190,6 +190,7 @@ set_param(modelName, 'SimulationCommand', 'update');
 save_system(modelName, modelPath);
 clear modelCleanup;
 delete(backupPath);
+cancel(destinationCleanup);
 clear destinationCleanup;
 clear pathCleanup;
 end

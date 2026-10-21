@@ -56,14 +56,16 @@ plots current, SOC, and terminal voltage.
 For a guided exercise with predictions, interpretation prompts, and a
 reproducibility checklist, follow the
 [60-minute battery pulse-response lab](../../docs/battery-pulse-response-lab.md).
-Use a fresh MATLAB session: the check clears workspace variables, and the
-plotting demo also closes open figures. Save existing work and figures first.
+The proposed 1.12.0 check and plotting scripts use local workspaces and preserve
+caller variables and existing figures. They do not leave their local `profile`
+or `result` in the caller. Capture data through the simulator, as below.
 
 Pass a positive scalar third argument to resample onto a uniform grid, as the
 starter scripts do with `dt_s = 1`. Omit that argument to preserve measured or
 irregular profile timestamps:
 
 ```matlab
+profile = readtable(fullfile('data', 'pulse_current_profile.csv'));
 parameters = battery_rc_default_parameters();
 nativeResult = simulate_battery_rc_model(profile, parameters);
 ```

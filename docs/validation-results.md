@@ -2,16 +2,17 @@
 
 # Validation Results
 
-This page keeps the complete expected output for the repository regression
-command in one place. The README contains only a concise evidence summary so
-the runnable path stays easy to scan.
+This page preserves a historical expected-output snapshot for the repository
+regression command. It is not the execution report for the proposed 1.12.0
+candidate. Current verification commands and evidence gates are in
+[release readiness](release-readiness.md).
 
 ## Reproduce the check
 
 From the repository root, run:
 
 ```bash
-matlab -batch "addpath('examples'); run_all_checks"
+matlab -batch "report=run_all_checks(true,true,true); assert(report.all_checks_passed && report.complete_suite)"
 ```
 
 For the toolbox-free Base MATLAB subset:
@@ -33,10 +34,17 @@ at exact source commit
 [`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b);
 this record must not be relabeled as proof for later source revisions. Check
 the current workflow run and its exact-commit artifacts before citing a new
-revision. The latest
-tagged release is
+revision. The historical record accompanied
 [`v0.10.0`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/tag/v0.10.0);
 the output below is a reference snapshot rather than a live report of `main`.
+
+For the audit baseline, inherited [run 39592416496](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/39592416496)
+at `125b0a818c3c42292cfebc7c5dcb6b50689a70eb` reports 20 Base checks, 25 general
+checks plus the manifest contract, and 92 focused BESS results. The changes
+from that source to audited source `a8ea7b9093b596bb169bb31841b77cb4fe88ccb9`
+are Markdown-only. This supports inherited code evidence for that baseline;
+it does not validate executable changes in the 1.12.0 candidate. Do not replace
+the historical 31-result transcript below with an unexecuted candidate count.
 
 ## Expected output
 

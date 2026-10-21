@@ -212,9 +212,10 @@ not a copied state-update loop. For a no-plot reproduction, run
 [`check_battery_rc_model.m`](../../examples/battery-rc-model/check_battery_rc_model.m);
 for a visual inspection, use
 [`run_battery_rc_model.m`](../../examples/battery-rc-model/run_battery_rc_model.m).
-The run script clears workspace state and closes open figures, so save anything
-important before running it. That state/figure-safety warning applies to the
-other plotting scripts in this book as well.
+The proposed 1.12.0 runner uses a local workspace and preserves existing
+variables and figures. Capture results with the public simulator as above.
+The book's initial pinned snapshot retains its older workspace behavior; see
+the [revision boundary](../source-map.md#revision-boundary).
 
 The repository check expects, at this snapshot, a 600-second profile resampled
 at 1 Hz, final SOC near 0.767, and terminal voltage approximately 3.425–3.877 V.

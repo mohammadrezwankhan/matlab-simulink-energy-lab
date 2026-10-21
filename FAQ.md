@@ -132,9 +132,12 @@ integration.
 
 ## How is the repository validated?
 
-`run_all_checks` invokes 26 check entry points: 25 general checks plus one
-focused unified-BESS entry point that produces 31 MATLAB/Simulink test results.
-The repository also validates its machine-readable manifest contract. Exact
+The complete catalog contains 26 check entry points: 25 general checks plus
+one focused unified-BESS entry point. Its focused result count is recorded per
+commit; inherited run 39592416496 reports 92, and the 1.12.0 candidate requires
+a new run. The repository also validates its machine-readable manifest contract.
+The root runner detects Simulink availability and marks a MATLAB-only subset
+with `complete_suite=false`. Exact
 expected outputs, source commit, CI run, environment, and claim boundaries are
 listed in [validation results](docs/validation-results.md) and the
 [validation manifest](docs/validation-manifest.md).
@@ -160,8 +163,8 @@ and the selected example README before reuse.
 From the repository root, run:
 
 ```matlab
-addpath('examples')
-run_all_checks
+report = run_all_checks(true, true, true);
+assert(report.all_checks_passed && report.complete_suite)
 ```
 
 This complete run requires Simulink. MATLAB-only users should run
@@ -172,8 +175,10 @@ for expected terminal output and evidence provenance.
 
 Use GitHub's **Cite this repository** control or the tracked
 [`CITATION.cff`](CITATION.cff). The machine-readable
-[`codemeta.json`](codemeta.json) describes the same v0.11.0 software release;
-do not infer a DOI or journal publication because none is declared.
+[`codemeta.json`](codemeta.json) describes the same proposed 1.12.0 version.
+The candidate is unreleased and both publication dates remain absent. Cite the
+actual commit used, or a published tag with its matching metadata. No DOI or
+journal publication is declared. See [release readiness](docs/release-readiness.md).
 
 ## What license applies?
 

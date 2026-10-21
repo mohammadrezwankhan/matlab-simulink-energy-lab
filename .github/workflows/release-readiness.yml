@@ -6,6 +6,12 @@ on:
     paths:
       - '**/*.m'
       - '**/*.csv'
+      - '**/*.slx'
+      - '**/*.mat'
+      - '**/*.json'
+      - 'codemeta.json'
+      - 'CITATION.cff'
+      - 'project-metadata.yml'
       - '.gitattributes'
       - '.gitignore'
       - '.github/workflows/release-readiness.yml'
@@ -29,10 +35,10 @@ jobs:
         with:
           release: R2026a
           products: Simulink
-      - name: Analyze code, run checks and demos, inspect generated models
+      - name: Analyze, test, inspect models, and verify the source archive
         uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5 # v3
         with:
-          command: buildtool -continueOnFailure check test demos simulink
+          command: buildtool -continueOnFailure check test archive
       - name: Retain exact-commit evidence, including failures
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

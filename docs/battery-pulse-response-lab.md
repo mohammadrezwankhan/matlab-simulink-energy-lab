@@ -12,10 +12,12 @@ safety, production BMS performance, or classroom adoption.
 ## Before you start
 
 Download or clone the repository and set MATLAB's current folder to its root.
-Use a fresh MATLAB session: the existing check clears workspace variables, and
-the plotting demo clears variables and closes open figures. Save work and
-figures before running either script. Neither entry point needs a Simulink
-model to be opened or rebuilt.
+The 1.12.0 candidate runs these script entry points in local workspaces and
+preserves existing variables and figures. Plotting demos create their own
+figures; numerical results should be captured through the public simulator as
+shown below. Neither entry point needs a Simulink model to be opened or rebuilt.
+The candidate's state-preservation behavior requires its own native release
+verification; the historical receipt below does not establish it.
 
 The two entry points below were run on MATLAB R2026a Update 4 for the
 [source-bound receipt](#reproduction-receipt). This is not a claim of testing
@@ -52,7 +54,7 @@ values just to obtain a pass.
 
 ## 2. Explain the traces — minutes 12–25
 
-In the same fresh session, run the existing plotting entry point:
+Run the plotting entry point:
 
 ```matlab
 run('examples/battery-rc-model/run_battery_rc_model.m')
@@ -63,7 +65,20 @@ totals. Positive current means discharge; negative current means charge.
 Annotate one pulse onset and one relaxation interval. Which change is
 immediate, which evolves over time, and which reflects accumulated charge?
 
-Inspect `requested_current_A`, `current_A`, and `current_limited` in `result`.
+The plotting script does not leave `result` in the caller workspace. To inspect
+`requested_current_A`, `current_A`, and `current_limited`, capture a result
+explicitly from the same public simulator in your own script:
+
+```matlab
+originalPath = path;
+pathGuard = onCleanup(@() path(originalPath));
+addpath('examples/battery-rc-model')
+profile = readtable('examples/battery-rc-model/data/pulse_current_profile.csv');
+parameters = battery_rc_default_parameters();
+result = simulate_battery_rc_model(profile, parameters, 1);
+clear pathGuard
+```
+
 For this canonical profile, the demo reports zero SOC-limited current samples.
 That does not validate a cell's current rating: these limits only prevent
 interval charge from driving SOC outside its allowed range.

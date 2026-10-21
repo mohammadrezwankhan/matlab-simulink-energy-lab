@@ -156,9 +156,10 @@ run('examples/bess-dc-reserve-model/check_bess_dc_reserve.m')
 run('examples/bess-dc-reserve-model/run_bess_dc_reserve.m')
 ```
 
-Use a fresh MATLAB session and save existing variables/figures first. The
-workflow uses Base MATLAB and does not build a Simulink model. To inspect
-returned data without the plotting script:
+The proposed 1.12.0 plotting script preserves caller variables and existing
+figures. Use a fresh session when reproducing the initial pinned book snapshot,
+whose cleanup is destructive. The workflow uses Base MATLAB and does not build
+a Simulink model. Capture returned data through the public function:
 
 ```matlab
 addpath('examples/bess-dc-reserve-model');

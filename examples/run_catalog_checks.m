@@ -111,7 +111,8 @@ originalFigures = findall(groot, 'Type', 'figure');
 cleanup = onCleanup(@() restore_environment(originalPath, originalFolder, ...
     originalRng, originalFigures));
 started = tic;
-stdout = evalc('checkError = run_check_script(checkPath);');
+executeCheck = @() run_check_script(checkPath); %#ok<NASGU> Used by the constant evalc expression below.
+[stdout, checkError] = evalc('executeCheck()');
 currentFigures = findall(groot, 'Type', 'figure');
 newFigures = currentFigures(~ismember(currentFigures, originalFigures));
 telemetry = struct('path', relativePath, 'elapsed_seconds', toc(started), ...

@@ -14,12 +14,14 @@ addpath(modelDirectory, referenceDirectory, baseReferenceDirectory);
 
 [modelPath, referenceResult] = build_battery_2rc_simulink_model();
 [~, modelName] = fileparts(modelPath);
-keepModelOpen = false;
-ownedModelHandle = [];
-plotFigure = [];
-modelCleanup = onCleanup(@close_failed_model);
+originalFigures = findall(groot, 'Type', 'figure');
+loadCleanup = onCleanup(@() close_failed_model( ...
+    modelName, modelPath, [], originalFigures));
 load_system(modelPath);
 ownedModelHandle = get_param(modelName, 'Handle');
+modelCleanup = onCleanup(@() close_failed_model( ...
+    modelName, modelPath, ownedModelHandle, originalFigures));
+cancel(loadCleanup);
 simulationOutput = sim(modelName);
 current = simulationOutput.get('current_A');
 soc = simulationOutput.get('soc');
@@ -27,7 +29,7 @@ fastPolarization = simulationOutput.get('v_rc1_V');
 slowPolarization = simulationOutput.get('v_rc2_V');
 terminalVoltage = simulationOutput.get('terminal_voltage_V');
 
-plotFigure = figure('Name', 'Native Simulink Battery 2RC', 'Color', 'w');
+figure('Name', 'Native Simulink Battery 2RC', 'Color', 'w');
 tiledlayout(4, 1, 'TileSpacing', 'compact');
 
 nexttile;
@@ -65,25 +67,21 @@ fprintf('Final SOC: %.3f\n', soc.Data(end));
 fprintf('Voltage range: %.3f V to %.3f V\n', ...
     min(terminalVoltage.Data), max(terminalVoltage.Data));
 fprintf('Reference final SOC: %.3f\n', referenceResult.soc(end));
-keepModelOpen = true;
+cancel(modelCleanup);
+end
 
-    function close_failed_model()
-        if keepModelOpen
-            return;
-        end
-        if isgraphics(plotFigure)
-            delete(plotFigure);
-        end
-        if bdIsLoaded(modelName)
-            if isempty(ownedModelHandle)
-                loadedPath = get_param(modelName, 'FileName');
-                ownsModel = isempty(loadedPath) || strcmp(loadedPath, modelPath);
-            else
-                ownsModel = get_param(modelName, 'Handle') == ownedModelHandle;
-            end
-            if ownsModel
-                close_system(modelName, 0);
-            end
-        end
+function close_failed_model(modelName, modelPath, ownedModelHandle, originalFigures)
+figures = findall(groot, 'Type', 'figure');
+delete(figures(~ismember(figures, originalFigures)));
+if bdIsLoaded(modelName)
+    if isempty(ownedModelHandle)
+        loadedPath = get_param(modelName, 'FileName');
+        ownsModel = isempty(loadedPath) || strcmp(loadedPath, modelPath);
+    else
+        ownsModel = get_param(modelName, 'Handle') == ownedModelHandle;
     end
+    if ownsModel
+        close_system(modelName, 0);
+    end
+end
 end

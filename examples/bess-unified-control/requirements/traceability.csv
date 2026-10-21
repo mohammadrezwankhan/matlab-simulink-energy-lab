@@ -33,7 +33,7 @@ BESS-SCEN-004,Islanded load steps,"SRC-001;SRC-006",DERIVED,"Scenario D definiti
 BESS-SCEN-005,Resynchronization and reconnection,"SRC-001;SRC-006;ASM-002",PROJECT_ASSUMPTION,"Scenario E definition","mandatoryScenarioPasses E",PASS
 BESS-SCEN-006,Saturation and recovery,"SRC-006;ASM-003",PROJECT_ASSUMPTION,"Scenario F definition","mandatoryScenarioPasses F",PASS
 BESS-SCEN-007,Measurement fault and recovery,"SRC-006;ASM-002",PROJECT_ASSUMPTION,"Scenario G definition","mandatoryScenarioPasses G",PASS
-BESS-SCEN-008,Parameter and operating boundaries,"SRC-006;ASM-004",PROJECT_ASSUMPTION,"Scenario E phase offset plus Scenario H DC/reference boundaries and parameter validation","mandatoryScenarioPasses E/H plus parameterValidationRejectsUnknownOverride plus negativeFeedbackAndGateValuesAreRejected",PASS
+BESS-SCEN-008,Parameter and operating boundaries,"SRC-006;ASM-004",PROJECT_ASSUMPTION,"Scenario E phase offset plus Scenario H DC/reference boundaries and parameter validation","mandatoryScenarioPasses E/H plus invalidInputsAreRejected plus negativeFeedbackAndGateValuesAreRejected",PASS
 BESS-EVID-001,Reproducible SLX generation,"SRC-005;SRC-006",DIRECT_SOURCE,"Idempotent MATLAB builder","generatedModelIsIdempotentAndExecutable",PASS
 BESS-EVID-002,Generated model compile and simulation,"SRC-006",DIRECT_SOURCE,"Builder and simulation entry point","generatedModelIsIdempotentAndExecutable",PASS
 BESS-EVID-003,Numeric assertions for all scenarios,"SRC-006",DIRECT_SOURCE,"Scenario scorer and MATLAB tests","mandatoryScenarioPasses A-H",PASS

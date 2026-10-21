@@ -132,7 +132,7 @@ roundedGridProfile = table([0; 1 - 1e-10], [1; 0], ...
     'VariableNames', {'time_s', 'current_A'});
 roundedGridResult = simulate_battery_rc_model(roundedGridProfile, parameters, 1);
 assert(isequal(roundedGridResult.time_s, [0; 1]) && ...
-    numel(roundedGridResult.interval_s) == 1, ...
+    isscalar(roundedGridResult.interval_s), ...
     'A tolerated endpoint roundoff must not discard the final time interval.');
 
 endpointParameters = parameters;
@@ -277,14 +277,14 @@ assert(terminalSampleDuty.charge_throughput_Ah == ...
 
 invalidDutyCases = {
     rmfield(result, 'soc'), 'BatteryDuty:ResultFields';
-    setfield(result, 'current_A', result.current_A(1:end-1)), ... %#ok<SFLD>
+    with_field(result, 'current_A', result.current_A(1:end-1)), ...
         'BatteryDuty:SignalShape';
-    setfield(result, 'time_s', [0; result.time_s(1:end-1)]), ... %#ok<SFLD>
+    with_field(result, 'time_s', [0; result.time_s(1:end-1)]), ...
         'BatteryDuty:TimeOrder';
-    setfield(result, 'terminal_voltage_V', ... %#ok<SFLD>
+    with_field(result, 'terminal_voltage_V', ...
         [0; result.terminal_voltage_V(2:end)]), ...
         'BatteryDuty:TerminalVoltage';
-    setfield(result, 'soc', [-0.1; result.soc(2:end)]), ... %#ok<SFLD>
+    with_field(result, 'soc', [-0.1; result.soc(2:end)]), ...
         'BatteryDuty:SOCBounds'
 };
 for caseIndex = 1:size(invalidDutyCases, 1)
@@ -345,4 +345,8 @@ catch errorDetails
 end
 error('BatteryRC:MissingError', ...
     'Expected error %s was not raised.', expectedIdentifier);
+end
+
+function result = with_field(result, name, value)
+result.(name) = value;
 end

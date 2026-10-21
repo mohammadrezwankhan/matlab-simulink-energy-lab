@@ -39,6 +39,12 @@ continuous-time safety property. The model:
 - regenerates its disposable `.slx` from MATLAB source; and
 - checks scenarios A through H in both MATLAB and Simulink.
 
+An available-power reduction clips the emitted active-power command immediately,
+even when that requires a faster change than the normal slew rate. Recovery
+uses the normal slew rate from the clipped value. The measured plant response
+still follows its current dynamics; this example has no dynamic DC energy model.
+Focused regressions exercise both charging and discharging availability steps.
+
 ## Quick start
 
 ![Section 03 · Reproduce / parameters](../../docs/visuals/sections/section-03-reproduce.svg)
@@ -87,8 +93,14 @@ Regenerate machine-readable evidence and original plots:
 addpath('examples/bess-unified-control')
 [gitStatus, sourceCommit] = system('git rev-parse HEAD');
 assert(gitStatus == 0)
-generate_bess_validation_evidence(strtrim(sourceCommit))
+evidenceDirectory = fullfile(pwd, 'validation-artifacts', 'bess');
+generate_bess_validation_evidence(strtrim(sourceCommit), evidenceDirectory)
 ```
+
+This writes fresh evidence beneath the ignored `validation-artifacts` directory,
+preserving the tracked historical results and plots. The optional second argument
+accepts a nonempty character row vector or nonmissing string scalar. Omitting it
+retains the original behavior of writing to this example's `validation` directory.
 
 ## Reproducible model construction
 
@@ -98,6 +110,8 @@ generate_bess_validation_evidence(strtrim(sourceCommit))
 model with `new_system`, configures a fixed-step discrete solver, adds and
 connects blocks with `add_block` and `add_line`, compiles the diagram, and saves
 it with `save_system`. The generated `.slx` is intentionally not committed.
+An existing destination file is backed up before rebuilding and restored if the
+build fails. The successful builder returns with its generated model closed.
 
 The model contains a scenario-profile source, an executable MATLAB Function
 block, a 20-signal observable interface, named Outports, and a validation

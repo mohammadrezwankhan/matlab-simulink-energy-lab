@@ -51,10 +51,13 @@ z_{k+1}=z_k-\frac{I_{\mathrm{applied},k}\Delta t_k}{3600Q_{\mathrm{Ah}}}.
 $$
 
 The one-/two-RC models limit applied current to available interval charge.
-The lumped electrothermal example instead clips its updated SOC; the latter
-does not enforce the same boundary charge accounting. Always read a model's
-specific limit semantics rather than transferring the equation's interpretation
-from another chapter.
+In the book's initial pinned snapshot, the lumped electrothermal example
+instead clips its updated SOC and does not enforce the same boundary charge
+accounting. The proposed 1.12.0 version rejects prescribed current profiles
+whose unbounded SOC trajectory would leave `[0, 1]` beyond `1e-12` roundoff;
+it does not silently impose the one-/two-RC current-limiter policy. Always
+read a model's input-domain and limit semantics before transferring another
+chapter's interpretation.
 
 ## Net transfer and absolute throughput
 

@@ -58,8 +58,22 @@ For converter-controller changes, run both checks:
 matlab -batch "run('examples/converter-closed-loop-model/check_closed_loop_converter.m'); run('examples/converter-closed-loop-model/check_converter_controller_comparison.m')"
 ```
 
+For repository-wide diagnostics and available-capability checks, run:
+
+```bash
+matlab -batch "buildtool check test"
+```
+
+For release verification, commit the reviewed candidate and run
+`matlab -batch "buildtool check test archive"` on MATLAB R2026a with Simulink.
+Archival requires the `check`, `test`, `demos`, and `simulink` reports to pass
+and be complete for that exact clean commit. A passing MATLAB-only subset
+does not satisfy the full release gate. See [release readiness](docs/release-readiness.md).
+
 The pull request workflow runs the relevant repository checks again. Include
-the exact local command and a short result summary in the pull request.
+the exact local command, source commit, capability profile, and observed result
+in the pull request. Do not report Code Analyzer or Simulink checks as passed
+when they have not executed.
 
 ## Modeling and Validation Standard
 
@@ -74,6 +88,13 @@ Every executable example should make the following items inspectable:
 | Validation | A no-plot check that fails clearly when behavior regresses |
 | Limitations | What the model must not be used to claim |
 | Dependencies | Required MATLAB release and products |
+
+Keep scripts compatible with `run('path/to/script.m')` while running their
+work in a local function. Preserve the caller's path, current folder, RNG and
+existing figures. Return reusable data through simulator/estimator functions;
+do not rely on script variables escaping into the caller. The current synthetic
+perturbations are deterministic signals and need no RNG seeding. If future
+code samples randomness, scope and restore the original RNG state.
 
 Do not commit generated `.slx` files when the checked builder script is the
 source of truth. Do not add proprietary data, confidential material, or files
@@ -118,8 +139,11 @@ Complete this checklist for every versioned release. The repository metadata
 validator checks tracked files; GitHub settings and external surfaces still
 require authenticated review.
 
-- [ ] Update `project-metadata.yml`, `CITATION.cff`, `codemeta.json`, badges,
-      release links, and changelog to the same version and date.
+- [ ] Keep `project-metadata.yml`, `CITATION.cff`, and `codemeta.json` at the
+      same candidate version. Before publication, keep both `date-released`
+      and `datePublished` absent and label the changelog unreleased. Add the
+      same actual publication date to both only when finalizing the release;
+      commit the change and repeat exact-commit verification before tagging.
 - [ ] Confirm the GitHub About description matches the description recorded in
       `project-metadata.yml` and uses the core terminology exactly.
 - [ ] Review all 20 GitHub topics for accuracy; change a topic only with
@@ -133,9 +157,10 @@ require authenticated review.
       The README currently uses `assets/social-preview-v3.jpg`, with generation
       and export notes in `assets/social-preview-v3.md`. The previous v2 image
       is retained for history. The older
-      `assets/generate_social_preview.m` produces `social-preview.png` with an
-      obsolete 18-check caption. Do not treat that legacy output as a current
-      preview or overwrite the repository-settings image without reviewing it.
+      `assets/social-preview.png` was regenerated and visually reviewed with
+      MATLAB R2026a for the 1.12.0 candidate and 26-check catalog. Its generator
+      reads current version/catalog metadata. Regenerate and review it after
+      those inputs change; repository settings are managed separately.
 - [ ] Confirm `git status --short` is empty before generating commit-bound
       validation evidence or release assets.
 - [ ] Run `.github/scripts/validate-project-metadata.sh`, Markdown links, CFF

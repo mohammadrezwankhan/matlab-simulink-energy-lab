@@ -17,7 +17,7 @@ certification, or grid-code qualification.
 | Compare battery thermal-management concepts | [Thermal routes](model-selection-guide.md#i-need-a-battery-thermal-model) | Heat generation, thermal properties, cooling boundaries | Cell, module, coolant, or through-thickness temperatures | Base MATLAB; Simulink for the generated companion | Reduced-order energy-balance, analytical, and convergence checks | Early thermal reasoning, classroom work, bounded sensitivity | CFD, abuse safety, detailed pack or channel design |
 | Learn converter averaging, switching, or control | [Buck-converter routes](model-selection-guide.md#i-need-a-buck-converter-model) | Source, load, switching/control parameters | Voltage, current, ripple, settling, illustrative losses | Base MATLAB; Simulink for generated companions | Deterministic numerical and parity checks | First simulation, controller comparison, teaching | Device qualification, EMI, SOA, hardware efficiency guarantee |
 | Explore BESS reserve constraints | [BESS DC reserve](../examples/bess-dc-reserve-model/README.md) | SOC, reserve bounds, current capability, DC-link state | Requested, delivered, curtailed, and battery power | Base MATLAB | Synthetic DC-side operating-envelope regression | Supervisory logic and sensitivity studies | Closed-loop battery-to-grid integration |
-| Study grid-forming/grid-following BESS transitions | [Unified BESS control](../examples/bess-unified-control/README.md) | Project-defined plant, limits, events, and controller parameters | Modes, P/Q, voltage, frequency, current, synchronization, recovery | MATLAB and Simulink | 31 focused regression results across eight scenarios | Controller architecture, requirements, traceability, transition learning | Grid-code certification, protection coordination, hardware control release |
+| Study grid-forming/grid-following BESS transitions | [Unified BESS control](../examples/bess-unified-control/README.md) | Project-defined plant, limits, events, and controller parameters | Modes, P/Q, voltage, frequency, current, synchronization, recovery | MATLAB and Simulink | Focused regression results across eight scenarios; count and status are commit-bound | Controller architecture, requirements, traceability, transition learning | Grid-code certification, protection coordination, hardware control release |
 
 ## Routes by Context
 
@@ -53,8 +53,8 @@ decision.
 From the repository root:
 
 ```matlab
-addpath('examples')
-run_all_checks
+report = run_all_checks(true, true, true);
+assert(report.all_checks_passed && report.complete_suite)
 ```
 
 See [validation results](validation-results.md) for the exact environment,

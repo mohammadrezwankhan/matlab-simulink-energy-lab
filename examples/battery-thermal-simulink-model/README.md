@@ -53,6 +53,12 @@ The plotting script, no-plot check, and Simulink builder call the same validated
 solver. Profile timestamps, parameters, explicit-Euler stability, constitutive
 relations, and energy closure therefore have one maintained implementation.
 
+In the proposed 1.12.0 candidate, that preprocessing rejects prescribed profiles
+whose cumulative-charge SOC trajectory would leave `[0, 1]` beyond `1e-12`
+roundoff. The diagram's saturation remains roundoff protection for accepted
+inputs; it is not a separate current-curtailment policy. This candidate behavior
+requires current native parity and failure-path verification.
+
 ## Starter Parameters
 
 | Parameter                          |         Value | Unit    |
