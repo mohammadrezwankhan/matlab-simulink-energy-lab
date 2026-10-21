@@ -1,9 +1,9 @@
 %% BESS DC Reserve Constant-Request Sensitivity Check
 % Verifies deterministic saturation trends across reserve assumptions.
 
-clearvars;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -99,6 +99,8 @@ fprintf('Maximum average delivered power: %.3f kW\n', ...
     max(envelope.averageDeliveredPower_kW));
 fprintf('Maximum curtailed discharge energy: %.3f kWh\n', ...
     max(envelope.curtailedDischargeEnergy_kWh));
+
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

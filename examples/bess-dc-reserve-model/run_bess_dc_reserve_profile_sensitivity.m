@@ -1,10 +1,9 @@
 %% BESS DC Reserve Prescribed Dynamic-Profile Sensitivity
 % Visualizes within-profile reserve responses for three fixed requests.
 
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -70,3 +69,4 @@ fprintf('Delivered discharge energy: %.3f to %.3f kWh.\n', ...
     max(sensitivity.deliveredDischargeEnergy_kWh));
 fprintf(['Profile-to-profile values are descriptive only; profiles are not ', ...
     'energy-normalized.\n']);
+end

@@ -1,8 +1,11 @@
 %% Closed-Loop Averaged Converter Example
 % Plots a voltage-reference step, inductor current, and bounded duty command.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(fileparts(mfilename('fullpath')));
 result = simulate_closed_loop_converter();
 
@@ -42,3 +45,4 @@ fprintf('Final average voltage: %.2f V\n', ...
 fprintf('Peak voltage after step: %.2f V\n', ...
     max(result.output_voltage_V(result.time_s >= ...
     result.reference_step_time_s)));
+end

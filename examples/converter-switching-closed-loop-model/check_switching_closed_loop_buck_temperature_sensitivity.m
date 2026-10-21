@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -110,6 +109,8 @@ fprintf('25/175 degC total switch loss: %.3f J / %.3f J\n', ...
 fprintf('25/175 degC estimated efficiency: %.3f%% / %.3f%%\n', ...
     sensitivity.energy_efficiency_percent(1), ...
     sensitivity.energy_efficiency_percent(end));
+
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

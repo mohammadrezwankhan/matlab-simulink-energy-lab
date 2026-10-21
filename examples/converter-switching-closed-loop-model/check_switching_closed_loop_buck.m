@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 examplesDirectory = fileparts(modelDirectory);
 originalPath = path;
@@ -133,6 +132,21 @@ assert(highFrequencyResult.turn_on_event_count == ...
     ['Switching-event loss must scale approximately with switching ', ...
     'frequency for the controlled comparison.']);
 
+% Empty event windows and zero targets do not define response percentages.
+invalidMetricResult = result;
+invalidMetricResult.parameters.reference_step_time_s = ...
+    parameters.load_step_time_s;
+assert_error(@() summarize_switching_closed_loop_buck(invalidMetricResult), ...
+    'SwitchingClosedLoopBuck:MetricDomain');
+invalidMetricResult.parameters.reference_step_time_s = ...
+    parameters.load_step_time_s + result.switching_period_s;
+assert_error(@() summarize_switching_closed_loop_buck(invalidMetricResult), ...
+    'SwitchingClosedLoopBuck:MetricDomain');
+invalidMetricResult = result;
+invalidMetricResult.parameters.final_reference_voltage_V = 0;
+assert_error(@() summarize_switching_closed_loop_buck(invalidMetricResult), ...
+    'SwitchingClosedLoopBuck:MetricDomain');
+
 invalidParameters = parameters;
 invalidParameters.diode_forward_voltage_V = -1;
 assert_error(@() simulate_switching_closed_loop_buck(invalidParameters), ...
@@ -181,6 +195,8 @@ fprintf('Turn-on/turn-off transition energy: %.3f J / %.3f J\n', ...
     metrics.turn_on_loss_energy_J, metrics.turn_off_loss_energy_J);
 fprintf('Estimated energy efficiency: %.3f%%\n', ...
     metrics.energy_efficiency_percent);
+
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

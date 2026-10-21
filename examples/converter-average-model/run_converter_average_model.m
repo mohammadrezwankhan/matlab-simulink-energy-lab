@@ -1,8 +1,9 @@
 %% Converter Average Model Scaffold
 % Prints starter assumptions and first-pass averaged estimates without plotting.
 
-clear; clc;
+run_example();
 
+function run_example()
 input_voltage_V = 800;
 duty_cycle = 0.45;
 switching_frequency_Hz = 10000;
@@ -25,3 +26,4 @@ fprintf('Estimated output voltage: %.1f V\n', output_voltage_V);
 fprintf('Estimated load current: %.1f A\n', inductor_current_A);
 fprintf('Estimated current ripple: %.2f A\n', estimated_current_ripple_A);
 fprintf('Estimated voltage ripple: %.3f V\n', estimated_voltage_ripple_V);
+end

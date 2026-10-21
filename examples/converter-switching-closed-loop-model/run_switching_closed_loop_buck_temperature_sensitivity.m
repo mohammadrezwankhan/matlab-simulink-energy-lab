@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -68,3 +67,4 @@ fprintf('175 degC total switch loss: %.3f J\n', ...
     sensitivity.total_switch_loss_energy_J(end));
 fprintf('175 degC estimated efficiency: %.3f%%\n', ...
     sensitivity.energy_efficiency_percent(end));
+end
