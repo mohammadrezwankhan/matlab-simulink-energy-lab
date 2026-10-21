@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -83,6 +82,26 @@ assert_error(@() estimate_battery_soc_ekf( ...
     [0; 1], [0; 0], [3.7; 3.7], badParameters, estimate.options), ...
     'BatterySOCEKF:OCVCurve');
 
+roundoffOptions = estimate.options;
+roundoffOptions.initial_state = [0.62; 0];
+roundoffOptions.initial_covariance = diag([-5e-13, 0]);
+roundoffOptions.process_noise_covariance_per_s = zeros(2);
+roundoffOptions.measurement_variance_V2 = 1e-15;
+roundoffEstimate = estimate_battery_soc_ekf( ...
+    [0; 1], [0; 0], [3.7; 3.7], estimate.parameters, roundoffOptions);
+assert(all(roundoffEstimate.innovation_variance_V2 > 0) && ...
+    all(isfinite(roundoffEstimate.normalized_innovation_squared)) && ...
+    all(roundoffEstimate.normalized_innovation_squared >= 0), ...
+    'A tolerated covariance roundoff error must not create negative variance.');
+assert(min(eig(roundoffEstimate.prior_covariance(:, :, 1))) >= 0, ...
+    'A tolerated negative covariance eigenvalue must be projected to zero.');
+roundoffOptions.initial_covariance = [1e-4, 0; 5e-13, 1e-4];
+symmetricEstimate = estimate_battery_soc_ekf( ...
+    [0; 1], [0; 0], [3.7; 3.7], estimate.parameters, roundoffOptions);
+assert(isequal(symmetricEstimate.prior_covariance(:, :, 1), ...
+    symmetricEstimate.prior_covariance(:, :, 1)'), ...
+    'Tolerated covariance asymmetry must be removed before the first update.');
+
 fprintf('Battery SOC EKF check passed.\n');
 fprintf('Initial prior SOC error: %+.3f\n', ...
     metrics.initial_prior_soc_error);
@@ -94,6 +113,7 @@ fprintf('Two-percent settling time: %.0f s\n', ...
     metrics.soc_settling_time_s);
 fprintf('Posterior voltage RMSE: %.3f mV\n', ...
     1000 * metrics.voltage_rmse_V);
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

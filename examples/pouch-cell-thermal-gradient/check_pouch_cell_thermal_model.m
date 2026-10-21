@@ -1,8 +1,9 @@
 %% Pouch-Cell Through-Thickness Thermal Model Check
 % Validates conservation, symmetry, spatial resolution, and input handling.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename("fullpath"));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -132,6 +133,15 @@ assert(isempty(irregularResult.dt_s) && ...
     isequal(irregularResult.interval_s, diff(irregularProfile.time_s)), ...
     "Native irregular timestamps must remain unchanged.");
 
+roundedGridProfile = table([0; 0.5 - 1e-10], [1; 0], [25; 25], [25; 25], ...
+    VariableNames=["time_s", "cell_heat_generation_W", ...
+    "left_fluid_temperature_C", "right_fluid_temperature_C"]);
+roundedGridResult = simulate_pouch_cell_thermal_model( ...
+    roundedGridProfile, parameters, 0.5);
+assert(isequal(roundedGridResult.time_s, [0; 0.5]) && ...
+    numel(roundedGridResult.interval_s) == 1, ...
+    "A tolerated endpoint roundoff must not discard the final time interval.");
+
 missingParameters = rmfield(parameters, "thickness_m");
 invalidNodeParameters = parameters;
 invalidNodeParameters.node_count = 2;
@@ -188,3 +198,4 @@ fprintf("Symmetric steady center error: %.3f degC\n", ...
     analyticCenterTemperature_C));
 fprintf("Medium-to-fine grid center difference: %.4f degC\n", ...
     mediumGridError_C);
+end

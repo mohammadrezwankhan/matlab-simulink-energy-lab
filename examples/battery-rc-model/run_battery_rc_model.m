@@ -1,8 +1,9 @@
 %% Battery RC Model Example
 % Simulates the canonical pulse profile and plots current, SOC, and voltage.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -49,3 +50,4 @@ fprintf('Charge throughput: %.3f Ah (%.5f equivalent full cycles)\n', ...
     duty.charge_throughput_Ah, duty.equivalent_full_cycles);
 fprintf('Terminal energy throughput: %.3f Wh\n', ...
     duty.energy_throughput_Wh);
+end

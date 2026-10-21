@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -66,3 +65,4 @@ fprintf('Two-percent settling time: %.0f s\n', ...
     metrics.soc_settling_time_s);
 fprintf('Posterior voltage RMSE: %.3f mV\n', ...
     1000 * metrics.voltage_rmse_V);
+end

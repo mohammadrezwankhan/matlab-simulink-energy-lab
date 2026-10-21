@@ -1,8 +1,9 @@
 %% Battery OCV Hysteresis Check
 % Validates exact hysteresis propagation, memory, and charge balance.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -159,6 +160,35 @@ end
 assert(caughtInvalidCurve, ...
     'The simulator must reject a decreasing mean OCV curve.');
 
+complexProfile = profile;
+complexProfile.current_A = complexProfile.current_A + 1i;
+assert_error(@() simulate_battery_ocv_hysteresis(complexProfile, parameters), ...
+    'BatteryHysteresis:ProfileShape');
+matrixProfile = table([0, 2; 1, 3], ones(2), ...
+    'VariableNames', {'time_s', 'current_A'});
+assert_error(@() simulate_battery_ocv_hysteresis(matrixProfile, parameters), ...
+    'BatteryHysteresis:ProfileShape');
+assert_error(@() simulate_battery_ocv_hysteresis( ...
+    profile, parameters, 1 + 1i), 'BatteryHysteresis:TimeStep');
+
+roundedGridProfile = table([0; 1 - 1e-10], [1; 0], ...
+    'VariableNames', {'time_s', 'current_A'});
+roundedGridResult = simulate_battery_ocv_hysteresis( ...
+    roundedGridProfile, parameters, 1);
+assert(isequal(roundedGridResult.time_s, [0; 1]) && ...
+    numel(roundedGridResult.interval_s) == 1, ...
+    'A tolerated endpoint roundoff must not discard the final time interval.');
+endpointParameters = parameters;
+endpointParameters.ocv_soc_breakpoints([1, end]) = [5e-13; 1 - 5e-13];
+zeroProfile = table([0; 1], [0; 0], ...
+    'VariableNames', {'time_s', 'current_A'});
+for endpointSoc = [0, 1]
+    endpointParameters.initial_soc = endpointSoc;
+    endpointResult = simulate_battery_ocv_hysteresis(zeroProfile, endpointParameters);
+    assert(all(isfinite(endpointResult.terminal_voltage_V)), ...
+        'Tolerated OCV endpoint roundoff must remain valid at SOC zero and one.');
+end
+
 repeatResult = simulate_battery_ocv_hysteresis(profile, parameters);
 assert(isequal(result.soc, repeatResult.soc) && ...
     isequal(result.hysteresis_state, repeatResult.hysteresis_state) && ...
@@ -172,3 +202,17 @@ fprintf('Hysteresis state range: %.3f to %.3f\n', ...
     min(result.hysteresis_state), max(result.hysteresis_state));
 fprintf('Same-SOC minor-loop voltage gap: %.2f mV\n', ...
     1000*minorLoopGap_V);
+end
+
+function assert_error(functionHandle, expectedIdentifier)
+try
+    functionHandle();
+catch errorDetails
+    assert(strcmp(errorDetails.identifier, expectedIdentifier), ...
+        'Expected error %s but received %s.', ...
+        expectedIdentifier, errorDetails.identifier);
+    return;
+end
+error('BatteryHysteresis:MissingError', ...
+    'Expected error %s was not raised.', expectedIdentifier);
+end

@@ -1,8 +1,9 @@
 %% Battery 2RC Parameter Identification Check
 % Verifies positive parameter recovery and independent profile validation.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -112,6 +113,21 @@ end
 assert(unexcitedDataRejected, ...
     'The fitter must reject a record without current excitation.');
 
+complexData = scenario.calibration_data;
+complexData.terminal_voltage_V = complexData.terminal_voltage_V + 0.001i;
+assert_error(@() fit_battery_2rc_parameters( ...
+    complexData, scenario.initial_parameters), 'Battery2RCFit:Data');
+assert_error(@() evaluate_battery_2rc_fit( ...
+    complexData, scenario.initial_parameters), 'Battery2RCEvaluation:Data');
+complexParameters = scenario.initial_parameters;
+complexParameters.r0_Ohm = complexParameters.r0_Ohm + 0.001i;
+assert_error(@() fit_battery_2rc_parameters( ...
+    scenario.calibration_data, complexParameters), 'Battery2RCFit:Parameters');
+matrixData = table([0, 2; 1, 3], ones(2), 3.7 * ones(2), ...
+    'VariableNames', {'time_s', 'current_A', 'terminal_voltage_V'});
+assert_error(@() evaluate_battery_2rc_fit( ...
+    matrixData, scenario.initial_parameters), 'Battery2RCEvaluation:Data');
+
 fprintf('Battery 2RC identification check passed.\n');
 fprintf('Calibration RMSE: %.3f mV\n', ...
     1000*calibrationEvaluation.metrics.rmse_V);
@@ -119,3 +135,17 @@ fprintf('Held-out RMSE: %.3f mV\n', ...
     1000*validationEvaluation.metrics.rmse_V);
 fprintf('Estimated time constants: %.2f s and %.2f s\n', ...
     estimatedTau_s(1), estimatedTau_s(2));
+end
+
+function assert_error(functionHandle, expectedIdentifier)
+try
+    functionHandle();
+catch errorDetails
+    assert(strcmp(errorDetails.identifier, expectedIdentifier), ...
+        'Expected error %s but received %s.', ...
+        expectedIdentifier, errorDetails.identifier);
+    return;
+end
+error('Battery2RCFit:MissingError', ...
+    'Expected error %s was not raised.', expectedIdentifier);
+end

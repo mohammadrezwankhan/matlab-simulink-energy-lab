@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -82,6 +81,7 @@ fprintf('Final SOC error range: %+.4f to %+.4f\n', ...
 fprintf('Zero/bias-edge SOC RMSE: %.4f / %.4f / %.4f\n', ...
     sensitivity.soc_rmse(zeroIndex), sensitivity.soc_rmse(1), ...
     sensitivity.soc_rmse(end));
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

@@ -1,8 +1,9 @@
 %% Temperature-Aware Battery Model Check
 % Validates state bounds, constitutive relations, and discrete balances.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -273,6 +274,50 @@ end
 assert(unstableStepRejected, ...
     'Simulator must reject an unstable explicit-Euler time step.');
 
+boundaryProfile = table([0; 1; 2], [10; 10; 0], ...
+    'VariableNames', {'time_s', 'current_A'});
+boundaryParameters = parameters;
+boundaryParameters.capacity_Ah = 1;
+boundaryParameters.initial_soc = 0.001;
+assert_error(@() simulate_battery_thermal_model( ...
+    boundaryProfile, boundaryParameters), 'BatteryThermal:SOCProfile');
+boundaryParameters.initial_soc = 0.999;
+boundaryProfile.current_A = -boundaryProfile.current_A;
+assert_error(@() simulate_battery_thermal_model( ...
+    boundaryProfile, boundaryParameters), 'BatteryThermal:SOCProfile');
+boundaryParameters.initial_soc = 0.001;
+boundaryProfile.current_A = [3.6; 0; 0];
+feasibleBoundaryResult = simulate_battery_thermal_model( ...
+    boundaryProfile, boundaryParameters);
+expectedBoundarySoc = boundaryParameters.initial_soc - ...
+    [0; cumsum(boundaryProfile.current_A(1:end-1) .* ...
+    diff(boundaryProfile.time_s))] / (3600 * boundaryParameters.capacity_Ah);
+assert(max(abs(feasibleBoundaryResult.soc - expectedBoundarySoc)) < 1e-12, ...
+    'A profile ending exactly at the SOC boundary must conserve charge.');
+matrixProfile = table([0, 2; 1, 3], ones(2), ...
+    'VariableNames', {'time_s', 'current_A'});
+assert_error(@() simulate_battery_thermal_model(matrixProfile, parameters), ...
+    'BatteryThermal:ProfileShape');
+assert_error(@() simulate_battery_thermal_model(profile, parameters, 1 + 1i), ...
+    'BatteryThermal:TimeStep');
+
+roundedGridProfile = table([0; 1 - 1e-10], [1; 0], ...
+    'VariableNames', {'time_s', 'current_A'});
+roundedGridResult = simulate_battery_thermal_model(roundedGridProfile, parameters, 1);
+assert(isequal(roundedGridResult.time_s, [0; 1]) && ...
+    numel(roundedGridResult.interval_s) == 1, ...
+    'A tolerated endpoint roundoff must not discard the final time interval.');
+endpointParameters = parameters;
+endpointParameters.entropic_soc_breakpoints([1, end]) = [5e-13, 1 - 5e-13];
+zeroProfile = table([0; 1], [0; 0], ...
+    'VariableNames', {'time_s', 'current_A'});
+for endpointSoc = [0, 1]
+    endpointParameters.initial_soc = endpointSoc;
+    endpointResult = simulate_battery_thermal_model(zeroProfile, endpointParameters);
+    assert(all(isfinite(endpointResult.entropic_coefficient_V_per_K)), ...
+        'Tolerated lookup endpoint roundoff must remain valid at SOC zero and one.');
+end
+
 invalidLimitCases = {
     rmfield(result, 'cell_temp_C'), 35, ...
         'BatteryThermalLimits:ResultFields';
@@ -322,3 +367,17 @@ fprintf('Reversible heat range: %.2f W to %.2f W\n', ...
 fprintf('Peak total heat: %.2f W\n', ...
     max(result.total_heat_generation_W));
 fprintf('Final SOC: %.3f\n', result.soc(end));
+end
+
+function assert_error(functionHandle, expectedIdentifier)
+try
+    functionHandle();
+catch errorDetails
+    assert(strcmp(errorDetails.identifier, expectedIdentifier), ...
+        'Expected error %s but received %s.', ...
+        expectedIdentifier, errorDetails.identifier);
+    return;
+end
+error('BatteryThermal:MissingError', ...
+    'Expected error %s was not raised.', expectedIdentifier);
+end

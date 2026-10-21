@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -54,3 +53,4 @@ fprintf('Bias range: %.2f A to %.2f A\n', bias_A(1), bias_A(end));
 fprintf('Final SOC error range: %+.4f to %+.4f\n', ...
     min(sensitivity.final_soc_error), ...
     max(sensitivity.final_soc_error));
+end

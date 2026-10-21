@@ -7,10 +7,10 @@ if nargin < 3
 end
 
 [profileTime_s, profileCurrent_A] = validate_profile(profile);
-validate_parameters(parameters);
+parameters = validate_parameters(parameters);
 if ~isempty(dt_s)
-    validate_time_step(dt_s, profileTime_s(end));
-    time_s = (0:dt_s:profileTime_s(end))';
+    intervalCount = validate_time_step(dt_s, profileTime_s(end));
+    time_s = (0:intervalCount)' * dt_s;
     current_A = interp1(profileTime_s, profileCurrent_A, time_s, ...
         'previous', 'extrap');
 else
@@ -23,6 +23,16 @@ thermalCapacity_J_per_K = ...
     parameters.cell_mass_kg * parameters.specific_heat_J_per_kgK;
 validate_explicit_euler_stability(...
     interval_s, parameters, thermalCapacity_J_per_K);
+
+% This prescribed-current model has no current controller at an SOC boundary.
+% Reject an infeasible profile instead of discarding charge by clipping SOC.
+requestedSoc = parameters.initial_soc - ...
+    [0; cumsum(current_A(1:end-1) .* interval_s)] / ...
+    (parameters.capacity_Ah * 3600);
+if any(requestedSoc < -1e-12 | requestedSoc > 1 + 1e-12)
+    error('BatteryThermal:SOCProfile', ...
+        'The prescribed current profile must keep SOC within [0, 1].');
+end
 
 soc = zeros(size(time_s));
 v_rc_V = zeros(size(time_s));
@@ -137,6 +147,7 @@ end
 profileTime_s = profile.time_s(:);
 profileCurrent_A = profile.current_A(:);
 if ~isnumeric(profileTime_s) || ~isnumeric(profileCurrent_A) || ...
+        ~isvector(profile.time_s) || ~isvector(profile.current_A) || ...
         ~isreal(profileTime_s) || ~isreal(profileCurrent_A) || ...
         numel(profileTime_s) ~= numel(profileCurrent_A) || ...
         numel(profileTime_s) < 2
@@ -157,8 +168,9 @@ if any(diff(profileTime_s) <= 0)
 end
 end
 
-function validate_time_step(dt_s, profileEndTime_s)
-if ~isnumeric(dt_s) || ~isscalar(dt_s) || ~isfinite(dt_s) || dt_s <= 0
+function intervalCount = validate_time_step(dt_s, profileEndTime_s)
+if ~isnumeric(dt_s) || ~isscalar(dt_s) || ~isreal(dt_s) || ...
+        ~isfinite(dt_s) || dt_s <= 0
     error('BatteryThermal:TimeStep', ...
         'dt_s must be empty or a finite positive scalar.');
 end
@@ -170,7 +182,7 @@ if intervalCount < 1 || ...
 end
 end
 
-function validate_parameters(parameters)
+function parameters = validate_parameters(parameters)
 requiredScalarParameters = {
     'capacity_Ah';
     'initial_soc';
@@ -237,6 +249,13 @@ if ~isnumeric(breakpoints) || ~isvector(breakpoints) || ...
 end
 if abs(breakpoints(1)) > 1e-12 || abs(breakpoints(end) - 1) > 1e-12 || ...
         any(diff(breakpoints) <= 0)
+    error('BatteryThermal:EntropicTable', ...
+        'Entropic SOC breakpoints must increase strictly from zero to one.');
+end
+% Keep boundary SOC queries inside the tolerated lookup-table domain.
+parameters.entropic_soc_breakpoints(1) = 0;
+parameters.entropic_soc_breakpoints(end) = 1;
+if any(diff(parameters.entropic_soc_breakpoints) <= 0)
     error('BatteryThermal:EntropicTable', ...
         'Entropic SOC breakpoints must increase strictly from zero to one.');
 end

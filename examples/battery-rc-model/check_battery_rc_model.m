@@ -1,8 +1,9 @@
 %% Battery RC Model Check
 % Validates the shared simulator against the canonical pulse profile.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -126,6 +127,24 @@ catch validationError
 end
 assert(invalidGridRejected, ...
     'A requested uniform grid must end exactly at the profile end time.');
+
+roundedGridProfile = table([0; 1 - 1e-10], [1; 0], ...
+    'VariableNames', {'time_s', 'current_A'});
+roundedGridResult = simulate_battery_rc_model(roundedGridProfile, parameters, 1);
+assert(isequal(roundedGridResult.time_s, [0; 1]) && ...
+    numel(roundedGridResult.interval_s) == 1, ...
+    'A tolerated endpoint roundoff must not discard the final time interval.');
+
+endpointParameters = parameters;
+endpointParameters.ocv_soc_breakpoints([1, end]) = [5e-13; 1 - 5e-13];
+zeroProfile = table([0; 1], [0; 0], ...
+    'VariableNames', {'time_s', 'current_A'});
+for endpointSoc = [0, 1]
+    endpointParameters.initial_soc = endpointSoc;
+    endpointResult = simulate_battery_rc_model(zeroProfile, endpointParameters);
+    assert(all(isfinite(endpointResult.terminal_voltage_V)), ...
+        'Tolerated OCV endpoint roundoff must remain valid at SOC zero and one.');
+end
 
 irregularProfile = table(...
     [0; 2.5; 9; 13.25], ...
@@ -291,6 +310,21 @@ end
 assert(invalidCapacityRejected, ...
     'Duty summary must reject nonpositive battery capacity.');
 
+complexParameters = parameters;
+complexParameters.r0_Ohm = parameters.r0_Ohm + 0.001i;
+assert_error(@() simulate_battery_rc_model(profile, complexParameters), ...
+    'BatteryRC:Parameters');
+complexProfile = profile;
+complexProfile.current_A = complexProfile.current_A + 1i;
+assert_error(@() simulate_battery_rc_model(complexProfile, parameters), ...
+    'BatteryRC:ProfileShape');
+matrixProfile = table([0, 2; 1, 3], ones(2), ...
+    'VariableNames', {'time_s', 'current_A'});
+assert_error(@() simulate_battery_rc_model(matrixProfile, parameters), ...
+    'BatteryRC:ProfileShape');
+assert_error(@() simulate_battery_rc_model(profile, parameters, 1 + 1i), ...
+    'BatteryRC:TimeStep');
+
 fprintf('Battery RC check passed. Final SOC: %.3f\n', result.soc(end));
 fprintf('Voltage range: %.3f V to %.3f V\n', ...
     min(result.terminal_voltage_V), max(result.terminal_voltage_V));
@@ -298,3 +332,17 @@ fprintf('Charge throughput: %.3f Ah (%.5f equivalent full cycles)\n', ...
     duty.charge_throughput_Ah, duty.equivalent_full_cycles);
 fprintf('Terminal energy throughput: %.3f Wh\n', ...
     duty.energy_throughput_Wh);
+end
+
+function assert_error(functionHandle, expectedIdentifier)
+try
+    functionHandle();
+catch errorDetails
+    assert(strcmp(errorDetails.identifier, expectedIdentifier), ...
+        'Expected error %s but received %s.', ...
+        expectedIdentifier, errorDetails.identifier);
+    return;
+end
+error('BatteryRC:MissingError', ...
+    'Expected error %s was not raised.', expectedIdentifier);
+end

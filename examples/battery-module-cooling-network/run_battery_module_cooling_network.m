@@ -1,8 +1,9 @@
 %% Battery Module Liquid-Cooling Network
 % Runs and plots the validated six-cell thermal-network reference.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -59,3 +60,4 @@ fprintf('Peak coolant outlet temperature: %.2f degC\n', ...
     result.peak_coolant_outlet_temp_C);
 fprintf('Module energy-balance error: %.3e J\n', ...
     result.energy_balance_error_J);
+end

@@ -37,6 +37,10 @@ for sampleIndex = 1:sampleCount
         priorTerminalVoltage_V;
     innovationVariance = measurementJacobian * pPrior * ...
         measurementJacobian' + options.measurement_variance_V2;
+    if ~isfinite(innovationVariance) || innovationVariance <= 0
+        error('BatterySOCEKF:InnovationVariance', ...
+            'Innovation variance must remain finite and positive.');
+    end
     gain = pPrior * measurementJacobian' / innovationVariance;
 
     xPosterior = xPrior + gain * innovation;
@@ -211,11 +215,23 @@ end
 function covariance = validated_covariance(covariance, fieldName)
 if ~isnumeric(covariance) || ~isequal(size(covariance), [2, 2]) || ...
         ~isreal(covariance) || any(~isfinite(covariance), 'all') || ...
-        max(abs(covariance - covariance'), [], 'all') > 1e-12 || ...
-        min(eig(covariance)) < -1e-12
+        max(abs(covariance - covariance'), [], 'all') > 1e-12
     error('BatterySOCEKF:Covariance', ...
         '%s must be a finite symmetric positive-semidefinite 2-by-2 matrix.', ...
         fieldName);
+end
+covariance = covariance / 2 + covariance' / 2;
+[eigenvectors, eigenvalueMatrix] = eig(covariance);
+eigenvalues = diag(eigenvalueMatrix);
+if min(eigenvalues) < -1e-12
+    error('BatterySOCEKF:Covariance', ...
+        '%s must be a finite symmetric positive-semidefinite 2-by-2 matrix.', ...
+        fieldName);
+end
+if any(eigenvalues < 0)
+    % The validation tolerance admits roundoff, not negative variances.
+    covariance = eigenvectors * diag(max(eigenvalues, 0)) * eigenvectors';
+    covariance = covariance / 2 + covariance' / 2;
 end
 end
 

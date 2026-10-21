@@ -16,6 +16,8 @@ end
 profileTime_s = profile.time_s(:);
 profileCurrent_A = profile.current_A(:);
 if ~isnumeric(profileTime_s) || ~isnumeric(profileCurrent_A) || ...
+        ~isvector(profile.time_s) || ~isvector(profile.current_A) || ...
+        ~isreal(profileTime_s) || ~isreal(profileCurrent_A) || ...
         numel(profileTime_s) ~= numel(profileCurrent_A) || ...
         numel(profileTime_s) < 2
     error('BatteryRC:ProfileShape', ...
@@ -34,7 +36,8 @@ if any(diff(profileTime_s) <= 0)
 end
 
 if ~isempty(dt_s)
-    if ~isnumeric(dt_s) || ~isscalar(dt_s) || ~isfinite(dt_s) || dt_s <= 0
+    if ~isnumeric(dt_s) || ~isscalar(dt_s) || ~isreal(dt_s) || ...
+            ~isfinite(dt_s) || dt_s <= 0
         error('BatteryRC:TimeStep', ...
             'dt_s must be empty or a finite positive scalar.');
     end
@@ -65,9 +68,9 @@ end
 for parameterIndex = 1:numel(requiredScalarParameters)
     parameterValue = parameters.(requiredScalarParameters{parameterIndex});
     if ~isnumeric(parameterValue) || ~isscalar(parameterValue) || ...
-            ~isfinite(parameterValue)
+            ~isreal(parameterValue) || ~isfinite(parameterValue)
         error('BatteryRC:Parameters', ...
-            'Every battery RC parameter must be a finite numeric scalar.');
+            'Every battery RC parameter must be a finite real numeric scalar.');
     end
 end
 if parameters.capacity_Ah <= 0 || parameters.r0_Ohm < 0 || ...
@@ -103,11 +106,19 @@ if any(ocvLookup_V <= 0) || any(diff(ocvLookup_V) < 0)
     error('BatteryRC:OCVCurve', ...
         'OCV values must be positive and nondecreasing with SOC.');
 end
+% Snap endpoints already accepted within tolerance to the stated SOC domain.
+ocvSocBreakpoints([1, end]) = [0; 1];
+if any(diff(ocvSocBreakpoints) <= 0)
+    error('BatteryRC:OCVCurve', ...
+        'OCV SOC breakpoints must increase strictly from zero to one.');
+end
+parameters.ocv_soc_breakpoints(1) = 0;
+parameters.ocv_soc_breakpoints(end) = 1;
 if isempty(dt_s)
     time_s = profileTime_s;
     requestedCurrent_A = profileCurrent_A;
 else
-    time_s = (0:dt_s:profileTime_s(end))';
+    time_s = (0:intervalCount)' * dt_s;
     requestedCurrent_A = interp1(profileTime_s, profileCurrent_A, time_s, ...
         'previous', 'extrap');
 end

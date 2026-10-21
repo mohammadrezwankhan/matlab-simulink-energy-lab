@@ -1,8 +1,9 @@
 %% Battery Module Liquid-Cooling Network Check
 % Validates heat exchange, spatial coupling, and discrete energy balances.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -105,6 +106,15 @@ assert(irregularResult.coolant_supply_temp_C(3) == 26 && ...
     irregularResult.module_heat_generation_W(2) == 60, ...
     'Irregular input values must be preserved without resampling.');
 
+roundedGridProfile = table([0; 1 - 1e-10], [1; 0], [25; 25], ...
+    'VariableNames', {'time_s', 'module_heat_generation_W', ...
+    'coolant_inlet_temp_C'});
+roundedGridResult = simulate_battery_module_cooling_network( ...
+    roundedGridProfile, parameters, 1);
+assert(isequal(roundedGridResult.time_s, [0; 1]) && ...
+    numel(roundedGridResult.interval_s) == 1, ...
+    'A tolerated endpoint roundoff must not discard the final time interval.');
+
 columnParameters = parameters;
 vectorFields = {
     'cell_mass_kg';
@@ -187,3 +197,4 @@ fprintf('Peak coolant outlet temperature: %.2f degC\n', ...
     result.peak_coolant_outlet_temp_C);
 fprintf('Peak cell temperature at 3x flow: %.2f degC\n', ...
     highFlowResult.peak_cell_temp_C);
+end

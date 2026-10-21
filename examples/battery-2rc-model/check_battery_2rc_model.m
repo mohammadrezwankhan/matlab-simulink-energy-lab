@@ -1,8 +1,9 @@
 %% Battery 2RC Model Check
 % Validates fast and slow exact polarization branches and inherited states.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 baseModelDirectory = fullfile(fileparts(modelDirectory), 'battery-rc-model');
 originalPath = path;
@@ -168,6 +169,11 @@ end
 assert(missingFieldRejected, ...
     'Simulator must reject a missing second-branch parameter.');
 
+complexParameters = parameters;
+complexParameters.r2_Ohm = parameters.r2_Ohm + 0.001i;
+assert_error(@() simulate_battery_2rc_model(profile, complexParameters), ...
+    'Battery2RC:Parameters');
+
 repeatResult = simulate_battery_2rc_model(profile, parameters, 1);
 assert(isequal(result.soc, repeatResult.soc) && ...
     isequal(result.v_rc1_V, repeatResult.v_rc1_V) && ...
@@ -180,3 +186,17 @@ fprintf('Voltage range: %.3f V to %.3f V\n', ...
     min(result.terminal_voltage_V), max(result.terminal_voltage_V));
 fprintf('Peak polarization: fast %.3f V, slow %.3f V\n', ...
     max(abs(result.v_rc1_V)), max(abs(result.v_rc2_V)));
+end
+
+function assert_error(functionHandle, expectedIdentifier)
+try
+    functionHandle();
+catch errorDetails
+    assert(strcmp(errorDetails.identifier, expectedIdentifier), ...
+        'Expected error %s but received %s.', ...
+        expectedIdentifier, errorDetails.identifier);
+    return;
+end
+error('Battery2RC:MissingError', ...
+    'Expected error %s was not raised.', expectedIdentifier);
+end
