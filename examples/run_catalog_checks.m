@@ -108,8 +108,13 @@ originalPath = path;
 originalFolder = pwd;
 originalRng = rng;
 originalFigures = findall(groot, 'Type', 'figure');
+% Capture before RUN enters the example folder and resolves default folders.
+fileGenerationConfig = [];
+if ~isempty(ver('Simulink')) && license('test', 'Simulink')
+    fileGenerationConfig = Simulink.fileGenControl('getConfig');
+end
 cleanup = onCleanup(@() restore_environment(originalPath, originalFolder, ...
-    originalRng, originalFigures));
+    originalRng, originalFigures, fileGenerationConfig));
 started = tic;
 executeCheck = @() run_check_script(checkPath); %#ok<NASGU> Used by the constant evalc expression below.
 [stdout, checkError] = evalc('executeCheck()');
@@ -139,7 +144,8 @@ function run_in_child_workspace(checkPath)
 run(checkPath);
 end
 
-function restore_environment(originalPath, originalFolder, originalRng, figures)
+function restore_environment(originalPath, originalFolder, originalRng, figures, ...
+        fileGenerationConfig)
 currentFigures = findall(groot, 'Type', 'figure');
 newFigures = currentFigures(~ismember(currentFigures, figures));
 if ~isempty(newFigures)
@@ -147,5 +153,8 @@ if ~isempty(newFigures)
 end
 rng(originalRng);
 cd(originalFolder);
+if ~isempty(fileGenerationConfig)
+    Simulink.fileGenControl('setConfig', 'config', fileGenerationConfig);
+end
 path(originalPath);
 end

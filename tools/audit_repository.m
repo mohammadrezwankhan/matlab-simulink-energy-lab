@@ -10,8 +10,13 @@ root = fileparts(fileparts(mfilename('fullpath')));
 originalFolder = pwd;
 originalPath = path;
 originalVisible = get(groot, 'DefaultFigureVisible');
+hasSimulink = ~isempty(ver('Simulink')) && license('test', 'Simulink');
+fileGenerationConfig = [];
+if hasSimulink
+    fileGenerationConfig = Simulink.fileGenControl('getConfig');
+end
 cleanup = onCleanup(@() restore_context(originalFolder, originalPath, ...
-    originalVisible));
+    originalVisible, fileGenerationConfig));
 cd(root);
 addpath(fullfile(root, 'examples'), fullfile(root, 'tools'));
 set(groot, 'DefaultFigureVisible', 'off');
@@ -29,8 +34,7 @@ end
 report.matlab_release = "R" + string(version('-release'));
 report.matlab_version = string(version);
 report.phase = phase;
-report.simulink_available = ~isempty(ver('Simulink')) && ...
-    license('test', 'Simulink');
+report.simulink_available = hasSimulink;
 report.claim_boundary = ...
     "Software regression evidence; not hardware or physical validation.";
 report.file_count = numel(files);
@@ -376,9 +380,12 @@ if ~isempty(newFigures)
 end
 end
 
-function restore_context(folder, originalPath, visible)
+function restore_context(folder, originalPath, visible, fileGenerationConfig)
 set(groot, 'DefaultFigureVisible', visible);
 cd(folder);
+if ~isempty(fileGenerationConfig)
+    Simulink.fileGenControl('setConfig', 'config', fileGenerationConfig);
+end
 path(originalPath);
 end
 
