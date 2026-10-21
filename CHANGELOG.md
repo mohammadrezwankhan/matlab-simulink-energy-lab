@@ -6,12 +6,88 @@ Notable changes to MATLAB Simulink Energy Lab are recorded here. The project
 uses semantic versioning while its public model and validation interfaces are
 still evolving.
 
-## Unreleased
+## 1.12.0 — 2026-10-21
+
+This release addresses all 35 findings in the source audit and the native
+integration defects found during verification. Release assets include the
+source archive, exact-commit verification evidence, repair report, and
+SHA-256 checksums. See [release readiness](docs/release-readiness.md) for
+reproduction and migration. Historical results below remain bound to their
+recorded versions and commits.
+
+### Added
+
+- A root MATLAB Build Tool pipeline with `check`, `test`, `demos`, `simulink`,
+  and `archive` tasks. `matlab -batch "buildtool check test archive"` collects
+  all required phases before it can archive a clean, verified commit.
+- Per-file Code Analyzer diagnostics, complexity output, dependency-product
+  records, execution telemetry, and generated-model solver/block diagnostics.
+  Deterministic JSON/Markdown result reports are separate from elapsed time
+  and console telemetry.
+- Release regression coverage for runner dispatch, capability boundaries,
+  provenance, workspace preservation, and failure cleanup, plus targeted
+  numerical and BESS limit/lifecycle cases. These additions require native
+  MATLAB execution; static review does not establish their pass status.
+- Explicit binary attributes for MATLAB/Simulink artifacts and exclusions
+  for generated caches, code-generation outputs, and native build products.
+
+### Changed
+
+- **Script workspace behavior change:** documented `run('.../run_*.m')` and
+  `run('.../check_*.m')` script entry points execute in local workspaces.
+  They preserve caller variables, MATLAB path, current folder, RNG state,
+  and existing figures. Plotting demos still create their own result figures.
+  Code that relied on residual script variables must call the public
+  simulator/estimator function and capture its returned result explicitly.
+- Root and legacy `run_all_checks` entry points delegate to one catalog
+  implementation. A MATLAB-only default run selects the 20-check Base profile
+  and explicitly reports an incomplete full suite; `run_all_checks(true, true,
+  true)` requires Simulink and the complete catalog.
+- Prescribed thermal current profiles that would leave the feasible SOC
+  interval now raise `BatteryThermal:SOCProfile` before integration. This
+  hardens the documented clipping limitation; feasible default trajectories
+  and the existing electrical/thermal equations remain unchanged.
+- Publication metadata consistently identifies 1.12.0 in `CITATION.cff`,
+  `codemeta.json`, and `project-metadata.yml`, with matching citation and
+  CodeMeta publication dates. Historical numerical snapshots retain their
+  original provenance.
 
 ### Fixed
 
 - Reject nonfinite or nonnumeric second inputs in the standalone BESS Clarke
   and Park transforms, matching the validation applied to their other inputs.
+- Project tolerated covariance roundoff to a valid symmetric positive-
+  semidefinite input in both SOC EKFs and reject invalid innovation variance.
+- Reject complex or incorrectly shaped physical inputs, retain accepted
+  uniform-grid endpoints, and normalize accepted OCV/entropic-table endpoints.
+- Align DC-reserve events to accepted decimal breakpoints and use a stable
+  current root; reject response-summary windows without the required samples.
+- Project the final BESS active command into a contracting availability bound
+  after normal slew limiting; recovery continues from the projected command.
+  Existing default numerical benchmarks remain pinned.
+- Preserve pre-existing generated-model files through failed rebuilds and
+  close only owned models; preserve the caller figure in the BESS plotting
+  runner and bind BESS evidence provenance to the source repository.
+- Replaced stale active-suite counts and destructive-workspace instructions
+  in current guides; historical 31-result BESS evidence is retained as history.
+- Corrected metadata-validation and CI coverage gaps for release inputs.
+- Capture cleanup state safely in native demo and audit callbacks, retain
+  fallback guards through restoration, and test failures before and after
+  model-handle capture without disturbing caller-owned figures.
+- Include every discovered check in the catalog contract and exercise source
+  archival in release CI. Static dependency reports retain uncertain product
+  matches separately from confirmed undeclared requirements.
+
+### Release verification
+
+- The release gate runs Code Analyzer and dependency analysis, 26 catalog
+  entries, 123 focused BESS tests, 15 infrastructure tests, 31 demo/runner
+  checks, and six generated-model audits on MATLAB R2026a with Simulink.
+- The verification archive records actual outcomes and source commits,
+  including independent Base MATLAB and MATLAB-plus-Simulink CI jobs,
+  eight BESS scenarios, regenerated plots, and caller-state preservation.
+- `assets/social-preview.png` was regenerated and reviewed with MATLAB
+  R2026a for the 1.12.0 release and 26-check catalog.
 
 ## 0.11.0 - 2026-09-22
 

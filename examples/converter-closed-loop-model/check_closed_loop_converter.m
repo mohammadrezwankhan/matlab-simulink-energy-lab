@@ -1,8 +1,11 @@
 %% Closed-Loop Averaged Converter Check
 % Runs no-plot assertions for the cascaded voltage and current controller.
 
-clearvars; clc;
+run_example();
 
+function run_example()
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(fileparts(mfilename('fullpath')));
 result = simulate_closed_loop_converter();
 
@@ -50,3 +53,4 @@ fprintf('Peak voltage after step: %.2f V\n', peak_voltage_V);
 fprintf('Two-percent settling time: %.1f ms\n', 1000 * settling_time_s);
 fprintf('Duty-cycle range: %.3f to %.3f\n', ...
     min(result.duty_cycle), max(result.duty_cycle));
+end

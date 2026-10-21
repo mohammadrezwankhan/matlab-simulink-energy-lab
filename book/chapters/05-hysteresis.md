@@ -234,8 +234,9 @@ For the complete source workflow, use
 [`simulate_battery_soc_hysteresis_ekf_example.m`](../../examples/battery-soc-hysteresis-ekf/simulate_battery_soc_hysteresis_ekf_example.m)
 and the no-plot contract in
 [`check_battery_soc_hysteresis_ekf.m`](../../examples/battery-soc-hysteresis-ekf/check_battery_soc_hysteresis_ekf.m).
-The plotting runner clears workspace variables and closes figures, so save
-important state before running it. An existing plant figure is also available
+The 1.12.0 plotting runner preserves caller variables and existing
+figures; obtain estimator data through the public functions above. The initial
+pinned book snapshot retains its older workspace behavior. An existing plant figure is also available
 as [`battery-ocv-hysteresis-response.png`](../../assets/battery-ocv-hysteresis-response.png).
 
 Inspect `hysteresis_state` during rest: it should hold while `v_rc_V` relaxes.

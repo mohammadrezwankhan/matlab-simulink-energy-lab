@@ -29,7 +29,19 @@ manifest.schema_version = "1.0.0";
 manifest.source_commit = sourceCommit;
 manifest.matlab_release = "R" + string(version('-release'));
 manifest.matlab_version = string(version);
-manifest.required_products = ["MATLAB", "Simulink"];
+if isfield(report, 'required_products')
+    manifest.required_products = string(report.required_products);
+else
+    % Retain the legacy general-suite report contract.
+    manifest.required_products = ["MATLAB", "Simulink"];
+end
+if isfield(report, 'profile')
+    manifest.profile = string(report.profile);
+end
+if isfield(report, 'complete_suite')
+    manifest.complete_suite = logical(report.complete_suite);
+    manifest.excluded_checks = report.excluded_checks;
+end
 manifest.suite = string(report.suite);
 if report.all_checks_passed
     manifest.status = "passed";

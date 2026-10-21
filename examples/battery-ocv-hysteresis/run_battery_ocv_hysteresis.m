@@ -1,8 +1,9 @@
 %% Battery OCV Hysteresis Example
 % Shows how charge/discharge history separates voltage at the same SOC.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -73,3 +74,4 @@ fprintf('Hysteresis state range: %.3f to %.3f\n', ...
     min(result.hysteresis_state), max(result.hysteresis_state));
 fprintf('Same-SOC minor-loop voltage gap: %.2f mV\n', ...
     1000*minorLoopGap_V);
+end

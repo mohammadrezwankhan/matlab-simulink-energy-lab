@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -84,6 +83,38 @@ invalidParameters.requested_converter_power_W = [1; 2];
 assert_error(@() simulate_bess_dc_reserve(invalidParameters), ...
     'BessDcReserve:Profile');
 
+% Decimal grid values must select the intended interval without a late edge.
+alignedParameters = parameters;
+alignedParameters.sample_time_s = 0.3;
+alignedParameters.end_time_s = 1.2;
+alignedParameters.dc_energy_feedback_gain_per_s = 3;
+alignedParameters.request_breakpoints_s = [0; 0.9];
+alignedParameters.requested_converter_power_W = [0; 1000];
+alignedResult = simulate_bess_dc_reserve(alignedParameters);
+assert(isequal(alignedResult.requested_converter_power_W, [0; 0; 0; 1000]), ...
+    'An aligned decimal breakpoint must act on its intended sample.');
+
+% The admissible low-resistance limit must retain power balance and bounds.
+lowResistanceParameters = parameters;
+lowResistanceParameters.end_time_s = parameters.sample_time_s;
+lowResistanceParameters.request_breakpoints_s = 0;
+lowResistanceParameters.requested_converter_power_W = 250e3;
+lowResistanceParameters.ocv_intercept_V = 725;
+lowResistanceParameters.ocv_slope_V_per_soc = 0;
+lowResistanceParameters.internal_resistance_Ohm = 1e-16;
+lowResistanceResult = simulate_bess_dc_reserve(lowResistanceParameters);
+lowResistanceTerminalVoltage_V = 0.5*( ...
+    lowResistanceResult.terminal_voltage_start_V + ...
+    lowResistanceResult.terminal_voltage_end_V);
+assert(abs(lowResistanceResult.battery_current_A - 250e3/725) < 1e-10 && ...
+    all(lowResistanceResult.battery_current_A <= ...
+        lowResistanceParameters.maximum_discharge_current_A), ...
+    'The low-resistance current solution must preserve its physical limit.');
+assert(max(abs(lowResistanceResult.battery_power_W - ...
+    lowResistanceTerminalVoltage_V.* ...
+    lowResistanceResult.battery_current_A)) < 1e-7, ...
+    'The low-resistance power solution must close terminal power balance.');
+
 fprintf('BESS DC reserve check passed.\n');
 fprintf('SOC: minimum %.4f, final %.4f\n', ...
     metrics.minimum_soc, metrics.final_soc);
@@ -98,6 +129,8 @@ fprintf('SOC-taper active / curtailed time: %.1f / %.1f s\n', ...
     metrics.soc_taper_active_time_s, metrics.curtailment_time_s);
 fprintf('Peak discharge/charge current: %.1f / %.1f A\n', ...
     metrics.peak_discharge_current_A, metrics.peak_charge_current_A);
+
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

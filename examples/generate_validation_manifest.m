@@ -15,7 +15,7 @@ if nargin < 2 || strlength(string(outputPath)) == 0
 end
 
 sourceCommit = lower(string(sourceCommit));
-verify_checkout_commit(sourceCommit);
+verify_checkout_commit(sourceCommit, repositoryDirectory);
 report = run_all_checks(false, true);
 manifest = build_validation_manifest(report, sourceCommit);
 outputDirectory = fileparts(outputPath);
@@ -31,10 +31,13 @@ if ~report.all_checks_passed
 end
 end
 
-function verify_checkout_commit(sourceCommit)
+function verify_checkout_commit(sourceCommit, repositoryDirectory)
 if sourceCommit == "worktree"
     return;
 end
+originalFolder = pwd;
+cleanup = onCleanup(@() cd(originalFolder));
+cd(repositoryDirectory);
 [gitStatus, gitOutput] = system('git rev-parse HEAD');
 checkoutCommit = lower(strtrim(string(gitOutput)));
 if gitStatus ~= 0 || checkoutCommit ~= sourceCommit
@@ -47,6 +50,7 @@ if statusCode ~= 0 || strlength(strtrim(string(statusOutput))) > 0
     error('ValidationManifest:DirtyWorktree', ...
         'Commit-bound CI evidence requires a clean tracked worktree.');
 end
+clear cleanup;
 end
 
 function write_text(filePath, value)

@@ -1,9 +1,12 @@
 %% Switching Buck Converter Check
 % Validates PWM timing, exact state propagation, averages, and ripple.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(modelDirectory);
 
 parameters = switching_buck_default_parameters();
@@ -135,3 +138,4 @@ fprintf('Current ripple: %.3f A peak-to-peak\n', ...
 fprintf('Voltage ripple: %.3f V peak-to-peak\n', ...
     metrics.output_voltage_ripple_V);
 fprintf('Measured duty cycle: %.3f\n', metrics.measured_duty_cycle);
+end

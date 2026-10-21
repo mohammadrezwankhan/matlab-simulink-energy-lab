@@ -85,9 +85,10 @@ rest intervals are 0–300 s, 900–1200 s, 1500–1800 s, 2100–2400 s, and
 The equality is exact in the source branch because the rest path assigns the
 previous state directly. The no-plot source check also verifies charge balance,
 minor-loop behavior, irregular time, deterministic repeatability, and malformed
-parameters. The plotting runner clears variables and closes figures, so save
-unsaved workspace or figure state before running it, and use source runners only
-in a fresh MATLAB session.
+parameters. The 1.12.0 plotting runner preserves caller variables and
+existing figures. Use a fresh session for the initial pinned book snapshot,
+whose cleanup is destructive. Capture numerical data through the public
+simulator/estimator functions.
 
 ## Exercise 4 — Interpretation and limits solution
 

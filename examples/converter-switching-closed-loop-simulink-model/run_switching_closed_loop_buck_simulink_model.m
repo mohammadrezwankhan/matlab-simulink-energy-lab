@@ -1,21 +1,30 @@
 %% Native Simulink Switching Closed-Loop Buck
 % Generates the model and overlays it with the Base MATLAB reference.
 
-clear;
-close all;
-clc;
 
+run_example();
+
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 examplesDirectory = fileparts(modelDirectory);
 referenceDirectory = fullfile(examplesDirectory, ...
     'converter-switching-closed-loop-model');
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(modelDirectory, referenceDirectory);
 
 parameters = switching_closed_loop_buck_default_parameters();
 reference = simulate_switching_closed_loop_buck(parameters);
 modelPath = build_switching_closed_loop_buck_simulink_model([], parameters);
 [~, modelName] = fileparts(modelPath);
+originalFigures = findall(groot, 'Type', 'figure');
+loadCleanup = onCleanup(@() close_failed_model( ...
+    modelName, modelPath, [], originalFigures));
 load_system(modelPath);
+ownedModelHandle = get_param(modelName, 'Handle');
+modelCleanup = onCleanup(@() close_failed_model( ...
+    modelName, modelPath, ownedModelHandle, originalFigures));
+cancel(loadCleanup);
 simulationOutput = sim(modelName);
 inductorCurrent = simulationOutput.get('inductor_current');
 outputVoltage = simulationOutput.get('output_voltage');
@@ -50,3 +59,21 @@ fprintf('Generated model: %s\n', modelPath);
 fprintf('Maximum MATLAB parity error: %.3e A, %.3e V\n', ...
     max(abs(inductorCurrent.Data(:) - reference.inductor_current_A)), ...
     max(abs(outputVoltage.Data(:) - reference.output_voltage_V)));
+cancel(modelCleanup);
+end
+
+function close_failed_model(modelName, modelPath, ownedModelHandle, originalFigures)
+figures = findall(groot, 'Type', 'figure');
+delete(figures(~ismember(figures, originalFigures)));
+if bdIsLoaded(modelName)
+    if isempty(ownedModelHandle)
+        loadedPath = get_param(modelName, 'FileName');
+        ownsModel = isempty(loadedPath) || strcmp(loadedPath, modelPath);
+    else
+        ownsModel = get_param(modelName, 'Handle') == ownedModelHandle;
+    end
+    if ownsModel
+        close_system(modelName, 0);
+    end
+end
+end

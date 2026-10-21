@@ -92,9 +92,10 @@ deterministic voltage record internally. The Joseph update adds the positive
 semidefinite measurement-noise term $K R_vK^T$ and preserves the covariance
 structure better than a one-sided subtraction. The explicit symmetry check
 also matches the source's post-update symmetrization. The no-plot source check
-adds malformed-input and irregular-time tests. Since the plotting script can
-clear workspace variables and close figures, run the source check only in a
-fresh MATLAB session after saving any important state.
+adds malformed-input and irregular-time tests. The 1.12.0 scripts
+preserve caller variables and existing figures. Use a fresh session for the
+initial pinned book snapshot, whose cleanup is destructive. Capture estimator
+results with the public function above.
 
 ## Exercise 4 — Interpretation and limits solution
 

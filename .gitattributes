@@ -1,0 +1,23 @@
+# Normalize source and documentation without transforming binary formats.
+* text=auto
+*.m text eol=lf
+*.md text eol=lf
+*.cff text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.svg text eol=lf
+*.slx binary
+*.mlx binary
+*.mat binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.zip binary

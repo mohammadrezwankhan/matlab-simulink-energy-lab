@@ -180,11 +180,11 @@ run(fullfile('examples', 'battery-module-cooling-network', ...
     'check_battery_module_cooling_network.m'))
 ```
 
-The plot script begins with `clear; clc; close all;`; the no-plot check begins
-with `clearvars; clc;`. These demo/check scripts clear variables and close
-figures, so protect unrelated work in a shared MATLAB session. They add the
-model directory to the path and use the same cleanup pattern as the other
-examples.
+The 1.12.0 plotting and check scripts use local workspaces, preserve
+caller variables and existing figures, and restore the previous MATLAB path.
+Capture module results explicitly through the simulator. The initial pinned
+book snapshot retains its older destructive script cleanup; use a fresh
+session when reproducing that historical revision.
 
 ## First one-second step: a hand-checkable result
 

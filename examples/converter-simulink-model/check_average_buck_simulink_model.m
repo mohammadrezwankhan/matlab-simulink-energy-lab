@@ -1,9 +1,13 @@
 %% Native Simulink Averaged Buck Check
 % Builds, compiles, simulates, and validates the generated block diagram.
 
-clearvars; clc;
 
+run_checks();
+
+function run_checks()
 modelDirectory = fileparts(mfilename('fullpath'));
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(modelDirectory);
 
 assert(~isempty(ver('simulink')) && license('test', 'Simulink'), ...
@@ -13,9 +17,9 @@ parameters = average_buck_simulink_parameters();
 temporaryDirectory = tempname;
 mkdir(temporaryDirectory);
 modelName = 'average_buck_simulink_model';
+cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 modelPath = build_average_buck_simulink_model(...
     temporaryDirectory, parameters);
-cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 
 assert(isfile(modelPath), 'The builder must create a real SLX model file.');
 load_system(modelPath);
@@ -175,6 +179,7 @@ fprintf('Final output voltage: %.3f V\n', outputVoltage_V(end));
 fprintf('Final inductor current: %.3f A\n', inductorCurrent_A(end));
 fprintf('Maximum exact-state error: %.3e V, %.3e A\n', ...
     maximumVoltageError_V, maximumCurrentError_A);
+end
 
 function assert_connection(modelName, sourceBlock, sourcePort, ...
         destinationBlock, destinationPort)

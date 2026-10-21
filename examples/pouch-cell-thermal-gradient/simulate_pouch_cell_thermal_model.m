@@ -18,8 +18,8 @@ if isempty(dt_s)
     leftFluid_C = profileLeftFluid_C;
     rightFluid_C = profileRightFluid_C;
 else
-    validate_time_step(dt_s, profileTime_s(end));
-    time_s = (0:dt_s:profileTime_s(end))';
+    intervalCount = validate_time_step(dt_s, profileTime_s(end));
+    time_s = (0:intervalCount)' * dt_s;
     cellHeat_W = interp1( ...
         profileTime_s, profileHeat_W, time_s, "previous", "extrap");
     leftFluid_C = interp1( ...
@@ -362,7 +362,7 @@ if any(initialTemperature_C <= -273.15)
 end
 end
 
-function validate_time_step(dt_s, profileEndTime_s)
+function intervalCount = validate_time_step(dt_s, profileEndTime_s)
 if ~isnumeric(dt_s) || ~isscalar(dt_s) || ...
         ~isreal(dt_s) || ~isfinite(dt_s) || dt_s <= 0
     error("PouchCellThermal:TimeStep", ...

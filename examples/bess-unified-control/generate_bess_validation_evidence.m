@@ -1,5 +1,10 @@
-function evidence = generate_bess_validation_evidence(sourceCommit)
+function evidence = generate_bess_validation_evidence(sourceCommit, outputDirectory)
 %GENERATE_BESS_VALIDATION_EVIDENCE Regenerate metrics, JSON, and plots.
+%   EVIDENCE = GENERATE_BESS_VALIDATION_EVIDENCE(COMMIT, OUTPUTDIRECTORY)
+%   writes results.json and three PNGs to OUTPUTDIRECTORY. Omit the second
+%   argument to retain the example's validation directory. Supply a nonempty
+%   character row vector or nonmissing string scalar. Relative output paths
+%   are resolved against the caller's current directory.
 
 if nargin < 1
     sourceCommit = "";
@@ -17,10 +22,14 @@ if strlength(sourceCommit) == 0
     sourceCommit = "WORKTREE";
 end
 sourceCommit = lower(string(sourceCommit));
-verify_checkout_commit(sourceCommit);
 exampleDirectory = fileparts(mfilename('fullpath'));
+if nargin < 2
+    outputDirectory = fullfile(exampleDirectory, 'validation');
+end
+validationDirectory = validate_output_directory(outputDirectory);
+repositoryRoot = fileparts(fileparts(exampleDirectory));
+verify_checkout_commit(sourceCommit, repositoryRoot);
 sourceDirectory = fullfile(exampleDirectory, 'src');
-validationDirectory = fullfile(exampleDirectory, 'validation');
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
 addpath(exampleDirectory, sourceDirectory);
@@ -85,7 +94,19 @@ fprintf('Generated validation evidence for %d passing scenarios.\n', ...
 clear modelCleanup pathCleanup;
 end
 
-function verify_checkout_commit(sourceCommit)
+function directory = validate_output_directory(outputDirectory)
+isScalarText = (ischar(outputDirectory) && isrow(outputDirectory)) || ...
+    (isstring(outputDirectory) && isscalar(outputDirectory) && ...
+    ~ismissing(outputDirectory));
+if ~isScalarText || strlength(string(outputDirectory)) == 0
+    error('BessUnifiedControl:OutputDirectory', ...
+        ['Evidence output directory must be a nonempty character row ', ...
+        'vector or nonmissing string scalar.']);
+end
+directory = char(outputDirectory);
+end
+
+function verify_checkout_commit(sourceCommit, repositoryRoot)
 if sourceCommit == "worktree"
     return;
 end
@@ -95,6 +116,9 @@ if ~isCommit
         ['Commit-bound evidence requires the resolved full 40-character ', ...
         'Git commit SHA or WORKTREE for explicitly unbound local output.']);
 end
+originalDirectory = pwd;
+directoryCleanup = onCleanup(@() cd(originalDirectory));
+cd(repositoryRoot);
 [gitStatus, gitOutput] = system('git rev-parse HEAD');
 checkoutCommit = lower(strtrim(string(gitOutput)));
 if gitStatus ~= 0 || checkoutCommit ~= sourceCommit

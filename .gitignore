@@ -12,6 +12,11 @@ sfun_*.c
 *.mex*
 *.bi
 .SimulinkProject/
+codegen/
+*_ert_rtw/
+*_grt_rtw/
+*.slx.autosave
+*.mdl.autosave
 
 # Figures and temporary data exports
 *.fig
@@ -25,3 +30,4 @@ Thumbs.db
 .idea/
 *.log
 validation-artifacts/
+.buildtool/

@@ -132,7 +132,11 @@ end
 function values = requested_power_profile(parameters, time_s)
 values = zeros(size(time_s));
 for profileIndex = 1:numel(parameters.request_breakpoints_s)
-    values(time_s >= parameters.request_breakpoints_s(profileIndex)) = ...
+    % Breakpoints were validated on the integer sample grid. Index that grid
+    % directly so decimal roundoff cannot postpone an aligned transition.
+    firstInterval = round(parameters.request_breakpoints_s(profileIndex)/ ...
+        parameters.sample_time_s) + 1;
+    values(firstInterval:end) = ...
         parameters.requested_converter_power_W(profileIndex);
 end
 end
@@ -151,8 +155,9 @@ if discriminant < -1e-8
     error('BessDcReserve:PowerLimit', ...
         'Battery power exceeds the real current-solution boundary.');
 end
-current_A = (ocv_V - sqrt(max(discriminant, 0)))/ ...
-    (2*effectiveResistance_Ohm);
+% Rationalize the low-current root to avoid subtracting nearly equal
+% voltages when resistance or requested power is small.
+current_A = 2*power_W/(ocv_V + sqrt(max(discriminant, 0)));
 end
 
 function value = clamp(value, lowerBound, upperBound)

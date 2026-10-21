@@ -1,8 +1,9 @@
 %% Battery 2RC Model Example
 % Plots a pulse response with fast and slow polarization branches.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 baseModelDirectory = fullfile(fileparts(modelDirectory), 'battery-rc-model');
 originalPath = path;
@@ -51,3 +52,4 @@ fprintf('Voltage range: %.3f V to %.3f V\n', ...
     min(result.terminal_voltage_V), max(result.terminal_voltage_V));
 fprintf('Peak polarization: fast %.3f V, slow %.3f V\n', ...
     max(abs(result.v_rc1_V)), max(abs(result.v_rc2_V)));
+end

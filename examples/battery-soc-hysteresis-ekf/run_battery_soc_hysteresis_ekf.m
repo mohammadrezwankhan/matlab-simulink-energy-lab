@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -78,3 +77,4 @@ fprintf('Hysteresis-state RMSE: %.4f\n', metrics.hysteresis_state_rmse);
 fprintf('Voltage RMSE: hysteresis %.3f mV, baseline %.3f mV\n', ...
     1000*metrics.hysteresis_voltage_rmse_V, ...
     1000*metrics.baseline_voltage_rmse_V);
+end

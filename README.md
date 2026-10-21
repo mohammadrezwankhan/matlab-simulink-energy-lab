@@ -1,5 +1,10 @@
 ![MATLAB Simulink Energy Lab: original vector system illustration](assets/hero-25d.svg)
 
+> **Version 1.12.0 — 2026-10-21.** Release archives, verification evidence,
+> and SHA-256 checksums are available on the [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
+> See [release readiness and migration](docs/release-readiness.md) for the
+> exact gates and the distinction between current source and historical CI.
+
 The native repository contains Base MATLAB and generated Simulink models for batteries, thermal response, converters, and BESS control. A second-order response exercise develops control intuition before the bounded native examples.
 
 **[Native-source lesson guide](docs/portfolio/) · [Offline interactive lab](docs/index.html) · [Lesson configuration](docs/lesson-config.json) · [Configuration schema](docs/lesson-config.schema.json)**
@@ -135,8 +140,11 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 The check should print `Battery RC check passed`, final SOC `0.767`, and a
 voltage range of `3.425 V to 3.877 V`. The second command opens the current,
 SOC, and terminal-voltage plots. These are deterministic illustrative results,
-not measured-cell accuracy. The example scripts clear their workspace and
-close open figures; save any work you want to keep first.
+not measured-cell accuracy. In the 1.12.0 release, these script entry points
+use local workspaces and preserve existing variables and figures. Plotting
+demos create new figures. To retain numerical results, call the public
+simulator and capture its return value; see the
+[migration note](docs/release-readiness.md#script-workspace-migration).
 
 | What do you want to do next? | Follow this route |
 | --- | --- |
@@ -259,16 +267,19 @@ suite finishes in 60 seconds. For one plot and a focused check, use
 [Your First Result](#your-first-result) above.
 
 Twenty-five established no-plot checks cover the battery, converter, and DC-side
-BESS examples. The unified BESS entry point adds a focused 77-test
-MATLAB/Simulink suite, so `run_all_checks` invokes 26 check entry points. CI
-also verifies the machine-readable manifest contract. All are configured
-for MATLAB R2026a, and the validation workflow runs them whenever executable
-model code changes.
+BESS examples. The unified BESS entry point brings the complete catalog to 26
+entry points and expands into focused MATLAB/Simulink tests across eight
+scenarios. CI also verifies the machine-readable manifest contract.
 
-The 77-test count is bound to source `f0f4a93` and
-[run 34511290849](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/34511290849).
-The earlier numerical summary below remains a historical 31-result record at
-its explicitly cited source; it has not been relabelled as a current run.
+The latest inherited evidence used for this audit is
+[run 39592416496](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/39592416496)
+at source `125b0a818c3c42292cfebc7c5dcb6b50689a70eb`: 20 Base MATLAB checks,
+25 general checks plus the manifest contract, and 92 focused BESS results.
+Only Markdown changed between that source and audited source
+`a8ea7b9093b596bb169bb31841b77cb4fe88ccb9`. The 1.12.0 release changes executable
+code and is not validated by that inherited run. Its focused-test count must
+be taken from its own generated results. The older numerical summary below
+remains a historical 31-result record at its explicitly cited source.
 
 If you have MATLAB without Simulink, run the deterministic 20-check subset:
 
@@ -284,9 +295,14 @@ To try the lab in a browser, use the **Open in MATLAB Online** badge above.
 After the repository opens, run this from its root folder:
 
 ```matlab
-addpath('examples');
-run_all_checks
+report = run_all_checks;
+disp(report.profile)
+assert(report.all_checks_passed)
 ```
+
+The root runner detects available capabilities. Without Simulink it reports
+the Base subset with `complete_suite=false` and lists excluded checks. To
+require the complete catalog, use `run_all_checks(true, true, true)`.
 
 Or open one focused Base MATLAB example directly:
 
@@ -308,12 +324,13 @@ For a local command-line run:
 ```bash
 git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
 cd matlab-simulink-energy-lab
-matlab -batch "addpath('examples'); run_all_checks"
+matlab -batch "buildtool check test"
 ```
 
 ### Concise validation evidence
 
-This checkout carries v0.11.0 metadata; published snapshots are on the
+This checkout carries the 1.12.0 release metadata dated 2026-10-21.
+Source archives and commit-bound verification evidence are on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 The following numerical summary records historical MATLAB R2026a evidence from
 [run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
@@ -395,9 +412,9 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 | [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
 | [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
 | [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain constant and prescribed dynamic requests? | `check_bess_dc_reserve.m`, `check_bess_dc_reserve_envelope.m`, `check_bess_dc_reserve_profile_sensitivity.m` | Base MATLAB |
-| [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (31 focused results) | MATLAB and Simulink |
+| [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (focused results recorded per commit) | MATLAB and Simulink |
 
-Current release status: the battery examples, module liquid-cooling network,
+Model coverage: the battery examples, module liquid-cooling network,
 and converter references run as MATLAB scripts. Native battery RC, battery
 2RC, battery thermal, averaged buck, and switching closed-loop buck references
 additionally generate, compile, and simulate Simulink diagrams. The unified
@@ -470,12 +487,15 @@ matlab-simulink-energy-lab/
 
 ## Requirements
 
-- MATLAB R2026a is the verified release.
+- MATLAB R2026a is the maintained native verification target; the evidence
+  below is commit-specific. Use the 1.12.0 release gate for current source evidence.
 - The script-based examples and their validation checks use base MATLAB only.
 - `run_base_matlab_checks` executes all 20 of those checks with one command.
 - Simulink is required for the six generated block-diagram examples,
   including unified BESS control.
 - No power-electronics, control, or testing toolbox is required.
+- Optional Model Advisor review may require Simulink Check. It is an explicitly
+  separate review, not a core build dependency or a completed audit claim.
 
 Compatibility evidence is release-, environment-, and commit-specific:
 
@@ -581,9 +601,13 @@ standard, pull request workflow, and attribution policy.
 Versioned snapshots and engineering highlights are available on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 For a checksum-verifiable snapshot, download the source package and matching
-`SHA256SUMS` file attached to the
+`SHA256SUMS.txt` file attached to the
 [latest published release](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest).
 See the [changelog](CHANGELOG.md) for the model and validation history.
+The full local release gate for 1.12.0 is
+`matlab -batch "buildtool check test archive"`, which requires Simulink and a
+clean committed source tree. The archive task does not create a tag or publish
+anything. Follow [release readiness](docs/release-readiness.md) before tagging.
 
 If you use the lab in research, coursework, or teaching material, use GitHub's
 **Cite this repository** control to export APA or BibTeX metadata. The source

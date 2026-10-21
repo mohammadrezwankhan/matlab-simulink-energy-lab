@@ -1,8 +1,10 @@
 %% Native Simulink Battery Thermal Example
 % Generates, simulates, plots, and opens the electro-thermal diagram.
 
-clear; clc; close all;
 
+run_example();
+
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-thermal-model');
 originalPath = path;
@@ -11,7 +13,14 @@ addpath(modelDirectory, referenceDirectory);
 
 [modelPath, referenceResult] = build_battery_thermal_simulink_model();
 [~, modelName] = fileparts(modelPath);
+originalFigures = findall(groot, 'Type', 'figure');
+loadCleanup = onCleanup(@() close_failed_model( ...
+    modelName, modelPath, [], originalFigures));
 load_system(modelPath);
+ownedModelHandle = get_param(modelName, 'Handle');
+modelCleanup = onCleanup(@() close_failed_model( ...
+    modelName, modelPath, ownedModelHandle, originalFigures));
+cancel(loadCleanup);
 simulationOutput = sim(modelName);
 current = simulationOutput.get('current_A');
 terminalVoltage = simulationOutput.get('terminal_voltage_V');
@@ -61,3 +70,21 @@ fprintf('Final cell temperature: %.2f degC\n', temperature.Data(end));
 fprintf('Reversible heat range: %.2f W to %.2f W\n', ...
     min(reversibleHeat.Data), max(reversibleHeat.Data));
 fprintf('Reference final SOC: %.3f\n', referenceResult.soc(end));
+cancel(modelCleanup);
+end
+
+function close_failed_model(modelName, modelPath, ownedModelHandle, originalFigures)
+figures = findall(groot, 'Type', 'figure');
+delete(figures(~ismember(figures, originalFigures)));
+if bdIsLoaded(modelName)
+    if isempty(ownedModelHandle)
+        loadedPath = get_param(modelName, 'FileName');
+        ownsModel = isempty(loadedPath) || strcmp(loadedPath, modelPath);
+    else
+        ownsModel = get_param(modelName, 'Handle') == ownedModelHandle;
+    end
+    if ownsModel
+        close_system(modelName, 0);
+    end
+end
+end

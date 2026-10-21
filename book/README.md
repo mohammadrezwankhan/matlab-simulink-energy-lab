@@ -113,12 +113,15 @@ run('examples/battery-rc-model/check_battery_rc_model.m')
 run('examples/battery-rc-model/run_battery_rc_model.m')
 ```
 
-**Use a fresh MATLAB session and save work first.** Several existing check and
-plotting scripts clear variables, and plotting scripts may close figures. Native
-builders reject loaded-name collisions but can replace generated files in their
-chosen output directory. This book does not change those interfaces. Use a
-separate scratch directory for generated files and do not run a builder over a
-model you want to preserve.
+**Match workspace behavior to the source revision.** The initial pinned
+snapshot above includes scripts that clear variables and close figures; use a
+fresh session for that historical clone. In the 1.12.0 source, script
+entry points use local workspaces and preserve caller variables and existing
+figures. Capture data through public simulator functions; script-local results
+are not exported. See [release migration](../docs/release-readiness.md#script-workspace-migration).
+Native builders reject loaded-name collisions but can replace generated files
+in their chosen output directory. Use a separate output directory for models
+you want to preserve.
 
 The first check prints a final SOC of `0.767` and a voltage range of approximately
 `3.425 V to 3.877 V` for its canonical profile. These are rounded deterministic

@@ -1,8 +1,9 @@
 %% Pouch-Cell Through-Thickness Thermal Model
 % Runs and plots the validated one-dimensional finite-volume reference.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename("fullpath"));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -76,3 +77,4 @@ fprintf("Peak through-thickness node spread: %.2f degC\n", ...
     result.peak_temperature_spread_C);
 fprintf("Thermal energy-balance error: %.3e J\n", ...
     result.energy_balance_error_J);
+end

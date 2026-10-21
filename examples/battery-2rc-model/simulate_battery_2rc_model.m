@@ -16,9 +16,10 @@ for parameterIndex = 1:numel(requiredSecondBranchParameters)
     parameterName = requiredSecondBranchParameters{parameterIndex};
     parameterValue = parameters.(parameterName);
     if ~isnumeric(parameterValue) || ~isscalar(parameterValue) || ...
-            ~isfinite(parameterValue) || parameterValue <= 0
+            ~isreal(parameterValue) || ~isfinite(parameterValue) || ...
+            parameterValue <= 0
         error('Battery2RC:Parameters', ...
-            'R2 and C2 must be finite positive numeric scalars.');
+            'R2 and C2 must be finite positive real numeric scalars.');
     end
 end
 

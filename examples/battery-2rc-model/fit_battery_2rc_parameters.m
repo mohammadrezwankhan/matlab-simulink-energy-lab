@@ -124,9 +124,9 @@ fitResult = struct( ...
 end
 
 function values = validateDataColumn(values, variableName)
-if ~isnumeric(values) || ~isvector(values)
+if ~isnumeric(values) || ~isvector(values) || ~isreal(values)
     error('Battery2RCFit:Data', ...
-        '%s must be a numeric vector.', variableName);
+        '%s must be a real numeric vector.', variableName);
 end
 values = values(:);
 if any(~isfinite(values))
@@ -152,9 +152,10 @@ end
 for parameterIndex = 1:numel(requiredParameters)
     parameterValue = parameters.(requiredParameters{parameterIndex});
     if ~isnumeric(parameterValue) || ~isscalar(parameterValue) || ...
-            ~isfinite(parameterValue) || parameterValue <= 0
+            ~isreal(parameterValue) || ~isfinite(parameterValue) || ...
+            parameterValue <= 0
         error('Battery2RCFit:Parameters', ...
-            'All fitted base parameters must be finite positive scalars.');
+            'All fitted base parameters must be finite positive real scalars.');
     end
 end
 end

@@ -1,8 +1,11 @@
 %% Averaged Buck Controller Comparison
 % Compares open-loop, PI, and filtered-PID responses to one load step.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(fileparts(mfilename('fullpath')));
 comparison = simulate_converter_controller_comparison();
 controllers = {comparison.open_loop, comparison.pi, ...
@@ -55,3 +58,4 @@ fprintf('Load resistance: %.1f Ohm to %.1f Ohm at %.0f ms\n', ...
     comparison.parameters.final_load_resistance_Ohm, ...
     1000 * comparison.parameters.load_step_time_s);
 disp(summary);
+end

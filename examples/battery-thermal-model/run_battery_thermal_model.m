@@ -1,8 +1,9 @@
 %% Temperature-Aware Battery Model
 % Runs and plots the validated discrete electro-thermal reference.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -56,3 +57,4 @@ fprintf('Peak total heat: %.2f W\n', ...
 fprintf('Final SOC: %.3f\n', result.soc(end));
 fprintf('Illustrative temperature-limit summary:\n');
 disp(limitSummary);
+end

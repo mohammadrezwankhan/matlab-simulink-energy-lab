@@ -1,9 +1,12 @@
 %% Switching Buck Converter Example
 % Plots startup and settled PWM, current, and voltage waveforms.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(modelDirectory);
 
 result = simulate_switching_buck_converter();
@@ -58,3 +61,4 @@ fprintf('Current ripple: %.3f A peak-to-peak\n', ...
 fprintf('Voltage ripple: %.3f V peak-to-peak\n', ...
     metrics.output_voltage_ripple_V);
 fprintf('Measured duty cycle: %.3f\n', metrics.measured_duty_cycle);
+end

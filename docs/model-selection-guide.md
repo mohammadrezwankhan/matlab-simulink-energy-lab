@@ -100,8 +100,8 @@ For a no-plot confidence check, run the example's `check_*.m` entry point. To
 validate the whole repository from its root folder, run:
 
 ```matlab
-addpath('examples')
-run_all_checks
+report = run_all_checks(true, true, true);
+assert(report.all_checks_passed && report.complete_suite)
 ```
 
 See [validation results](validation-results.md) for expected outputs and

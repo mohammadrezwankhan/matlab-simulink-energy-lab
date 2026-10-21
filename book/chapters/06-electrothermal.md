@@ -127,6 +127,15 @@ strictly increasing native timestamps. Supplying a positive `dt_s` creates a
 uniform grid and uses previous-value interpolation for the piecewise-constant
 input. The requested final time must be an integer multiple of `dt_s`.
 
+**1.12.0 release input-domain change.** Before integration, the simulator
+checks the cumulative charge requested by the complete profile. It rejects a
+trajectory outside `[0, 1]` beyond `1e-12` roundoff with
+`BatteryThermal:SOCProfile`. It does not curtail current automatically. The
+clipped Euler expression below describes the initial pinned implementation;
+in accepted 1.12.0 runs, clipping only protects against roundoff. The
+default benchmark and heat/discretization formulas are retained. Native
+verification is recorded in the release verification archive.
+
 Here $Q_{nom}=3600Q_{\mathrm{Ah}}$ is nominal charge in A·s (coulombs), not
 ampere-hours. This conversion is why the SOC equation below has no additional
 factor of 3600.
@@ -188,10 +197,11 @@ run(fullfile('examples', 'battery-thermal-model', ...
     'check_battery_thermal_model.m'))
 ```
 
-The `run_...` script begins with `clear; clc; close all;`; the check begins
-with `clearvars; clc;`. Save work elsewhere before invoking either script if
-you are using a shared MATLAB session. Each script adds its own model folder
-to the path and restores the prior path with `onCleanup`.
+The 1.12.0 plotting and check scripts use local workspaces, preserve
+caller variables and existing figures, and restore the prior MATLAB path.
+Capture numerical results through the public simulator. The book's initial
+pinned snapshot uses destructive script cleanup; run that historical clone in
+a fresh session. Its equations and original receipts remain source-bound.
 
 The one-second, 75-A source/check expectation can be inspected directly:
 
@@ -248,9 +258,10 @@ illustrative and depend only on SOC; real chemistry can require temperature,
 rate, ageing, hysteresis, and spatial dependence. Ambient temperature and
 `heat_transfer_W_per_K` are fixed. The $Q_{irr}$ expression is an
 equivalent-circuit proxy, especially fragile under arbitrary current
-reversals. SOC clipping can hide an infeasible requested-current profile at a
-bound, and the solver does not report a curtailed current or lost-charge
-account. There is no ageing, thermal runaway, contact resistance, or pack
+reversals. In the initial pinned snapshot, SOC clipping can hide an infeasible
+requested-current profile at a bound. The 1.12.0 version rejects that
+profile before integration; it does not implement a curtailed-current or
+lost-charge account. There is no ageing, thermal runaway, contact resistance, or pack
 interaction. Replace the placeholders and compare against measured electrical,
 temperature, and calorimetric data before making design or safety decisions.
 
@@ -282,6 +293,7 @@ that make this a checkable reproduction.
 
 Construct a short current reversal that leaves $V_{rc}$ positive while
 $I<0$. Explain why the model's $Q_{irr}=I(IR_0+V_{rc})$ can become negative,
-why that does not establish negative physical dissipation, and why SOC clipping
-does not conserve the charge requested by a current that would drive SOC below
-zero.
+why that does not establish negative physical dissipation, and why the initial
+pinned snapshot's SOC clipping does not conserve the charge requested by a
+current that would drive SOC below zero. Explain why version 1.12.0 rejects
+such a profile instead of silently changing its current.

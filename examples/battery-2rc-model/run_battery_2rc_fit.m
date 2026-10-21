@@ -1,8 +1,9 @@
 %% Battery 2RC Parameter Identification Example
 % Fits a deterministic calibration record and evaluates a held-out profile.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -44,7 +45,7 @@ fitFigure = figure( ...
     'Name', 'Battery 2RC Identification', ...
     'Color', 'w', ...
     'Position', [100, 100, 1000, 700]);
-tiledlayout(2, 2, 'TileSpacing', 'compact');
+tiledlayout(fitFigure, 2, 2, 'TileSpacing', 'compact');
 
 nexttile;
 plot(scenario.calibration_data.time_s, ...
@@ -91,3 +92,4 @@ grid on;
 xlabel('Time [s]');
 ylabel('Residual [mV]');
 title('Held-Out Residual');
+end

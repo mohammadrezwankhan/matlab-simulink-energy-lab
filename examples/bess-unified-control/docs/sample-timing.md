@@ -28,8 +28,8 @@ four-argument phase convention remains historical. The runners use explicit
 elapsed times and do not use that legacy phase convention.
 
 `TestBessSampleTiming.m` contains independent timing assertions in addition
-to the existing runner-parity tests. The focused check script discovers both
-test classes. Test source alone is not proof of a passing execution; use
+to the existing runner-parity tests. The focused check script discovers all
+focused test classes. Test source alone is not proof of a passing execution; use
 commit-specific CI results. Historical validation artifacts describe their
 original source and are not silently reinterpreted under this contract.
 
@@ -40,4 +40,5 @@ Row/column orientation and clock roundoff within 1e-12 seconds are accepted.
 Both clocks must use double-precision seconds, as the generated scenario and
 profile do. Single-precision and integer clocks are rejected, not silently
 converted; this avoids quantization ambiguity and lossy integer comparison.
-This check does not correct the separate preloaded-model ownership limitation.
+The separate wrapper ownership tests verify that a preloaded caller model is
+preserved on both successful simulation and failure.

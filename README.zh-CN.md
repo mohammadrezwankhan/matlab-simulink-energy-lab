@@ -4,6 +4,9 @@
 
 [English](README.md) | **简体中文**
 
+> **1.12.0 候选版本，尚未发布。** 当前元数据为计划中的版本；候选代码的
+> MATLAB/Simulink 验证与发布仍待完成。参见[发布验收与迁移说明](docs/release-readiness.md)。
+
 [![MATLAB 验证](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml)
 [![MIT 许可证](https://img.shields.io/badge/license-MIT-2f6f5e.svg)](LICENSE)
 [![在 MATLAB Online 中打开](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
@@ -21,7 +24,7 @@
 第一次使用时，不必先运行全部测试。从一阶 RC 电池的脉冲响应开始。
 
 1. 点击上方 **MATLAB Online** 按钮，或克隆仓库并在 MATLAB 中打开仓库根目录。
-2. 保存现有变量、图窗和模型，使用一个新的 MATLAB 会话。
+2. 在仓库根目录运行；候选版脚本使用局部工作区，并保留现有变量和图窗。
 3. 在命令窗口运行：
 
 ```matlab
@@ -31,7 +34,7 @@ run('examples/battery-rc-model/run_battery_rc_model.m')
 
 检查应打印 `Battery RC check passed`，最终 SOC 约为 `0.767`，端电压范围约为 `3.425 V to 3.877 V`。第二条命令绘制电流、SOC 和端电压。正电流表示放电，负电流表示充电。这些数值是规定输入下的确定性参考结果，不是某种实际电芯的性能指标。
 
-**工作区提醒：**已有检查脚本会清理变量，一些绘图脚本还会关闭图窗。请先保存需要保留的工作。生成模型的构建器会拒绝已加载的同名模型，但仍可能覆盖所选输出目录中的生成文件；请使用独立输出目录。
+**工作区变更：**1.12.0 候选版的检查和绘图脚本保留调用方变量及已有图窗，绘图入口创建自己的新图窗。脚本不再把中间变量留在调用工作区；需要数值结果时，请调用公开的仿真或估计函数并显式接收返回值。生成模型的构建器会拒绝已加载的同名模型，但仍可能覆盖所选输出目录中的生成文件；请使用独立输出目录。
 
 主验证环境为 MATLAB R2026a。上述首个示例不需要 Simulink 或专业工具箱。MATLAB Online 的可用产品取决于读者的账户和许可；入口按钮本身不提供额外产品授权。
 
@@ -89,11 +92,13 @@ run_base_matlab_checks
 该配置包含 20 个基础 MATLAB 检查，不包含原生框图一致性或完整统一 BESS 专项检查。安装了 Simulink 后，可运行完整入口：
 
 ```matlab
-addpath('examples');
-run_all_checks
+report = run_all_checks(true, true, true);
+assert(report.all_checks_passed && report.complete_suite)
 ```
 
-模型源码 `f0f4a93587665a9ad36a75c95bd99ed965df7676` 的[验证运行 34511290849](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/34511290849)记录了 25 个一般检查入口、77 个 BESS 专项测试和 8 个 BESS 场景。完整入口调用 26 个检查入口。这些统计口径不同，不能相加后声称是独立实验总数。该运行早于教材，不等于新练习已全部经过同一次 CI 测试。
+本次审查继承的原生证据来自源码 `125b0a818c3c42292cfebc7c5dcb6b50689a70eb` 的[运行 39592416496](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/39592416496)：20 个基础检查、25 个一般检查及清单契约检查、92 个 BESS 专项结果，覆盖 8 个 BESS 场景。完整目录仍为 26 个检查入口。这些统计口径不同，不能相加后声称是独立实验总数。该源码到审查基线 `a8ea7b9093b596bb169bb31841b77cb4fe88ccb9` 之间只修改了 Markdown；1.12.0 候选版包含代码变更，必须重新执行验证。
+
+不带参数的 `run_all_checks` 会检测 Simulink；仅有 MATLAB 时返回基础子集，并明确设置 `complete_suite=false`。完整发布门禁使用 `matlab -batch "buildtool check test archive"`，要求 Simulink、干净的已提交源码及全部阶段通过。归档命令不会创建标签或发布。
 
 请通过[教材源码映射](book/source-map.md)区分模型验证、教材检查和旧版本历史记录。`0.440 mV` 合成留出误差等既有数值必须保留其原始条件和来源，不能翻译成实测电芯精度。
 

@@ -8,11 +8,13 @@ on:
     paths:
       - "CITATION.cff"
       - "codemeta.json"
+      - "project-metadata.yml"
       - ".github/workflows/citation-validation.yml"
   pull_request:
     paths:
       - "CITATION.cff"
       - "codemeta.json"
+      - "project-metadata.yml"
       - ".github/workflows/citation-validation.yml"
 
 permissions:
@@ -48,7 +50,14 @@ jobs:
           cff_orcid="$(sed -n 's/^    orcid: "\(.*\)"/\1/p' CITATION.cff)"
 
           test "$(jq -r '.version' codemeta.json)" = "$cff_version"
-          test "$(jq -r '.datePublished' codemeta.json)" = "$cff_date"
+          # A proposed release omits both publication dates; published
+          # metadata supplies the same ISO date in both formats.
+          test "$(jq -r '.datePublished // empty' codemeta.json)" = "$cff_date"
+          if test -n "$cff_date"; then
+            [[ "$cff_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]
+          fi
+          test "$cff_version" = \
+            "$(sed -n 's/^version: "\(.*\)"/\1/p' project-metadata.yml)"
           test "$(jq -r '.codeRepository' codemeta.json)" = "$cff_repository"
           test "$(jq -r '.sameAs' codemeta.json)" = "$cff_repository"
           test "$(jq -r '.url' codemeta.json)" = \

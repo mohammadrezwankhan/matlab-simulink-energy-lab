@@ -80,12 +80,19 @@ scenario gates does not validate every override.
 addpath('examples/bess-unified-control')
 [gitStatus, sourceCommit] = system('git rev-parse HEAD');
 assert(gitStatus == 0)
-generate_bess_validation_evidence(strtrim(sourceCommit))
+evidenceDirectory = fullfile(pwd, 'validation-artifacts', 'bess');
+generate_bess_validation_evidence(strtrim(sourceCommit), evidenceDirectory)
 ```
 
 This compiles one generated model, runs scenarios A–H through Simulink,
-applies numeric gates, writes `validation/results.json`, and exports three
-original PNG plots. A full SHA must match a clean checkout before any
+applies numeric gates, writes `results.json` into the supplied directory, and
+exports three original PNG plots alongside it. From the repository root, the
+example above uses the ignored `validation-artifacts/bess` directory and leaves
+tracked historical evidence unchanged. The optional directory must be a nonempty
+character row vector or nonmissing string scalar; relative paths use the caller's
+current directory. Omitting this argument retains the original output location,
+`examples/bess-unified-control/validation`, and replaces its results and plots.
+A full SHA must match a clean checkout before any
 commit-bound evidence is written. Passing `"WORKTREE"` instead creates
 explicitly unbound local output. The GitHub Actions validation run and release
 evidence asset provide authoritative commit-bound provenance for the public

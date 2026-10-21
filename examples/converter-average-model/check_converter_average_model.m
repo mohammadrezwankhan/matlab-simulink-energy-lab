@@ -1,8 +1,9 @@
 %% Converter Average Model Parameter Check
 % Runs no-plot assertions for the converter average model scaffold.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 input_voltage_V = 800;
 duty_cycle = 0.45;
 switching_frequency_Hz = 10000;
@@ -28,3 +29,4 @@ assert(estimated_voltage_ripple_V >= 0, 'Estimated voltage ripple should be nonn
 fprintf('Converter parameter check passed.\n');
 fprintf('Output voltage: %.1f V\n', output_voltage_V);
 fprintf('Load current: %.1f A\n', inductor_current_A);
+end

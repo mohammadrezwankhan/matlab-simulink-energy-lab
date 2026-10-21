@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 examplesDirectory = fileparts(modelDirectory);
 originalPath = path;
@@ -87,6 +86,31 @@ assert_error(@() estimate_battery_soc_hysteresis_ekf( ...
     [0; 1], [0; 0], [3.7; 3.7], badParameters, estimate.options), ...
     'BatterySOCHysteresisEKF:Parameters');
 
+roundoffOptions = estimate.options;
+roundoffOptions.initial_state = [0.55; 0; 0];
+roundoffOptions.initial_covariance = diag([-5e-13, 0, 0]);
+roundoffOptions.process_noise_covariance_per_s = zeros(3);
+roundoffOptions.measurement_variance_V2 = 1e-15;
+roundoffEstimate = estimate_battery_soc_hysteresis_ekf( ...
+    [0; 1], [0; 0], [3.7; 3.7], estimate.parameters, roundoffOptions);
+assert(all(roundoffEstimate.innovation_variance_V2 > 0) && ...
+    all(isfinite(roundoffEstimate.normalized_innovation_squared)) && ...
+    all(roundoffEstimate.normalized_innovation_squared >= 0), ...
+    'A tolerated covariance roundoff error must not create negative variance.');
+assert(min(eig(roundoffEstimate.prior_covariance(:, :, 1))) >= 0, ...
+    'A tolerated negative covariance eigenvalue must be projected to zero.');
+
+badParameters = estimate.parameters;
+badParameters.ocv_lookup_V = badParameters.ocv_lookup_V + 0.01i;
+assert_error(@() estimate_battery_soc_hysteresis_ekf( ...
+    [0; 1], [0; 0], [3.7; 3.7], badParameters, estimate.options), ...
+    'BatterySOCHysteresisEKF:OCVCurve');
+badParameters.ocv_soc_breakpoints = [0, 0.6; 0.4, 1];
+badParameters.ocv_lookup_V = [3, 3.8; 3.5, 4.2];
+assert_error(@() estimate_battery_soc_hysteresis_ekf( ...
+    [0; 1], [0; 0], [3.7; 3.7], badParameters, estimate.options), ...
+    'BatterySOCHysteresisEKF:OCVCurve');
+
 fprintf('Battery SOC hysteresis EKF check passed.\n');
 fprintf('SOC RMSE: hysteresis %.4f, baseline %.4f\n', ...
     metrics.hysteresis_soc_rmse, metrics.baseline_soc_rmse);
@@ -96,6 +120,7 @@ fprintf('Hysteresis-state RMSE: %.4f\n', metrics.hysteresis_state_rmse);
 fprintf('Voltage RMSE: hysteresis %.3f mV, baseline %.3f mV\n', ...
     1000*metrics.hysteresis_voltage_rmse_V, ...
     1000*metrics.baseline_voltage_rmse_V);
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

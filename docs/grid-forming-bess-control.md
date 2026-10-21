@@ -74,7 +74,8 @@ run('examples/bess-unified-control/check_bess_unified_control.m')
 ```
 
 The focused check runs the scenarios in both MATLAB and Simulink. The complete
-repository runner remains available through `addpath('examples'); run_all_checks`.
+repository runner is `run_all_checks(true, true, true)`, which requires
+Simulink. Candidate release verification is documented in [release readiness](release-readiness.md).
 
 ## Understand the reconnection guard
 

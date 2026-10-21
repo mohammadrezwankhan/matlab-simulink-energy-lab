@@ -99,8 +99,10 @@ occurs, the applied current is the current that actually updates the model.
 The no-plot check
 [`check_battery_rc_model.m`](../../examples/battery-rc-model/check_battery_rc_model.m)
 performs this class of checks as part of a larger deterministic suite.
-Run scripts only in a fresh MATLAB session because they can clear workspace
-variables and close figures; save any important state first.
+The 1.12.0 scripts preserve caller variables and existing figures.
+For the book's initial pinned snapshot, use a fresh MATLAB session because its
+script cleanup is destructive. The public simulator call above captures the
+result explicitly under both revisions.
 
 ## Exercise 4 — Interpretation and limits solution
 

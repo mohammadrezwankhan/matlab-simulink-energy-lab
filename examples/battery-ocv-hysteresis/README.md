@@ -103,6 +103,7 @@ Same-SOC minor-loop voltage gap: 8.13 mV
 
 - Fit separate charge and discharge rate parameters from measured reversals.
 - Make hysteresis magnitude and rate functions of SOC and temperature.
-- Add the hysteresis state to the repository's SOC EKF.
+- Use the existing [hysteresis-aware SOC EKF](../battery-soc-hysteresis-ekf/README.md)
+  to compare estimation with and without the hysteresis state.
 - Compare the single-state response with Preisach or
   Prandtl-Ishlinskii operators on held-out minor loops.

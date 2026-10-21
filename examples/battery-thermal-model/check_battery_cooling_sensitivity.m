@@ -1,8 +1,9 @@
 %% Battery Cooling-Sensitivity Study Check
 % Validates comparison metrics, ordering, and malformed-input handling.
 
-clearvars; clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -89,4 +90,5 @@ for caseIndex = 1:height(summary)
         summary.final_temperature_C(caseIndex), ...
         summary.time_above_limit_s(caseIndex), ...
         summary.degree_hours_above_limit_C_h(caseIndex));
+end
 end

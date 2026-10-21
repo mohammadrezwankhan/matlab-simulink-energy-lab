@@ -171,8 +171,9 @@ run('examples/converter-closed-loop-model/check_converter_controller_comparison.
 run('examples/converter-closed-loop-model/run_converter_controller_comparison.m')
 ```
 
-Save existing work first: existing scripts may clear variables and close
-figures. These are Base MATLAB commands; Control System Toolbox and Simulink
+The 1.12.0 scripts preserve caller variables and existing figures;
+the initial pinned book snapshot retains its older workspace behavior.
+These are Base MATLAB commands; Control System Toolbox and Simulink
 are not required for this primary workflow. The runner produces the appropriate
 three-panel voltage/current/duty comparison. There is no need to substitute a
 stored switching-converter image for this different plant.

@@ -1,8 +1,10 @@
 %% Native Simulink Battery Thermal Check
 % Builds and validates canonical and custom electro-thermal diagrams.
 
-clearvars; clc;
 
+run_checks();
+
+function run_checks()
 modelDirectory = fileparts(mfilename('fullpath'));
 referenceDirectory = fullfile(modelDirectory, '..', 'battery-thermal-model');
 originalPath = path;
@@ -15,11 +17,11 @@ assert(~isempty(ver('simulink')) && license('test', 'Simulink'), ...
 temporaryDirectory = tempname;
 mkdir(temporaryDirectory);
 modelName = 'battery_thermal_simulink_model';
+cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 
 defaultDirectory = fullfile(temporaryDirectory, 'default');
 [defaultModelPath, defaultReference] = ...
     build_battery_thermal_simulink_model(defaultDirectory);
-cleanup = onCleanup(@() clean_generated_model(modelName, temporaryDirectory));
 assert(isfile(defaultModelPath), ...
     'The builder must create a real battery thermal SLX model file.');
 load_system(defaultModelPath);
@@ -285,6 +287,7 @@ fprintf(['Maximum parity errors: %.3e A, %.3e SOC, %.3e Vrc, ', ...
     maximumMetrics.total_heat_error_W, ...
     maximumMetrics.cooling_error_W, maximumMetrics.net_heat_error_W, ...
     maximumMetrics.temperature_error_C);
+end
 
 function metrics = compare_model_to_reference(modelName, referenceResult)
 simulationOutput = sim(modelName);

@@ -6,6 +6,7 @@ on:
     paths:
       - "**/*.m"
       - "**/*.slx"
+      - "**/*.csv"
       - "examples/bess-unified-control/**"
       - ".github/workflows/matlab-validation.yml"
   push:
@@ -14,6 +15,7 @@ on:
     paths:
       - "**/*.m"
       - "**/*.slx"
+      - "**/*.csv"
       - "examples/bess-unified-control/**"
       - ".github/workflows/matlab-validation.yml"
 

@@ -1,9 +1,12 @@
 %% Battery Cooling-Sensitivity Study
 % Sweeps lumped cooling conductance under one shared current profile.
 
-clear; clc; close all;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
+originalPath = path;
+pathCleanup = onCleanup(@() path(originalPath));
 addpath(modelDirectory);
 
 profile = battery_thermal_default_profile();
@@ -44,3 +47,4 @@ grid on;
 xlabel('Lumped cooling conductance, hA (W/K)');
 ylabel(sprintf('Degree-hours above %.1f degC', limitTemperature_C));
 title('Thermal-limit exposure versus cooling conductance');
+end

@@ -92,8 +92,14 @@ apparent-power/current boundary is
 \sqrt{P^2+Q^2} \le I_{max}\max(V,0.05).
 \]
 
-If necessary, P and Q are scaled together to the circle. Commands are then
-slew limited. Restoration integrators are bounded, so infeasible commands do
+If necessary, P and Q targets are scaled together to the circle. Commands are
+then slew limited. The emitted active-power command is also clipped to the
+current available-power interval: a contracting availability limit takes
+priority over slew, and subsequent recovery slews from the clipped value.
+The plant separately projects its current state to the hard current limit.
+Measured power follows the current dynamics; the availability bound constrains
+the command and does not model instantaneous DC energy or battery dynamics.
+Restoration integrators are bounded, so infeasible commands do
 not accumulate unbounded internal state. Scenario F asserts saturation,
 current compliance, finite signals, and recovery after feasibility returns.
 

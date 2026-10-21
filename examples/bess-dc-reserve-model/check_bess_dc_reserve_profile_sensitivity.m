@@ -1,9 +1,9 @@
 %% BESS DC Reserve Prescribed Dynamic-Profile Sensitivity Check
 % Verifies nine fixed profile/reserve cases without cross-profile claims.
 
-clearvars;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -160,6 +160,8 @@ fprintf('Delivered discharge energy: %.3f to %.3f kWh.\n', ...
 fprintf('Curtailment time: %.1f to %.1f s.\n', ...
     min(sensitivity.curtailmentTime_s), ...
     max(sensitivity.curtailmentTime_s));
+
+end
 
 function assert_error(functionHandle, expectedIdentifier)
 try

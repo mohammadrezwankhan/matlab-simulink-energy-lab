@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -99,3 +98,4 @@ fprintf('Switch conduction/transition loss energy: %.3f J / %.3f J\n', ...
     metrics.switching_loss_energy_J);
 fprintf('Estimated energy efficiency: %.3f%%\n', ...
     metrics.energy_efficiency_percent);
+end

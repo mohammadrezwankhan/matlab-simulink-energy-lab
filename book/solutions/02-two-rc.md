@@ -13,8 +13,8 @@ The order is:
 
 1. $R_0$ appears immediately at the current edge because its drop is
    $R_0I_k$ with no dynamic state.
-2. The fast branch follows over its short time constant (\tau_1).
-3. The slow branch follows over its longer time constant (\tau_2) and can
+2. The fast branch follows over its short time constant $\tau_1$.
+3. The slow branch follows over its longer time constant $\tau_2$ and can
    remain visible through a long rest.
 
 A capacitor affects the time constant through $\tau_2=R_2C_2$; it does not
@@ -79,9 +79,9 @@ The voltage equation must use `current_A`, the applied current, not
 `requested_current_A`. The simulator may clip a request at an SOC boundary;
 the applied value is the one used for both branch updates and the ohmic drop.
 The no-plot source check also compares shared SOC/current/first-branch traces
-against the one-RC result and checks deterministic repeatability. The plotting
-runner can clear variables and close figures, so use it only in a fresh MATLAB
-session and save any important state first.
+against the one-RC result and checks deterministic repeatability. The 1.12.0 plotting runner preserves caller variables and existing figures. Use a
+fresh session for the initial pinned book snapshot, whose cleanup is destructive.
+The public simulator call above is the data interface.
 
 ## Exercise 4 — Interpretation and limits solution
 

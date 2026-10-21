@@ -1,7 +1,6 @@
-clear;
-close all;
-clc;
+run_example();
 
+function run_example()
 modelDirectory = fileparts(mfilename('fullpath'));
 originalPath = path;
 pathCleanup = onCleanup(@() path(originalPath));
@@ -78,3 +77,4 @@ fprintf('Delivered/curtailed discharge energy: %.3f / %.3f kWh\n', ...
     metrics.curtailed_discharge_energy_kWh);
 fprintf('SOC-taper active / curtailed time: %.1f / %.1f s\n', ...
     metrics.soc_taper_active_time_s, metrics.curtailment_time_s);
+end
