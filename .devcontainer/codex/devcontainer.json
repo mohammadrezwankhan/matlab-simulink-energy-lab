@@ -1,0 +1,74 @@
+{
+  "name": "Codex - matlab-simulink-energy-lab",
+  "features": {
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "24"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/codex/setup.sh",
+  "waitFor": "postCreateCommand",
+  "forwardPorts": [
+    3000,
+    4173,
+    5173,
+    8000,
+    8080,
+    8501,
+    8765,
+    8787
+  ],
+  "portsAttributes": {
+    "3000": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    },
+    "4173": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    },
+    "8501": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    },
+    "8765": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    },
+    "8787": {
+      "visibility": "private",
+      "onAutoForward": "notify"
+    }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "notify"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "openai.chatgpt",
+        "MathWorks.language-matlab"
+      ],
+      "settings": {}
+    },
+    "codespaces": {
+      "openFiles": [
+        ".devcontainer/codex/README.md"
+      ]
+    }
+  }
+}
