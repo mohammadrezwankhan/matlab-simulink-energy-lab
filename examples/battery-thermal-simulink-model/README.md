@@ -56,8 +56,12 @@ relations, and energy closure therefore have one maintained implementation.
 In the 1.12.0 release, that preprocessing rejects prescribed profiles
 whose cumulative-charge SOC trajectory would leave `[0, 1]` beyond `1e-12`
 roundoff. The diagram's saturation remains roundoff protection for accepted
-inputs; it is not a separate current-curtailment policy. This candidate behavior
-requires current native parity and failure-path verification.
+inputs; it is not a separate current-curtailment policy. The
+[v1.12.0 validation run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/39686678787)
+passed the MATLAB thermal and native Simulink regression checks at
+[`e1aa015`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/e1aa01571fbb2b6cbe378f72ac9335374f19fc2e).
+That dated evidence is not a new run on later commits or physical-cell/safety
+validation.
 
 ## Starter Parameters
 
