@@ -81,7 +81,11 @@ whole prescribed current profile. It rejects charge demands outside `[0, 1]`
 beyond `1e-12` roundoff with `BatteryThermal:SOCProfile`; it does not silently
 clip an infeasible profile or curtail its current. The default profile is
 unchanged. The remaining state clamp only protects against roundoff on
-accepted trajectories. Candidate native verification remains a release gate.
+accepted trajectories. The [v1.12.0 validation run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/39686678787)
+passed the MATLAB thermal and native Simulink regression checks at
+[`e1aa015`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/e1aa01571fbb2b6cbe378f72ac9335374f19fc2e).
+That dated evidence is not a new run on later commits or physical-cell/safety
+validation.
 
 The [native Simulink counterpart](../battery-thermal-simulink-model/README.md)
 generates an inspectable feedback diagram and compares thirteen logged signals with

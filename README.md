@@ -9,6 +9,20 @@ The native repository contains Base MATLAB and generated Simulink models for bat
 
 **[Native-source lesson guide](docs/portfolio/) · [Offline interactive lab](docs/index.html) · [Lesson configuration](docs/lesson-config.json) · [Configuration schema](docs/lesson-config.schema.json)**
 
+## One-command MATLAB quickstart
+
+From the cloned repository root, with MATLAB installed:
+
+```bash
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m')"
+```
+
+This focused check needs Base MATLAB only. Expected output includes
+`Battery RC check passed`, final SOC `0.767`, and voltage range
+`3.425 V to 3.877 V`. These are deterministic illustrative results,
+not measured-cell accuracy. See [Your First Result](#your-first-result)
+for plots and [validation profiles](#start-in-60-seconds) for broader checks.
+
 ## Previous animations
 
 [Open the previous-animation gallery](https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/animations/) · [Local gallery](docs/animations/index.html)
