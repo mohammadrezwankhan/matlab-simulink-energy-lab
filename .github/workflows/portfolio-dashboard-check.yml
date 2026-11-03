@@ -6,6 +6,10 @@ on:
     paths: ['docs/portfolio/**', 'assets/portfolio/**', 'scripts/portfolio/**', '.github/workflows/portfolio-dashboard-check.yml']
 permissions:
   contents: read
+concurrency:
+  group: portfolio-dashboard-check-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   validate:
     runs-on: ubuntu-latest

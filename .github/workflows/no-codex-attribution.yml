@@ -4,9 +4,15 @@ on:
   pull_request:
   merge_group:
   push:
+    branches: [main]
+    tags: ['**']
 
 permissions:
   contents: read
+
+concurrency:
+  group: no-codex-attribution-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   human-authorship-policy:
