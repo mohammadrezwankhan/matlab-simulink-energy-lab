@@ -20,8 +20,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: release-readiness-${{ github.ref }}
-  cancel-in-progress: true
+  group: release-readiness-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   audit:
