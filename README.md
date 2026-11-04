@@ -33,7 +33,7 @@ Earlier animated artwork, waveform demos, and original interactive experiences a
 
 1. Download or clone this repository and open `docs/index.html` in a modern browser.
 2. Select **Module 1**, apply its preset, and compare the declared checkpoint with the plotted result.
-3. Change one slider, inspect the model assumptions, then export the configuration or telemetry for your notes.
+3. Change one slider and inspect the model assumptions. Export CSV to keep the current slider inputs with the synthetic telemetry; the JSON download contains the lesson configuration and checkpoints.
 
 The browser lab runs offline with no packages, accounts, or live data feeds. Its numbers are deterministic teaching simulations. Each checkpoint states its model time and tolerance; passing it demonstrates agreement with that model, not field calibration or production readiness.
 
