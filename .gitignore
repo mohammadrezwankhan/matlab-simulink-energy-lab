@@ -31,3 +31,15 @@ Thumbs.db
 *.log
 validation-artifacts/
 .buildtool/
+
+# Local environment files; templates must contain placeholders only.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+!.env.demo
+!.env.*.example
+!.env.*.sample
+!.env.*.template
+!.env.*.demo
