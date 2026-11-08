@@ -1,0 +1,648 @@
+![MATLAB Simulink Energy Lab: original vector system illustration](assets/hero-25d.svg)
+
+> **Version 1.12.0 — 2026-10-21.** Release archives, verification evidence,
+> and SHA-256 checksums are available on the [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
+> See [release readiness and migration](docs/release-readiness.md) for the
+> exact gates and the distinction between current source and historical CI.
+
+The native repository contains Base MATLAB and generated Simulink models for batteries, thermal response, converters, and BESS control. A second-order response exercise develops control intuition before the bounded native examples.
+
+**[Native-source lesson guide](docs/portfolio/) · [Offline interactive lab](docs/index.html) · [Lesson configuration](docs/lesson-config.json) · [Configuration schema](docs/lesson-config.schema.json)**
+
+## One-command MATLAB quickstart
+
+From the cloned repository root, with MATLAB installed:
+
+```bash
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m')"
+```
+
+This focused check needs Base MATLAB only. Expected output includes
+`Battery RC check passed`, final SOC `0.767`, and voltage range
+`3.425 V to 3.877 V`. These are deterministic illustrative results,
+not measured-cell accuracy. See [Your First Result](#your-first-result)
+for plots and [validation profiles](#start-in-60-seconds) for broader checks.
+
+## Previous animations
+
+[Open the previous-animation gallery](https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/animations/) · [Local gallery](docs/animations/index.html)
+
+Earlier animated artwork, waveform demos, and original interactive experiences are linked alongside the current animations.
+
+## Your first interactive result
+
+1. Download or clone this repository and open `docs/index.html` in a modern browser.
+2. Select **Module 1**, apply its preset, and compare the declared checkpoint with the plotted result.
+3. Change one slider and inspect the model assumptions. Export CSV to keep the current slider inputs with the synthetic telemetry; the JSON download contains the lesson configuration and checkpoints.
+
+The browser lab runs offline with no packages, accounts, or live data feeds. Its numbers are deterministic teaching simulations. Each checkpoint states its model time and tolerance; passing it demonstrates agreement with that model, not field calibration or production readiness.
+
+<!-- source-mapped-visuals:start -->
+
+<details>
+<summary>System topology and model boundaries</summary>
+
+![Cell rc network](assets/svg-2.5d/diagrams/cell-rc-network.svg)
+
+Conceptual one-RC reference; not asserted as an exact example implementation.
+
+![Pouch cell thermal gradient](assets/svg-2.5d/diagrams/pouch-cell-thermal-gradient.svg)
+
+Source-defined 1D finite-volume example topology: 15 cell-centred states across thickness.
+
+![Grid forming inverter](assets/svg-2.5d/diagrams/grid-forming-inverter.svg)
+
+Reduced-order reference topology; not an exact block-level mapping.
+
+Motion is optional; the vector topology remains readable with reduced motion enabled.
+
+</details>
+
+<!-- source-mapped-visuals:end -->
+
+## Four-module learning path
+
+| Module | Investigation | Approximate time |
+|---|---|---:|
+| 1. Predict a control response from its equation | Identify target, damping, natural frequency, and gain in a small dynamic model. | 12 min |
+| 2. Change response speed while keeping damping | Distinguish natural frequency from damping and steady-state gain. | 15 min |
+| 3. Use a limiting case as a verification check | Explain the value and scope of an analytic reference case. | 15 min |
+| 4. Choose the smallest defensible native model | Carry an explicit control question into the repository’s model and validation map. | 18 min |
+
+**Who this is for:** Electrical-engineering students, MATLAB users, and researchers studying reproducible reduced-order models.
+
+### Continue into the implementation
+
+- [README.md](README.md)
+- [buildfile.m](buildfile.m)
+- [examples/README.md](examples/README.md)
+- [docs/model-selection-guide.md](docs/model-selection-guide.md)
+- [docs/battery-pulse-response-lab.md](docs/battery-pulse-response-lab.md)
+- [examples/battery-rc-model/check_battery_rc_model.m](examples/battery-rc-model/check_battery_rc_model.m)
+- [examples/converter-closed-loop-model/README.md](examples/converter-closed-loop-model/README.md)
+
+### Explore or run the source
+
+MATLAB for native runs; README identifies R2026a as the tested release. The first battery check and Base MATLAB profile require no Simulink toolbox.
+
+```bash
+matlab -batch "run('examples/battery-rc-model/check_battery_rc_model.m')"
+matlab -batch "addpath('examples'); run_base_matlab_checks"
+```
+
+These commands come from the audited source revision. Runtime requirements and the project's own validation limits are documented below; the standalone browser lab does not execute these commands.
+
+The detailed project guide below remains the source for installation, supported features, licences, and scientific limits. The browser equations and laboratory settings do not change the original application or numerical engine.
+
+<details>
+<summary>Project documentation, installation, attribution, and existing validation</summary>
+
+<!-- markdownlint-disable MD013 -->
+
+# ⚡ MATLAB Simulink Energy Lab
+
+[English](README.md) | [简体中文](README.zh-CN.md)
+
+[![Markdown maintenance](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/markdown-maintenance.yml)
+[![MATLAB validation](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml/badge.svg)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml)
+![MATLAB R2026a](https://img.shields.io/badge/verified-MATLAB%20R2026a-e86e25.svg)
+[![Latest release](https://img.shields.io/github/v/release/mohammadrezwankhan/matlab-simulink-energy-lab)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2f6f5e.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)
+[![GitHub forks](https://img.shields.io/github/forks/mohammadrezwankhan/matlab-simulink-energy-lab?style=social)](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/network/members)
+[![Open in MATLAB Online](https://img.shields.io/badge/open_in-MATLAB_Online-e86e25.svg)](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab)
+[![Support me on Ko-fi](https://img.shields.io/badge/Support%20me%20on%20Ko--fi-72a4f2?logo=ko-fi&logoColor=white)](https://ko-fi.com/N7V826XG89)
+
+[![MATLAB Simulink Energy Lab: runnable models and inspectable assumptions, with four independent example families—battery and SOC, thermal, converters, and BESS control](assets/social-preview-v3.jpg)](#your-first-result)
+
+*Conceptual model-family artwork, not simulation output. [Run your first example](#your-first-result).*
+
+> **See the equations become waveforms—and inspect every assumption in between.**
+
+MATLAB Simulink Energy Lab is an open collection of runnable, reduced-order
+reference models for lithium-ion battery equivalent circuits, state-of-charge
+(SOC) estimation with extended Kalman filters (EKF), battery thermal
+management, buck converters, and grid-forming/grid-following battery energy
+storage system (BESS) control.
+It includes toolbox-free Base MATLAB examples and generated Simulink block
+diagrams with deterministic no-plot checks. Start with the model-selection
+guide, trace every parameter and limitation, and reproduce the exact validation
+evidence before adapting a model. Bundled benchmarks and parameters are
+synthetic or illustrative unless an example explicitly identifies another
+source; the checks are not physical-cell, hardware, certification, or grid-code
+validation.
+
+**Source of record:** this GitHub repository is authoritative for code,
+releases, citation metadata, and validation evidence. The
+[public project overview](https://mrkhan.co.technology/models/matlab-simulink-energy-lab/)
+is the search landing page and concise cross-model introduction.
+
+## Your First Result
+
+**New to the lab? Start with one battery pulse response, not the full suite.**
+Open this repository with the **MATLAB Online** badge above, or clone it and
+open its root folder in MATLAB. MATLAB R2026a is the tested release; this first
+example needs only MATLAB, not Simulink or a specialty toolbox.
+
+Run these commands in the MATLAB Command Window from the repository root:
+
+```matlab
+run('examples/battery-rc-model/check_battery_rc_model.m')
+run('examples/battery-rc-model/run_battery_rc_model.m')
+```
+
+The check should print `Battery RC check passed`, final SOC `0.767`, and a
+voltage range of `3.425 V to 3.877 V`. The second command opens the current,
+SOC, and terminal-voltage plots. These are deterministic illustrative results,
+not measured-cell accuracy. In the 1.12.0 release, these script entry points
+use local workspaces and preserve existing variables and figures. Plotting
+demos create new figures. To retain numerical results, call the public
+simulator and capture its return value; see the
+[migration note](docs/release-readiness.md#script-workspace-migration).
+
+| What do you want to do next? | Follow this route |
+| --- | --- |
+| Understand the equations and change a parameter | [Battery RC assumptions and inputs](examples/battery-rc-model/README.md) |
+| Teach or study pulse response with a guided exercise | [Base MATLAB battery pulse lab](docs/battery-pulse-response-lab.md) |
+| Choose a different battery, thermal, converter, or BESS model | [Model selection by engineering decision](docs/model-selection-by-decision.md) |
+| Inspect a generated block diagram | [Focused Simulink first runs](docs/model-selection-guide.md#focused-simulink-first-runs) |
+| Check the entire repository or report a different result | [Validation profiles](#start-in-60-seconds) and [reproduction report](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml) |
+
+For the reasoning behind the checks, read the
+[reviewable MATLAB models guide](https://mrkhan.co.technology/insights/reviewable-matlab-models/).
+Its worked numbers are explicitly bound to the source snapshot cited there.
+
+## Read the Companion Book
+
+**[Battery Modeling and BESS Control in MATLAB](book/README.md)** is a
+twelve-chapter teaching manuscript built around the existing examples: battery
+equivalent circuits and identification, SOC estimation and hysteresis, thermal
+models, converter control, DC reserve, and grid-following/grid-forming BESS
+supervision. Each chapter develops the equations, connects them to runnable
+code, and includes four exercises with worked solutions.
+
+Start with [Chapter 1: From Current Pulses to Terminal Voltage](book/chapters/01-one-rc.md),
+or use the [chapter-to-code map](book/source-map.md). The manuscript and answers
+are in English; [Simplified Chinese onboarding](README.zh-CN.md) and a
+[bilingual terminology glossary](book/notation.md#english--简体中文-glossary)
+support readers using the same code. This is a first manuscript draft, not a
+claim of classroom, physical-cell, or hardware validation.
+
+## Shareable Documentation Map
+
+- [Companion book and worked solutions](book/README.md) for a twelve-chapter course.
+- [Your First Result](#your-first-result) for one runnable battery example.
+- [Battery pulse-response lab](docs/battery-pulse-response-lab.md) for a guided
+  exercise with expected output, parameter exploration, and a submission checklist.
+- [Validation profiles](#start-in-60-seconds) for Base MATLAB or full checks.
+- [Complete examples index](examples/README.md) for all model families and commands.
+- [Model selection guide](docs/model-selection-guide.md) to choose the smallest
+  battery, converter, thermal, SOC-estimation, or BESS model for your question.
+- [Model selection by engineering decision](docs/model-selection-by-decision.md)
+  for thesis, classroom, first-simulation, and engineering-study routes.
+- [Reduced-order versus higher-fidelity workflows](docs/scope-comparison.md)
+  for the boundary between this lab and Simscape, CFD, pack, HIL, or measured
+  validation work.
+- [Technical FAQ](FAQ.md) for direct answers about models, requirements,
+  validation boundaries, reproduction, citation, and licensing.
+- [Models at a Glance](#models-at-a-glance) for the model-to-question map.
+- [Requirements](#requirements) for MATLAB and toolbox expectations.
+- [Scope and Limitations](#scope-and-limitations) before reusing outputs.
+- [Validation results](docs/validation-results.md) for the complete expected output.
+- [Machine-readable validation manifest](docs/validation-manifest.md) for
+  per-commit CI provenance and check status.
+- [Report a commit-bound reproduction result](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml)
+  for a successful, failed, or different run on one stated environment.
+- [Two-RC battery parameter-identification tutorial](docs/two-rc-battery-parameter-identification.md)
+  for a reproducible fit-versus-held-out-validation workflow.
+- [Grid-forming BESS control tutorial](docs/grid-forming-bess-control.md) for an
+  executable grid-following-to-islanding-to-reconnection walkthrough.
+- [Contribute a Scoped Improvement](#contribute-a-scoped-improvement) for focused changes.
+- [Citation metadata](CITATION.cff) and [release notes](CHANGELOG.md) for published or shared work.
+- [CodeMeta](codemeta.json) and [AI navigation index](llms.txt) for
+  machine-readable software metadata and source routing.
+
+> [!TIP]
+> **If a model is useful to you, you can [star this repository](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab) to save it for later.**
+> For a correction or a model request, use an issue with the example and the
+> engineering question; a star alone does not tell us which model you used.
+
+![First-order battery RC model response showing discharge and charge current pulses, state-of-charge change, and terminal-voltage transients](assets/battery-rc-response.png)
+
+## What You Can Explore
+
+- Simulate the terminal-voltage and state-of-charge response of a first-order
+  battery RC model on uniform or native irregular time grids.
+- Separate fast and slow battery polarization with an exact two-RC model.
+- Identify positive two-RC parameters from voltage data and test them on an
+  independent held-out pulse profile.
+- Generate and validate a native Simulink two-RC battery block diagram.
+- Estimate real-time battery SOC and RC polarization from noisy current and
+  terminal-voltage measurements with a transparent extended Kalman filter.
+- Quantify how a prescribed constant current-sensor bias changes SOC error,
+  voltage residuals, and filter-consistency diagnostics on the same benchmark.
+- Preserve charge/discharge voltage history with a one-state OCV hysteresis
+  model and validate a deterministic same-SOC reversal minor loop.
+- Explore how irreversible electrical losses, reversible entropic heat, and
+  cooling change a lumped cell temperature and temperature-dependent resistance.
+- Quantify how lumped cooling conductance changes peak temperature,
+  thermal-limit exposure, and net cooling energy under one shared duty cycle.
+- Resolve six cell temperatures along a serial liquid-cooling channel, including
+  coolant warming, cell-to-cell conduction, and module temperature spread.
+- Resolve a pouch cell's through-thickness temperature profile with a
+  conservative finite-volume model, asymmetric face cooling, and hot-spot
+  tracking.
+- Generate and validate a native Simulink electro-thermal feedback diagram.
+- Generate and validate a native Simulink battery RC block diagram.
+- Validate model behavior from the command line without opening plots.
+- Estimate output voltage, load current, and ripple for an averaged converter.
+- Inspect bounded closed-loop voltage tracking for an averaged buck converter.
+- Compare open-loop, PI, and filtered-PID load-step regulation on the same
+  averaged buck plant.
+- Generate and validate a native Simulink averaged buck-converter diagram.
+- Generate and validate a fixed-step native Simulink switching closed-loop
+  buck diagram against the Base MATLAB reference.
+- Compare fixed-junction-temperature switch loss across published 25-to-175
+  degC SiC MOSFET anchors without inventing a thermal state.
+- Exercise one unified BESS controller through grid-following, grid-forming,
+  islanding, load support, synchronization, saturation, fault, and recovery
+  scenarios with requirement-level traceability.
+- Trace how battery SOC reserve, current capability, and DC-link energy turn a
+  requested BESS converter power profile into deliverable power and curtailment.
+- Map how illustrative reserve floors change average deliverable power and
+  actual curtailment time under constant DC-side requests.
+- Trace every parameter, unit, sign convention, and limitation before extending
+  a model.
+
+## Start in 60 Seconds
+
+This section selects a validation profile; it is not a promise that the full
+suite finishes in 60 seconds. For one plot and a focused check, use
+[Your First Result](#your-first-result) above.
+
+Twenty-five established no-plot checks cover the battery, converter, and DC-side
+BESS examples. The unified BESS entry point brings the complete catalog to 26
+entry points and expands into focused MATLAB/Simulink tests across eight
+scenarios. CI also verifies the machine-readable manifest contract.
+
+The latest inherited evidence used for this audit is
+[run 39592416496](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/39592416496)
+at source `125b0a818c3c42292cfebc7c5dcb6b50689a70eb`: 20 Base MATLAB checks,
+25 general checks plus the manifest contract, and 92 focused BESS results.
+Only Markdown changed between that source and audited source
+`a8ea7b9093b596bb169bb31841b77cb4fe88ccb9`. The 1.12.0 release changes executable
+code and is not validated by that inherited run. Its focused-test count must
+be taken from its own generated results. The older numerical summary below
+remains a historical 31-result record at its explicitly cited source.
+
+If you have MATLAB without Simulink, run the deterministic 20-check subset:
+
+```matlab
+addpath('examples');
+run_base_matlab_checks
+```
+
+That subset validates every toolbox-free script example. It does not include
+native block-diagram parity or the focused unified-BESS controller suite.
+
+To try the lab in a browser, use the **Open in MATLAB Online** badge above.
+After the repository opens, run this from its root folder:
+
+```matlab
+report = run_all_checks;
+disp(report.profile)
+assert(report.all_checks_passed)
+```
+
+The root runner detects available capabilities. Without Simulink it reports
+the Base subset with `complete_suite=false` and lists excluded checks. To
+require the complete catalog, use `run_all_checks(true, true, true)`.
+
+Or open one focused Base MATLAB example directly:
+
+- [Hysteresis-aware battery SOC EKF](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-hysteresis-ekf/run_battery_soc_hysteresis_ekf.m)
+- [SOC EKF current-bias sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/battery-soc-ekf/run_battery_soc_ekf_current_bias.m)
+- [Switching closed-loop buck converter](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck.m)
+- [Switch fixed-junction-temperature sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/converter-switching-closed-loop-model/run_switching_closed_loop_buck_temperature_sensitivity.m)
+- [BESS DC-link and SOC reserve](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve.m)
+- [BESS prescribed dynamic-profile sensitivity](https://matlab.mathworks.com/open/github/v1?repo=mohammadrezwankhan/matlab-simulink-energy-lab&file=examples/bess-dc-reserve-model/run_bess_dc_reserve_profile_sensitivity.m)
+
+Prefer an inspectable block diagram? Use one of the two
+[focused Simulink first runs](docs/model-selection-guide.md#focused-simulink-first-runs).
+
+If you are unsure which example fits, use the
+[battery, converter, and BESS model selection guide](docs/model-selection-guide.md).
+
+For a local command-line run:
+
+```bash
+git clone https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab.git
+cd matlab-simulink-energy-lab
+matlab -batch "buildtool check test"
+```
+
+### Concise validation evidence
+
+This checkout carries the 1.12.0 release metadata dated 2026-10-21.
+Source archives and commit-bound verification evidence are on the
+[releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
+The following numerical summary records historical MATLAB R2026a evidence from
+[run `32667995625`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625)
+at exact source commit
+[`ab42bc8`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/ab42bc8dfc6823669aa4654f230a53cbf4d2131b).
+This is a fixed reference record, not a claim that the run validates every
+later commit. For current branch checks and commit-bound artifacts, use the
+[validation workflow](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml)
+and [manifest guide](docs/validation-manifest.md). The two jobs in the reference
+run report:
+
+| Evidence | Result |
+| --- | --- |
+| Repository regression | All 25 general check entry points pass; the separate unified-BESS entry point yields 31 focused results. Together, the two CI jobs cover 26 entry points. |
+| Base MATLAB profile | The dedicated `run_base_matlab_checks` profile contains 20 toolbox-free script checks. It was not invoked as a separate no-Simulink job in this hosted run. |
+| BESS DC reserve | 10.225 kWh delivered and 8.109 kWh curtailed discharge; SOC remains above the 0.20 reserve. |
+| BESS reserve sensitivity | Across 18 fixed-profile cases, average delivered power saturates at 176.277 kW and maximum curtailed energy is 30.924 kWh; this is illustrative DC-side sensitivity, not pack capability. |
+| BESS dynamic-profile sensitivity | Across nine prescribed profile/reserve cases, delivered discharge energy spans 6.806 to 20.364 kWh and curtailment time spans 0.0 to 303.4 s; profiles are not energy-normalized or compared as a general law. |
+| Switched closed-loop buck | 399.62 V final average for a 400 V target; 5.91% reference-step overshoot; 2.08% load-step undershoot; 3.354 J nominal switch-conduction and 0.405 J transition loss. |
+| Switch temperature sensitivity | Fixed-junction-temperature sweep from 25 to 175 degC increases total switch loss from 3.759 J to 8.594 J under published datasheet-anchor interpolation. |
+| Native switched-buck parity | Exact agreement across 180,000 PWM intervals, 1,800 controller periods, and both electrical states. |
+| Two-RC identification (synthetic) | 0.440 mV held-out voltage RMSE; 0.401 mV calibration RMSE. |
+| SOC EKF (synthetic) | 0.0066 SOC RMSE; 1.581 mV posterior voltage RMSE. |
+| SOC EKF prescribed current bias | Across -0.50 to +0.50 A, final signed SOC error spans -0.0218 to +0.0217; this is synthetic sensitivity, not bias rejection. |
+| Unified BESS focused suite | 31 focused MATLAB/Simulink results pass across eight mandatory scenarios. |
+| Environment | MATLAB R2026a; Simulink is required for generated diagrams. |
+
+These are deterministic regression checks for reduced-order educational models,
+not physical-cell, hardware, or grid-code validation. In particular, the
+two-RC identification benchmark uses transparent synthetic voltage records with
+deterministic sensor-like perturbations, not measured cell data. See the
+[full expected output and provenance](docs/validation-results.md) and
+[per-commit machine-readable manifest](docs/validation-manifest.md), plus the
+[Scope and Limitations](#scope-and-limitations) before reusing results.
+
+To reproduce the plotted battery response above, run:
+
+```matlab
+run('examples/battery-rc-model/run_battery_rc_model.m')
+```
+
+![Six-cell battery module liquid-cooling response showing module heat, individual cell temperatures, coolant warming, and temperature nonuniformity](assets/battery-module-cooling-network-response.png)
+
+![Pouch-cell thermal-gradient response showing heat input, surface and center temperatures, spatial temperature profiles, and boundary heat removal](assets/pouch-cell-thermal-gradient-response.png)
+
+![Two-RC battery parameter-identification benchmark comparing fitted and synthetic voltage records on calibration and held-out pulse profiles with millivolt residuals](assets/battery-2rc-identification-response.png)
+
+![Battery SOC EKF current-bias sensitivity showing SOC error, voltage residuals, and normalized innovation evidence across five prescribed bias cases](assets/battery-soc-ekf-current-bias-sensitivity.png)
+
+![Battery OCV hysteresis response showing reversal current, charge-balanced SOC, dynamic hysteresis memory, and an annotated same-SOC minor-loop voltage gap](assets/battery-ocv-hysteresis-response.png)
+
+![Switching closed-loop buck response showing voltage regulation, inductor-current control, quantized duty, separated semiconductor losses, the load step, and final PWM periods](assets/converter-switching-closed-loop-response.png)
+
+![Fixed-junction-temperature sensitivity showing datasheet-anchor interpolation, conduction and switching-event loss, estimated efficiency, and regulated output](assets/converter-switching-temperature-sensitivity.png)
+
+![BESS DC-side reserve response showing requested and delivered power, SOC reserve, DC-link voltage, battery current, and charge/discharge availability](assets/bess-dc-reserve-response.png)
+
+![BESS DC reserve sensitivity showing average delivered power saturation and actual curtailment time across illustrative reserve floors and constant requests](assets/bess-dc-reserve-operating-envelope.png)
+
+## Models at a Glance
+
+| Example | Question It Explores | Validation | Requirements |
+| --- | --- | --- | --- |
+| [Battery RC model](examples/battery-rc-model/README.md) | How do charge and discharge pulses affect SOC, terminal voltage, charge throughput, and delivered energy? | `check_battery_rc_model.m` | Base MATLAB |
+| [Native Simulink battery RC](examples/battery-simulink-model/README.md) | Can a generated diagram reproduce the exact first-order battery pulse response and nonlinear OCV lookup? | `check_battery_rc_simulink_model.m` | MATLAB and Simulink |
+| [Battery 2RC model and identification](examples/battery-2rc-model/README.md) | How do fast and slow polarization branches shape voltage recovery, and can their positive parameters generalize to a held-out pulse profile? | `check_battery_2rc_model.m`, `check_battery_2rc_fit.m` | Base MATLAB |
+| [Native Simulink battery 2RC](examples/battery-2rc-simulink-model/README.md) | Can a generated diagram reproduce both exact battery polarization time scales? | `check_battery_2rc_simulink_model.m` | MATLAB and Simulink |
+| [Battery SOC EKF](examples/battery-soc-ekf/README.md) | Can noisy voltage measurements correct a biased initial SOC estimate, and how does prescribed current-sensor bias change the result? | `check_battery_soc_ekf.m`, `check_battery_soc_ekf_current_bias.m` | Base MATLAB |
+| [Battery OCV hysteresis](examples/battery-ocv-hysteresis/README.md) | How does charge/discharge history create different equilibrium voltages at the same SOC after a current reversal? | `check_battery_ocv_hysteresis.m` | Base MATLAB |
+| [Battery SOC hysteresis EKF](examples/battery-soc-hysteresis-ekf/README.md) | How much SOC error appears when an estimator omits known OCV hysteresis under current reversals? | `check_battery_soc_hysteresis_ekf.m` | Base MATLAB |
+| [Temperature-aware battery model](examples/battery-thermal-model/README.md) | How do loss, entropic heat, cooling, resistance feedback, limit exposure, and cooling-conductance sensitivity affect lumped cell temperature? | `check_battery_thermal_model.m`, `check_battery_cooling_sensitivity.m` | Base MATLAB |
+| [Battery module liquid-cooling network](examples/battery-module-cooling-network/README.md) | How do nonuniform heat generation, serial coolant warming, and cell-to-cell conduction determine the hottest cell and module temperature spread? | `check_battery_module_cooling_network.m` | Base MATLAB |
+| [Pouch-cell thermal gradient](examples/pouch-cell-thermal-gradient/README.md) | How do asymmetric face cooling and through-thickness conduction determine the internal hot spot and spatial temperature gradient? | `check_pouch_cell_thermal_model.m` | Base MATLAB |
+| [Native Simulink battery thermal](examples/battery-thermal-simulink-model/README.md) | Can a generated discrete diagram reproduce coupled electrical, entropic, and thermal feedback sample by sample? | `check_battery_thermal_simulink_model.m` | MATLAB and Simulink |
+| [Converter average model](examples/converter-average-model/README.md) | What do duty cycle and component values imply for average voltage, load current, and first-pass ripple? | `check_converter_average_model.m` | Base MATLAB |
+| [Switching buck converter](examples/converter-switching-model/README.md) | How do ideal PWM switching waveforms compare with averaged voltage, current, and ripple estimates? | `check_switching_buck_converter.m` | Base MATLAB |
+| [Switching closed-loop buck](examples/converter-switching-closed-loop-model/README.md) | Can a period-sampled controller regulate an explicitly switched buck while separating source-backed nominal and fixed-junction-temperature switch losses? | `check_switching_closed_loop_buck.m`, `check_switching_closed_loop_buck_temperature_sensitivity.m` | Base MATLAB |
+| [Native Simulink switching closed-loop buck](examples/converter-switching-closed-loop-simulink-model/README.md) | Can an inspectable fixed-step diagram reproduce the sampled controller, integer PWM, and exact switched-plant states? | `check_switching_closed_loop_buck_simulink_model.m` | MATLAB and Simulink |
+| [Closed-loop converter](examples/converter-closed-loop-model/README.md) | How do bounded cascaded control and open-loop, PI, and filtered-PID strategies respond to voltage and load steps? | `check_closed_loop_converter.m`, `check_converter_controller_comparison.m` | Base MATLAB |
+| [Native Simulink averaged buck](examples/converter-simulink-model/README.md) | Can a generated block diagram reproduce the exact transient and lossy steady state of the averaged equations? | `check_average_buck_simulink_model.m` | MATLAB and Simulink |
+| [BESS DC-link and SOC reserve](examples/bess-dc-reserve-model/README.md) | How do SOC reserve, battery-current capability, and finite DC-link energy constrain constant and prescribed dynamic requests? | `check_bess_dc_reserve.m`, `check_bess_dc_reserve_envelope.m`, `check_bess_dc_reserve_profile_sensitivity.m` | Base MATLAB |
+| [Unified grid-tied and grid-forming BESS control](examples/bess-unified-control/README.md) | Can one controller transition among grid-following, grid-forming, islanded support, synchronization, recovery, and fault-safe behavior with reproducible numeric evidence? | `check_bess_unified_control.m` (focused results recorded per commit) | MATLAB and Simulink |
+
+Model coverage: the battery examples, module liquid-cooling network,
+and converter references run as MATLAB scripts. Native battery RC, battery
+2RC, battery thermal, averaged buck, and switching closed-loop buck references
+additionally generate, compile, and simulate Simulink diagrams. The unified
+BESS reference generates its model, runs eight mandatory scenarios through
+MATLAB and Simulink, and publishes requirements, source/assumption boundaries,
+and validation artifacts.
+
+![Unified BESS Scenario C grid-loss transition showing active and reactive power, PCC voltage, frequency, and supervisor state](examples/bess-unified-control/validation/scenario-c-grid-loss-transition.png)
+
+## Why This Lab Is Inspectable
+
+Foundational engineering models are often either too abbreviated to trust or
+too elaborate to learn from. This repository takes a middle path:
+
+- **Small models:** the governing logic fits in a short script.
+- **Visible assumptions:** parameters, units, and sign conventions live beside
+  the equations.
+- **Repeatable checks:** no-plot scripts assert basic physical and numerical
+  behavior.
+- **Engineering context:** every example begins with a question and ends with
+  limitations and next steps.
+- **Extension-friendly:** simple baselines make it easier to add controls,
+  higher-order dynamics, measured data, or Simulink implementations.
+
+The [examples index](examples/README.md) connects each model to reproducibility,
+unit consistency, validation, and review guidance. Shared conventions live in
+the [modeling standards](notes/modeling-standards.md).
+
+## Who It Is For
+
+- **Students** learning how electrical assumptions become executable models.
+- **Instructors** looking for compact examples that can be discussed and
+  modified in class.
+- **Researchers** who need a transparent baseline before introducing
+  higher-fidelity behavior.
+- **Hobbyists and engineers** exploring battery and converter fundamentals
+  without a large framework.
+
+## Project Structure
+
+```text
+matlab-simulink-energy-lab/
+|-- assets/                         # Result images used in the documentation
+|-- docs/                           # Selection guides, tutorials, scope, evidence
+|-- examples/
+|   |-- battery-rc-model/           # RC simulation, pulse data, and check
+|   |-- battery-simulink-model/     # Generated native battery RC diagram
+|   |-- battery-2rc-model/          # Fast/slow polarization model and check
+|   |-- battery-2rc-simulink-model/ # Generated native two-RC diagram
+|   |-- battery-soc-ekf/            # Real-time SOC and polarization estimator
+|   |-- battery-ocv-hysteresis/     # Dynamic OCV history and minor loops
+|   |-- battery-soc-hysteresis-ekf/ # Hysteresis-aware SOC estimation comparison
+|   |-- battery-thermal-model/      # Coupled electrical-thermal cell model
+|   |-- battery-module-cooling-network/ # Six-cell liquid-cooling network
+|   |-- pouch-cell-thermal-gradient/ # Through-thickness finite-volume model
+|   |-- battery-thermal-simulink-model/ # Generated thermal feedback diagram
+|   |-- converter-average-model/    # Average-model scaffold and check
+|   |-- converter-switching-model/  # Ideal PWM switching model and check
+|   |-- converter-switching-closed-loop-model/ # Controlled PWM plant and check
+|   |-- converter-switching-closed-loop-simulink-model/ # Native switched parity
+|   |-- converter-closed-loop-model/ # Dynamic plant, controller, and check
+|   |-- converter-simulink-model/   # Generated native Simulink model and check
+|   |-- bess-dc-reserve-model/      # SOC reserve and DC-link availability
+|   |-- bess-unified-control/        # Unified BESS modes, builder, tests, evidence
+|   `-- guides/                     # Reproducibility and review notes
+|-- notes/                          # Repository-wide modeling standards
+|-- CONTRIBUTING.md
+`-- LICENSE
+```
+
+## Requirements
+
+- MATLAB R2026a is the maintained native verification target; the evidence
+  below is commit-specific. Use the 1.12.0 release gate for current source evidence.
+- The script-based examples and their validation checks use base MATLAB only.
+- `run_base_matlab_checks` executes all 20 of those checks with one command.
+- Simulink is required for the six generated block-diagram examples,
+  including unified BESS control.
+- No power-electronics, control, or testing toolbox is required.
+- Optional Model Advisor review may require Simulink Check. It is an explicitly
+  separate review, not a core build dependency or a completed audit claim.
+
+Compatibility evidence is release-, environment-, and commit-specific:
+
+| Release | Evidence status | Environment | Exact evidence |
+| --- | --- | --- | --- |
+| R2026a | Maintained primary CI baseline | Ubuntu, MATLAB and Simulink | [Historical reference run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32667995625): 25 general checks and 31 focused unified-BESS results passed at its recorded commit. Use the [workflow history](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/workflows/matlab-validation.yml) for newer revisions. |
+| R2025b Update 6 | One-time maintainer-automated proof; not community-tested | Ubuntu 24, GLNXA64, MATLAB `25.2.0.3312555`, Simulink `25.2` | [Exact commit `c0a5a2c`](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/commit/c0a5a2c63772382cd77b156bc8fa328d43820126) and [hosted run](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/32669632185): 25 general checks and 31 focused unified-BESS results passed. |
+
+The R2025b row is a bounded compatibility record for that exact environment and
+commit, not a general support promise for other operating systems or releases.
+
+If you run the examples on another MATLAB release, please submit a
+[commit-bound reproduction report](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=reproduction_report.yml)
+so the compatibility record can grow without turning one environment into a
+general support claim.
+
+## Scope and Limitations
+
+- Save and close open Simulink models before running a builder or its checks.
+  The native builders reject a target name that is already loaded, including
+  a same-named model from another directory. They still replace generated
+  files at the selected output path when the target is not loaded; use a
+  separate output directory to preserve existing files.
+- These examples are educational engineering references, not calibrated design
+  models.
+- The unified BESS controller is a transparent research translation rather
+  than an exact paper reproduction. Its reduced-order averaged plant,
+  transition/fault supervisor, synchronization thresholds, limits, and tuning
+  include explicit project assumptions. It is not a qualified controller,
+  protection system, or grid-code certification model.
+- The battery models use a deliberately simple, replaceable OCV-SOC lookup
+  table that must be calibrated before cell-specific use. The two-RC fitter
+  requires OCV values estimated independently from the terminal-voltage fit.
+- The native battery RC diagram receives the reference model's prevalidated,
+  SOC-feasible current trace rather than duplicating its boundary limiter.
+- The native battery 2RC diagram uses that same prevalidated current policy and
+  independently integrates both polarization branches.
+- The native thermal diagram reproduces a checked discrete educational model;
+  it is not a spatial, safety, or thermal-runaway simulation.
+- Its SOC-indexed entropic-coefficient table is illustrative, varies neither
+  with temperature nor ageing, and must be replaced with measured cell data.
+- The module cooling network uses lumped cell temperatures and a quasi-steady
+  one-dimensional coolant path; it omits spatial gradients, pressure drop,
+  manifolds, coolant transport delay, pump power, and runaway propagation.
+- The pouch-cell thermal model resolves only the through-thickness direction
+  with effective homogeneous properties; it omits tabs, in-plane gradients,
+  layer detail, and electrochemical heat-generation nonuniformity.
+- Battery current is zero-order held between supplied timestamps; RC
+  polarization states are propagated exactly over each interval, and applied
+  current is limited to the interval charge available before SOC reaches zero
+  or one.
+- The parameter-identification benchmark uses transparent synthetic voltage
+  records with deterministic sensor-like perturbations; it does not claim
+  validation against a physical cell.
+- Ageing and cell-to-cell variation are not yet modeled. The OCV hysteresis
+  example is a single-state educational reference with illustrative
+  parameters, not a calibrated chemistry-specific model.
+- The SOC EKF uses illustrative OCV and covariance data and assumes exact
+  electrical parameters. Its current-bias study prescribes a constant
+  unmodeled estimator-input offset; it does not estimate or reject that bias.
+  Temperature, hysteresis, ageing, and constrained-filter theory remain omitted.
+- The open-loop switching converter uses ideal complementary switches. The
+  switched closed-loop converter adds a constant-drop freewheel diode,
+  period-sampled control, nominal switch loss, and a fixed-junction-temperature
+  sensitivity limited to published 25-to-175 degC anchors. It still omits a
+  solved thermal state, multidimensional nonlinear device behavior, dead time,
+  capacitance, reverse recovery, parasitics, EMI, protection, sensor dynamics,
+  and hardware validation.
+- The native averaged Simulink converter omits PWM ripple and switching events.
+  The native switching companion reproduces the Base MATLAB sampled controller
+  and exact affine plant maps; its parity is not independent physical evidence.
+- The DC-side BESS reserve model uses affine OCV, constant resistance, exact
+  initial SOC, and an energy-state DC link. It omits battery polarization,
+  estimation error, temperature, ageing, switching conversion, protection, and
+  closed-loop integration with the unified AC-side controller.
+- Parameters and expected outputs must be revalidated before use with real
+  cells, converters, or control designs.
+
+## What Should Come Next?
+
+The most useful next additions are likely to be:
+
+- a traceable physical-cell dataset for the two-RC identification workflow;
+- dynamic semiconductor electrothermal feedback from a sourced transient
+  thermal network;
+- held-out measured reversal data for the hysteresis-aware SOC estimator; or
+- measured thermal-parameter identification and held-out drive-cycle validation.
+
+[Request an example](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues/new?template=example-request.md),
+open a focused issue, or propose an implementation through a pull request.
+
+## Contribute a Scoped Improvement
+
+Choose an item from the roadmap above or browse the
+[open issues](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/issues).
+Before starting substantial work, open or comment on a focused issue so the
+assumptions, acceptance checks, and ownership are visible. The
+[contribution guide](CONTRIBUTING.md) explains the local checks, modeling
+standard, pull request workflow, and attribution policy.
+
+## Releases and Citation
+
+Versioned snapshots and engineering highlights are available on the
+[releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
+For a checksum-verifiable snapshot, download the source package and matching
+`SHA256SUMS.txt` file attached to the
+[latest published release](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest).
+See the [changelog](CHANGELOG.md) for the model and validation history.
+The full local release gate for 1.12.0 is
+`matlab -batch "buildtool check test archive"`, which requires Simulink and a
+clean committed source tree. The archive task does not create a tag or publish
+anything. Follow [release readiness](docs/release-readiness.md) before tagging.
+
+If you use the lab in research, coursework, or teaching material, use GitHub's
+**Cite this repository** control to export APA or BibTeX metadata. The source
+metadata, including the author's ORCID, is available in
+[`CITATION.cff`](CITATION.cff).
+
+## Contributing
+
+Contributions are welcome—especially measured-data validation, sourced
+parameter sets, equivalent-circuit variants, converter topologies, automated
+checks, and clearer teaching notes. Read [CONTRIBUTING.md](CONTRIBUTING.md)
+before opening a pull request.
+
+If the lab saves you time or helps you understand a model, **please leave a ⭐**.
+It is the simplest way to support continued open engineering work. You can also
+support continued development on [Ko-fi](https://ko-fi.com/N7V826XG89):
+
+[![Support me on Ko-fi](https://storage.ko-fi.com/cdn/kofi2.png?v=3)](https://ko-fi.com/N7V826XG89)
+
+## License
+
+Released under the [MIT License](LICENSE).
+
+</details>
