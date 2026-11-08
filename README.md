@@ -1,3 +1,15 @@
+<!-- repository-presentation:start -->
+
+![MATLAB Simulink Energy Lab — project overview](https://raw.githubusercontent.com/mohammadrezwankhan/mohammadrezwankhan/main/assets/makeover/social/matlab-simulink-energy-lab.png)
+
+Explore battery, thermal, converter, and BESS control models in Base MATLAB and Simulink, with runnable examples and inspectable assumptions.
+
+[MATLAB quickstart](#one-command-matlab-quickstart) · [Model catalog](#models-at-a-glance) · [Example source](examples/README.md) · [Evidence](#concise-validation-evidence) · [Limits](#scope-and-limitations)
+
+---
+
+<!-- repository-presentation:end -->
+
 ![MATLAB Simulink Energy Lab: original vector system illustration](assets/hero-25d.svg)
 
 > **Version 1.12.0 — 2026-10-21.** Release archives, verification evidence,
