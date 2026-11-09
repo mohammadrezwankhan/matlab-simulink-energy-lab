@@ -50,7 +50,7 @@ checks = [
     "bess-dc-reserve-model/check_bess_dc_reserve_profile_sensitivity.m"
 ];
 requiresSimulink = logical([
-    0; 1; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0; 0;
+    0; 1; 0; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0; 0;
     0; 1; 0; 0; 0; 0; 0; 0; 1; 1; 0; 0; 0
 ]);
 if logical(includeBess)
