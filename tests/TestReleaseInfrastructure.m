@@ -15,6 +15,16 @@ classdef TestReleaseInfrastructure < matlab.unittest.TestCase
                 'Every check must be cataloged or covered by the explicit manifest contract.');
         end
 
+        function catalogProductFlagsMatchChecks(testCase)
+            root = fileparts(fileparts(mfilename('fullpath')));
+            testCase.applyFixture(matlab.unittest.fixtures.PathFixture( ...
+                fullfile(root, 'examples')));
+            [checks, flags] = validation_check_catalog(true, true);
+            testCase.verifyEqual(numel(flags), numel(checks));
+            expected = contains(checks, '-simulink-model/') | ...
+                contains(checks, 'bess-unified-control/');
+            testCase.verifyEqual(flags, expected);
+        end
         function baseManifestRetainsItsProductBoundary(testCase)
             root = fileparts(fileparts(mfilename('fullpath')));
             originalPath = path;

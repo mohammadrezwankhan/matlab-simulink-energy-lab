@@ -26,6 +26,7 @@ checks = [
     "battery-2rc-model/check_battery_2rc_model.m";
     "battery-2rc-model/check_battery_2rc_fit.m";
     "battery-2rc-model/check_nasa_rw3_fit.m";
+    "battery-2rc-model/check_lfp_fit.m";
     "battery-2rc-simulink-model/check_battery_2rc_simulink_model.m";
     "battery-soc-ekf/check_battery_soc_ekf.m";
     "battery-soc-ekf/check_battery_soc_ekf_current_bias.m";
@@ -49,7 +50,7 @@ checks = [
     "bess-dc-reserve-model/check_bess_dc_reserve_profile_sensitivity.m"
 ];
 requiresSimulink = logical([
-    0; 1; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0; 0;
+    0; 1; 0; 0; 0; 0; 1; 0; 0; 0; 0; 0; 0; 0;
     0; 1; 0; 0; 0; 0; 0; 0; 1; 1; 0; 0; 0
 ]);
 if logical(includeBess)
