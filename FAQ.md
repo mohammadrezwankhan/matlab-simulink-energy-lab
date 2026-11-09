@@ -132,7 +132,7 @@ integration.
 
 ## How is the repository validated?
 
-The complete catalog contains 26 check entry points: 25 general checks plus
+The complete catalog contains 27 check entry points: 26 general checks plus
 one focused unified-BESS entry point. Its focused result count is recorded per
 commit; inherited run 39592416496 reports 92. The 1.12.0 verification archive
 records 123 focused tests. The repository also validates its manifest contract.
@@ -149,6 +149,9 @@ benchmarks use transparent synthetic or prescribed inputs. Illustrative model
 parameters do not represent a named physical cell, pack, converter, or grid
 installation unless the nearest example explicitly states and sources that
 provenance.
+
+The separate [NASA RW3 pulse example](examples/battery-2rc-model/data/nasa-rw3/README.md)
+uses measured cell data with a quasi-OCV proxy and explicitly documented limits.
 
 ## Can these models qualify a production system?
 

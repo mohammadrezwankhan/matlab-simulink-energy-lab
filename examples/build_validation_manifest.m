@@ -60,6 +60,7 @@ manifest.claim_boundaries = [
     "Deterministic regression evidence for reduced-order educational models.";
     "Not physical-cell, hardware, safety, or grid-code qualification.";
     "The two-RC identification benchmark uses synthetic voltage records.";
+    "The measured NASA RW3 case uses quasi-OCV and is not cell-design validation.";
     "A passing manifest describes only the exact source_commit and environment above."
 ];
 end
