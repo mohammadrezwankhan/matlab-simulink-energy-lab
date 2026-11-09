@@ -1,0 +1,235 @@
+Tested commit 90c83f3654ee6648b31cc3cb9553670455e74c01
+25.2.0.3360999 (R2025b) Update 7
+GLNXA64
+-----------------------------------------------------------------------------------------------------------
+MATLAB Version: 25.2.0.3360999 (R2025b) Update 7
+MATLAB License Number: [redacted]
+Operating System: Linux 7.0.0-1017-azure #17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026 x86_64
+Java Version: Java is not loaded
+-----------------------------------------------------------------------------------------------------------
+MATLAB                                                Version 25.2        (R2025b)
+Simulink                                              Version 25.2        (R2025b)
+
+[1/26] Running battery-rc-model/check_battery_rc_model.m
+Battery RC check passed. Final SOC: 0.767
+Voltage range: 3.425 V to 3.877 V
+Charge throughput: 3.312 Ah (0.03312 equivalent full cycles)
+Terminal energy throughput: 11.730 Wh
+
+[2/26] Running battery-simulink-model/check_battery_rc_simulink_model.m
+Native Simulink battery RC check passed.
+Final SOC: 0.767
+Voltage range: 3.425 V to 3.877 V
+Maximum parity errors: 0.000e+00 A, 7.607e-13 SOC, 3.347e-11 Vrc, 7.594e-14 OCV, 3.352e-11 Vterminal
+
+[3/26] Running battery-2rc-model/check_battery_2rc_model.m
+Battery 2RC check passed. Final SOC: 0.767
+Voltage range: 3.325 V to 3.925 V
+Peak polarization: fast 0.075 V, slow 0.125 V
+
+[4/26] Running battery-2rc-model/check_battery_2rc_fit.m
+Battery 2RC identification check passed.
+Calibration RMSE: 0.401 mV
+Held-out RMSE: 0.440 mV
+Estimated time constants: 2.01 s and 33.88 s
+
+[5/26] Running battery-2rc-simulink-model/check_battery_2rc_simulink_model.m
+Native Simulink battery 2RC check passed.
+Final SOC: 0.767
+Voltage range: 3.325 V to 3.925 V
+Maximum parity errors: 0.000e+00 A, 7.787e-13 SOC, 5.260e-11 Vrc1, 5.259e-12 Vrc2, 5.786e-11 Vpolarization, 7.772e-14 OCV, 5.790e-11 Vterminal
+
+[6/26] Running battery-soc-ekf/check_battery_soc_ekf.m
+Battery SOC EKF check passed.
+Initial prior SOC error: -0.200
+First posterior SOC error: -0.142
+Final SOC error: +0.0001
+SOC RMSE: 0.0066
+Two-percent settling time: 18 s
+Posterior voltage RMSE: 1.581 mV
+
+[7/26] Running battery-soc-ekf/check_battery_soc_ekf_current_bias.m
+Battery SOC EKF current-bias sensitivity check passed.
+Bias range: -0.50 A to 0.50 A
+Final SOC error range: -0.0218 to +0.0217
+Zero/bias-edge SOC RMSE: 0.0066 / 0.0161 / 0.0154
+
+[8/26] Running battery-ocv-hysteresis/check_battery_ocv_hysteresis.m
+Battery OCV hysteresis check passed.
+Final SOC: 0.600
+Hysteresis state range: -0.777 to 0.676
+Same-SOC minor-loop voltage gap: 8.13 mV
+
+[9/26] Running battery-soc-hysteresis-ekf/check_battery_soc_hysteresis_ekf.m
+Battery SOC hysteresis EKF check passed.
+SOC RMSE: hysteresis 0.0023, baseline 0.0203
+Final SOC error: hysteresis +0.0005, baseline +0.0285
+Hysteresis-state RMSE: 0.0482
+Voltage RMSE: hysteresis 0.589 mV, baseline 3.672 mV
+
+[10/26] Running battery-thermal-model/check_battery_thermal_model.m
+Battery thermal check passed.
+Peak cell temperature: 36.92 degC
+Final cell temperature: 28.96 degC
+Peak irreversible heat: 33.31 W
+Reversible heat range: -2.31 W to 1.12 W
+Peak total heat: 34.29 W
+Final SOC: 0.608
+
+[11/26] Running battery-thermal-model/check_battery_cooling_sensitivity.m
+Battery cooling-sensitivity check passed.
+hA (W/K)  Peak (degC)  Final (degC)  Time > 35.0 degC (s)  Degree-hours
+     0.0        42.73         42.73                1399.6        2.5049
+     0.6        38.89         33.25                1019.7        0.5032
+     1.2        36.92         28.96                 305.6        0.0815
+     2.4        34.05         26.02                   0.0        0.0000
+     4.8        30.78         25.12                   0.0        0.0000
+
+[12/26] Running battery-module-cooling-network/check_battery_module_cooling_network.m
+Battery module cooling-network check passed.
+Peak cell temperature: 39.87 degC (cell 4 at 1320 s)
+Peak cell-temperature spread: 5.10 degC
+Peak coolant outlet temperature: 31.27 degC
+Peak cell temperature at 3x flow: 38.01 degC
+
+[13/26] Running pouch-cell-thermal-gradient/check_pouch_cell_thermal_model.m
+Pouch-cell thermal-gradient check passed.
+Peak node temperature: 43.83 degC at 5.60 mm and 1800 s
+Peak through-thickness node spread: 3.09 degC
+Symmetric steady center error: 0.003 degC
+Medium-to-fine grid center difference: 0.0024 degC
+
+[14/26] Running battery-thermal-simulink-model/check_battery_thermal_simulink_model.m
+Native Simulink battery thermal check passed.
+Peak cell temperature: 36.92 degC
+Final cell temperature: 28.96 degC
+Reversible heat range: -2.31 W to 1.12 W
+Maximum parity errors: 0.000e+00 A, 0.000e+00 SOC, 2.776e-17 Vrc, 4.441e-16 OCV, 0.000e+00 Ohm, 8.882e-16 Vterminal, 1.776e-15 Qirr, 1.694e-20 dUdT, 4.441e-16 Qrev, 7.105e-15 Qtotal, 0.000e+00 Qcool, 7.105e-15 Qnet, 0.000e+00 degC
+
+[15/26] Running converter-average-model/check_converter_average_model.m
+Converter parameter check passed.
+Output voltage: 360.0 V
+Load current: 18.0 A
+
+[16/26] Running converter-closed-loop-model/check_closed_loop_converter.m
+Closed-loop converter check passed.
+Final average voltage: 399.49 V
+Peak voltage after step: 421.90 V
+Two-percent settling time: 38.6 ms
+Duty-cycle range: 0.377 to 0.529
+
+[17/26] Running converter-closed-loop-model/check_converter_controller_comparison.m
+Controller comparison check passed.
+Controller      Steady error (V)  Overshoot (%)  Settling (ms)  Duty range
+Open loop                  1.984           3.84           20.6  0.502 to 0.502
+PI                        -0.000           1.25           10.3  0.464 to 0.510
+Filtered PID              -0.015           1.67           14.0  0.471 to 0.526
+
+[18/26] Running converter-switching-model/check_switching_buck_converter.m
+Switching buck converter check passed.
+Average output voltage: 358.209 V
+Average inductor current: 17.910 A
+Current ripple: 9.901 A peak-to-peak
+Voltage ripple: 0.124 V peak-to-peak
+Measured duty cycle: 0.450
+
+[19/26] Running converter-switching-closed-loop-model/check_switching_closed_loop_buck.m
+Switching closed-loop buck check passed.
+Final average voltage: 399.62 V
+Reference-step overshoot: 5.91%, settling 19.4 ms
+Load-step undershoot: 2.08%, settling 1.8 ms
+Average duty cycle: 0.506
+Diode/inductor loss energy: 2.602 J / 16.845 J
+Switch conduction/transition loss energy: 3.354 J / 0.405 J
+Turn-on/turn-off transition energy: 0.255 J / 0.150 J
+Estimated energy efficiency: 97.046%
+
+[20/26] Running converter-switching-closed-loop-model/check_switching_closed_loop_buck_temperature_sensitivity.m
+Switch fixed-temperature sensitivity check passed.
+25/175 degC total switch loss: 3.759 J / 8.594 J
+25/175 degC estimated efficiency: 97.046% / 96.823%
+
+[21/26] Running converter-switching-closed-loop-simulink-model/check_switching_closed_loop_buck_simulink_model.m
+Native Simulink switching closed-loop buck check passed.
+Maximum MATLAB parity error: 0.000e+00 A, 0.000e+00 V
+Matched PWM intervals / controller periods: 180000 / 1800
+
+[22/26] Running converter-simulink-model/check_average_buck_simulink_model.m
+Native Simulink averaged buck check passed.
+Final output voltage: 358.209 V
+Final inductor current: 17.910 A
+Maximum exact-state error: 5.554e-07 V, 3.907e-07 A
+
+[23/26] Running bess-dc-reserve-model/check_bess_dc_reserve.m
+BESS DC reserve check passed.
+SOC: minimum 0.2042, final 0.2042
+DC-link voltage: 700.00 V to 750.00 V
+Delivered/curtailed discharge energy: 10.225 / 8.109 kWh
+Accepted charge energy: 4.000 kWh
+SOC-taper active / curtailed time: 219.9 / 190.7 s
+Peak discharge/charge current: 432.9 / 163.5 A
+
+[24/26] Running bess-dc-reserve-model/check_bess_dc_reserve_envelope.m
+BESS DC reserve constant-request sensitivity check passed.
+18 cases: reserve 0.10 to 0.20, request 0 to 325 kW
+Maximum average delivered power: 176.277 kW
+Maximum curtailed discharge energy: 30.924 kWh
+
+[25/26] Running bess-dc-reserve-model/check_bess_dc_reserve_profile_sensitivity.m
+BESS DC reserve prescribed dynamic-profile check passed.
+9 cases: 3 profiles by 3 reserve floors.
+Delivered discharge energy: 6.806 to 20.364 kWh.
+Curtailment time: 0.0 to 303.4 s.
+
+[26/26] Running bess-unified-control/check_bess_unified_control.m
+Running TestBessPlotOwnership
+.
+Done TestBessPlotOwnership
+__________
+
+Running TestBessPowerAvailability
+........
+Done TestBessPowerAvailability
+__________
+
+Running TestBessSampleTiming
+.......... ......
+Done TestBessSampleTiming
+__________
+
+Running TestBessUnifiedControl
+.......... .......... .......... ...
+Done TestBessUnifiedControl
+__________
+
+Running TestGeneratedModelDestinations
+.......... ..
+Done TestGeneratedModelDestinations
+__________
+
+Running TestSimulinkRunnerCleanup
+..........
+Done TestSimulinkRunnerCleanup
+__________
+
+Running bess_parameter_propagationTest
+........
+Done bess_parameter_propagationTest
+__________
+
+Running bess_validate_output_timeTest
+.......... .......... .........
+Done bess_validate_output_timeTest
+__________
+
+Running simulate_bess_unified_control_modelTest
+......
+Done simulate_bess_unified_control_modelTest
+__________
+
+All 123 focused BESS controller tests passed.
+
+All 26 MATLAB and Simulink checks passed.
+
+Complete check summary:
+[{"path":"battery-rc-model/check_battery_rc_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-simulink-model/check_battery_rc_simulink_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-2rc-model/check_battery_2rc_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-2rc-model/check_battery_2rc_fit.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-2rc-simulink-model/check_battery_2rc_simulink_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-soc-ekf/check_battery_soc_ekf.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-soc-ekf/check_battery_soc_ekf_current_bias.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-ocv-hysteresis/check_battery_ocv_hysteresis.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-soc-hysteresis-ekf/check_battery_soc_hysteresis_ekf.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-thermal-model/check_battery_thermal_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-thermal-model/check_battery_cooling_sensitivity.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-module-cooling-network/check_battery_module_cooling_network.m","status":"passed","error_identifier":"","error_message":""},{"path":"pouch-cell-thermal-gradient/check_pouch_cell_thermal_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"battery-thermal-simulink-model/check_battery_thermal_simulink_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-average-model/check_converter_average_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-closed-loop-model/check_closed_loop_converter.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-closed-loop-model/check_converter_controller_comparison.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-switching-model/check_switching_buck_converter.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-switching-closed-loop-model/check_switching_closed_loop_buck.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-switching-closed-loop-model/check_switching_closed_loop_buck_temperature_sensitivity.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-switching-closed-loop-simulink-model/check_switching_closed_loop_buck_simulink_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"converter-simulink-model/check_average_buck_simulink_model.m","status":"passed","error_identifier":"","error_message":""},{"path":"bess-dc-reserve-model/check_bess_dc_reserve.m","status":"passed","error_identifier":"","error_message":""},{"path":"bess-dc-reserve-model/check_bess_dc_reserve_envelope.m","status":"passed","error_identifier":"","error_message":""},{"path":"bess-dc-reserve-model/check_bess_dc_reserve_profile_sensitivity.m","status":"passed","error_identifier":"","error_message":""},{"path":"bess-unified-control/check_bess_unified_control.m","status":"passed","error_identifier":"","error_message":""}]
