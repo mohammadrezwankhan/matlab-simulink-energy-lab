@@ -56,26 +56,24 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          ref: 90c83f3654ee6648b31cc3cb9553670455e74c01
 
-      - name: Set up MATLAB R2025b for compatibility evidence
+      - name: Set up MATLAB R2026a
         uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
-          release: R2025b
+          release: R2026a
           products: Simulink
 
       - name: Run model checks
         uses: matlab-actions/run-command@bfa857648f4895aa98a446fe41c85e0788421ed5 # v3
         with:
-          command: diary('r2025b-compatibility.log'); fprintf('Tested commit 90c83f3654ee6648b31cc3cb9553670455e74c01\n'); disp(version); disp(computer); ver; addpath('examples'); report=run_all_checks(true,true,true); fprintf('\nComplete check summary:\n%s\n',jsonencode(report.checks)); diary off; assert(report.all_checks_passed,'One or more compatibility checks failed.');
+          command: addpath('examples'); run('examples/validation-manifest/check_validation_manifest.m'); generate_validation_manifest(getenv('GITHUB_SHA'))
 
-      - name: Upload commit-bound compatibility log
+      - name: Upload commit-bound validation manifest
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: r2025b-compatibility-90c83f3654ee6648b31cc3cb9553670455e74c01
-          path: r2025b-compatibility.log
-          retention-days: 14
+          name: validation-summary-${{ github.sha }}
+          path: validation-artifacts/validation-summary.json
           if-no-files-found: error
 
   validate-bess:
