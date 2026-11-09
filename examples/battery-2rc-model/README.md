@@ -226,3 +226,5 @@ The identification check additionally verifies:
 - A second branch can improve transient shape but does not prove parameter
   identifiability; fit and cross-validate parameters against held-out pulse
   data before using the model for a specific cell.
+
+The separate [A123 LFP measured-pulse example](data/a123-lfp/README.md) uses a quasi-OCV proxy and a held-out dynamic record; run `check_lfp_fit`. It is not cell-design validation.

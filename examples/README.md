@@ -238,3 +238,5 @@ the no-plot checks for quick validation before future automation.
 | Solver or time step | Does the example explain the chosen time step or simplified solver assumption? |
 | Expected output | Does the documented output match the current no-plot check? |
 | Validation command | Can a reviewer run one short command to confirm the example still works? |
+
+The [A123 LFP example](battery-2rc-model/data/a123-lfp/README.md) adds a measured pulse fit and a separate held-out dynamic record to the no-plot suite.
