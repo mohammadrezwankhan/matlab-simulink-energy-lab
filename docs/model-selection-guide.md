@@ -21,7 +21,7 @@ change, with a suggested lesson schedule and explicit modeling limitations.
 | --- | --- | --- | --- |
 | How do current pulses change SOC and terminal voltage? | [First-order RC](../examples/battery-rc-model/README.md) | Smallest electrical baseline; nonlinear OCV and one polarization state. | Separating fast and slow relaxation. |
 | Do I need two polarization time scales? | [Two-RC model](../examples/battery-2rc-model/README.md) | Exact fast/slow RC propagation and transparent pulse data. | Claiming parameters generalize without a held-out profile. |
-| Can positive two-RC parameters fit one record and predict another? | [Two-RC identification tutorial](two-rc-battery-parameter-identification.md) | Separates calibration from deterministic held-out validation. | Physical-cell validation; the bundled records are synthetic. |
+| Can positive two-RC parameters fit one record and predict another? | [Two-RC identification tutorial](two-rc-battery-parameter-identification.md) | Separates calibration from deterministic held-out validation. | Physical-cell design validation; the tutorial's records are synthetic. A separate NASA example has a limited measured-cell case. |
 | Does charge/discharge history change OCV at the same SOC? | [OCV hysteresis](../examples/battery-ocv-hysteresis/README.md) | Adds one exact bounded memory state and a reversal minor loop. | Rate-dependent electrochemistry or ageing. |
 
 ### I need SOC estimation

@@ -118,6 +118,7 @@ BESS suite; it is not a substitute for complete repository validation.
 | `battery-2rc-model/check_battery_2rc_model.m` | Prints final SOC, terminal-voltage range, and fast/slow peak polarization. |
 | `battery-2rc-model/run_battery_2rc_model.m` | Prints the same summary and plots current, SOC, terminal voltage, and both polarization states. |
 | `battery-2rc-model/check_battery_2rc_fit.m` | Verifies positive resistance recovery, ordered time constants, deterministic fitting, malformed-input rejection, and sub-1.5 mV held-out RMSE. |
+| `battery-2rc-model/check_nasa_rw3_fit.m` | Fits measured NASA RW3 pulses and reports separate calibration and held-out errors using a quasi-OCV proxy. |
 | `battery-2rc-model/run_battery_2rc_fit.m` | Fits the calibration record, prints calibration and held-out metrics, and plots voltage overlays with millivolt residuals. |
 | `battery-2rc-simulink-model/check_battery_2rc_simulink_model.m` | Generates and compiles an SLX model, verifies both RC state paths, and compares seven outputs with exact MATLAB cases. |
 | `battery-2rc-simulink-model/run_battery_2rc_simulink_model.m` | Generates and opens the two-RC diagram, simulates the canonical pulse, and plots both polarization states. |

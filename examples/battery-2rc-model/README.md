@@ -148,6 +148,11 @@ records. Only the calibration record is passed to the fitter; the second
 record is held out until `evaluate_battery_2rc_fit` calculates its error. The
 voltage perturbation is deterministic so CI results are reproducible.
 
+An additional [NASA RW3 measured-pulse example](data/nasa-rw3/README.md)
+fits separate calibration and held-out portions of one cell's test. It uses a
+low-current quasi-OCV proxy and remains a limited research example, not a
+cell design validation. Run its no-plot check with `check_nasa_rw3_fit`.
+
 ## Fit Result Fields
 
 ![Section 04 · Verification / output](../../docs/visuals/sections/section-04-verification.svg)
@@ -207,9 +212,8 @@ The identification check additionally verifies:
 
 - Both branches begin from a rested zero-polarization state.
 - Default parameters are illustrative and are not fitted to measured data.
-- The included identification records are synthetic benchmarks, not physical
-  cell measurements; they verify the workflow without establishing
-  cell-specific accuracy.
+- The synthetic benchmark verifies the workflow. The separate NASA RW3 case
+  measures one cell over a limited range and does not establish design accuracy.
 - The fitter assumes independently estimated OCV and does not jointly identify
   capacity, OCV-SOC shape, hysteresis, initial RC states, temperature
   dependence, or measurement bias.

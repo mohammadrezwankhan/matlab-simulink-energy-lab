@@ -516,7 +516,7 @@ matlab-simulink-energy-lab/
 - MATLAB R2026a is the maintained native verification target; the evidence
   below is commit-specific. Use the 1.12.0 release gate for current source evidence.
 - The script-based examples and their validation checks use base MATLAB only.
-- `run_base_matlab_checks` executes all 20 of those checks with one command.
+- `run_base_matlab_checks` executes all 21 of those checks with one command.
 - Simulink is required for the six generated block-diagram examples,
   including unified BESS control.
 - No power-electronics, control, or testing toolbox is required.

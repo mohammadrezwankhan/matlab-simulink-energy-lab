@@ -21,7 +21,7 @@ For the toolbox-free Base MATLAB subset:
 matlab -batch "addpath('examples'); run_base_matlab_checks"
 ```
 
-Its terminal line is `All 20 Base MATLAB checks passed.` This subset excludes
+Its terminal line is `All 21 Base MATLAB checks passed.` This subset excludes
 native block-diagram parity and the focused unified-BESS controller suite.
 
 For CI-oriented status and exact commit provenance, see the

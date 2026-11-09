@@ -16,7 +16,7 @@ audit or patch package alone does not establish a release pass.
 | 1.12.0 release | Exact-commit `audit-check`, `audit-test`, `audit-demos`, and `audit-simulink` reports from the release gate | Accept only reports with `passed=true`, `complete=true`, and `source_state="clean"` matching the source commit |
 | Historical 31-result BESS JSON/report and older expected-output tables | Their original commits, environments, and dates | Preserve as historical records; never relabel as current execution |
 
-The catalog has 20 Base MATLAB checks, five additional general Simulink
+The 1.12.0 catalog had 20 Base MATLAB checks, five additional general Simulink
 checks, and one focused BESS entry point. Focused tests expand within that
 entry point; obtain their current count from actual test results. Entry-point
 counts, focused-test counts, scenarios, and independent experiments are

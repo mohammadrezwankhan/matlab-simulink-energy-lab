@@ -8,7 +8,7 @@ toolbox-free two-RC workflow in MATLAB Simulink Energy Lab: fit the model on
 one pulse record, then test it on a separate pulse record that was not used to
 choose the parameters.
 
-> The included records are deterministic synthetic benchmarks. They demonstrate
+> The records described on this page are deterministic synthetic benchmarks. They demonstrate
 > the workflow; they do **not** establish accuracy for a physical cell.
 
 ![Two-RC parameter-identification validation: calibration and held-out voltage traces with millivolt residuals](../assets/battery-2rc-identification-response.png)
