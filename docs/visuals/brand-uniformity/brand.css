@@ -1,0 +1,105 @@
+/* Exact energy-core palette. Presentation only; no lesson or model state. */
+:root[data-avatar-brand] {
+  --primary: #ff9f1c !important;
+  --secondary: #ffe66d !important;
+  --accent: #ff9f1c !important;
+  --surface: #100b18 !important;
+  --bg: #100b18;
+  --panel: #231331;
+  --ink: #fff6c8;
+  --muted: #fff6c8c7;
+  --faint: #fff6c8b3;
+  --line: #5c2a72;
+  --border: #5c2a7299;
+  --card: #231331;
+  --radius: 12px;
+  --glow: transparent !important;
+  --p-rgb: 255,159,28 !important;
+  --s-rgb: 255,230,109 !important;
+  --cyan: #ff9f1c;
+  --green: #ffe66d;
+  --amber: #ff9f1c;
+  --violet: #fff6c8;
+  --rose: #d94a4a;
+  --focus: #ff9f1c;
+  scrollbar-color: #5c2a72 #100b18;
+}
+html[data-avatar-brand] body { background: var(--bg); color: var(--ink); }
+[data-avatar-brand] ::selection { background: #ff9f1c; color: #100b18; }
+[data-avatar-brand] :is(input, textarea) { caret-color: var(--accent); }
+[data-avatar-brand] :is(h1, h2, h3) { letter-spacing: -.025em; }
+[data-avatar-brand] :is(button, a, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+[data-avatar-brand] a { text-underline-offset: .22em; }
+[data-avatar-brand] :is(.hero-summary, .lede, .boundary p) { max-width: 72ch; }
+[data-avatar-brand] :is(.metric, .stat, .revision, .source-path) { font-variant-numeric: tabular-nums; }
+[data-avatar-brand] .brand-avatar { width: 46px; height: 46px; flex: 0 0 46px; display: block; }
+[data-avatar-brand] .brand-icon { display: none; }
+[data-avatar-brand] .mark { width: auto; height: auto; border: 0; background: transparent; box-shadow: none; color: var(--muted); font-size: 11px; }
+[data-avatar-brand] :is(.native-surface-note, .surface-note, .disclosure) { border-left-width: 1px; border-radius: 10px; }
+[data-avatar-brand] :is(.surface-note, .surface-note strong) { color: var(--ink); }
+[data-avatar-brand] :is(.btn.primary, button.primary, .tag.active) { background: #ff9f1c; color: #100b18; border-color: #ff9f1c; box-shadow: none; }
+[data-avatar-brand] :is(.btn.primary, button.primary, .tag.active):hover { background: #ffe66d; border-color: #ffe66d; }
+[data-avatar-brand] .hero-art { box-shadow: none; border-radius: 12px; border: 1px solid var(--line); overflow: hidden; }
+[data-avatar-brand] .hero-art > svg { display: block; width: 100%; height: auto; }
+[data-avatar-brand] .hero-art :is(.flow, .float, .signal) { animation-duration: 4.8s; animation-iteration-count: 1; animation-fill-mode: both; }
+[data-avatar-brand="portfolio"] .visual { background: #100b18; border-radius: 12px; height: 360px; }
+[data-avatar-brand="portfolio"] .visual::before { display: none; }
+[data-avatar-brand="portfolio"] .isometric { position: absolute; inset: 0; width: 100%; height: 100%; perspective: none; transform: none; z-index: 1; }
+[data-avatar-brand="portfolio"] .plate { display: none; }
+[data-avatar-brand="portfolio"] .champion-art { position: absolute; inset: 0; margin: auto; width: min(100%, 500px); height: 100%; display: block; }
+[data-avatar-brand="portfolio"] .node { background: #231331; border-color: #5c2a72; color: #fff6c8; box-shadow: none; }
+[data-avatar-brand="portfolio"] .node.one { left: 4%; top: 19%; }
+[data-avatar-brand="portfolio"] .node.two { right: 2%; left: auto; top: 59%; }
+[data-avatar-brand="portfolio"] .node.three { left: 8%; top: 78%; bottom: auto; color: #ffe66d; }
+[data-avatar-brand="portfolio"] .visual-caption { color: var(--muted); bottom: 2px; z-index: 2; }
+[data-avatar-brand="portfolio"] :is(.lesson, .metrics, .boundary) { box-shadow: none; border-color: #5c2a72; border-radius: 12px; }
+[data-avatar-brand="portfolio"] .lesson { background: #231331; }
+[data-avatar-brand="portfolio"] .lesson:hover { border-color: #ff9f1c; transform: none; }
+[data-avatar-brand="portfolio"] .lesson.complete::after { color: #ffe66d; }
+[data-avatar-brand="catalog"] .surface-nav .brand-avatar { width: 38px; height: 38px; flex-basis: 38px; }
+[data-avatar-brand="catalog"] .lesson-card h3 { overflow-wrap: anywhere; }
+[data-avatar-brand="catalog"] .section-banner { max-width: 960px; }
+[data-avatar-brand="catalog"] .section-link { outline-offset: 4px; }
+[data-avatar-brand="catalog"] .model-figure { background: var(--panel); }
+[data-avatar-brand="catalog"] .model-figure img { max-height: 560px; }
+@media (prefers-color-scheme: light) {
+  :root[data-avatar-brand="catalog"] {
+    --bg: #fff6c8; --panel: #fff6c8; --ink: #231331; --muted: #5c2a72;
+    --line: #5c2a7273; --accent: #5c2a72 !important; --cyan: #5c2a72;
+    --green: #5c2a72; --amber: #5c2a72; --violet: #5c2a72; --rose: #5c2a72; --focus: #5c2a72;
+    scrollbar-color: #5c2a72 #fff6c8;
+  }
+}
+@media (max-width: 800px) {
+  [data-avatar-brand] .topbar { flex-wrap: wrap; }
+  [data-avatar-brand] .topnav { gap: 14px; flex-wrap: wrap; padding-bottom: 12px; }
+  [data-avatar-brand] .brand-avatar { width: 40px; height: 40px; flex-basis: 40px; }
+  [data-avatar-brand="portfolio"] .visual { height: 300px; }
+  [data-avatar-brand="portfolio"] .toplinks { flex-wrap: wrap; }
+  [data-avatar-brand="portfolio"] .node { font-size: 11px; padding: 6px 8px; }
+  [data-avatar-brand="portfolio"] .node.one { left: 1%; top: 13%; }
+  [data-avatar-brand="portfolio"] .node.two { right: 0; top: 57%; }
+  [data-avatar-brand="portfolio"] .node.three { left: 0; top: 79%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-avatar-brand] *, [data-avatar-brand] *::before, [data-avatar-brand] *::after { animation: none !important; scroll-behavior: auto !important; }
+}
+body[data-motion="off"] .champion-art * { animation: none !important; }
+@media print {
+  [data-avatar-brand] .champion-art, [data-avatar-brand] .brand-avatar { display: none; }
+  html[data-avatar-brand] body { color: #100b18; background: white; }
+  [data-avatar-brand="portfolio"] :is(.lesson, .metrics, .boundary) {
+    background: white;
+    border-color: #5c2a72;
+    color: #100b18;
+    --ink: #100b18;
+    --muted: #231331;
+    --faint: #231331;
+  }
+  [data-avatar-brand="portfolio"] :is(.lesson, .metrics, .boundary) * { color: #100b18; }
+  [data-avatar-brand="portfolio"] :is(.lesson, .metrics, .boundary) a { color: #5c2a72; text-decoration: underline; }
+  [data-avatar-brand="portfolio"] .lesson.complete::after { color: #5c2a72; }
+}

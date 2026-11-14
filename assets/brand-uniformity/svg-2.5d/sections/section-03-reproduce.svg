@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="132" viewBox="0 0 960 132" role="img" aria-labelledby="section-03-title section-03-desc">
+<title id="section-03-title">03 · Reproduce / parameters</title><desc id="section-03-desc">Section 03: Reproduce / parameters. Record version, units, defaults, and the explicit parameter set.</desc>
+<defs><style>:root{color-scheme:dark light;--bg:#100b18;--ink:#fff6c8;--muted:#fff6c8;--accent:#ff9f1c}@media(prefers-color-scheme:light){:root{--bg:#fff6c8;--ink:#231331;--muted:#5c2a72;--accent:#231331}}text{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}.small{font-size:12px;letter-spacing:2px;font-weight:760;fill:var(--accent)}.title{font-size:25px;font-weight:680}.sub{font-size:14px;fill:var(--muted)}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style></defs>
+<rect width="960" height="132" rx="18" fill="var(--bg)" stroke="#ff9f1c" stroke-opacity=".42"/>
+<path d="M0 18Q0 0 18 0h13v132H18Q0 132 0 114Z" fill="#231331" stroke="#ff9f1c" stroke-width="2"/>
+<text class="small" x="55" y="38">SECTION 03 / 05</text><text class="title" x="55" y="73">Reproduce / parameters</text><text class="sub" x="55" y="101">Record version, units, defaults, and the explicit parameter set.</text>
+<path d="M855 41l25 14v28l-25 14-25-14V55Z" fill="#231331" stroke="#ff9f1c" stroke-width="2"/><text x="855" y="76" font-size="18" font-weight="760" text-anchor="middle" fill="var(--accent)" class="brand-on-dark">03</text>
+<style>.brand-on-dark{fill:#fff6c8}</style><style>
+:root{--bg:#100b18;--bg-top:#231331;--surface:#231331;--surface-2:#231331;--ink:#fff6c8;--muted:#fff6c8;--grid:#5c2a72;--outline:#5c2a72;--shadow:#100b18;--accent:#ff9f1c}
+@media(prefers-color-scheme:light){:root{--bg:#fff6c8;--bg-top:#fff6c8;--surface:#fff6c8;--surface-2:#ffe66d;--ink:#231331;--muted:#5c2a72;--grid:#5c2a72;--outline:#5c2a72;--shadow:#5c2a72;--accent:#5c2a72}}
+</style></svg>
