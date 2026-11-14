@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360" role="img" aria-labelledby="champion-title champion-desc">
+<title id="champion-title">Rezwan energy-core champion in 2.5D</title>
+<desc id="champion-desc">The unchanged original pixel avatar stands above layered isometric planes. Square signals are illustrative brand motion, not a measurement or simulation. The complete composition remains visible without motion.</desc>
+<style>
+.brand-signal{animation:brand-signal-travel 4.8s cubic-bezier(.22,1,.36,1) 1 both;transform-box:view-box}
+.brand-signal.second{animation-name:brand-return-travel}
+.brand-edge{animation:brand-edge-light 4.8s ease-out 1 both}
+@keyframes brand-signal-travel{0%,100%{transform:translate(0,0);opacity:.6}35%{transform:translate(62px,-31px);opacity:1}70%{transform:translate(125px,-62px);opacity:.6}}
+@keyframes brand-return-travel{0%,100%{transform:translate(0,0);opacity:.6}35%{transform:translate(-62px,-31px);opacity:1}70%{transform:translate(-125px,-62px);opacity:.6}}
+@keyframes brand-edge-light{0%,100%{opacity:.55}45%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.brand-signal,.brand-edge{animation:none!important}}
+</style>
+<rect width="560" height="360" fill="#100b18"/>
+<path d="M280 215 481 279 280 346 79 279Z" fill="#231331"/>
+<path d="M82 260 280 326 478 260v15l-198 66-198-66Z" fill="#231331" stroke="#5c2a72" stroke-width="1.2"/>
+<path d="M280 194 478 260 280 326 82 260Z" fill="#231331" stroke="#5c2a72" stroke-width="1.4"/>
+<path d="M139 239 280 286 421 239v13l-141 47-141-47Z" fill="#5c2a72"/>
+<path d="M280 192 421 239 280 286 139 239Z" fill="#231331" stroke="#ff9f1c" stroke-width="1.2"/>
+<path d="M280 286v13m0 27v15" stroke="#ff9f1c" stroke-width="1.2"/>
+<path class="brand-edge" d="m82 260 198 66 198-66" fill="none" stroke="#ff9f1c" stroke-width="2"/>
+<path d="M93 279 155 248 218 217M467 279 405 248 342 217" fill="none" stroke="#5c2a72" stroke-width="2"/>
+<path d="M166 34 189 21h223v225l-23 13Z" fill="#5c2a72" opacity=".65"/>
+<path d="M166 34h223v225H166Z" fill="#100b18"/>
+<g data-canonical-core="48" transform="translate(161 21) scale(5)"><path fill="#231331" d="M24 5h1v5h-1zM8 20h5v2h-5zM36 20h5v2h-5zM8 22h1v2h-1zM40 22h1v2h-1zM5 24h4v1h-4zM40 24h4v1h-4zM8 25h1v2h-1zM12 22h1v5h-1zM36 22h1v5h-1zM40 25h1v2h-1zM8 27h5v2h-5zM36 27h5v2h-5zM24 39h1v5h-1z"/><path fill="#5c2a72" d="M24 3h2v2h-2zM21 7h1v1h-1zM27 7h1v1h-1zM18 8h4v1h-4zM27 8h4v1h-4zM7 8h2v2h-2zM15 9h7v1h-7zM27 9h7v1h-7zM40 8h2v2h-2zM14 10h8v1h-8zM27 10h8v1h-8zM13 11h9v1h-9zM27 11h9v1h-9zM13 12h6v1h-6zM30 12h6v1h-6zM12 13h5v1h-5zM32 13h5v1h-5zM11 14h5v1h-5zM33 14h5v1h-5zM10 15h6v1h-6zM33 15h6v1h-6zM10 16h5v2h-5zM34 16h5v2h-5zM10 18h4v2h-4zM35 18h4v2h-4zM13 20h1v1h-1zM35 20h1v1h-1zM3 24h2v2h-2zM44 24h2v2h-2zM13 28h1v1h-1zM35 28h1v1h-1zM10 29h4v2h-4zM35 29h4v2h-4zM10 31h5v2h-5zM34 31h5v2h-5zM10 33h6v1h-6zM33 33h6v1h-6zM11 34h5v1h-5zM33 34h5v1h-5zM12 35h5v1h-5zM32 35h5v1h-5zM13 36h6v1h-6zM30 36h6v1h-6zM13 37h9v1h-9zM27 37h9v1h-9zM14 38h8v1h-8zM27 38h8v1h-8zM15 39h7v1h-7zM27 39h7v1h-7zM7 39h2v2h-2zM18 40h4v1h-4zM27 40h4v1h-4zM40 39h2v2h-2zM21 41h1v1h-1zM27 41h1v1h-1zM24 44h2v2h-2z"/><path fill="#d94a4a" d="M17 4h2v2h-2zM21 13h7v1h-7zM19 14h11v1h-11zM18 15h1v1h-1zM29 15h2v1h-2zM16 16h3v1h-3zM29 16h4v1h-4zM16 17h2v1h-2zM31 17h2v1h-2zM15 18h2v1h-2zM32 18h2v1h-2zM14 19h1v2h-1zM34 19h1v2h-1zM13 21h2v7h-2zM34 21h2v7h-2zM14 28h1v1h-1zM34 28h1v1h-1zM14 29h3v1h-3zM32 29h3v1h-3zM15 30h2v1h-2zM32 30h2v1h-2zM16 31h2v1h-2zM31 31h2v1h-2zM16 32h3v1h-3zM29 32h4v1h-4zM18 33h1v1h-1zM29 33h2v1h-2zM19 34h11v1h-11zM21 35h7v1h-7zM31 44h2v2h-2z"/><path fill="#ff9f1c" d="M5 15h2v2h-2zM18 17h6v1h-6zM25 17h6v1h-6zM17 18h5v1h-5zM27 18h5v1h-5zM17 19h4v1h-4zM28 19h4v1h-4zM17 20h3v1h-3zM24 20h1v1h-1zM29 20h3v1h-3zM17 21h2v1h-2zM23 21h3v1h-3zM30 21h2v1h-2zM22 22h1v1h-1zM26 22h1v1h-1zM17 22h1v2h-1zM21 23h2v1h-2zM26 23h2v1h-2zM31 22h1v2h-1zM20 24h3v1h-3zM26 24h3v1h-3zM21 25h2v1h-2zM26 25h2v1h-2zM9 22h3v5h-3zM17 25h1v2h-1zM22 26h1v1h-1zM26 26h1v1h-1zM31 25h1v2h-1zM37 22h3v5h-3zM17 27h2v1h-2zM23 27h3v1h-3zM30 27h2v1h-2zM17 28h3v1h-3zM24 28h1v1h-1zM29 28h3v1h-3zM17 29h4v1h-4zM28 29h4v1h-4zM17 30h5v1h-5zM27 30h5v1h-5zM18 31h6v1h-6zM25 31h6v1h-6zM39 37h2v2h-2z"/><path fill="#ffe66d" d="M19 15h10v2h-10zM42 15h2v2h-2zM22 18h1v1h-1zM26 18h1v1h-1zM21 19h1v1h-1zM27 19h1v1h-1zM20 20h1v1h-1zM28 20h1v1h-1zM19 21h1v1h-1zM29 21h1v1h-1zM18 22h1v1h-1zM30 22h1v1h-1zM18 26h1v1h-1zM30 26h1v1h-1zM19 27h1v1h-1zM29 27h1v1h-1zM15 19h2v10h-2zM20 28h1v1h-1zM28 28h1v1h-1zM32 19h2v10h-2zM21 29h1v1h-1zM27 29h1v1h-1zM22 30h1v1h-1zM26 30h1v1h-1zM19 32h10v2h-10zM8 35h2v2h-2z"/><path fill="#fff6c8" d="M24 17h1v1h-1zM23 18h3v1h-3zM22 19h5v1h-5zM21 20h3v1h-3zM25 20h3v1h-3zM20 21h3v1h-3zM26 21h3v1h-3zM19 22h3v1h-3zM27 22h3v1h-3zM18 23h3v1h-3zM28 23h3v1h-3zM17 24h3v1h-3zM29 24h3v1h-3zM18 25h3v1h-3zM28 25h3v1h-3zM19 26h3v1h-3zM23 22h3v5h-3zM27 26h3v1h-3zM20 27h3v1h-3zM26 27h3v1h-3zM21 28h3v1h-3zM25 28h3v1h-3zM22 29h5v1h-5zM23 30h3v1h-3zM24 31h1v1h-1z"/></g>
+<rect class="brand-signal" x="89" y="275" width="8" height="8" fill="#ffe66d"/>
+<rect class="brand-signal second" x="463" y="275" width="8" height="8" fill="#ff9f1c"/>
+<path d="M67 261h10m406 0h10M280 349v7" stroke="#d94a4a" stroke-width="2"/>
+</svg>
