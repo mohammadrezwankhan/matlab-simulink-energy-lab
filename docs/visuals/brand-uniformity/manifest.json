@@ -1,0 +1,18 @@
+{
+  "canonical_repository": "mohammadrezwankhan/mohammadrezwankhan",
+  "canonical_grid": "scripts/makeover/pixel-core.json",
+  "canonical_grid_sha256": "8a2fd30e83b65c3d5ff470d5c529b23a880a49607a2274908b93e64efcb665e9",
+  "foreground_paths_sha256": "4efad4121bde3b420ff0421b938e913f2fc7829b6fb674032eb383d63909abab",
+  "palette": [
+    "#100b18",
+    "#231331",
+    "#5c2a72",
+    "#d94a4a",
+    "#ff9f1c",
+    "#ffe66d",
+    "#fff6c8"
+  ],
+  "motion_seconds": 4.8,
+  "motion_iterations": 1,
+  "purpose": "Decorative identity; no numerical or validation claim."
+}
