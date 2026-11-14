@@ -10,7 +10,7 @@ Explore battery, thermal, converter, and BESS control models in Base MATLAB and 
 
 <!-- repository-presentation:end -->
 
-![MATLAB Simulink Energy Lab: original vector system illustration](assets/hero-25d.svg)
+![MATLAB Simulink Energy Lab: original vector system illustration](assets/brand-uniformity/hero-25d.svg)
 
 > **Version 1.12.0 — 2026-10-21.** Release archives, verification evidence,
 > and SHA-256 checksums are available on the [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
@@ -54,15 +54,15 @@ The browser lab runs offline with no packages, accounts, or live data feeds. Its
 <details>
 <summary>System topology and model boundaries</summary>
 
-![Cell rc network](assets/svg-2.5d/diagrams/cell-rc-network.svg)
+![Cell rc network](assets/brand-uniformity/svg-2.5d/diagrams/cell-rc-network.svg)
 
 Conceptual one-RC reference; not asserted as an exact example implementation.
 
-![Pouch cell thermal gradient](assets/svg-2.5d/diagrams/pouch-cell-thermal-gradient.svg)
+![Pouch cell thermal gradient](assets/brand-uniformity/svg-2.5d/diagrams/pouch-cell-thermal-gradient.svg)
 
 Source-defined 1D finite-volume example topology: 15 cell-centred states across thickness.
 
-![Grid forming inverter](assets/svg-2.5d/diagrams/grid-forming-inverter.svg)
+![Grid forming inverter](assets/brand-uniformity/svg-2.5d/diagrams/grid-forming-inverter.svg)
 
 Reduced-order reference topology; not an exact block-level mapping.
 
