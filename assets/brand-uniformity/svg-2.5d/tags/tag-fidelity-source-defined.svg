@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="52" viewBox="0 0 300 52" role="img" aria-labelledby="tag-fidelity-source-defined-title tag-fidelity-source-defined-desc">
+<title id="tag-fidelity-source-defined-title">Fidelity: SOURCE-DEFINED</title><desc id="tag-fidelity-source-defined-desc">Fidelity: SOURCE-DEFINED</desc>
+<defs><style>:root{color-scheme:dark light;--ink:#fff6c8;--muted:#fff6c8}@media(prefers-color-scheme:light){:root{--ink:#231331;--muted:#5c2a72}}text{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.k{font-size:10px;font-weight:760;letter-spacing:1.25px;fill:#ffe66d}.v{font-size:12px;font-weight:650;fill:var(--ink)}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style></defs>
+<rect x="1" y="1" width="298" height="50" rx="12" fill="#231331" stroke="#ffe66d" stroke-width="1.4"/>
+<circle cx="18" cy="26" r="4" fill="#ffe66d"/><text class="k" x="31" y="22">FIDELITY</text><text class="v brand-on-dark" x="31" y="39">SOURCE-DEFINED</text>
+<style>.brand-on-dark{fill:#fff6c8}</style></svg>
