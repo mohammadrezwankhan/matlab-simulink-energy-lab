@@ -7,6 +7,16 @@ regression command. It is not the execution report for the 1.12.0
 release. Current verification commands and evidence gates are in
 [release readiness](release-readiness.md).
 
+## Evidence dates and count boundaries
+
+| Evidence | Source commit | Check counts | Interpret as |
+| --- | --- | --- | --- |
+| Historical expected-output transcript below | `ab42bc8dfc6823669aa4654f230a53cbf4d2131b` | 21 Base; historic 31 focused BESS results | Snapshot only, not current main verification |
+| 2026-11-09 R2026a Update 5 CI | `ef53d73b066bf1913e2bb7080f9c86ff52ea22ed` | 22 Base, 27 general + separately 123 focused BESS tests | Two separate profiles; general manifest has `complete_suite=false` |
+| 2026-11-14 full release gate | `c26f3d9d446a46a3f8831ee24f7d25deb5de7be5` | 28 complete catalog entries; 123 focused BESS tests; 31 demos; 6 generated models | Complete evidence at this tested merge checkout, not later commits |
+
+Source links, full toolchains, and verification rules: [engineering evidence ledger](engineering-evidence-ledger.md).
+
 ## Reproduce the check
 
 From the repository root, run:
@@ -21,8 +31,7 @@ For the toolbox-free Base MATLAB subset:
 matlab -batch "addpath('examples'); run_base_matlab_checks"
 ```
 
-Its terminal line is `All 21 Base MATLAB checks passed.` This subset excludes
-native block-diagram parity and the focused unified-BESS controller suite.
+At the **historic snapshot** recorded below, its terminal line was `All 21 Base MATLAB checks passed.` The 2026-11-09 Base-only CI instead executed 22 checks. This subset always excludes native block-diagram parity and the focused unified-BESS controller suite; never treat the old 21-count transcript as a prediction for a new checkout.
 
 For CI-oriented status and exact commit provenance, see the
 [machine-readable validation manifest](validation-manifest.md).

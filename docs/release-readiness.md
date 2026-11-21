@@ -7,6 +7,8 @@ include a source archive, verification archive, repair report, and
 commit in `validation-artifacts/` and the verification archive. A source
 audit or patch package alone does not establish a release pass.
 
+[Commit-bound engineering evidence ledger](engineering-evidence-ledger.md) contains recent R2026a receipts and separates executed catalog entries from focused test results, current-source checks and independent validation.
+
 ## Evidence states
 
 | Source | Evidence | Permitted interpretation |
@@ -15,8 +17,10 @@ audit or patch package alone does not establish a release pass.
 | `a8ea7b9093b596bb169bb31841b77cb4fe88ccb9` | Audited baseline; only Markdown differs from the hosted run's source | Inherited code evidence, not a new native execution |
 | 1.12.0 release | Exact-commit `audit-check`, `audit-test`, `audit-demos`, and `audit-simulink` reports from the release gate | Accept only reports with `passed=true`, `complete=true`, and `source_state="clean"` matching the source commit |
 | Historical 31-result BESS JSON/report and older expected-output tables | Their original commits, environments, and dates | Preserve as historical records; never relabel as current execution |
+| `ef53d73b066bf1913e2bb7080f9c86ff52ea22ed` | [9 Nov 2026 R2026a CI](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/42625040387): 22 Base, 27 general + 123 focused BESS tests (separate jobs) | General profile is not the full 28-entry suite |
+| `c26f3d9d446a46a3f8831ee24f7d25deb5de7be5` | [14 Nov 2026 release gate](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/actions/runs/43611300621): full 28 catalog, 123 BESS, 31 demos, 6 generated models | Complete native gate for that tested merge checkout; later commits need new verification |
 
-The 1.12.0 catalog had 20 Base MATLAB checks, five additional general Simulink
+The original 1.12.0 release catalog had 20 Base MATLAB checks, five additional general Simulink
 checks, and one focused BESS entry point. Focused tests expand within that
 entry point; obtain their current count from actual test results. Entry-point
 counts, focused-test counts, scenarios, and independent experiments are
@@ -45,7 +49,7 @@ assert(report.all_checks_passed && report.complete_suite)
 
 The no-argument `run_all_checks` detects Simulink and returns the selected
 `profile`, `complete_suite`, and `excluded_checks`. The existing
-`run_base_matlab_checks` remains the explicit 20-check subset. `buildtool base`
+`run_base_matlab_checks` remains the explicit Base-only subset (22 entries at the 9 Nov 2026 CI source SHA). `buildtool base`
 is the CI proof that intentionally requires Simulink to be absent.
 
 After committing all candidate source changes, run the full release gate:
