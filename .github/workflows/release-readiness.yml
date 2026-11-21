@@ -39,7 +39,7 @@ jobs:
       - name: Engineering integrity
         run: |
           python3 tools/check_repository_integrity.py
-          python3 -m unittest discover -s tests -p 'test_repository_integrity.py' -v
+          python3 -B -m unittest discover -s tests -p 'test_repository_integrity.py' -v
       - uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a

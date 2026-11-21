@@ -37,7 +37,7 @@ To reproduce the read-only structural gate without MATLAB:
 
 ```bash
 python3 tools/check_repository_integrity.py
-python3 -m unittest discover -s tests -p 'test_repository_integrity.py' -v
+python3 -B -m unittest discover -s tests -p 'test_repository_integrity.py' -v
 ```
 
 ## Independent and physical-evidence blockers
