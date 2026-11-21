@@ -15,6 +15,11 @@ on:
       - '.gitattributes'
       - '.gitignore'
       - '.github/workflows/release-readiness.yml'
+      - 'docs/release-readiness.md'
+      - 'docs/validation-results.md'
+      - 'docs/engineering-evidence-ledger.md'
+      - 'tools/check_repository_integrity.py'
+      - 'tests/test_repository_integrity.py'
 
 permissions:
   contents: read
@@ -31,6 +36,10 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Engineering integrity
+        run: |
+          python3 tools/check_repository_integrity.py
+          python3 -B -m unittest discover -s tests -p 'test_repository_integrity.py' -v
       - uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3
         with:
           release: R2026a

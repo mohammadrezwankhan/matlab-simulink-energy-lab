@@ -14,8 +14,9 @@ Explore battery, thermal, converter, and BESS control models in Base MATLAB and 
 
 > **Version 1.12.0 — 2026-10-21.** Release archives, verification evidence,
 > and SHA-256 checksums are available on the [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
-> See [release readiness and migration](docs/release-readiness.md) for the
-> exact gates and the distinction between current source and historical CI.
+> See [release readiness and migration](docs/release-readiness.md) and the
+> [commit-bound engineering evidence ledger](docs/engineering-evidence-ledger.md) for
+> the exact gates and the distinction between current source and historical CI.
 
 The native repository contains Base MATLAB and generated Simulink models for batteries, thermal response, converters, and BESS control. A second-order response exercise develops control intuition before the bounded native examples.
 

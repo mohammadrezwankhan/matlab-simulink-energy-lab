@@ -9,6 +9,9 @@ on:
       - "**/*.csv"
       - "examples/bess-unified-control/**"
       - ".github/workflows/matlab-validation.yml"
+      - "docs/release-readiness.md"
+      - "docs/validation-results.md"
+      - "docs/engineering-evidence-ledger.md"
   push:
     branches:
       - main
@@ -18,6 +21,9 @@ on:
       - "**/*.csv"
       - "examples/bess-unified-control/**"
       - ".github/workflows/matlab-validation.yml"
+      - "docs/release-readiness.md"
+      - "docs/validation-results.md"
+      - "docs/engineering-evidence-ledger.md"
 
 permissions:
   contents: read
