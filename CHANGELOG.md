@@ -6,6 +6,20 @@ Notable changes to MATLAB Simulink Energy Lab are recorded here. The project
 uses semantic versioning while its public model and validation interfaces are
 still evolving.
 
+## 1.12.1 — 2026-11-22
+
+- Add [A123 LFP](examples/battery-2rc-model/data/a123-lfp/README.md) and
+  [NASA RW3](examples/battery-2rc-model/data/nasa-rw3/README.md) measured-cell
+  pulse examples with separate calibration and validation records.
+- Add structural checks to Release readiness and document MATLAB and Simulink
+  outcomes in the [engineering evidence ledger](docs/engineering-evidence-ledger.md).
+- Clarify the scope of historical test results and provide a reproducibility
+  guide for independent MATLAB R2025b testing.
+
+This release covers educational and reduced-order research use. Independent
+R2025b verification and physical qualification were waived for this release.
+The measured examples cover the cited cell records and conditions.
+
 ## 1.12.0 — 2026-10-21
 
 This release addresses all 35 findings in the source audit and the native

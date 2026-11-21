@@ -1,8 +1,7 @@
-# 1.12.0 release readiness and migration
+# Release readiness and migration
 
-**Release: 1.12.0, dated 2026-10-21 (UTC).** The
-[release assets](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases)
-include a source archive, verification archive, repair report, and
+The [release assets](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases)
+include a source archive, verification archive, verification summary, and
 `SHA256SUMS.txt`. MATLAB/Simulink verification is recorded per exact source
 commit in `validation-artifacts/` and the verification archive. A source
 audit or patch package alone does not establish a release pass.
@@ -127,15 +126,15 @@ signals; no random-number seeding is needed for those signals.
 ```bash
 git status --short
 git rev-parse HEAD
-git tag -a v1.12.0 VERIFIED_FULL_COMMIT_SHA -m "Release v1.12.0"
-git show --no-patch v1.12.0
+git tag -a vX.Y.Z VERIFIED_FULL_COMMIT_SHA -m "Release vX.Y.Z"
+git show --no-patch vX.Y.Z
 ```
 
 Replace `VERIFIED_FULL_COMMIT_SHA` with the exact clean commit that passed all
 four phases. Do not move an existing tag. Remote publication, release-asset
 upload, and repository-setting updates remain separate maintainer actions.
 Confirm published tag, checksums, hosted evidence, and citation metadata after
-publication before advertising 1.12.0 as released.
+publication before advertising the version as released.
 
 ### Static dependency ambiguity
 
