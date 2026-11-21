@@ -12,7 +12,7 @@ Explore battery, thermal, converter, and BESS control models in Base MATLAB and 
 
 ![MATLAB Simulink Energy Lab: original vector system illustration](assets/brand-uniformity/hero-25d.svg)
 
-> **Version 1.12.0 — 2026-10-21.** Release archives, verification evidence,
+> **Version 1.12.1 — 2026-11-22.** Release archives, verification evidence,
 > and SHA-256 checksums are available on the [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 > See [release readiness and migration](docs/release-readiness.md) and the
 > [commit-bound engineering evidence ledger](docs/engineering-evidence-ledger.md) for
@@ -356,7 +356,7 @@ matlab -batch "buildtool check test"
 
 ### Concise validation evidence
 
-This checkout carries the 1.12.0 release metadata dated 2026-10-21.
+This checkout carries the 1.12.1 release metadata dated 2026-11-22.
 Source archives and commit-bound verification evidence are on the
 [releases page](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases).
 The following numerical summary records historical MATLAB R2026a evidence from
@@ -515,7 +515,7 @@ matlab-simulink-energy-lab/
 ## Requirements
 
 - MATLAB R2026a is the maintained native verification target; the evidence
-  below is commit-specific. Use the 1.12.0 release gate for current source evidence.
+  below is commit-specific. Use the release gate for current source evidence.
 - The script-based examples and their validation checks use base MATLAB only.
 - `run_base_matlab_checks` executes all 21 of those checks with one command.
 - Simulink is required for the six generated block-diagram examples,
@@ -632,7 +632,7 @@ For a checksum-verifiable snapshot, download the source package and matching
 `SHA256SUMS.txt` file attached to the
 [latest published release](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/releases/latest).
 See the [changelog](CHANGELOG.md) for the model and validation history.
-The full local release gate for 1.12.0 is
+The full local release gate is
 `matlab -batch "buildtool check test archive"`, which requires Simulink and a
 clean committed source tree. The archive task does not create a tag or publish
 anything. Follow [release readiness](docs/release-readiness.md) before tagging.
