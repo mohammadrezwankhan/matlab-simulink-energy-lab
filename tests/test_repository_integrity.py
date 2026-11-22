@@ -1,6 +1,8 @@
 """Regression tests for the read-only engineering integrity checker."""
 import sys
 import unittest
+import struct
+from html.parser import HTMLParser
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
@@ -8,6 +10,39 @@ from check_repository_integrity import inspect_numeric_csv, parse_catalog
 
 
 class IntegrityContractsTest(unittest.TestCase):
+    def test_pages_metadata_and_first_run(self):
+        class Metadata(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.tags = []
+
+            def handle_starttag(self, tag, attrs):
+                self.tags.append((tag, dict(attrs)))
+
+        docs = Path(__file__).resolve().parents[1] / "docs"
+        html = (docs / "index.html").read_text(encoding="utf-8")
+        parsed = Metadata()
+        parsed.feed(html)
+        base = "https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/"
+        canonical = [a["href"] for tag, a in parsed.tags if tag == "link" and a.get("rel") == "canonical"]
+        self.assertEqual(canonical, [base])
+        fields = {}
+        for tag, attrs in parsed.tags:
+            name = attrs.get("property") or attrs.get("name")
+            if tag == "meta" and name and name.startswith(("og:", "twitter:")):
+                self.assertNotIn(name, fields)
+                fields[name] = attrs["content"]
+                self.assertTrue(fields[name].strip())
+        for key in ("title", "description", "image", "image:alt"):
+            self.assertEqual(fields["og:" + key], fields["twitter:" + key])
+        self.assertEqual(fields["og:url"], base)
+        self.assertEqual(fields["twitter:card"], "summary_large_image")
+        self.assertEqual(fields["og:image"], base + "energy-lab-preview.png")
+        png = (docs / "energy-lab-preview.png").read_bytes()
+        self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertEqual(struct.unpack(">II", png[16:24]), (1200, 630))
+        self.assertRegex(html, r'<h1\b[^>]*>[^<]*[Bb]attery[^<]*</h1>')
+
     def test_catalog_has_explicit_simulink_flags_and_focused_entry(self):
         text = ('checks = [\n"a/check_one.m"\n];\n'
                 'requiresSimulink = logical([1]);\n'

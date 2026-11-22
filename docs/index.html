@@ -4,7 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
+<link rel="icon" type="image/svg+xml" href="visuals/brand-uniformity/avatar.svg">
 <meta name="description" content="Run reduced-order battery, thermal, converter and BESS control models with transparent equations and repeatable testing.">
+<link rel="canonical" href="https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/">
+<meta property="og:title" content="MATLAB &amp; Simulink Energy Lab">
+<meta property="og:description" content="Run reduced-order battery, thermal, converter and BESS control models. Start with a battery pulse in MATLAB or explore synthetic lessons in your browser.">
+<meta property="og:image" content="https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/energy-lab-preview.png">
+<meta property="og:image:alt" content="Battery pulse experiment showing current, state of charge and terminal voltage over 600 seconds.">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MATLAB &amp; Simulink Energy Lab">
+<meta name="twitter:description" content="Run reduced-order battery, thermal, converter and BESS control models. Start with a battery pulse in MATLAB or explore synthetic lessons in your browser.">
+<meta name="twitter:image" content="https://mohammadrezwankhan.github.io/matlab-simulink-energy-lab/energy-lab-preview.png">
+<meta name="twitter:image:alt" content="Battery pulse experiment showing current, state of charge and terminal voltage over 600 seconds.">
 <title>MATLAB Simulink Energy Lab · Interactive learning lab</title>
 <style>
 :root{--primary:#ff9f1c;--secondary:#ffe66d;--surface:#100b18;--glow:rgba(255,159,28,.35);--p-rgb:0,229,255;--s-rgb:0,230,118;--ink:#fff6c8;--muted:#fff6c8;--faint:#fff6c8b8;--border:rgba(255,246,200,.14);--card:rgba(16,11,24,.76);--radius:20px;--shadow:0 24px 70px rgba(16,11,24,.18);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#100b18;font-synthesis:none}
@@ -28,7 +43,7 @@
 </header>
 <aside class="native-surface-note" role="note"><strong>Native lesson route:</strong> this interactive page runs its own educational surrogate. <a href="native-lessons.html">Open the native lesson catalog</a> to reach repository-authored materials and source-linked commands.</aside><main id="top">
 <section class="hero" aria-labelledby="hero-title">
-<div class="hero-copy"><p class="repo-path" id="repo-path"></p><span class="tag accent" id="domain-tag">INTERACTIVE ENGINEERING LAB</span><h1 class="hero-title" id="hero-title">Explore the system.</h1><p class="hero-summary" id="hero-summary"></p><div class="hero-actions"><a class="btn primary" href="#simulation">Enter the lab <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="btn quiet" href="#lessons">Follow the learning path</a><a class="btn quiet previous-animations-link" href="animations/">Previous animations</a></div><div class="hero-notes"><span><i class="mini-square" aria-hidden="true"></i><span id="hero-module-count">4 guided modules</span></span><span>Pure browser simulation</span><span>No setup required</span></div></div>
+<div class="hero-copy"><p class="repo-path" id="repo-path"></p><span class="tag accent" id="domain-tag">INTERACTIVE ENGINEERING LAB</span><h1 class="hero-title" id="hero-title">Start with a battery pulse.</h1><p class="hero-summary" id="hero-summary">Trace how a current pulse changes battery voltage and state of charge. Run the reduced-order MATLAB model, then explore thermal, converter and BESS control examples. Browser lessons use synthetic teaching models.</p><div class="hero-actions"><a class="btn primary" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab#one-command-matlab-quickstart">Run the MATLAB quickstart <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="btn quiet" href="#simulation">Try the browser lab</a><a class="btn quiet" href="#lessons">Hands-on modules</a><a class="btn quiet" href="https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab/blob/main/docs/validation-results.md">Validation evidence</a><a class="btn quiet previous-animations-link" href="animations/">Previous animations</a></div><div class="hero-notes"><span><i class="mini-square" aria-hidden="true"></i><span id="hero-module-count">4 guided modules</span></span><span>Pure browser simulation</span><span>No setup required</span></div></div>
 <div class="hero-art"><svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="h-matlab-simulink-energy-lab-title h-matlab-simulink-energy-lab-desc">
 <title id="h-matlab-simulink-energy-lab-title">MATLAB Simulink Energy Lab — 2.5D teaching laboratory</title>
 <desc id="h-matlab-simulink-energy-lab-desc">An isometric vector illustration of dynamic system. Decorative animation only; all dashboard telemetry is synthetic.</desc>
@@ -366,8 +381,6 @@ const repoUrl = safeUrl(repo.url || config.url || '');
 function sourceUrl(path) { const source = config.source || {}; const revision = /^[a-f0-9]{40}$/i.test(String(source.commit || '')) ? source.commit : (repo.default_branch || source.default_branch || source.branch || 'main'); return repoUrl ? repoUrl.replace(/\/$/,'') + '/blob/' + encodeURIComponent(revision) + '/' + String(path).split('/').map(encodeURIComponent).join('/') : null; }
 document.title = (repo.title || repo.slug || 'Open Systems') + ' · Interactive Lab';
 byId('repo-path').textContent = repo.full_name || (repoUrl ? new URL(repoUrl).pathname.slice(1) : repo.slug || 'OPEN / SYSTEMS');
-byId('hero-title').textContent = repo.title || repo.slug || 'Explore the system.';
-byId('hero-summary').textContent = repo.summary || repo.description || config.summary || 'An open teaching laboratory for understanding a system through deliberate experiments.';
 byId('domain-tag').textContent = domain.name || domain.label || palette.name;
 byId('hero-module-count').textContent = modules.length + ' guided modules';
 byId('footer-repo').textContent = (repo.full_name || repo.slug || 'Open Systems') + ' / Interactive Lab v1.0';
