@@ -62,6 +62,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+      actions: read
       pages: write
       id-token: write
     environment:
@@ -76,9 +77,37 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Upload static docs
+        id: pages_artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
+          name: github-pages-${{ github.run_attempt }}
           path: docs
+      - name: Wait for the uploaded Pages artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ARTIFACT_NAME: github-pages-${{ github.run_attempt }}
+          PAGES_ARTIFACT_ID: ${{ steps.pages_artifact.outputs.artifact_id }}
+        run: |
+          set -euo pipefail
+          for attempt in {1..20}; do
+            if ids=$(gh api --method GET "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" \
+                -f name="$PAGES_ARTIFACT_NAME" --jq '.artifacts[] | select(.expired == false) | .id'); then
+              if [[ "$ids" == "$PAGES_ARTIFACT_ID" && -n "$ids" ]]; then
+                exit 0
+              fi
+              if [[ -n "$ids" ]]; then
+                echo 'Pages lookup returned an unexpected artifact ID or more than one artifact.' >&2
+                exit 1
+              fi
+            fi
+            if (( attempt < 20 )); then
+              sleep 3
+            fi
+          done
+          echo 'The uploaded Pages artifact is still unavailable after 20 lookups.' >&2
+          exit 1
       - name: Publish GitHub Pages
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
